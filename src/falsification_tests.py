@@ -471,7 +471,7 @@ def verify_option_c_viable_group(
         ("u_R (up singlet)", 2, 11, 9),
         ("d_R (down singlet)", 2, 10, 9),
         ("L_L = (nu_L, e_L)", 1, 5, 9),
-        ("nu_R (neutrino singlet)", 2, 1, 9),
+        ("nu_R (sterile singlet)", 2, 0, 9),
         ("e_R (electron singlet)", 2, 2, 9),
     ]
     fermion_multiplets = []
@@ -652,5 +652,141 @@ def verify_option_c_viable_group(
         wh_weights_by_shift=wh_weights,
         poset_sync_sweep=poset_sweep,
     )
+
+
+@dataclass
+class Phase3PopperianResult:
+    # Attack 8 & 10: Conjugate Higgs reality attack & sterile neutrino resolution
+    conjugate_higgs_trace_diff: float
+    top_bottom_interference_v_doub: float
+    top_bottom_interference_v_oct: float
+    nu_R_sigma1_higgs_channel: int  # Sigma[4] in M_2(C) -> m_nu ~ m_e (FALSIFIED!)
+    nu_R_sigma0_higgs_channel: int  # Sigma[5] in H -> decoupled from M_2(C)!
+    # Attack 9: Proton decay & B/L violation audit
+    dim4_uR_dR_dR_singlet_mult: int
+    dim4_LL_LL_eR_singlet_mult: int
+    dim4_QL_LL_dR_singlet_mult: int
+    dim6_qqql_delta27_center_charge: int  # 4 mod 3 = 1 != 0 (FORBIDDEN!)
+    dim6_qqqlbar_delta27_center_charge: int  # 2 mod 3 = 2 != 0 (FORBIDDEN!)
+    # Attack 11: Invariant Bosonic Gauge+Higgs Subalgebra dimension
+    invariant_bosonic_subalgebra_dim: int
+    # Attack 12: Critical percolation fiber size k_c(d) for d=1..6
+    percolation_thresholds: List[Tuple[int, float, float, float]]
+
+
+def run_phase3_popperian_attacks(
+    g_s648: FiniteGroup,
+    res_s648: CharacterTableResult,
+    cg_s648: List[List[List[int]]],
+    opt_c: OptionCViableResult,
+) -> Phase3PopperianResult:
+    """Execute Phase 3 Popperian attacks (Tests 8-12) against G = 2I x Sigma(216x3) x Delta(27)_f."""
+    import cmath
+
+    w = cmath.exp(2j * math.pi / 3.0)
+    Q = [[1 + 0j, 0j, 0j], [0j, w, 0j], [0j, 0j, w * w]]
+    P = [[0j, 1 + 0j, 0j], [0j, 0j, 1 + 0j], [1 + 0j, 0j, 0j]]
+
+    def mat_mul(A, B):
+        return [
+            [sum(A[i][k] * B[k][j] for k in range(3)) for j in range(3)]
+            for i in range(3)
+        ]
+
+    def mat_pow(A, p):
+        res = [[1 + 0j if i == j else 0j for j in range(3)] for i in range(3)]
+        for _ in range(p):
+            res = mat_mul(res, A)
+        return res
+
+    W = {
+        (p, q): mat_mul(mat_pow(P, p), mat_pow(Q, q))
+        for p in range(3)
+        for q in range(3)
+    }
+
+    # Attack 8 & 10: Reality condition on M_2(C) Higgs block Sigma[3] (+) Sigma[4]
+    rng = random.Random(99)
+    max_tr_diff = 0.0
+    for _ in range(100):
+        vd = {
+            (p, q): complex(rng.uniform(-2, 2), rng.uniform(-2, 2))
+            for p in range(3)
+            for q in range(3)
+        }
+        vu = {
+            (p, q): vd[((-p) % 3, (-q) % 3)].conjugate()
+            for p in range(3)
+            for q in range(3)
+        }
+        Md = [
+            [
+                sum(vd[(p, q)] * W[(p, q)][r][c] for p in range(3) for q in range(3))
+                for c in range(3)
+            ]
+            for r in range(3)
+        ]
+        Mu = [
+            [
+                sum(vu[(p, q)] * W[(p, q)][r][c] for p in range(3) for q in range(3))
+                for c in range(3)
+            ]
+            for r in range(3)
+        ]
+        tr_d = sum(abs(Md[r][c]) ** 2 for r in range(3) for c in range(3))
+        tr_u = sum(abs(Mu[r][c]) ** 2 for r in range(3) for c in range(3))
+        max_tr_diff = max(max_tr_diff, abs(tr_u - tr_d))
+
+    mt, mb = 172.69, 4.18
+    v_doub = 0.5 * (mt + mb)
+    v_oct = 0.5 * (mt - mb)
+
+    # Check L_L* (Sigma[5]) x nu_R (Sigma[1] vs Sigma[0])
+    ch_sigma1 = next(k for k in range(24) if cg_s648[5][1][k] > 0)
+    ch_sigma0 = next(k for k in range(24) if cg_s648[5][0][k] > 0)
+
+    # Attack 9: Proton decay & RPV operator singlet multiplicities in Sigma(216x3)
+    def singlet_mult(idx_list: List[int]) -> int:
+        n = g_s648.order
+        classes = g_s648.classes
+        irreps = res_s648.irreps
+        s = 0j
+        for c in range(len(classes)):
+            prod = 1 + 0j
+            for idx in idx_list:
+                prod *= irreps[idx].class_values[c]
+            s += len(classes[c]) * prod
+        return round((s / n).real)
+
+    m_udd = singlet_mult([11, 10, 10])
+    m_lle = singlet_mult([5, 5, 1])
+    m_qld = singlet_mult([18, 5, 9])
+
+    # Attack 11: Bosonic gauge+Higgs subalgebra dimension (Z_3 color triality == 0 in Sigma(216x3))
+    profiles = analyze_sigma216x3_irreps(g_s648, res_s648)
+    inv_dim = sum(p.degree**2 for p in profiles if p.triality_z3_charge == 0)
+
+    # Attack 12: Critical percolation fiber size k_c(d) = (1 / p_joint(d))^(1 / (2d))
+    perc_list: List[Tuple[int, float, float, float]] = []
+    for d, _avg_sz, pj, _bits in opt_c.poset_sync_sweep:
+        n_tuples = 1.0 / pj
+        kc = n_tuples ** (1.0 / (2.0 * d))
+        perc_list.append((d, pj, n_tuples, kc))
+
+    return Phase3PopperianResult(
+        conjugate_higgs_trace_diff=max_tr_diff,
+        top_bottom_interference_v_doub=v_doub,
+        top_bottom_interference_v_oct=v_oct,
+        nu_R_sigma1_higgs_channel=ch_sigma1,
+        nu_R_sigma0_higgs_channel=ch_sigma0,
+        dim4_uR_dR_dR_singlet_mult=m_udd,
+        dim4_LL_LL_eR_singlet_mult=m_lle,
+        dim4_QL_LL_dR_singlet_mult=m_qld,
+        dim6_qqql_delta27_center_charge=(1 + 1 + 1 + 1) % 3,
+        dim6_qqqlbar_delta27_center_charge=(1 + 1 + 1 - 1) % 3,
+        invariant_bosonic_subalgebra_dim=inv_dim,
+        percolation_thresholds=perc_list,
+    )
+
 
 

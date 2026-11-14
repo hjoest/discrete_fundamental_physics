@@ -29,7 +29,7 @@ has the **exact minimum possible order** in finite group theory capable of satis
 | Falsification Test | Option A ($\Sigma(216 \times 3)$) | Option B ($2I \times \Sigma(216 \times 3)$) | **Option C: $G = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f$** |
 | :--- | :--- | :--- | :--- |
 | **Test 1: 4D Aperiodicity & Spinors** | FALSIFIED | PASSES | **PASSES** — $2I$ is dedicated 100% to 4D $E_8 \to H_4 \oplus H_4'$ quasicrystal projection and chiral Lorentz spinors $\mathbf{2}_{\text{spin}, L} \oplus \mathbf{2}_{\text{spin}, R}$. |
-| **Test 2: Complete Fermion Multiplets** | FALSIFIED | PASSES (via locking) | **PASSES** — Separate $u_R \sim \chi_{11}^{(\Sigma)}$ ($\lambda^{+1}$) and $d_R \sim \chi_{10}^{(\Sigma)}$ ($\lambda^{-1}$), plus $\nu_R \sim \chi_1^{(\Sigma)}$ and $e_R \sim \chi_2^{(\Sigma)}$, yielding **48 Weyl states** ($3 \times 16$). |
+| **Test 2: Complete Fermion Multiplets** | FALSIFIED | PASSES (via locking) | **PASSES** — Separate $u_R \sim \chi_{11}^{(\Sigma)}$ ($\lambda^{+1}$) and $d_R \sim \chi_{10}^{(\Sigma)}$ ($\lambda^{-1}$), plus sterile $\nu_R \sim \chi_0^{(\Sigma)}$ ($1_{+1}$) and $e_R \sim \chi_2^{(\Sigma)}$ ($\lambda^{-1}$), yielding **48 Weyl states** ($3 \times 16$). |
 | **Test 3: Anomalies & Bare $\sin^2\theta_W(\Lambda)$** | FALSIFIED | PASSES (quarks only) | **PASSES** — All gauge & gravitational anomalies vanish ($\mathcal{A} = 0$) across all 3 generations of quarks and leptons; $\sin^2\theta_W(\Lambda) = 3/8 = 0.3750$. |
 | **Test 4: Poset Synchronization & Washout** | PASSES | PASSES | **PASSES** — $G^{\text{ab}} \cong \mathbb{Z}_3^3$ (order 27) conserves 3 $\mathbb{Z}_3$ charges ($4.75\text{ bits}$ asymptotic floor) and locks all 3 factors at $d \in \{3,4,5\}$. |
 | **Test 5: Lepton Generations over $\mathbb{R}[G]$** | FALSIFIED | FALSIFIED | **PASSES** — Because $\iota(\mathbf{3}_f) = 0$, every lepton and quark multiplet has $\iota = (\pm 1) \times 0 = 0$, forming **purely complex 3-generation blocks** over $\mathbb{R}$ ($\nu_R \neq \bar{e}_R$ since $\bar{\mathbf{3}}_f \neq \mathbf{3}_f$). |
@@ -48,15 +48,15 @@ In $G = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f$, the $\mathbb{Z}_3$ 
 | **u_R (up singlet)** | `$2I[2]$` ($2_{-1}$) | `$\Sigma[11]$` | `$\Delta[9]$` ($3_0$) | 18 | **9** | `$+0$` | `$M_{18}(\mathbb{C})$` |
 | **d_R (down singlet)** | `$2I[2]$` ($2_{-1}$) | `$\Sigma[10]$` | `$\Delta[9]$` ($3_0$) | 18 | **9** | `$+0$` | `$M_{18}(\mathbb{C})$` |
 | **L_L = (nu_L, e_L)** | `$2I[1]$` ($2_{-1}$) | `$\Sigma[5]$` | `$\Delta[9]$` ($3_0$) | 12 | **6** | `$+0$` | `$M_{12}(\mathbb{C})$` |
-| **nu_R (neutrino singlet)** | `$2I[2]$` ($2_{-1}$) | `$\Sigma[1]$` | `$\Delta[9]$` ($3_0$) | 6 | **3** | `$+0$` | `$M_{6}(\mathbb{C})$` |
+| **nu_R (sterile singlet)** | `$2I[2]$` ($2_{-1}$) | `$\Sigma[0]$` | `$\Delta[9]$` ($3_0$) | 6 | **3** | `$+0$` | `$M_{6}(\mathbb{C})$` |
 | **e_R (electron singlet)** | `$2I[2]$` ($2_{-1}$) | `$\Sigma[2]$` | `$\Delta[9]$` ($3_0$) | 6 | **3** | `$+0$` | `$M_{6}(\mathbb{C})$` |
 | **Total (3 Generations)** | — | — | — | **96** | **48 ($3 \times 16$)** | All `$0$` | Purely Complex |
 
 ### Why Lepton Collapse (Test 5) and the $\operatorname{SU}(2)$ Dilemma (Test 7) Are Completely Resolved:
-1. **No Lepton Collapse ($\nu_R$ and $e_R$ Stay Distinct over $\mathbb{R}$):**
-   - $\nu_R$ transforms in $\chi_1^{(\Sigma)}(\lambda^{+1}) \boxtimes \mathbf{3}_f$, so its complex conjugate (the anti-neutrino $\bar{\nu}_R$) transforms in $\chi_2^{(\Sigma)}(\lambda^{-1}) \boxtimes \bar{\mathbf{3}}_f$.
-   - $e_R$ transforms in $\chi_2^{(\Sigma)}(\lambda^{-1}) \boxtimes \mathbf{3}_f$, so its complex conjugate (the positron $\bar{e}_R$) transforms in $\chi_1^{(\Sigma)}(\lambda^{+1}) \boxtimes \bar{\mathbf{3}}_f$.
-   - Because $\bar{\mathbf{3}}_f = \Delta[10] \neq \mathbf{3}_f = \Delta[9]$ in $\Delta(27)_f$, $\nu_R$ and $e_R$ belong to **two completely independent $M_6(\mathbb{C})$ blocks** in $\mathbb{R}[G]$, and $L_L$ belongs to a complex $M_{12}(\mathbb{C})$ block ($\iota = (-1)(-1)(0) = 0$).
+1. **No Lepton Collapse ($\nu_R$ and $e_R$ Stay Distinct over $\mathbb{R}$, and $\nu_R \sim \Sigma[0]$ Decouples Neutrino Masses):**
+   - Assigning sterile right-handed neutrinos to $\nu_R \sim \text{2I}[2] \boxtimes \Sigma[0](1_{+1}) \boxtimes \mathbf{3}_f$ gives exact Standard Model hypercharge $Y(\nu_R) = 0$ while keeping $\iota(\nu_R) = (-1)(+1)(0) = 0$ ($M_6(\mathbb{C})$ over $\mathbb{R}$, since $\bar{\mathbf{3}}_f \neq \mathbf{3}_f$).
+   - $e_R$ transforms in $\Sigma[2](\lambda^{-1}) \boxtimes \mathbf{3}_f$, so its conjugate $\bar{e}_R$ transforms in $\Sigma[1](\lambda^{+1}) \boxtimes \bar{\mathbf{3}}_f \neq \nu_R$.
+   - Furthermore, $\bar{L}_L (\Sigma[5]) \otimes \nu_R (\Sigma[0]) = \Sigma[5](2_{-1} \in \mathbb{H})$ couples to the quaternionic doublet block $\mathbb{H}$, completely decoupling Dirac neutrino masses from the charged-lepton/quark Higgs block $M_2(\mathbb{C}) = \Sigma[3] \oplus \Sigma[4]$ (see [`docs/popperian_attacks_phase3.md`](popperian_attacks_phase3.md)).
 2. **Exact Anomaly Cancellation & Canonical Bare Weinberg Angle (Test 3):**
    - $\mathcal{A}(\operatorname{SU}(3)_c^3) = N(\mathbf{3}_L) - N(\mathbf{3}_R) = 6 - (3_{u_R} + 3_{d_R}) = 0$
    - $\mathcal{A}(\operatorname{SU}(2)_{W,L}^2 \operatorname{U}(1)_Y) = 0.0$

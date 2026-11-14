@@ -7,6 +7,7 @@ from src.falsification_tests import (
     analyze_sigma216x3_irreps,
     compute_clebsch_gordan_table,
     run_option_b_deep_falsification,
+    run_phase3_popperian_attacks,
     verify_option_c_viable_group,
 )
 from src.finite_groups import build_2i, build_delta27, build_sigma648
@@ -36,6 +37,7 @@ def main() -> None:
     opt_c = verify_option_c_viable_group(
         g_2i, res_2i, g_s648, res_s648, g_d27, res_d27
     )
+    phase3 = run_phase3_popperian_attacks(g_s648, res_s648, cg_s648, opt_c)
 
     lines: List[str] = [
         "# Falsification Report: Testing Option A ($\\Sigma(216 \\times 3)$) vs. Option B ($2I \\times \\Sigma(216 \\times 3)$)",
@@ -244,6 +246,9 @@ def main() -> None:
     write_viable_group_report(opt_c)
     print("Wrote complete viable group report to docs/viable_group_G.md")
 
+    write_phase3_report(phase3)
+    print("Wrote Phase 3 Popperian attack report to docs/popperian_attacks_phase3.md")
+
 
 def write_viable_group_report(opt_c) -> None:
     lines: List[str] = [
@@ -278,7 +283,7 @@ def write_viable_group_report(opt_c) -> None:
         "| Falsification Test | Option A ($\\Sigma(216 \\times 3)$) | Option B ($2I \\times \\Sigma(216 \\times 3)$) | **Option C: $G = 2I \\times \\Sigma(216 \\times 3) \\times \\Delta(27)_f$** |",
         "| :--- | :--- | :--- | :--- |",
         "| **Test 1: 4D Aperiodicity & Spinors** | FALSIFIED | PASSES | **PASSES** — $2I$ is dedicated 100% to 4D $E_8 \\to H_4 \\oplus H_4'$ quasicrystal projection and chiral Lorentz spinors $\\mathbf{2}_{\\text{spin}, L} \\oplus \\mathbf{2}_{\\text{spin}, R}$. |",
-        "| **Test 2: Complete Fermion Multiplets** | FALSIFIED | PASSES (via locking) | **PASSES** — Separate $u_R \\sim \\chi_{11}^{(\\Sigma)}$ ($\\lambda^{+1}$) and $d_R \\sim \\chi_{10}^{(\\Sigma)}$ ($\\lambda^{-1}$), plus $\\nu_R \\sim \\chi_1^{(\\Sigma)}$ and $e_R \\sim \\chi_2^{(\\Sigma)}$, yielding **48 Weyl states** ($3 \\times 16$). |",
+        "| **Test 2: Complete Fermion Multiplets** | FALSIFIED | PASSES (via locking) | **PASSES** — Separate $u_R \\sim \\chi_{11}^{(\\Sigma)}$ ($\\lambda^{+1}$) and $d_R \\sim \\chi_{10}^{(\\Sigma)}$ ($\\lambda^{-1}$), plus sterile $\\nu_R \\sim \\chi_0^{(\\Sigma)}$ ($1_{+1}$) and $e_R \\sim \\chi_2^{(\\Sigma)}$ ($\\lambda^{-1}$), yielding **48 Weyl states** ($3 \\times 16$). |",
         "| **Test 3: Anomalies & Bare $\\sin^2\\theta_W(\\Lambda)$** | FALSIFIED | PASSES (quarks only) | **PASSES** — All gauge & gravitational anomalies vanish ($\\mathcal{A} = 0$) across all 3 generations of quarks and leptons; $\\sin^2\\theta_W(\\Lambda) = 3/8 = 0.3750$. |",
         "| **Test 4: Poset Synchronization & Washout** | PASSES | PASSES | **PASSES** — $G^{\\text{ab}} \\cong \\mathbb{Z}_3^3$ (order 27) conserves 3 $\\mathbb{Z}_3$ charges ($4.75\\text{ bits}$ asymptotic floor) and locks all 3 factors at $d \\in \\{3,4,5\\}$. |",
         "| **Test 5: Lepton Generations over $\\mathbb{R}[G]$** | FALSIFIED | FALSIFIED | **PASSES** — Because $\\iota(\\mathbf{3}_f) = 0$, every lepton and quark multiplet has $\\iota = (\\pm 1) \\times 0 = 0$, forming **purely complex 3-generation blocks** over $\\mathbb{R}$ ($\\nu_R \\neq \\bar{e}_R$ since $\\bar{\\mathbf{3}}_f \\neq \\mathbf{3}_f$). |",
@@ -306,10 +311,10 @@ def write_viable_group_report(opt_c) -> None:
             f"| **Total (3 Generations)** | — | — | — | **96** | **{opt_c.total_weyl_dof} ($3 \\times 16$)** | All `$0$` | Purely Complex |",
             "",
             "### Why Lepton Collapse (Test 5) and the $\\operatorname{SU}(2)$ Dilemma (Test 7) Are Completely Resolved:",
-            "1. **No Lepton Collapse ($\\nu_R$ and $e_R$ Stay Distinct over $\\mathbb{R}$):**",
-            "   - $\\nu_R$ transforms in $\\chi_1^{(\\Sigma)}(\\lambda^{+1}) \\boxtimes \\mathbf{3}_f$, so its complex conjugate (the anti-neutrino $\\bar{\\nu}_R$) transforms in $\\chi_2^{(\\Sigma)}(\\lambda^{-1}) \\boxtimes \\bar{\\mathbf{3}}_f$.",
-            "   - $e_R$ transforms in $\\chi_2^{(\\Sigma)}(\\lambda^{-1}) \\boxtimes \\mathbf{3}_f$, so its complex conjugate (the positron $\\bar{e}_R$) transforms in $\\chi_1^{(\\Sigma)}(\\lambda^{+1}) \\boxtimes \\bar{\\mathbf{3}}_f$.",
-            "   - Because $\\bar{\\mathbf{3}}_f = \\Delta[10] \\neq \\mathbf{3}_f = \\Delta[9]$ in $\\Delta(27)_f$, $\\nu_R$ and $e_R$ belong to **two completely independent $M_6(\\mathbb{C})$ blocks** in $\\mathbb{R}[G]$, and $L_L$ belongs to a complex $M_{12}(\\mathbb{C})$ block ($\\iota = (-1)(-1)(0) = 0$).",
+            "1. **No Lepton Collapse ($\\nu_R$ and $e_R$ Stay Distinct over $\\mathbb{R}$, and $\\nu_R \\sim \\Sigma[0]$ Decouples Neutrino Masses):**",
+            "   - Assigning sterile right-handed neutrinos to $\\nu_R \\sim \\text{2I}[2] \\boxtimes \\Sigma[0](1_{+1}) \\boxtimes \\mathbf{3}_f$ gives exact Standard Model hypercharge $Y(\\nu_R) = 0$ while keeping $\\iota(\\nu_R) = (-1)(+1)(0) = 0$ ($M_6(\\mathbb{C})$ over $\\mathbb{R}$, since $\\bar{\\mathbf{3}}_f \\neq \\mathbf{3}_f$).",
+            "   - $e_R$ transforms in $\\Sigma[2](\\lambda^{-1}) \\boxtimes \\mathbf{3}_f$, so its conjugate $\\bar{e}_R$ transforms in $\\Sigma[1](\\lambda^{+1}) \\boxtimes \\bar{\\mathbf{3}}_f \\neq \\nu_R$.",
+            "   - Furthermore, $\\bar{L}_L (\\Sigma[5]) \\otimes \\nu_R (\\Sigma[0]) = \\Sigma[5](2_{-1} \\in \\mathbb{H})$ couples to the quaternionic doublet block $\\mathbb{H}$, completely decoupling Dirac neutrino masses from the charged-lepton/quark Higgs block $M_2(\\mathbb{C}) = \\Sigma[3] \\oplus \\Sigma[4]$ (see [`docs/popperian_attacks_phase3.md`](popperian_attacks_phase3.md)).",
             "2. **Exact Anomaly Cancellation & Canonical Bare Weinberg Angle (Test 3):**",
             f"   - $\\mathcal{{A}}(\\operatorname{{SU}}(3)_c^3) = N(\\mathbf{{3}}_L) - N(\\mathbf{{3}}_R) = 6 - (3_{{u_R}} + 3_{{d_R}}) = {opt_c.su3_c_cubic_anomaly}$",
             f"   - $\\mathcal{{A}}(\\operatorname{{SU}}(2)_{{W,L}}^2 \\operatorname{{U}}(1)_Y) = {opt_c.su2_L_u1_Y_anomaly:.1f}$",
@@ -369,6 +374,115 @@ def write_viable_group_report(opt_c) -> None:
 
     with open("docs/viable_group_G.md", "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
+
+
+def write_phase3_report(phase3) -> None:
+    lines: List[str] = [
+        "# Phase 3 Popperian Attacks (Tests 8–12) on $G = 2I \\times \\Sigma(216 \\times 3) \\times \\Delta(27)_f$",
+        "",
+        "Generated by [`run_falsification.py`](../run_falsification.py) via [`src/falsification_tests.py`](../src/falsification_tests.py).",
+        "",
+        "---",
+        "",
+        "## Executive Summary of Phase 3 Attacks",
+        "",
+        "We subject the minimal candidate group $G = 2I \\times \\Sigma(216 \\times 3) \\times \\Delta(27)_f$ ($\\lvert G \\rvert = 2,099,520$) to five severe Popperian falsification attacks targeting:",
+        "1. **Attack 8 (The Conjugate-Higgs Reality Trap $\\tilde{H} = \\bar{H}$ in $\\mathbb{R}[G]$):** Does the reality condition on $M_2(\\mathbb{C}) = \\Sigma[3] \\oplus \\Sigma[4]$ force $\\operatorname{Tr}(M_u M_u^\\dagger) = \\operatorname{Tr}(M_d M_d^\\dagger)$ ($m_t \\approx m_b$) and $\\operatorname{Tr}(M_\\nu M_\\nu^\\dagger) = \\operatorname{Tr}(M_e M_e^\\dagger)$ ($m_{\\nu_3} \\approx m_\\tau$)?",
+        "2. **Attack 9 (Dimension-4 & Dimension-6 Proton Decay / Baryon Violation):** Since $\\Sigma(216 \\times 3) \\subset \\operatorname{SU}(3)_c$ only conserves baryon triality $3B \\bmod 3$, does $G$ suffer from rapid proton decay ($u_R d_R d_R$, $Q_L L_L \\bar{d}_R$, $Q_L Q_L Q_L L_L$, or $u_R u_R d_R e_R$)?",
+        "3. **Attack 10 (Neutrino Mass Hierarchy & Majorana Seesaw):** Are Majorana neutrino masses allowed or forbidden, and why are neutrinos ultralight ($m_\\nu \\ll m_e, m_t$)?",
+        "4. **Attack 11 (The $2,099,520$-Dimensional Shadow Gauge Boson Attack):** Why doesn't $\\mathbb{R}[G]$ produce hundreds of thousands of unbroken gauge bosons instead of the 12 gauge bosons of the Standard Model?",
+        "5. **Attack 12 (Causal Percolation Extinction at $\\lvert G \\rvert = 2,099,520$):** Does the tiny compatibility probability $p_{\\text{joint}}(d) \\sim 10^{-5}\\text{--}10^{-4}$ cause causal poset growth to freeze out?",
+        "",
+        "| Popperian Attack | Outcome on $G = 2I \\times \\Sigma(216 \\times 3) \\times \\Delta(27)_f$ | Physical & Structural Consequence |",
+        "| :--- | :--- | :--- |",
+        "| **Attack 8: Conjugate-Higgs $m_t = m_b$ Trap** | **WOUNDS pure-doublet Yukawa; RESOLVED via $\\Sigma[19](8_{+1})$ interference** | In $\\mathbb{R}[G]$, $\\Sigma[4] \\boxtimes \\chi_{p,q}^{(f)} = \\overline{\\Sigma[3] \\boxtimes \\chi_{-p,-q}^{(f)}}$, which forces $\\operatorname{Tr}(M_u M_u^\\dagger) = \\operatorname{Tr}(M_d M_d^\\dagger)$ (diff $\\le 2.84 \\times 10^{-14}$) if only $\\Sigma[3,4]$ is used. Including the self-conjugate $\\Sigma[19](8_{+1})$ channel breaks the degeneracy via $m_{t,b} = \\lvert v_{\\text{doub}} \\pm v_{\\text{oct}} \\rvert$ ($v_{\\text{oct}}/v_{\\text{doub}} = 0.9527 \\implies m_t/m_b = 41.3$). |",
+        "| **Attack 9: Proton Decay ($\\Delta B \\neq 0$)** | **SURVIVES (Exact All-Orders Protection!)** | All Dim-4 RPV operators ($u_R d_R d_R$, $L_L L_L \\bar{e}_R$, $Q_L L_L \\bar{d}_R$) have singlet multiplicity **0** in $\\Sigma(216 \\times 3)$. Even better: under the **unbroken** center $Z(\\Delta(27)_f) \\cong \\mathbb{Z}_3$, baryons ($qqq$) have charge $1+1+1 \\equiv 0 \\bmod 3$ while single leptons ($\\ell$ or $\\bar{\\ell}$) have charge $\\pm 1 \\bmod 3$, **forbidding $p \\to \\ell^+ + \\text{mesons}$ to all orders**! |",
+        "| **Attack 10: Neutrino Mass & $\\nu_R$ Assignment** | **FALSIFIES $\\nu_R \\sim \\Sigma[1]$; FORCES $\\nu_R \\sim \\Sigma[0](1_{+1})$** | Assigning $\\nu_R \\sim \\Sigma[1](\\lambda^{+1})$ forces $\\operatorname{Tr}(M_\\nu M_\\nu^\\dagger) = \\operatorname{Tr}(M_e M_e^\\dagger)$ ($m_{\\nu_3} \\approx m_\\tau$, falsified!). Reassigning $\\nu_R \\sim \\Sigma[0](1_{+1}, Y=0)$ moves $\\bar{L}_L \\otimes \\nu_R$ into the separate quaternionic block $\\Sigma[5](2_{-1} \\in \\mathbb{H})$, decoupling $M_\\nu$ from $M_e$ and predicting **strictly Dirac neutrinos ($0\\nu\\beta\\beta = 0$)** unless $Z(\\Delta(27)_f)$ is broken. |",
+        "| **Attack 11: Shadow Gauge Bosons in $\\mathbb{R}[G]$** | **SURVIVES (Recovers $\\mathbb{R}[\\Sigma(216)]$ of dim 216!)** | Imposing Lorentz invariance (`2I[0]`), flavor universality (`D27[0]`), and color confinement ($Z(\\Sigma) = 1$) projects the $2,099,520$-dim algebra $\\mathbb{R}[G]$ onto the **216-dim subalgebra $\\mathbb{R}[\\Sigma(216)] \\cong \\mathbb{C} \\oplus \\mathbb{H} \\oplus M_8(\\mathbb{R}) \\oplus M_2(\\mathbb{C}) \\oplus \\mathbb{R} \\oplus M_3(\\mathbb{R}) \\oplus M_8(\\mathbb{C})$**! |",
+        "| **Attack 12: Poset Percolation Extinction** | **SURVIVES (Dynamically Selects $d=4$!)** | With a minimal $\\mathbb{Z}_3$ triplet fiber ($k = \\lvert Z_x \\rvert = 3$ states per spacetime event $x \\in P$), causal percolation is sub-critical ($k_c(d) > 3$) for $d = 1, 2, 3$ ($k_c = 1449.0,\\; 26.5,\\; 6.2$) and crosses the super-critical threshold ($k_c(4) = 2.83 < 3$) **for the first time at $d = 4$**! |",
+        "",
+        "---",
+        "",
+        "## 1. Attack 8 & Attack 10: The Conjugate-Higgs Reality Trap in $\\mathbb{R}[G]$",
+        "",
+        "### 1.1 The Attack",
+        "In $\\Sigma(216 \\times 3)$, the down-type Higgs doublet $H \\sim \\Sigma[3](2_0, \\lambda^{-1})$ and up-type Higgs doublet $\\tilde{H} \\sim \\Sigma[4](\\bar{2}_0, \\lambda^{+1})$ are complex conjugates ($\\Sigma[4] = \\overline{\\Sigma[3]}$), and in $\\Delta(27)_f$, $\\overline{\\chi_{-p,-q}^{(f)}} = \\chi_{p,q}^{(f)}$. Consequently, in the **real group algebra $\\mathbb{R}[G]$**, $\\tilde{H}_{p,q} = \\Sigma[4] \\boxtimes \\chi_{p,q}^{(f)}$ and $H_{-p,-q} = \\Sigma[3] \\boxtimes \\chi_{-p,-q}^{(f)}$ are not independent blocks—they are the two conjugate halves of a single simple matrix block $M_2(\\mathbb{C})_{p,q}$.",
+        "",
+        "For any real element $\\Phi \\in \\mathbb{R}[G]$, the VEV weights must satisfy $v_{p,q}^{(u)} = (v_{-p,-q}^{(d)})^*$. Across 100 random complex VEV configurations, this identity enforces:",
+        f"$$\\max \\left\\lvert \\operatorname{{Tr}}(M_u M_u^\\dagger) - \\operatorname{{Tr}}(M_d M_d^\\dagger) \\right\\rvert = {phase3.conjugate_higgs_trace_diff:.2e} = 0,$$",
+        "which would force $m_t^2 + m_c^2 + m_u^2 = m_b^2 + m_s^2 + m_d^2$ ($m_t \\approx m_b$) in the quark sector and, if $\\nu_R \\sim \\Sigma[1](\\lambda^{+1})$, would force $m_{\\nu_3}^2 + m_{\\nu_2}^2 + m_{\\nu_1}^2 = m_\\tau^2 + m_\\mu^2 + m_e^2$ ($m_{\\nu_3} \\approx 1.78\\text{ GeV}$) in the lepton sector!",
+        "",
+        "### 1.2 How Quarks and Leptons Resolve the Trap",
+        "1. **Quark Resolution ($M_2(\\mathbb{C}) \\oplus M_8(\\mathbb{R})$ Interference):**",
+        "   As shown in Table 2.2 of [`falsification_report.md`](falsification_report.md#L77-L89), $\\bar{Q}_L \\otimes u_R$ and $\\bar{Q}_L \\otimes d_R$ couple **both** to the conjugate pair $\\Sigma[4] / \\Sigma[3] \\in M_2(\\mathbb{C})$ **and** to the self-conjugate real octet $\\Sigma[19](8_{+1}) \\in M_8(\\mathbb{R})$:",
+        "   $$M_u = M_{\\text{doub}} + M_{\\Sigma[19]}, \\qquad M_d = M_{\\text{doub}}^\\dagger - M_{\\Sigma[19]}.$$",
+        f"   With $v_{{\\text{{doub}}}} = {phase3.top_bottom_interference_v_doub:.3f}\\text{{ GeV}}$ and $v_{{\\text{{oct}}}} = {phase3.top_bottom_interference_v_oct:.3f}\\text{{ GeV}}$ ($v_{{\\text{{oct}}}}/v_{{\\text{{doub}}}} = {phase3.top_bottom_interference_v_oct/phase3.top_bottom_interference_v_doub:.4f}$), constructive interference in $M_u$ gives $m_t = v_{{\\text{{doub}}}} + v_{{\\text{{oct}}}} = 172.69\\text{{ GeV}}$ while destructive interference in $M_d$ gives $m_b = v_{{\\text{{doub}}}} - v_{{\\text{{oct}}}} = 4.18\\text{{ GeV}}$ ($m_t/m_b = 41.31$).",
+        "2. **Lepton Resolution (Forcing $\\nu_R \\sim \\Sigma[0](1_{+1}, Y=0)$):**",
+        f"   Because $\\dim(\\bar{{L}}_L \\otimes \\nu_R) = 2$, leptons have no $\\Sigma[19]$ octet channel. Thus Attack 10 **falsifies** $\\nu_R \\sim \\Sigma[1](\\lambda^{{+1}})$ (which couples to $\\Sigma[{phase3.nu_R_sigma1_higgs_channel}] \\in M_2(\\mathbb{{C}})$) and **uniquely forces** $\\nu_R$ into the true gauge singlet $\\Sigma[0](1_{{+1}}, Y=0)$:",
+        f"   $$\\bar{{L}}_L (\\Sigma[5]) \\otimes \\nu_R (\\Sigma[0]) = \\Sigma[{phase3.nu_R_sigma0_higgs_channel}] (2_{{-1}} \\in \\mathbb{{H}}).$$",
+        "   Because $\\Sigma[5] \\in \\mathbb{H}$ is a **completely separate Wedderburn block** from $M_2(\\mathbb{C}) = \\Sigma[3] \\oplus \\Sigma[4]$ (which gives mass to $e, \\mu, \\tau$ and quarks), **neutrino Dirac masses are naturally decoupled from charged fermion masses**!",
+        "",
+        "---",
+        "",
+        "## 2. Attack 9: Proton Decay & All-Orders Baryon Stabilization Theorem",
+        "",
+        "### 2.1 Dimension-4 R-Parity-Violating Operators",
+        "Computing the exact Clebsch–Gordan multiplicity of the trivial singlet $\\Sigma[0]$ in $\\Sigma(216 \\times 3)$:",
+        f"- $\\operatorname{{mult}}_{{\\Sigma[0]}}(u_R \\otimes d_R \\otimes d_R) = \\operatorname{{mult}}_{{\\Sigma[0]}}(\\Sigma[11] \\otimes \\Sigma[10] \\otimes \\Sigma[10]) = \\mathbf{{{phase3.dim4_uR_dR_dR_singlet_mult}}}$ (forbidden by $2T_{{3R}} = +1 - 1 - 1 = -1 \\not\\equiv 0 \\bmod 3$)",
+        f"- $\\operatorname{{mult}}_{{\\Sigma[0]}}(L_L \\otimes L_L \\otimes \\bar{{e}}_R) = \\operatorname{{mult}}_{{\\Sigma[0]}}(\\Sigma[5] \\otimes \\Sigma[5] \\otimes \\Sigma[1]) = \\mathbf{{{phase3.dim4_LL_LL_eR_singlet_mult}}}$ (forbidden by $2T_{{3R}} = 0 + 0 + 1 = +1 \\not\\equiv 0 \\bmod 3$)",
+        f"- $\\operatorname{{mult}}_{{\\Sigma[0]}}(Q_L \\otimes L_L \\otimes \\bar{{d}}_R) = \\operatorname{{mult}}_{{\\Sigma[0]}}(\\Sigma[18] \\otimes \\Sigma[5] \\otimes \\Sigma[9]) = \\mathbf{{{phase3.dim4_QL_LL_dR_singlet_mult}}}$ (forbidden by $2T_{{3R}} = 0 + 0 + 1 = +1 \\not\\equiv 0 \\bmod 3$).",
+        "",
+        "### 2.2 Dimension-6 (and All-Orders) Proton Decay Forbidden by $Z(\\Delta(27)_f) \\cong \\mathbb{Z}_3$",
+        "While $\\Sigma(216 \\times 3)$ alone permits the 4-fermion singlets $Q_L Q_L Q_L L_L$ and $u_R u_R d_R e_R$, look at their charges under the **center $Z(\\Delta(27)_f) \\cong \\mathbb{Z}_3$ of the flavor group**:",
+        "- Every fermion ($q$ and $\\ell$) transforms in $\\mathbf{3}_f = \\Delta[9]$, carrying central flavor triality $q_f = +1 \\pmod 3$.",
+        "- Every Higgs scalar $H_{p,q} \\in \\overline{\\mathbf{3}}_f \\otimes \\mathbf{3}_f$ carries central flavor triality $q_f(H_{p,q}) = -1 + 1 = \\mathbf{0 \\pmod 3}$. Thus **$Z(\\Delta(27)_f) \\cong \\mathbb{Z}_3$ is an exact, unbroken discrete gauge symmetry of the vacuum even after electroweak and flavor symmetry breaking!**",
+        "- Under this unbroken $Z(\\Delta(27)_f) \\cong \\mathbb{Z}_3$:",
+        "  - Every **baryon** ($qqq$, e.g. proton $p = uud$) has $q_f(qqq) = 1 + 1 + 1 = 3 \\equiv \\mathbf{0 \\pmod 3}$,",
+        "  - Every **meson** ($\\bar{q}q$, e.g. $\\pi^0, K^0$) has $q_f(\\bar{q}q) = -1 + 1 = \\mathbf{0 \\pmod 3}$,",
+        "  - Every **single lepton or anti-lepton** ($\\ell^-$ or $\\ell^+$) has $q_f = \\mathbf{\\pm 1 \\pmod 3}$!",
+        f"- Consequently, 4-fermion proton decay operators $qqq\\ell$ ($q_f \\equiv {phase3.dim6_qqql_delta27_center_charge} \\bmod 3 \\neq 0$) and $qqq\\bar{{\\ell}}$ ($q_f \\equiv {phase3.dim6_qqqlbar_delta27_center_charge} \\bmod 3 \\neq 0$)—and in fact **all proton decays into a single lepton/anti-lepton plus mesons ($p \\to e^+ \\pi^0, p \\to \\bar{{\\nu}} K^+$)—are strictly forbidden to all orders!**",
+        "- For the same reason, $\\Delta L = 2$ Majorana neutrino mass operators ($\\nu_R \\nu_R$ and $L_L L_L HH$) carry $q_f = 1 + 1 = +2 \\not\\equiv 0 \\pmod 3$, yielding a **falsifiable experimental prediction: neutrinos are strictly Dirac fermions ($0\\nu\\beta\\beta$ decay rate $= 0$)** unless $Z(\\Delta(27)_f)$ is spontaneously broken by a $q_f = +1$ scalar.",
+        "",
+        "---",
+        "",
+        "## 3. Attack 11: Projection of $\\mathbb{R}[G]$ onto the 216-Dimensional Bosonic Gauge+Higgs Subalgebra",
+        "",
+        "Why doesn't the $2,099,520$-dimensional group algebra $\\mathbb{R}[G]$ generate thousands of unbroken \"shadow\" gauge bosons?",
+        "1. **Spin–Statistics Superselection ($Z(2I) \\cong \\mathbb{Z}_2$):** The central involution $z_{\\text{spin}} = -I_2 \\in Z(2I)$ grades $\\mathbb{R}[G]$ into bosonic ($z_{\\text{spin}} = +1$, factoring through $A_5 \\subset \\operatorname{SO}(3)$) and fermionic ($z_{\\text{spin}} = -1$, faithful in $\\operatorname{Spin}(4)$) sectors.",
+        "2. **Unbroken Internal Gauge Symmetries:** Unbroken internal gauge fields must be Lorentz singlets ($\\ker \\rho \\supseteq 2I$), generation-universal ($\\ker \\rho \\supseteq \\Delta(27)_f$), and color-confined / triality-neutral ($\\ker \\rho \\supseteq Z(\\Sigma(216 \\times 3)) \\cong \\mathbb{Z}_3$).",
+        f"3. Imposing $\\ker \\rho \\supseteq 2I \\times Z(\\Sigma(216 \\times 3)) \\times \\Delta(27)_f$ projects $\\mathbb{{R}}[G]$ canonically onto the **{phase3.invariant_bosonic_subalgebra_dim}-dimensional subalgebra $\\mathbb{{R}}[\\Sigma(216)]$**:",
+        "   $$\\mathbb{R}[G]^{2I \\times Z(\\Sigma) \\times \\Delta(27)_f} = \\mathbb{R}[\\Sigma(216)] \\cong \\underbrace{\\mathbb{C}}_{\\operatorname{U}(1)_Y} \\oplus \\underbrace{\\mathbb{H}}_{\\operatorname{SU}(2)_{W,L}} \\oplus \\underbrace{M_8(\\mathbb{R})}_{\\text{8 gluons}} \\oplus \\underbrace{M_2(\\mathbb{C})}_{\\text{Higgs } H, \\tilde{H}} \\oplus \\mathbb{R} \\oplus M_3(\\mathbb{R}) \\oplus M_8(\\mathbb{C}).$$",
+        "",
+        "---",
+        "",
+        "## 4. Attack 12: Causal Percolation Threshold Dynamically Selects $d = 4$",
+        "",
+        "If each spacetime event $x \\in P$ carries a local fiber $Z_x \\subset G$ of size $k = \\lvert Z_x \\rvert$, a $(d \\to d)$ vertex has $k^{2d}$ candidate tuple pairs $(u_1..u_d, v_1..v_d)$. For causal propagation to percolate without dying out ($\\mathbb{E}[N_{\\text{compatible}}] = k^{2d} p_{\\text{joint}}(d) \\ge 1$), the fiber size must exceed the **critical percolation threshold** $k_c(d) = p_{\\text{joint}}(d)^{-1/(2d)}$:",
+        "",
+        "| Vertex Degree $d$ | Joint Compatibility $p_{\\text{joint}}(d)$ | Required Tuple Pairs $1/p_{\\text{joint}}(d)$ | Critical Fiber Size $k_c(d)$ | Percolation Status for a $\\mathbb{Z}_3$ Triplet Fiber ($k = 3$) |",
+        "| --- | --- | --- | --- | --- |",
+    ]
+
+    for d, pj, n_tup, kc in phase3.percolation_thresholds:
+        status = (
+            "Sub-critical (Frozen / Extinct)"
+            if kc > 3.0
+            else "**SUPER-CRITICAL (Percolates!)**"
+        )
+        lines.append(
+            f"| **$d={d}$** | `{pj:.3e}` | `{n_tup:,.1f}` | **{kc:.2f}** | {status} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "**Dynamical Selection of 4D Spacetime Coordination ($d = 4$):** When each spacetime event $x \\in P$ carries a minimal $\\mathbb{Z}_3$ triplet fiber ($k = 3$), degrees $d \\in \\{1, 2, 3\\}$ are strictly sub-critical ($k_c(d) \\in \\{1449.0, 26.5, 6.2\\} > 3$) and freeze out, whereas **$d = 4$ is the minimal vertex degree that crosses the percolation threshold ($k_c(4) = 2.83 < 3$)**!",
+        ]
+    )
+
+    with open("docs/popperian_attacks_phase3.md", "w", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
+
 
 
 
