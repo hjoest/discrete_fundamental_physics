@@ -179,3 +179,5 @@ By falsifying both Option A and Option B, these seven tests establish four **exa
    The internal gauge factor $G_{\text{gauge}}$ must supply both $\operatorname{SU}(2)_{W,L}$ and either $\operatorname{SU}(2)_{W,R}$ (e.g., an internal $2T_L \times 2T_R$ or Pati–Salam $\operatorname{SU}(4)_c \times \operatorname{SU}(2)_L \times \operatorname{SU}(2)_R$ finite subgroup) or distinct $\operatorname{U}(1)_Y$-charged $u_R, d_R$ triplets so that $\mathcal{A}(\operatorname{SU}(3)_c^3) = 0$ and $\sin^2\theta_W(\Lambda) = 3/8$ hold internally.
 4. **Non-Trivial Abelianization ($G^{\text{ab}} \neq \{1\}$) & Shared-Permutation Poset Locking:**
    $G$ must retain a non-trivial abelianization $G^{\text{ab}}$ to enforce an exact Kirchhoff conservation law on the poset $Z$ and prevent Kleitman–Rothschild washout via Test 4's shared-permutation locking mechanism.
+
+👉 **See [`docs/viable_group_G.md`](viable_group_G.md) for the construction, minimality proof, and full 7-test verification of the resulting viable group $G = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f$.**
