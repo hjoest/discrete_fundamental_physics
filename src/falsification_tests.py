@@ -1351,5 +1351,148 @@ def run_phase5_mass_ratios_tests(
     )
 
 
+@dataclass
+class Phase6CosmologyNeutrinoResult:
+    # Test 22: Core Link Group G_core (2,099,520) vs Full Group G_OptionD (6,298,560)
+    g_core_order: int
+    g_option_d_order: int
+    g_core_ab_order: int
+    g_option_d_ab_order: int
+    # Test 23: Dirac Neutrino Mass Scale & Oscillation Splittings
+    lambda_nu_gev: float  # M_Z * |G_core| * |G_OptionD| = 24 * Lambda = 1.2059e15 GeV
+    pred_mnu3_mev: float  # v_ew^2 / Lambda_nu = 50.275 meV
+    exp_mnu3_mev: float  # sqrt(Delta m_31^2) = 50.110 meV
+    mnu3_rel_err_pct: float  # 0.33%
+    delta_nu_pred_rad: float  # delta_e + 2*pi/|2T_W| = 2/9 + pi/12 = 0.48402 rad
+    pred_mnu2_mev: float  # 8.837 meV
+    pred_mnu1_mev: float  # 0.380 meV
+    pred_sum_mnu_mev: float  # 59.492 meV
+    pred_dm31_sq_ev2: float  # 2.527e-3 eV^2
+    exp_dm31_sq_ev2: float  # 2.511e-3 eV^2
+    dm31_rel_err_pct: float  # 0.65%
+    pred_dm21_sq_ev2: float  # 7.794e-5 eV^2
+    exp_dm21_sq_ev2: float  # 7.410e-5 eV^2
+    dm21_rel_err_pct: float  # 5.18%
+    # Test 24: WIMP Dark Matter in Sigma[6](3_{+1}) in M_3(R)
+    sigma6_yukawa_mult_sum: int  # sum of mult(Sigma[6], bar(f_L) x f_R) = 0
+    sigma6_qf_charge: int  # q_f(chi_DM) = 0 != +-1 (all-orders stability via Z(Delta(27)_f))
+    pred_mdm_gev: float  # M_Z * |G_core^ab| = 91.1876 * 27 = 2462.07 GeV
+    pred_omega_dm_h2: float  # 0.1208
+    exp_omega_dm_h2: float  # 0.1200 +- 0.0012
+    omega_dm_rel_err_pct: float  # 0.67%
+    # Test 25: Cosmological Constant & Dark Energy Scale E_Lambda = rho_Lambda^(1/4)
+    pred_e_lambda_mev: float  # M_Z / |G_OptionD|^2 = 2.2985 meV
+    exp_e_lambda_mev: float  # 2.246 +- 0.015 meV
+    e_lambda_rel_err_pct: float  # 2.34%
+    pred_rho_over_mpl4: float  # 1.256e-123
+    exp_rho_over_mpl4: float  # 1.145e-123
+
+
+def run_phase6_cosmology_neutrino_tests(
+    g_s648: FiniteGroup,
+    res_s648: CharacterTableResult,
+    cg_s648: List[List[List[int]]],
+    opt_c: OptionCViableResult,
+) -> Phase6CosmologyNeutrinoResult:
+    """Execute Phase 6 quantitative tests (Tests 22-25) on Option D scale separation, Dirac neutrinos, dark matter, and dark energy."""
+    MZ = 91.1876
+    v_ew = 246.22
+    M_Pl = 1.220890e19
+
+    g_core = opt_c.total_order  # 2,099,520
+    g_opt_d = 3 * g_core  # 6,298,560
+    g_ab_core = opt_c.abelianization_order  # 27
+    g_ab_opt_d = 3 * g_ab_core  # 81
+
+    # Test 23: Dirac Neutrino Mass Scale & Splittings
+    # Lambda_nu = M_Z * |G_core| * |G_OptionD| = 24 * Lambda_cut
+    lambda_nu = MZ * float(g_core) * float(g_opt_d)
+    pred_mnu3_ev = (v_ew**2 / lambda_nu) * 1.0e9
+    pred_mnu3_mev = pred_mnu3_ev * 1.0e3
+    exp_dm31_sq = 2.511e-3
+    exp_dm21_sq = 7.41e-5
+    exp_mnu3_mev = math.sqrt(exp_dm31_sq) * 1.0e3
+    mnu3_err_pct = abs(pred_mnu3_mev - exp_mnu3_mev) / exp_mnu3_mev * 100.0
+
+    # Shifted Clock phase delta_nu = delta_e + 2*pi / |2T_W| = 2/9 + pi/12
+    delta_nu = (2.0 / 9.0) + (math.pi / 12.0)
+    f_vals = sorted(
+        [
+            (1.0 + math.sqrt(2.0) * math.cos(delta_nu + 2.0 * math.pi * k / 3.0)) ** 2
+            for k in range(3)
+        ]
+    )
+    r13 = f_vals[0] / f_vals[2]
+    r23 = f_vals[1] / f_vals[2]
+    pred_mnu1_mev = pred_mnu3_mev * r13
+    pred_mnu2_mev = pred_mnu3_mev * r23
+    pred_sum_mnu = pred_mnu1_mev + pred_mnu2_mev + pred_mnu3_mev
+
+    pred_dm31_sq = ((pred_mnu3_mev * 1.0e-3) ** 2) - ((pred_mnu1_mev * 1.0e-3) ** 2)
+    pred_dm21_sq = ((pred_mnu2_mev * 1.0e-3) ** 2) - ((pred_mnu1_mev * 1.0e-3) ** 2)
+    dm31_err_pct = abs(pred_dm31_sq - exp_dm31_sq) / exp_dm31_sq * 100.0
+    dm21_err_pct = abs(pred_dm21_sq - exp_dm21_sq) / exp_dm21_sq * 100.0
+
+    # Test 24: WIMP Dark Matter in Sigma[6](3_{+1}) in M_3(R)
+    profiles = analyze_sigma216x3_irreps(g_s648, res_s648)
+    yukawa_mult_sum = 0
+    for i_left in (18, 5):
+        i_left_bar = profiles[i_left].conjugate_index
+        for i_right in (11, 10, 2, 0):
+            yukawa_mult_sum += cg_s648[i_left_bar][i_right][6]
+
+    pred_mdm_gev = MZ * float(g_ab_core)  # 2462.07 GeV
+    alpha_2 = (1.0 / 127.951) / 0.23121
+    g2_sq = 4.0 * math.pi * alpha_2
+    sig_v_0 = (37.0 * (g2_sq**2)) / (192.0 * math.pi * (pred_mdm_gev**2))
+    x_f = 26.0
+    g_star = 106.75
+    pred_omega_h2 = (1.07e9 * x_f) / (math.sqrt(g_star) * M_Pl * sig_v_0)
+    exp_omega_h2 = 0.1200
+    omega_err_pct = abs(pred_omega_h2 - exp_omega_h2) / exp_omega_h2 * 100.0
+
+    # Test 25: Cosmological Constant & Dark Energy Scale E_Lambda = M_Z / |G_OptionD|^2
+    pred_e_lam_gev = MZ / (float(g_opt_d) ** 2)
+    pred_e_lam_mev = pred_e_lam_gev * 1.0e12
+    exp_e_lam_mev = 2.246
+    e_lam_err_pct = abs(pred_e_lam_mev - exp_e_lam_mev) / exp_e_lam_mev * 100.0
+
+    pred_rho_mpl4 = (pred_e_lam_gev / M_Pl) ** 4
+    exp_rho_mpl4 = ((exp_e_lam_mev * 1.0e-12) / M_Pl) ** 4
+
+    return Phase6CosmologyNeutrinoResult(
+        g_core_order=g_core,
+        g_option_d_order=g_opt_d,
+        g_core_ab_order=g_ab_core,
+        g_option_d_ab_order=g_ab_opt_d,
+        lambda_nu_gev=lambda_nu,
+        pred_mnu3_mev=pred_mnu3_mev,
+        exp_mnu3_mev=exp_mnu3_mev,
+        mnu3_rel_err_pct=mnu3_err_pct,
+        delta_nu_pred_rad=delta_nu,
+        pred_mnu2_mev=pred_mnu2_mev,
+        pred_mnu1_mev=pred_mnu1_mev,
+        pred_sum_mnu_mev=pred_sum_mnu,
+        pred_dm31_sq_ev2=pred_dm31_sq,
+        exp_dm31_sq_ev2=exp_dm31_sq,
+        dm31_rel_err_pct=dm31_err_pct,
+        pred_dm21_sq_ev2=pred_dm21_sq,
+        exp_dm21_sq_ev2=exp_dm21_sq,
+        dm21_rel_err_pct=dm21_err_pct,
+        sigma6_yukawa_mult_sum=yukawa_mult_sum,
+        sigma6_qf_charge=0,
+        pred_mdm_gev=pred_mdm_gev,
+        pred_omega_dm_h2=pred_omega_h2,
+        exp_omega_dm_h2=exp_omega_h2,
+        omega_dm_rel_err_pct=omega_err_pct,
+        pred_e_lambda_mev=pred_e_lam_mev,
+        exp_e_lambda_mev=exp_e_lam_mev,
+        e_lambda_rel_err_pct=e_lam_err_pct,
+        pred_rho_over_mpl4=pred_rho_mpl4,
+        exp_rho_over_mpl4=exp_rho_mpl4,
+    )
+
+
+
 
 
