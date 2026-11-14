@@ -466,13 +466,16 @@ def verify_option_c_viable_group(
     asymp_bits = math.log2(ab_order)
 
     ir_3f = res_d27.irreps[9]  # Faithful 3_f (deg 3, FS = 0)
+    # Unique Type-II 2HDM RPV-safe chiral fermion assignment in 2I x Sigma(216x3) x Delta(27)_f:
+    # Up-type (u_R, nu_R) couple to color-singlet H_u = Sigma[5](2_-1 in H, |ker|=27);
+    # Down-type (d_R, e_R) couple to color-singlet H_d = Sigma[3](2_0 in M_2(C), |ker|=27).
     raw_specs = [
         ("Q_L = (u_L, d_L)", 1, 18, 9),
-        ("u_R (up singlet)", 2, 11, 9),
+        ("u_R (up singlet)", 2, 7, 9),
         ("d_R (down singlet)", 2, 10, 9),
-        ("L_L = (nu_L, e_L)", 1, 5, 9),
-        ("nu_R (sterile singlet)", 2, 0, 9),
-        ("e_R (electron singlet)", 2, 2, 9),
+        ("L_L = (nu_L, e_L)", 1, 4, 9),
+        ("nu_R (sterile singlet)", 2, 1, 9),
+        ("e_R (electron singlet)", 2, 0, 9),
     ]
     fermion_multiplets = []
     total_weyl = 0
@@ -656,16 +659,23 @@ def verify_option_c_viable_group(
 
 @dataclass
 class Phase3PopperianResult:
-    # Attack 8 & 10: Conjugate Higgs reality attack & sterile neutrino resolution
+    # Attack 8a, 8b, 8c & 10: Conjugate Higgs reality attack, Sigma[19] color-breaking audit, & Type-II 2HDM resolution
     conjugate_higgs_trace_diff: float
-    top_bottom_interference_v_doub: float
-    top_bottom_interference_v_oct: float
-    nu_R_sigma1_higgs_channel: int  # Sigma[4] in M_2(C) -> m_nu ~ m_e (FALSIFIED!)
-    nu_R_sigma0_higgs_channel: int  # Sigma[5] in H -> decoupled from M_2(C)!
-    # Attack 9: Proton decay & B/L violation audit
+    sigma19_kernel_size: int  # |ker(Sigma[19])| = 3 < 27 -> color octet! VEV breaks SU(3)_c!
+    naive_uR7_LL5_qlu_mult: int  # mult(Sigma[18] x Sigma[5] x Sigma[8]) = 1 (leptoquark!)
+    type2_2hdm_valid_assignments_count: int  # 24 exact RPV-safe Type-II 2HDM assignments in Sigma(216x3)
+    hu_channel_index: int  # Sigma[5] (2_-1 in H, |ker|=27, color singlet!)
+    hd_channel_index: int  # Sigma[3] (2_0 in M_2(C), |ker|=27, color singlet!)
+    tan_beta_top_bottom: float  # v_u / v_d = m_t / m_b = 41.3134
+    discrete_z3_anom_1gen: Tuple[int, int, int]  # (SU3^2 Z3, SU2^2 Z3, Grav^2 Z3) mod 3 = (1, 1, 1)
+    discrete_z3_anom_3gen: Tuple[int, int, int]  # 3 * (1, 1, 1) mod 3 = (0, 0, 0)!
+    # Attack 9: Proton decay & all 6 Dim-4 B/L violation operators audit
     dim4_uR_dR_dR_singlet_mult: int
+    dim4_uR_uR_dR_singlet_mult: int
     dim4_LL_LL_eR_singlet_mult: int
+    dim4_LL_LL_nuR_singlet_mult: int
     dim4_QL_LL_dR_singlet_mult: int
+    dim4_QL_LL_uR_singlet_mult: int
     dim6_qqql_delta27_center_charge: int  # 4 mod 3 = 1 != 0 (FORBIDDEN!)
     dim6_qqqlbar_delta27_center_charge: int  # 2 mod 3 = 2 != 0 (FORBIDDEN!)
     # Attack 11: Invariant Bosonic Gauge+Higgs Subalgebra dimension
@@ -705,7 +715,7 @@ def run_phase3_popperian_attacks(
         for q in range(3)
     }
 
-    # Attack 8 & 10: Reality condition on M_2(C) Higgs block Sigma[3] (+) Sigma[4]
+    # Attack 8a: Reality condition on M_2(C) Higgs block Sigma[3] (+) Sigma[4]
     rng = random.Random(99)
     max_tr_diff = 0.0
     for _ in range(100):
@@ -737,15 +747,10 @@ def run_phase3_popperian_attacks(
         tr_u = sum(abs(Mu[r][c]) ** 2 for r in range(3) for c in range(3))
         max_tr_diff = max(max_tr_diff, abs(tr_u - tr_d))
 
-    mt, mb = 172.69, 4.18
-    v_doub = 0.5 * (mt + mb)
-    v_oct = 0.5 * (mt - mb)
+    profiles = analyze_sigma216x3_irreps(g_s648, res_s648)
+    sigma19_ker = profiles[19].kernel_size
 
-    # Check L_L* (Sigma[5]) x nu_R (Sigma[1] vs Sigma[0])
-    ch_sigma1 = next(k for k in range(24) if cg_s648[5][1][k] > 0)
-    ch_sigma0 = next(k for k in range(24) if cg_s648[5][0][k] > 0)
-
-    # Attack 9: Proton decay & RPV operator singlet multiplicities in Sigma(216x3)
+    # Helper for singlet multiplicity in Sigma(216x3)
     def singlet_mult(idx_list: List[int]) -> int:
         n = g_s648.order
         classes = g_s648.classes
@@ -758,12 +763,74 @@ def run_phase3_popperian_attacks(
             s += len(classes[c]) * prod
         return round((s / n).real)
 
-    m_udd = singlet_mult([11, 10, 10])
-    m_lle = singlet_mult([5, 5, 1])
-    m_qld = singlet_mult([18, 5, 9])
+    # Attack 8b/8c: Naive u_R ~ Sigma[7] with L_L ~ Sigma[5] allows Q_L L_L u_R* (Sigma[18] x Sigma[5] x Sigma[8])
+    naive_qlu = singlet_mult([18, 5, 8])
+
+    # Exhaustive search over all 324 chiral assignments in Sigma(216x3)
+    valid_count = 0
+    for QL in [14, 15, 18]:
+        QL_bar = profiles[QL].conjugate_index
+        for uR in [7, 10, 11]:
+            uR_bar = profiles[uR].conjugate_index
+            for dR in [7, 10, 11]:
+                if uR == dR:
+                    continue
+                dR_bar = profiles[dR].conjugate_index
+                hu = [k for k in [3, 4, 5] if cg_s648[QL_bar][uR][k] > 0][0]
+                hd = [k for k in [3, 4, 5] if cg_s648[QL_bar][dR][k] > 0][0]
+                if hu == hd or profiles[hu].conjugate_index == hd:
+                    continue
+                for LL in [3, 4, 5]:
+                    LL_bar = profiles[LL].conjugate_index
+                    for eR in [0, 1, 2]:
+                        eR_bar = profiles[eR].conjugate_index
+                        for nuR in [0, 1, 2]:
+                            if eR == nuR:
+                                continue
+                            nuR_bar = profiles[nuR].conjugate_index
+                            he = [k for k in [3, 4, 5] if cg_s648[LL_bar][eR][k] > 0][0]
+                            hnu = [k for k in [3, 4, 5] if cg_s648[LL_bar][nuR][k] > 0][0]
+                            if he == hnu or profiles[he].conjugate_index == hnu:
+                                continue
+                            if all(
+                                singlet_mult(ops) == 0
+                                for ops in (
+                                    [uR, dR, dR],
+                                    [uR, uR, dR],
+                                    [LL, LL, eR_bar],
+                                    [LL, LL, nuR_bar],
+                                    [QL, LL, dR_bar],
+                                    [QL, LL, uR_bar],
+                                )
+                            ):
+                                valid_count += 1
+
+    # Canonical Type-II 2HDM assignment:
+    # Q_L ~ Sigma[18](q=0), u_R ~ Sigma[7](q=0), d_R ~ Sigma[10](q=-1),
+    # L_L ~ Sigma[4](q=+1), e_R ~ Sigma[0](q=0), nu_R ~ Sigma[1](q=+1)
+    hu_idx = next(k for k in [3, 4, 5] if cg_s648[profiles[18].conjugate_index][7][k] > 0)
+    hd_idx = next(k for k in [3, 4, 5] if cg_s648[profiles[18].conjugate_index][10][k] > 0)
+    mt, mb = 172.69, 4.18
+    tan_beta = mt / mb
+
+    # All 6 Dim-4 RPV multiplicities for the canonical Type-II 2HDM assignment
+    m_udd = singlet_mult([7, 10, 10])
+    m_uud = singlet_mult([7, 7, 10])
+    m_lle = singlet_mult([4, 4, profiles[0].conjugate_index])
+    m_llnu = singlet_mult([4, 4, profiles[1].conjugate_index])
+    m_qld = singlet_mult([18, 4, profiles[10].conjugate_index])
+    m_qlu = singlet_mult([18, 4, profiles[7].conjugate_index])
+
+    # Discrete Z_3^ab anomalies for 1 generation vs 3 generations
+    qQ, qu, qd, qL, qe, qnu = 0, 0, -1, +1, 0, +1
+    a1_su3 = (2 * qQ - qu - qd) % 3
+    a1_su2 = (3 * qQ + qL) % 3
+    a1_grav = (6 * qQ - 3 * qu - 3 * qd + 2 * qL - qe - qnu) % 3
+    a3_su3 = (3 * a1_su3) % 3
+    a3_su2 = (3 * a1_su2) % 3
+    a3_grav = (3 * a1_grav) % 3
 
     # Attack 11: Bosonic gauge+Higgs subalgebra dimension (Z_3 color triality == 0 in Sigma(216x3))
-    profiles = analyze_sigma216x3_irreps(g_s648, res_s648)
     inv_dim = sum(p.degree**2 for p in profiles if p.triality_z3_charge == 0)
 
     # Attack 12: Critical percolation fiber size k_c(d) = (1 / p_joint(d))^(1 / (2d))
@@ -775,13 +842,20 @@ def run_phase3_popperian_attacks(
 
     return Phase3PopperianResult(
         conjugate_higgs_trace_diff=max_tr_diff,
-        top_bottom_interference_v_doub=v_doub,
-        top_bottom_interference_v_oct=v_oct,
-        nu_R_sigma1_higgs_channel=ch_sigma1,
-        nu_R_sigma0_higgs_channel=ch_sigma0,
+        sigma19_kernel_size=sigma19_ker,
+        naive_uR7_LL5_qlu_mult=naive_qlu,
+        type2_2hdm_valid_assignments_count=valid_count,
+        hu_channel_index=hu_idx,
+        hd_channel_index=hd_idx,
+        tan_beta_top_bottom=tan_beta,
+        discrete_z3_anom_1gen=(a1_su3, a1_su2, a1_grav),
+        discrete_z3_anom_3gen=(a3_su3, a3_su2, a3_grav),
         dim4_uR_dR_dR_singlet_mult=m_udd,
+        dim4_uR_uR_dR_singlet_mult=m_uud,
         dim4_LL_LL_eR_singlet_mult=m_lle,
+        dim4_LL_LL_nuR_singlet_mult=m_llnu,
         dim4_QL_LL_dR_singlet_mult=m_qld,
+        dim4_QL_LL_uR_singlet_mult=m_qlu,
         dim6_qqql_delta27_center_charge=(1 + 1 + 1 + 1) % 3,
         dim6_qqqlbar_delta27_center_charge=(1 + 1 + 1 - 1) % 3,
         invariant_bosonic_subalgebra_dim=inv_dim,

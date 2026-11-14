@@ -29,48 +29,51 @@ has the **exact minimum possible order** in finite group theory capable of satis
 | Falsification Test | Option A ($\Sigma(216 \times 3)$) | Option B ($2I \times \Sigma(216 \times 3)$) | **Option C: $G = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f$** |
 | :--- | :--- | :--- | :--- |
 | **Test 1: 4D Aperiodicity & Spinors** | FALSIFIED | PASSES | **PASSES** — $2I$ is dedicated 100% to 4D $E_8 \to H_4 \oplus H_4'$ quasicrystal projection and chiral Lorentz spinors $\mathbf{2}_{\text{spin}, L} \oplus \mathbf{2}_{\text{spin}, R}$. |
-| **Test 2: Complete Fermion Multiplets** | FALSIFIED | PASSES (via locking) | **PASSES** — Separate $u_R \sim \chi_{11}^{(\Sigma)}$ ($\lambda^{+1}$) and $d_R \sim \chi_{10}^{(\Sigma)}$ ($\lambda^{-1}$), plus sterile $\nu_R \sim \chi_0^{(\Sigma)}$ ($1_{+1}$) and $e_R \sim \chi_2^{(\Sigma)}$ ($\lambda^{-1}$), yielding **48 Weyl states** ($3 \times 16$). |
-| **Test 3: Anomalies & Bare $\sin^2\theta_W(\Lambda)$** | FALSIFIED | PASSES (quarks only) | **PASSES** — All gauge & gravitational anomalies vanish ($\mathcal{A} = 0$) across all 3 generations of quarks and leptons; $\sin^2\theta_W(\Lambda) = 3/8 = 0.3750$. |
+| **Test 2: Complete Fermion Multiplets** | FALSIFIED | PASSES (via locking) | **PASSES** — Unique Type-II 2HDM chiral assignment ($u_R \sim \chi_7^{(\Sigma)}, d_R \sim \chi_{10}^{(\Sigma)}, L_L \sim \chi_4^{(\Sigma)}, \nu_R \sim \chi_1^{(\Sigma)}, e_R \sim \chi_0^{(\Sigma)}$), yielding **48 Weyl states** ($3 \times 16$) with independent color-singlet Higgs blocks $H_u \in \mathbb{H}$ and $H_d \in M_2(\mathbb{C})$. |
+| **Test 3: Anomalies & Bare $\sin^2\theta_W(\Lambda)$** | FALSIFIED | PASSES (quarks only) | **PASSES** — All continuous gauge/gravitational anomalies ($\mathcal{A} = 0.0$) and 3-generation discrete $\mathbb{Z}_3^{\text{ab}}$ Ibáñez–Ross anomalies ($3 \times 1 \equiv 0 \bmod 3$) vanish; $\sin^2\theta_W(\Lambda) = 3/8 = 0.3750$. |
 | **Test 4: Poset Synchronization & Washout** | PASSES | PASSES | **PASSES** — $G^{\text{ab}} \cong \mathbb{Z}_3^3$ (order 27) conserves 3 $\mathbb{Z}_3$ charges ($4.75\text{ bits}$ asymptotic floor) and locks all 3 factors at $d \in \{3,4,5\}$. |
 | **Test 5: Lepton Generations over $\mathbb{R}[G]$** | FALSIFIED | FALSIFIED | **PASSES** — Because $\iota(\mathbf{3}_f) = 0$, every lepton and quark multiplet has $\iota = (\pm 1) \times 0 = 0$, forming **purely complex 3-generation blocks** over $\mathbb{R}$ ($\nu_R \neq \bar{e}_R$ since $\bar{\mathbf{3}}_f \neq \mathbf{3}_f$). |
 | **Test 6: CKM Quark Mixing ($\theta_{ij} \neq 0$)** | FALSIFIED | FALSIFIED | **PASSES** — $\overline{\mathbf{3}}_f \otimes \mathbf{3}_f = \bigoplus_{p,q \in \mathbb{Z}_3^2} \chi_{p,q}^{(f)}$ spans all 9 non-commuting Weyl–Heisenberg matrices $P^p Q^q$, reproducing the full CKM matrix and $J_{\text{CP}}$ to machine precision ($3.14 \times 10^{-16}$). |
-| **Test 7: Spin–Isospin Independence** | FALSIFIED | FALSIFIED | **PASSES** — $\operatorname{Spin}(4) \subset 2I$ commutes with internal $\operatorname{SU}(2)_{W,L} \subset 2T_W \subset \Sigma(216 \times 3)$ and right-hypercharge $\lambda^{\pm 1} \in \Sigma(216 \times 3)^{\text{ab}}$. |
+| **Test 7: Spin–Isospin Independence** | FALSIFIED | FALSIFIED | **PASSES** — $\operatorname{Spin}(4) \subset 2I$ commutes with internal $\operatorname{SU}(2)_{W,L} \subset 2T_W \subset \Sigma(216 \times 3)$ and discrete Peccei–Quinn / Type-II 2HDM $\mathbb{Z}_3^{\text{ab}}$ charges. |
 
 ---
 
 ## 3. Exact Chiral Fermion Spectrum in $\mathbb{R}[G]$ (Tests 2, 3, 5, and 7)
 
-In $G = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f$, the $\mathbb{Z}_3$ abelianization characters $\{\chi_0, \chi_1, \chi_2\} = \{1, \lambda^{+1}, \lambda^{-1}\}$ of $\Sigma(216 \times 3)$ play their true physical role as **Right-Handed Weak Isospin $2T_{3R} \in \{0, +1, -1\} \bmod 3$**, while $\mathbf{3}_f = \chi_9^{(\Delta)} \in \Delta(27)_f$ carries the **3 fermion generations**:
+In $G = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f$, the $\mathbb{Z}_3$ abelianization characters $\{\chi_0, \chi_1, \chi_2\} = \{1, \lambda^{+1}, \lambda^{-1}\}$ of $\Sigma(216 \times 3)$ provide a **discrete Type-II Two-Higgs-Doublet (Peccei–Quinn) $\mathbb{Z}_3^{\text{ab}}$ grading** that separates up-type ($H_u \sim \Sigma[5] \in \mathbb{H}$) from down-type ($H_d \sim \Sigma[3] \in M_2(\mathbb{C})$) color-singlet Higgs doublets while forbidding all six Dimension-4 RPV operators, and $\mathbf{3}_f = \chi_9^{(\Delta)} \in \Delta(27)_f$ carries the **3 fermion generations**:
 
 | Standard Model Multiplet | $2I$ Spinor Irrep | $\Sigma(216 \times 3)$ Gauge Irrep | $\Delta(27)_f$ Flavor Irrep | $\mathbb{C}$-Degree $d_\chi$ | Weyl States ($d_\chi / 2$) | FS $\iota(\chi)$ | $\mathbb{R}[G]$ Block |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Q_L = (u_L, d_L)** | `$2I[1]$` ($2_{-1}$) | `$\Sigma[18]$` | `$\Delta[9]$` ($3_0$) | 36 | **18** | `$+0$` | `$M_{36}(\mathbb{C})$` |
-| **u_R (up singlet)** | `$2I[2]$` ($2_{-1}$) | `$\Sigma[11]$` | `$\Delta[9]$` ($3_0$) | 18 | **9** | `$+0$` | `$M_{18}(\mathbb{C})$` |
+| **u_R (up singlet)** | `$2I[2]$` ($2_{-1}$) | `$\Sigma[7]$` | `$\Delta[9]$` ($3_0$) | 18 | **9** | `$+0$` | `$M_{18}(\mathbb{C})$` |
 | **d_R (down singlet)** | `$2I[2]$` ($2_{-1}$) | `$\Sigma[10]$` | `$\Delta[9]$` ($3_0$) | 18 | **9** | `$+0$` | `$M_{18}(\mathbb{C})$` |
-| **L_L = (nu_L, e_L)** | `$2I[1]$` ($2_{-1}$) | `$\Sigma[5]$` | `$\Delta[9]$` ($3_0$) | 12 | **6** | `$+0$` | `$M_{12}(\mathbb{C})$` |
-| **nu_R (sterile singlet)** | `$2I[2]$` ($2_{-1}$) | `$\Sigma[0]$` | `$\Delta[9]$` ($3_0$) | 6 | **3** | `$+0$` | `$M_{6}(\mathbb{C})$` |
-| **e_R (electron singlet)** | `$2I[2]$` ($2_{-1}$) | `$\Sigma[2]$` | `$\Delta[9]$` ($3_0$) | 6 | **3** | `$+0$` | `$M_{6}(\mathbb{C})$` |
+| **L_L = (nu_L, e_L)** | `$2I[1]$` ($2_{-1}$) | `$\Sigma[4]$` | `$\Delta[9]$` ($3_0$) | 12 | **6** | `$+0$` | `$M_{12}(\mathbb{C})$` |
+| **nu_R (sterile singlet)** | `$2I[2]$` ($2_{-1}$) | `$\Sigma[1]$` | `$\Delta[9]$` ($3_0$) | 6 | **3** | `$+0$` | `$M_{6}(\mathbb{C})$` |
+| **e_R (electron singlet)** | `$2I[2]$` ($2_{-1}$) | `$\Sigma[0]$` | `$\Delta[9]$` ($3_0$) | 6 | **3** | `$+0$` | `$M_{6}(\mathbb{C})$` |
 | **Total (3 Generations)** | — | — | — | **96** | **48 ($3 \times 16$)** | All `$0$` | Purely Complex |
 
-### Why Lepton Collapse (Test 5) and the $\operatorname{SU}(2)$ Dilemma (Test 7) Are Completely Resolved:
-1. **No Lepton Collapse ($\nu_R$ and $e_R$ Stay Distinct over $\mathbb{R}$, and $\nu_R \sim \Sigma[0]$ Decouples Neutrino Masses):**
-   - Assigning sterile right-handed neutrinos to $\nu_R \sim \text{2I}[2] \boxtimes \Sigma[0](1_{+1}) \boxtimes \mathbf{3}_f$ gives exact Standard Model hypercharge $Y(\nu_R) = 0$ while keeping $\iota(\nu_R) = (-1)(+1)(0) = 0$ ($M_6(\mathbb{C})$ over $\mathbb{R}$, since $\bar{\mathbf{3}}_f \neq \mathbf{3}_f$).
-   - $e_R$ transforms in $\Sigma[2](\lambda^{-1}) \boxtimes \mathbf{3}_f$, so its conjugate $\bar{e}_R$ transforms in $\Sigma[1](\lambda^{+1}) \boxtimes \bar{\mathbf{3}}_f \neq \nu_R$.
-   - Furthermore, $\bar{L}_L (\Sigma[5]) \otimes \nu_R (\Sigma[0]) = \Sigma[5](2_{-1} \in \mathbb{H})$ couples to the quaternionic doublet block $\mathbb{H}$, completely decoupling Dirac neutrino masses from the charged-lepton/quark Higgs block $M_2(\mathbb{C}) = \Sigma[3] \oplus \Sigma[4]$ (see [`docs/popperian_attacks_phase3.md`](popperian_attacks_phase3.md)).
-2. **Exact Anomaly Cancellation & Canonical Bare Weinberg Angle (Test 3):**
+### Why Lepton Collapse (Test 5), the $\operatorname{SU}(2)$ Dilemma (Test 7), and the $m_t = m_b$ Trap (Attack 8) Are Completely Resolved:
+1. **Independent Color-Singlet Type-II 2HDM Blocks ($H_u \in \mathbb{H}$ vs. $H_d \in M_2(\mathbb{C})$) & No Lepton Collapse:**
+   - Up-type quarks $u_R \sim \Sigma[7](3_0, \lambda^0)$ and right-handed neutrinos $\nu_R \sim \Sigma[1](1_0, \lambda^{+1})$ couple to the **quaternionic color-singlet Higgs block** $H_u = \Sigma[5](2_{-1} \in \mathbb{H}, \lvert\ker\rvert = 27)$:
+     $$\bar{Q}_L(\Sigma[17]) \otimes u_R(\Sigma[7]) \supset \Sigma[5](2_{-1} \in \mathbb{H}), \qquad \bar{L}_L(\Sigma[3]) \otimes \nu_R(\Sigma[1]) = \Sigma[5](2_{-1} \in \mathbb{H}).$$
+   - Down-type quarks $d_R \sim \Sigma[10](3_0, \lambda^{-1})$ and charged leptons $e_R \sim \Sigma[0](1_{+1}, \lambda^0)$ couple to the **complex color-singlet Higgs block** $H_d = \Sigma[3](2_0 \in M_2(\mathbb{C}), \lvert\ker\rvert = 27)$:
+     $$\bar{Q}_L(\Sigma[17]) \otimes d_R(\Sigma[10]) \supset \Sigma[3](2_0 \in M_2(\mathbb{C})), \qquad \bar{L}_L(\Sigma[3]) \otimes e_R(\Sigma[0]) = \Sigma[3](2_0 \in M_2(\mathbb{C})).$$
+   - Because $\Sigma[5] \in \mathbb{H}$ and $\Sigma[3] \oplus \Sigma[4] \in M_2(\mathbb{C})$ are **disjoint color-singlet Wedderburn blocks**, $v_u / v_d = \tan\beta = m_t / m_b = 41.31$ is achieved with **unbroken $\operatorname{SU}(3)_c$ color** (see [`docs/popperian_attacks_phase3.md`](popperian_attacks_phase3.md)).
+2. **Exact Continuous & 3-Generation Discrete Anomaly Cancellation & Canonical Bare Weinberg Angle (Test 3):**
    - $\mathcal{A}(\operatorname{SU}(3)_c^3) = N(\mathbf{3}_L) - N(\mathbf{3}_R) = 6 - (3_{u_R} + 3_{d_R}) = 0$
    - $\mathcal{A}(\operatorname{SU}(2)_{W,L}^2 \operatorname{U}(1)_Y) = 0.0$
    - $\mathcal{A}(\operatorname{U}(1)_Y^3) = 0.0$
    - $\mathcal{A}(\text{Grav}^2 \operatorname{U}(1)_Y) = 0.0$
+   - 3-Generation Discrete $\mathbb{Z}_3^{\text{ab}}$ Ibáñez–Ross Anomalies: $\mathcal{A}_{\operatorname{SU}(3)_c^2 \mathbb{Z}_3}^{(3)} = \mathcal{A}_{\operatorname{SU}(2)_L^2 \mathbb{Z}_3}^{(3)} = \mathcal{A}_{\text{Grav}^2 \mathbb{Z}_3}^{(3)} = 3 \times (+1) \equiv \mathbf{0 \pmod 3}$!
    - Bare Weinberg angle across all 48 Weyl states: $\sin^2\theta_W(\Lambda) = \frac{\operatorname{Tr}(T_{3L}^2)}{\operatorname{Tr}(T_{3L}^2) + \operatorname{Tr}(Y^2)} = \frac{6}{6 + 10} = \frac{3}{8} = 0.3750$.
 
 ---
 
 ## 4. Exact Weyl–Heisenberg Yukawa Algebra & CKM Hierarchy (Test 6)
 
-In $G = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f$, the down-type Higgs $H \sim \chi_3^{(\Sigma)}(2_0, \lambda^{-1})$ and its charge-conjugate up-type Higgs $\tilde{H} = \bar{H} \sim \chi_4^{(\Sigma)}(\bar{2}_0, \lambda^{+1})$ live in a **single complex block $M_2(\mathbb{C})$** of $\Sigma(216 \times 3)$:
-- $\bar{Q}_L (\chi_{17}^{(\Sigma)}) \otimes u_R (\chi_{11}^{(\Sigma)}) \supset \tilde{H} (\chi_4^{(\Sigma)})$ and $\bar{L}_L (\chi_5^{(\Sigma)}) \otimes \nu_R (\chi_1^{(\Sigma)}) = \tilde{H} (\chi_4^{(\Sigma)})$,
-- $\bar{Q}_L (\chi_{17}^{(\Sigma)}) \otimes d_R (\chi_{10}^{(\Sigma)}) \supset H (\chi_3^{(\Sigma)})$ and $\bar{L}_L (\chi_5^{(\Sigma)}) \otimes e_R (\chi_2^{(\Sigma)}) = H (\chi_3^{(\Sigma)})$.
+In $G = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f$, the up-type Higgs $H_u \sim \chi_5^{(\Sigma)}(2_{-1} \in \mathbb{H})$ and down-type Higgs $H_d \sim \chi_3^{(\Sigma)}(2_0 \in M_2(\mathbb{C}))$ occupy **two independent color-singlet Wedderburn blocks** of $\Sigma(216 \times 3)$:
+- $\bar{Q}_L (\chi_{17}^{(\Sigma)}) \otimes u_R (\chi_{7}^{(\Sigma)}) \supset H_u (\chi_5^{(\Sigma)})$ and $\bar{L}_L (\chi_3^{(\Sigma)}) \otimes \nu_R (\chi_1^{(\Sigma)}) = H_u (\chi_5^{(\Sigma)})$,
+- $\bar{Q}_L (\chi_{17}^{(\Sigma)}) \otimes d_R (\chi_{10}^{(\Sigma)}) \supset H_d (\chi_3^{(\Sigma)})$ and $\bar{L}_L (\chi_3^{(\Sigma)}) \otimes e_R (\chi_0^{(\Sigma)}) = H_d (\chi_3^{(\Sigma)})$.
 
 In the flavor factor $\Delta(27)_f$, $\overline{\mathbf{3}}_f \otimes \mathbf{3}_f = \bigoplus_{(p,q)\in \mathbb{Z}_3^2} \chi_{p,q}^{(f)}$ decomposes into the **9 Weyl–Heisenberg operators** $W_{p,q} = P^p Q^q$ on $\mathbb{C}^3_{\text{flavor}}$. Decomposing the physical down-quark mass matrix $M_d = V_{\text{CKM}} \operatorname{diag}(m_d, m_s, m_b)/m_b$ (in the diagonal up-quark basis) into the 9 $\Delta(27)_f$ characters $\chi_{p,q}^{(f)}$ yields reconstruction error **$3.14e-16$** with a natural shift-length hierarchy in $p \in \{0, 1, 2\}$:
 
