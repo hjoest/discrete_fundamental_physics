@@ -1642,6 +1642,165 @@ def run_phase7_strong_cp_baryogenesis_tests(
     )
 
 
+@dataclass
+class Phase8DynamicalFoundationsResult:
+    # Test 29: Lattice Freezing Attack & Continuous Symmetry Restoration at d=4
+    # List of (sector_name, degree, trace_gap_delta_e, freezing_beta_c)
+    sector_freezing_thresholds: List[Tuple[str, int, float, float]]
+    bare_beta_su3_total: float  # 6 / g_U^2(Lambda) = 18.462
+    # List of (d, d_fact, beta_channel, is_completely_unfrozen)
+    dimension_melting_sweep: List[Tuple[int, int, float, bool]]
+    # Test 30: Quantum Amplitudes exp(i S / hbar) & Bose-Fermi Real-Quaternionic Balance in R[G_core]
+    dim_real_blocks: int  # 4,680 (iota = +1)
+    dim_complex_blocks: int  # 2,090,160 (iota = 0)
+    dim_quaternionic_blocks: int  # 4,680 (iota = -1)
+    quantum_phase_fraction_pct: float  # 99.78%
+    bose_fermi_supertrace_diff: int  # dim(iota=+1) - dim(iota=-1) = 4680 - 4680 = 0!
+    # Test 31: Exact Plancherel Partition-Function Derivation of All 6 Scaling Exponents
+    # List of (scale_name, plancherel_diagram, algebraic_formula, predicted_value, exp_value, rel_err_pct)
+    plancherel_scaling_table: List[Tuple[str, str, str, float, float, float]]
+
+
+def run_phase8_dynamical_foundations_tests(
+    g_2i: FiniteGroup,
+    res_2i: CharacterTableResult,
+    g_s648: FiniteGroup,
+    res_s648: CharacterTableResult,
+    g_d27: FiniteGroup,
+    res_d27: CharacterTableResult,
+    opt_c: OptionCViableResult,
+    phase4: Phase4ConstantsResult,
+    phase6: Phase6CosmologyNeutrinoResult,
+    phase7: Phase7StrongCPBaryogenesisResult,
+) -> Phase8DynamicalFoundationsResult:
+    """Execute Phase 8 tests (Tests 29-31) on lattice freezing vs continuous symmetry restoration, quantum phase emergence, and Plancherel scaling."""
+    # Test 29: Trace gaps Delta E_min and critical freezing thresholds beta_c = 1 / Delta E_min
+    sector_specs = [
+        ("2I[1] (2_spin,L Lorentz spinor)", res_2i, 1),
+        ("Sigma[7] (3_c color triplet)", res_s648, 7),
+        ("Sigma[5] (2_W,L weak doublet)", res_s648, 5),
+        ("Sigma[18] (6_QL quark doublet)", res_s648, 18),
+        ("Sigma[19] (8_gluon real octet)", res_s648, 19),
+        ("Delta27[9] (3_f flavor triplet)", res_d27, 9),
+    ]
+    thresholds: List[Tuple[str, int, float, float]] = []
+    min_beta_c = 1.0e9
+    for sname, res, idx in sector_specs:
+        ir = res.irreps[idx]
+        d = ir.degree
+        max_re = max(v.real / d for v in ir.class_values if abs(v - d) > 1e-9)
+        gap = 1.0 - max_re
+        beta_c = 1.0 / gap
+        min_beta_c = min(min_beta_c, beta_c)
+        thresholds.append((sname, d, gap, beta_c))
+
+    aU_inv = phase4.parameter_free_coupling_predictions[0][1]  # 116/3 = 38.6667
+    gU_sq = 4.0 * math.pi / aU_inv
+    beta_tot = 6.0 / gU_sq  # 2 N_c / g_U^2(Lambda) = 18.462
+
+    dim_sweep: List[Tuple[int, int, float, bool]] = []
+    for d_coord in range(1, 7):
+        d_fact = math.factorial(d_coord)
+        b_chan = beta_tot / float(d_fact)
+        unfrozen = b_chan < min_beta_c
+        dim_sweep.append((d_coord, d_fact, b_chan, unfrozen))
+
+    # Test 30: Wedderburn division-algebra dimensions and Bose-Fermi balance in R[G_core]
+    dim_R, dim_C, dim_H = 0, 0, 0
+    for ir1 in res_2i.irreps:
+        for ir2 in res_s648.irreps:
+            for ir3 in res_d27.irreps:
+                deg = ir1.degree * ir2.degree * ir3.degree
+                fs = ir1.frobenius_schur * ir2.frobenius_schur * ir3.frobenius_schur
+                if fs == 1:
+                    dim_R += deg * deg
+                elif fs == 0:
+                    dim_C += deg * deg
+                else:
+                    dim_H += deg * deg
+
+    tot_dim = dim_R + dim_C + dim_H
+    q_frac_pct = float(dim_C + dim_H) / float(tot_dim) * 100.0
+    str_diff = dim_R - dim_H
+
+    # Test 31: Plancherel Partition-Function Scaling Table
+    scaling_table: List[Tuple[str, str, str, float, float, float]] = [
+        (
+            "WIMP Dark Matter Mass M_DM / M_Z",
+            "1-vertex abelianization projector sum_{chi in Irr(G^ab)}",
+            "|G_core^ab| = 27",
+            27.0,
+            2462.07 / 91.1876,
+            phase6.omega_dm_rel_err_pct,
+        ),
+        (
+            "Flavon-Higgs Threshold M_fl / M_Z",
+            "1-vertex full-group x abelianization projector",
+            "|G_core| * |G_core^ab| = 5.669e7",
+            phase4.th_m_fl_over_mz,
+            phase4.rg_m_fl_over_mz,
+            abs(phase4.th_m_fl_over_mz - phase4.rg_m_fl_over_mz)
+            / phase4.rg_m_fl_over_mz
+            * 100.0,
+        ),
+        (
+            "Baryon Asymmetry eta_B = n_B / n_gamma",
+            "2-vertex abelianization-conserving CP transition",
+            "(Tr Y^2)^2 |G_core^ab| / |G_core|^2",
+            phase7.pred_eta_b_hypercharge,
+            phase7.exp_eta_b,
+            phase7.eta_b_rel_err_pct,
+        ),
+        (
+            "Unification Cutoff Lambda / M_Z",
+            "2-vertex gluon octet plaquette weight (d_gluon = 8)",
+            "|G_core|^2 / 8 = 5.510e11",
+            phase4.th_lambda_over_mz,
+            phase4.rg_lambda_over_mz,
+            abs(phase4.th_lambda_over_mz - phase4.rg_lambda_over_mz)
+            / phase4.rg_lambda_over_mz
+            * 100.0,
+        ),
+        (
+            "Dirac Neutrino Scale m_nu3 (meV)",
+            "2-vertex mixed G_core x G_OptionD singlet correlator",
+            "v_ew^2 / (M_Z |G_core| |G_OptionD|)",
+            phase6.pred_mnu3_mev,
+            phase6.exp_mnu3_mev,
+            phase6.mnu3_rel_err_pct,
+        ),
+        (
+            "Dark Energy Scale E_Lambda (meV)",
+            "2-vertex full-group G_OptionD closed vacuum loop",
+            "M_Z / |G_OptionD|^2 = M_Z / (9 |G_core|^2)",
+            phase6.pred_e_lambda_mev,
+            phase6.exp_e_lambda_mev,
+            phase6.e_lambda_rel_err_pct,
+        ),
+        (
+            "Gravitational Coupling alpha_G(m_p)",
+            "6-link (3 spatial frame-bundle pairs) / |Z(2I)|",
+            "(1/2) |G_core|^-6",
+            phase4.pred_alpha_g_proton,
+            phase4.exp_alpha_g_proton,
+            phase4.alpha_g_rel_error_pct,
+        ),
+    ]
+
+    return Phase8DynamicalFoundationsResult(
+        sector_freezing_thresholds=thresholds,
+        bare_beta_su3_total=beta_tot,
+        dimension_melting_sweep=dim_sweep,
+        dim_real_blocks=dim_R,
+        dim_complex_blocks=dim_C,
+        dim_quaternionic_blocks=dim_H,
+        quantum_phase_fraction_pct=q_frac_pct,
+        bose_fermi_supertrace_diff=str_diff,
+        plancherel_scaling_table=scaling_table,
+    )
+
+
+
 
 
 

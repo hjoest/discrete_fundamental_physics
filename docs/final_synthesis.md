@@ -10,6 +10,8 @@
 - [`docs/yukawa_mass_ratios_phase5.md`](yukawa_mass_ratios_phase5.md) — Phase 5 Fermion & Boson Mass Ratios (Tests 18–21)
 - [`docs/neutrinos_dm_cosmology_phase6.md`](neutrinos_dm_cosmology_phase6.md) — Phase 6 Neutrinos, Dark Matter, & Cosmological Constant (Tests 22–25)
 - [`docs/strong_cp_baryogenesis_phase7.md`](strong_cp_baryogenesis_phase7.md) — Phase 7 Strong CP, Jarlskog $J_{\text{CP}}$, & Baryogenesis (Tests 26–28)
+- [`docs/dynamical_foundations_phase8.md`](dynamical_foundations_phase8.md) — Phase 8 Continuous Symmetry Restoration, Quantum Phase $e^{-iHt/\hbar}$, & Plancherel Scaling (Tests 29–31)
+- [`docs/assessment.md`](assessment.md) — Critical Assessment & Comparison with Foundational Physics Programs
 
 ---
 
