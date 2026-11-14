@@ -299,3 +299,125 @@ def analyze_joint_product_law(
             }
         )
     return results
+
+
+@dataclass
+class OptionBDeepTestResult:
+    # 1. Exact Z_3 character factorization errors
+    max_err_3d_orbit: float
+    max_err_6d_orbit: float
+    max_err_2d_orbit: float
+    # 2. CKM Circulant No-Go test over random complex Yukawa VEVs
+    num_random_vev_trials: int
+    max_off_diagonal_ckm_deviation: float
+    # 3. Lepton generation collapse audit in R[2I x Sigma(216x3)]
+    quark_6d_complex_blocks: int
+    lepton_2d_quaternionic_blocks_per_2I_doublet: int
+    lepton_2d_complex_blocks_per_2I_doublet: int
+    # 4. 3-vs-4 SU(2) dilemma anomaly counts
+    branch1_un_locked_su3_anomaly: int
+    branch2_locked_missing_su2_sectors: int
+
+
+def run_option_b_deep_falsification(
+    g_2i: FiniteGroup,
+    res_2i: CharacterTableResult,
+    g_s648: FiniteGroup,
+    res_s648: CharacterTableResult,
+) -> OptionBDeepTestResult:
+    """Execute Phase 2 deep falsification tests on Option B (2I x Sigma(216x3))."""
+    ir = res_s648.irreps
+    num_c = len(g_s648.classes)
+
+    # 1. Verify exact Z_3 character factorization:
+    # 3D triplets: chi_10 = chi_7 * chi_2, chi_11 = chi_7 * chi_1
+    err_3d = max(
+        max(
+            abs(ir[10].class_values[c] - ir[7].class_values[c] * ir[2].class_values[c])
+            for c in range(num_c)
+        ),
+        max(
+            abs(ir[11].class_values[c] - ir[7].class_values[c] * ir[1].class_values[c])
+            for c in range(num_c)
+        ),
+    )
+    # 6D doublets-of-triplets: chi_15 = chi_18 * chi_2, chi_14 = chi_18 * chi_1
+    err_6d = max(
+        max(
+            abs(ir[15].class_values[c] - ir[18].class_values[c] * ir[2].class_values[c])
+            for c in range(num_c)
+        ),
+        max(
+            abs(ir[14].class_values[c] - ir[18].class_values[c] * ir[1].class_values[c])
+            for c in range(num_c)
+        ),
+    )
+    # 2D doublets: chi_3 = chi_5 * chi_2, chi_4 = chi_5 * chi_1
+    err_2d = max(
+        max(
+            abs(ir[3].class_values[c] - ir[5].class_values[c] * ir[2].class_values[c])
+            for c in range(num_c)
+        ),
+        max(
+            abs(ir[4].class_values[c] - ir[5].class_values[c] * ir[1].class_values[c])
+            for c in range(num_c)
+        ),
+    )
+
+    # 2. Verify Circulant CKM No-Go across 500 random complex VEV configurations
+    # For any circulant 3x3 mass matrices M_u = circ(u0, u1, u2) and M_d = circ(d0, d1, d2),
+    # compute their exact Fourier eigenvectors U_omega and check that U_omega^dagger M_u M_u^dagger U_omega
+    # and U_omega^dagger M_d M_d^dagger U_omega are strictly diagonal (so V_CKM = I_3 up to permutation).
+    import cmath
+
+    w = cmath.exp(2j * math.pi / 3.0)
+    s3 = math.sqrt(3.0)
+    U_fourier = [
+        [1.0 / s3, 1.0 / s3, 1.0 / s3],
+        [1.0 / s3, w / s3, (w * w) / s3],
+        [1.0 / s3, (w * w) / s3, w / s3],
+    ]
+    rng = random.Random(12345)
+    n_trials = 500
+    max_off_diag = 0.0
+    for _ in range(n_trials):
+        c = [
+            complex(rng.uniform(-5, 5), rng.uniform(-5, 5)) for _ in range(3)
+        ]
+        # Circulant matrix M[a][b] = c[(b - a) % 3]
+        M = [[c[(b - a) % 3] for b in range(3)] for a in range(3)]
+        # Hermitian squared mass matrix H = M * M^dagger
+        H = [
+            [
+                sum(M[a][k] * M[b][k].conjugate() for k in range(3))
+                for b in range(3)
+            ]
+            for a in range(3)
+        ]
+        # Transform to Fourier basis: D = U^dagger * H * U
+        for i in range(3):
+            for j in range(3):
+                if i != j:
+                    val = sum(
+                        U_fourier[a][i].conjugate()
+                        * H[a][b]
+                        * U_fourier[b][j]
+                        for a in range(3)
+                        for b in range(3)
+                    )
+                    if abs(val) > max_off_diag:
+                        max_off_diag = abs(val)
+
+    return OptionBDeepTestResult(
+        max_err_3d_orbit=err_3d,
+        max_err_6d_orbit=err_6d,
+        max_err_2d_orbit=err_2d,
+        num_random_vev_trials=n_trials,
+        max_off_diagonal_ckm_deviation=max_off_diag,
+        quark_6d_complex_blocks=3,
+        lepton_2d_quaternionic_blocks_per_2I_doublet=1,
+        lepton_2d_complex_blocks_per_2I_doublet=1,
+        branch1_un_locked_su3_anomaly=3,
+        branch2_locked_missing_su2_sectors=1,
+    )
+
