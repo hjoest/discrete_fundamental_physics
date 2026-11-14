@@ -863,4 +863,251 @@ def run_phase3_popperian_attacks(
     )
 
 
+@dataclass
+class Phase4ConstantsResult:
+    # Test 13: Single-step RGE table for N_H = 1, 2, 6, 7, 8, 9
+    # (N_H, log10_Lambda, alpha_U_inv, alpha_em_Lambda_inv, pred_sin2_tw_MZ, pred_alpha_s_MZ)
+    single_step_rge_table: List[Tuple[int, float, float, float, float, float]]
+    # Two-step (N_H = 2 -> 18) exact unification scales & group-invariant comparison
+    rg_m_fl_gev: float
+    rg_lambda_gev: float
+    rg_m_fl_over_mz: float
+    th_m_fl_over_mz: float  # |G| * |G^ab| = 5.6687e7
+    rg_lambda_over_mz: float
+    th_lambda_over_mz: float  # |G|^2 / 8 = 5.5100e11
+    rg_alpha_u_inv: float
+    rg_alpha_em_lambda_inv: float
+    # Test 14: Parameter-free predictions from alpha_U^-1(Lambda) = 36 + 8/3 = 116/3 and (8/3)*ln|G|
+    # (formula_name, aU_inv, a_em_Lambda_inv, pred_a_em_MZ_inv, pred_a_em_0_inv, pred_sin2_MZ, pred_alpha_s_MZ)
+    parameter_free_coupling_predictions: List[
+        Tuple[str, float, float, float, float, float, float]
+    ]
+    # Test 15: Gravitational coupling constant alpha_G(m_p) and Planck hierarchy M_Pl / m_p
+    exp_alpha_g_proton: float
+    pred_alpha_g_proton: float  # (1/2) * |G|^-6
+    alpha_g_rel_error_pct: float
+    exp_mpl_over_mp: float
+    pred_mpl_over_mp: float  # sqrt(2) * |G|^3
+    mpl_rel_error_pct: float
+    # Test 16: CKM vs PMNS Weyl-Heisenberg Clock (p=0) vs Shift (p=1,2) fractions
+    ckm_clock_fraction: float
+    ckm_shift_fraction: float
+    pmns_clock_fraction: float
+    pmns_shift_fraction: float
+    qlc_theta13_deg_raw: float  # arcsin(sin(theta_C)/sqrt(2)) = 9.15 deg
+    exp_theta13_deg: float  # 8.54 deg
+
+
+def run_phase4_constants_tests(opt_c: OptionCViableResult) -> Phase4ConstantsResult:
+    """Execute Phase 4 quantitative tests on the four coupling constants and CKM/PMNS mixing dichotomy."""
+    import cmath
+
+    MZ = 91.1876
+    alpha_em_MZ_inv_exp = 127.951
+    alpha_em_0_inv_exp = 137.035999
+    sin2_tw_MZ_exp = 0.23121
+    alpha_s_MZ_exp = 0.1179
+
+    alpha_2_exp_inv = alpha_em_MZ_inv_exp * sin2_tw_MZ_exp
+    alpha_1_exp_inv = (3.0 / 5.0) * alpha_em_MZ_inv_exp * (1.0 - sin2_tw_MZ_exp)
+    alpha_3_exp_inv = 1.0 / alpha_s_MZ_exp
+
+    # Test 13a: Single-step RGE sweep across N_H in {1, 2, 6, 7, 8, 9}
+    single_step_table: List[Tuple[int, float, float, float, float, float]] = []
+    for n_h in (1, 2, 6, 7, 8, 9):
+        b1 = 4.0 + 0.1 * n_h
+        b2 = -10.0 / 3.0 + n_h / 6.0
+        b3 = -7.0
+        # From (alpha_1, alpha_2) unification -> predict alpha_s(M_Z)
+        t12 = 2.0 * math.pi * (alpha_1_exp_inv - alpha_2_exp_inv) / (b1 - b2)
+        aU_12 = alpha_1_exp_inv - (b1 / (2.0 * math.pi)) * t12
+        a3_pred_inv = aU_12 + (b3 / (2.0 * math.pi)) * t12
+        as_pred = 1.0 / a3_pred_inv
+        # From (alpha_em, alpha_s) -> predict sin^2(theta_W)(M_Z) and Lambda
+        denom = (5.0 / 3.0) * b1 + b2 - (8.0 / 3.0) * b3
+        t_ems = (
+            2.0
+            * math.pi
+            * (alpha_em_MZ_inv_exp - (8.0 / 3.0) * alpha_3_exp_inv)
+            / denom
+        )
+        lam_ems = MZ * math.exp(t_ems)
+        aU_ems = alpha_3_exp_inv - (b3 / (2.0 * math.pi)) * t_ems
+        a2_pred_inv = aU_ems + (b2 / (2.0 * math.pi)) * t_ems
+        sin2_pred = a2_pred_inv / alpha_em_MZ_inv_exp
+        single_step_table.append(
+            (
+                n_h,
+                math.log10(lam_ems),
+                aU_ems,
+                (8.0 / 3.0) * aU_ems,
+                sin2_pred,
+                as_pred,
+            )
+        )
+
+    # Test 13b: Two-step RG flow (N_H = 2 below M_fl, N_H = 18 above M_fl)
+    b1_low, b2_low, b3_low = 4.2, -3.0, -7.0
+    b1_hi, b2_hi, b3_hi = 5.8, -1.0 / 3.0, -7.0
+    A11, A12 = b1_low - b2_low, b1_hi - b2_hi
+    A21, A22 = b2_low - b3_low, b2_hi - b3_hi
+    R1 = 2.0 * math.pi * (alpha_1_exp_inv - alpha_2_exp_inv)
+    R2 = 2.0 * math.pi * (alpha_2_exp_inv - alpha_3_exp_inv)
+    det = A11 * A22 - A12 * A21
+    t_low_rg = (R1 * A22 - R2 * A12) / det
+    t_hi_rg = (A11 * R2 - A21 * R1) / det
+    t_tot_rg = t_low_rg + t_hi_rg
+
+    m_fl_rg = MZ * math.exp(t_low_rg)
+    lam_rg = MZ * math.exp(t_tot_rg)
+    aU_rg = alpha_3_exp_inv - (b3_low * t_low_rg + b3_hi * t_hi_rg) / (2.0 * math.pi)
+    a_em_lam_rg = (8.0 / 3.0) * aU_rg
+
+    G_ord = float(opt_c.total_order)
+    Gab_ord = float(opt_c.abelianization_order)
+    th_mfl_ratio = G_ord * Gab_ord
+    th_lam_ratio = (G_ord**2) / 8.0
+
+    # Test 14: Parameter-free predictions using M_fl = M_Z |G||G^ab| and Lambda = M_Z |G|^2 / 8
+    t_low_th = math.log(th_mfl_ratio)
+    t_hi_th = math.log(th_lam_ratio / th_mfl_ratio)
+    d1 = (b1_low * t_low_th + b1_hi * t_hi_th) / (2.0 * math.pi)
+    d2 = (b2_low * t_low_th + b2_hi * t_hi_th) / (2.0 * math.pi)
+    d3 = (b3_low * t_low_th + b3_hi * t_hi_th) / (2.0 * math.pi)
+    qed_low_shift = alpha_em_0_inv_exp - alpha_em_MZ_inv_exp
+
+    param_free_preds: List[Tuple[str, float, float, float, float, float, float]] = []
+    for label, aU_th in [
+        (
+            "Formula A: N_quark + dim(M_8(R))/dim(R[2T]) = 36 + 8/3 = 116/3",
+            36.0 + 8.0 / 3.0,
+        ),
+        (
+            "Formula B: (8/3) ln|G| = (1/sin^2 theta_W(Lambda)) ln(2,099,520)",
+            (8.0 / 3.0) * math.log(G_ord),
+        ),
+    ]:
+        a1_mz = aU_th + d1
+        a2_mz = aU_th + d2
+        a3_mz = aU_th + d3
+        a_em_mz = (5.0 / 3.0) * a1_mz + a2_mz
+        a_em_0 = a_em_mz + qed_low_shift
+        sin2_mz = a2_mz / a_em_mz
+        as_mz = 1.0 / a3_mz
+        param_free_preds.append(
+            (label, aU_th, (8.0 / 3.0) * aU_th, a_em_mz, a_em_0, sin2_mz, as_mz)
+        )
+
+    # Test 15: Gravitational coupling constant alpha_G(m_p) and Planck hierarchy
+    exp_alpha_g = 5.906e-39
+    pred_alpha_g = 0.5 * (G_ord**-6)
+    err_alpha_g = abs(pred_alpha_g - exp_alpha_g) / exp_alpha_g * 100.0
+
+    exp_mpl_mp = 1.220890e19 / 0.938272088  # M_Pl / m_p = 1.30121e19
+    pred_mpl_mp = math.sqrt(2.0) * (G_ord**3)
+    err_mpl_mp = abs(pred_mpl_mp - exp_mpl_mp) / exp_mpl_mp * 100.0
+
+    # Test 16: CKM vs PMNS Weyl-Heisenberg Clock (p=0) vs Shift (p=1,2) fractions
+    ckm_p0_sq = sum(mag**2 for p, _q, mag, _ph in opt_c.wh_weights_by_shift if p == 0)
+    ckm_p12_sq = sum(mag**2 for p, _q, mag, _ph in opt_c.wh_weights_by_shift if p != 0)
+    ckm_tot = ckm_p0_sq + ckm_p12_sq
+
+    w = cmath.exp(2j * math.pi / 3.0)
+    Q = [[1 + 0j, 0j, 0j], [0j, w, 0j], [0j, 0j, w * w]]
+    P = [[0j, 1 + 0j, 0j], [0j, 0j, 1 + 0j], [1 + 0j, 0j, 0j]]
+
+    def mat_mul(A, B):
+        return [
+            [sum(A[i][k] * B[k][j] for k in range(3)) for j in range(3)]
+            for i in range(3)
+        ]
+
+    def mat_pow(A, p):
+        res = [[1 + 0j if i == j else 0j for j in range(3)] for i in range(3)]
+        for _ in range(p):
+            res = mat_mul(res, A)
+        return res
+
+    W = {
+        (p, q): mat_mul(mat_pow(P, p), mat_pow(Q, q))
+        for p in range(3)
+        for q in range(3)
+    }
+
+    lam_c = 0.22500
+    qlc_s13 = lam_c / math.sqrt(2.0)
+    qlc_theta13_deg = math.degrees(math.asin(qlc_s13))
+    s13 = math.sin(math.radians(8.54))
+    c13 = math.cos(math.radians(8.54))
+    s12 = math.sin(math.radians(33.41))
+    c12 = math.cos(math.radians(33.41))
+    s23 = 1.0 / math.sqrt(2.0)
+    c23 = 1.0 / math.sqrt(2.0)
+    eip = -1j  # delta_CP = -90 deg
+
+    U_pmns = [
+        [c12 * c13, s12 * c13, s13 * eip.conjugate()],
+        [
+            -s12 * c23 - c12 * s23 * s13 * eip,
+            c12 * c23 - s12 * s23 * s13 * eip,
+            s23 * c13,
+        ],
+        [
+            s12 * s23 - c12 * c23 * s13 * eip,
+            -c12 * s23 - s12 * c23 * s13 * eip,
+            c23 * c13,
+        ],
+    ]
+    mnu_diag = [
+        [
+            0.02 if i == 0 else (0.172 if i == 1 else 1.0) if i == j else 0j
+            for j in range(3)
+        ]
+        for i in range(3)
+    ]
+    M_nu = mat_mul(U_pmns, mnu_diag)
+    pmns_p0_sq = 0.0
+    pmns_p12_sq = 0.0
+    for p in range(3):
+        for q in range(3):
+            tr = (
+                sum(
+                    W[(p, q)][r][c].conjugate() * M_nu[r][c]
+                    for r in range(3)
+                    for c in range(3)
+                )
+                / 3.0
+            )
+            if p == 0:
+                pmns_p0_sq += abs(tr) ** 2
+            else:
+                pmns_p12_sq += abs(tr) ** 2
+    pmns_tot = pmns_p0_sq + pmns_p12_sq
+
+    return Phase4ConstantsResult(
+        single_step_rge_table=single_step_table,
+        rg_m_fl_gev=m_fl_rg,
+        rg_lambda_gev=lam_rg,
+        rg_m_fl_over_mz=m_fl_rg / MZ,
+        th_m_fl_over_mz=th_mfl_ratio,
+        rg_lambda_over_mz=lam_rg / MZ,
+        th_lambda_over_mz=th_lam_ratio,
+        rg_alpha_u_inv=aU_rg,
+        rg_alpha_em_lambda_inv=a_em_lam_rg,
+        parameter_free_coupling_predictions=param_free_preds,
+        exp_alpha_g_proton=exp_alpha_g,
+        pred_alpha_g_proton=pred_alpha_g,
+        alpha_g_rel_error_pct=err_alpha_g,
+        exp_mpl_over_mp=exp_mpl_mp,
+        pred_mpl_over_mp=pred_mpl_mp,
+        mpl_rel_error_pct=err_mpl_mp,
+        ckm_clock_fraction=ckm_p0_sq / ckm_tot,
+        ckm_shift_fraction=ckm_p12_sq / ckm_tot,
+        pmns_clock_fraction=pmns_p0_sq / pmns_tot,
+        pmns_shift_fraction=pmns_p12_sq / pmns_tot,
+        qlc_theta13_deg_raw=qlc_theta13_deg,
+        exp_theta13_deg=8.54,
+    )
+
+
 
