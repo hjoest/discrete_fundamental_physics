@@ -30,7 +30,7 @@ We subject $(P, G_{\text{Option D}}, Z, \prec_Z)$ to five additional high-precis
 ## 1. Test 32: Flavor-Changing Neutral Currents (FCNC) & Rare $B$-Meson Decays ($B_s^0 \to \mu^+\mu^-$, $B \to X_s \gamma$, $\Delta F = 2$)
 
 1. **Destructive Interference in $B_s^0 \to \mu^+\mu^-$ at $\tan\beta = 60, M_{A^0} = 27\,M_Z = 2.4621\text{ TeV}$:**
-   In our non-SUSY Type-II 2HDM, the 1-loop heavy Higgs $(A^0, H^0, H^\pm)$ penguin contribution to $B_s^0 \to \mu^+\mu^-$ shifts the axial Wilson coefficient $C_{10}$ by $\Delta_P = -\Delta_S = \mathbf{-0.02062}$, reducing the branching ratio by $-4.04\%$ relative to the Standard Model:
+   In our non-SUSY Type-II 2HDM, the 1-loop heavy Higgs $(A^0, H^0, H^\pm)$ penguin contribution to $B_s^0 \to \mu^+\mu^-$ shifts the axial Wilson coefficient $C_{10}$ by $\Delta_P = -\Delta_S = \mathbf{-0.02063}$, reducing the branching ratio by $-4.04\%$ relative to the Standard Model:
    $$\operatorname{BR}(B_s^0 \to \mu^+\mu^-)_{\text{pred}} = \mathbf{3.512e-09} \quad (\text{vs. SM } 3.66e-09\text{ and LHCb/CMS/ATLAS exp } (3.34 \pm 0.27) \times 10^{-9},\; \mathbf{5.15\%\text{ error}}).$$
 2. **Constructive Shift in $B \to X_s \gamma$ at $M_{H^\pm} = 2.4634\text{ TeV}$:**
    At $y_t = m_t^2 / M_{H^\pm}^2 = 0.004858$, the $\tan\beta$-independent charged-Higgs dipole Wilson coefficient is $\Delta C_7(M_W) = \mathbf{-0.01525}$, increasing $\operatorname{BR}(B \to X_s \gamma)$ by $+6.63\%$ relative to the SM:

@@ -1260,8 +1260,10 @@ def run_phase5_mass_ratios_tests(
     pred_mu_mev = pred_mc_gev * pred_mu_mc * 1000.0
 
     # Test 21: Electroweak Boson m_W / m_Z and Higgs Boson Mass m_H
-    # Standard top-loop custodial correction Delta_rho = 3 G_F m_t^2 / (8 sqrt(2) pi^2) converts MS-bar sin^2 theta_W(M_Z) to on-shell
-    delta_s2_top = 0.00842
+    # Standard 1-loop top-loop custodial correction Delta_rho = 3 G_F m_t^2 / (8 sqrt(2) pi^2)
+    gf_fermi = 1.1663788e-5
+    delta_rho_top = 3.0 * gf_fermi * (Mt_pole**2) / (8.0 * math.sqrt(2.0) * (math.pi**2))
+    delta_s2_top = (1.0 - s2_mz) * delta_rho_top
     s2_os_pred = s2_mz - delta_s2_top
     pred_mw = MZ * math.sqrt(1.0 - s2_os_pred)
     exp_mw = 80.377
