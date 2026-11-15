@@ -1,7 +1,7 @@
 LATEX_IMAGE ?= pandoc/latex:latest
 UID_GID     := $(shell id -u):$(shell id -g)
 
-.PHONY: all pdf paper test analysis clean
+.PHONY: all pdf paper test scrutiny analysis clean
 
 all: pdf
 
@@ -15,6 +15,9 @@ docs/paper.pdf: docs/paper.tex
 
 test:
 	python3 run_falsification.py
+
+scrutiny:
+	python3 run_scrutiny.py
 
 analysis:
 	python3 run_analysis.py

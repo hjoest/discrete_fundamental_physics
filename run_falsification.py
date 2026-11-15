@@ -1107,7 +1107,5 @@ def write_phase8_report(phase8) -> None:
         f.write("\n".join(lines) + "\n")
 
 
-
-
 if __name__ == "__main__":
     main()
