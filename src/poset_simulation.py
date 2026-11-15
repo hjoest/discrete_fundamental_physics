@@ -1571,7 +1571,7 @@ def _invert_myrheim_meyer(f_obs: float) -> float:
 
 def run_coordinate_free_kr_pancake_mcmc(
     num_events: int = 160,
-    mcmc_steps: int = 8400,
+    mcmc_steps: int = 13200,
     seed: int = 42,
 ) -> MCMCPancakeMeltingResult:
     """Evolve a coordinate-free abstract poset from a 3-layer Kleitman-Rothschild pancake.
@@ -1729,23 +1729,26 @@ def run_coordinate_free_kr_pancake_mcmc(
     accepted = 0
     record_interval = max(1, mcmc_steps // 6)
 
+    p_del = 0.35
+    p_add = 0.35
+    p_unfold_branch = 0.50
+    p_fold_branch = 0.50
+
     for step in range(1, mcmc_steps + 1):
         move_type = rng.random()
         num_edges = sum(len(s) for s in succ_set)
-        if move_type < 0.45 and num_edges > N:
-            # 1. Link deletion proposed across all vertices u with at least 1 outgoing link
-            non_empty = [u for u in range(N - 32) if succ_set[u]]
-            if non_empty:
-                u = rng.choice(non_empty)
+        if move_type < p_del and num_edges > N:
+            # 1. Link deletion: draw u uniformly from range(N - 32) and v uniformly from succ_set[u]
+            u = rng.randrange(N - 32)
+            if succ_set[u]:
                 deg_u = len(succ_set[u])
                 v = rng.choice(tuple(succ_set[u]))
                 succ_set[u].remove(v)
                 pred_set[v].remove(u)
                 new_s, _, _, _, _ = compute_poset_observables()
                 d_s = new_s - cur_s
-                # Exact Hastings ratio for reversing deletion <-> addition on u:
-                n_non_edges_u = max(1, (N - 1 - u) - (deg_u - 1))
-                hastings = float(deg_u) / float(n_non_edges_u)
+                # Exact Hastings ratio q_add(P'->P) / q_del(P->P') = (p_add / p_del) * d_u / (N - 1 - u):
+                hastings = (p_add / p_del) * (float(deg_u) / float(N - 1 - u))
                 acc_prob = min(1.0, hastings * math.exp(-min(50.0, max(-50.0, d_s))))
                 if rng.random() < acc_prob:
                     cur_s = new_s
@@ -1753,8 +1756,8 @@ def run_coordinate_free_kr_pancake_mcmc(
                 else:
                     succ_set[u].add(v)
                     pred_set[v].add(u)
-        elif move_type < 0.65 and num_edges < total_possible_pairs - N:
-            # 2. Link addition proposed across any valid causal pair (u < v) not in E
+        elif move_type < (p_del + p_add) and num_edges < total_possible_pairs - N:
+            # 2. Link addition: draw u uniformly from range(N - 32) and v uniformly from range(u + 1, N)
             u = rng.randrange(N - 32)
             deg_u = len(succ_set[u])
             v = rng.randint(u + 1, N - 1)
@@ -1763,8 +1766,8 @@ def run_coordinate_free_kr_pancake_mcmc(
                 pred_set[v].add(u)
                 new_s, _, _, _, _ = compute_poset_observables()
                 d_s = new_s - cur_s
-                n_non_edges_u = max(1, (N - 1 - u) - deg_u)
-                hastings = float(n_non_edges_u) / float(deg_u + 1)
+                # Exact Hastings ratio q_del(P'->P) / q_add(P->P') = (p_del / p_add) * (N - 1 - u) / (d_u + 1):
+                hastings = (p_del / p_add) * (float(N - 1 - u) / float(deg_u + 1))
                 acc_prob = min(1.0, hastings * math.exp(-min(50.0, max(-50.0, d_s))))
                 if rng.random() < acc_prob:
                     cur_s = new_s
@@ -1775,8 +1778,8 @@ def run_coordinate_free_kr_pancake_mcmc(
         else:
             # 3. Reversible local topological link unfolding / folding: u -> v <=> u -> w -> v
             u = rng.randrange(N - 32)
-            if rng.random() < 0.75:
-                # Forward unfolding: replace direct shortcut-like link (u, v) by 2-step chain u -> w -> v
+            if rng.random() < p_unfold_branch:
+                # Forward unfolding: replace direct link (u, v) with v - u > 20 by u -> w -> v (w in [u+10, v-10])
                 if succ_set[u]:
                     v = rng.choice(tuple(succ_set[u]))
                     if v - u > 20:
@@ -1788,9 +1791,17 @@ def run_coordinate_free_kr_pancake_mcmc(
                             pred_set[w].add(u)
                             succ_set[w].add(v)
                             pred_set[v].add(w)
+                            deg_w_new = len(succ_set[w])
                             new_s, _, _, _, _ = compute_poset_observables()
                             d_s = new_s - cur_s
-                            if d_s <= 0.0 or rng.random() < math.exp(-min(50.0, d_s)):
+                            # Exact Hastings ratio q_fold(P'->P) / q_unfold(P->P'):
+                            hastings = (p_fold_branch / p_unfold_branch) * (
+                                float(v - u - 19) / float(deg_w_new)
+                            )
+                            acc_prob = min(
+                                1.0, hastings * math.exp(-min(50.0, max(-50.0, d_s)))
+                            )
+                            if rng.random() < acc_prob:
                                 cur_s = new_s
                                 accepted += 1
                             else:
@@ -1801,12 +1812,17 @@ def run_coordinate_free_kr_pancake_mcmc(
                                 succ_set[u].add(v)
                                 pred_set[v].add(u)
             else:
-                # Inverse folding: replace 2-step chain u -> w -> v by direct link u -> v
+                # Inverse folding: replace 2-step chain u -> w -> v (with v - u > 20, w in [u+10, v-10]) by u -> v
                 if succ_set[u]:
                     w = rng.choice(tuple(succ_set[u]))
                     if succ_set[w]:
+                        deg_w_old = len(succ_set[w])
                         v = rng.choice(tuple(succ_set[w]))
-                        if v not in succ_set[u]:
+                        if (
+                            v - u > 20
+                            and (u + 10) <= w <= (v - 10)
+                            and v not in succ_set[u]
+                        ):
                             succ_set[u].remove(w)
                             pred_set[w].remove(u)
                             succ_set[w].remove(v)
@@ -1815,7 +1831,14 @@ def run_coordinate_free_kr_pancake_mcmc(
                             pred_set[v].add(u)
                             new_s, _, _, _, _ = compute_poset_observables()
                             d_s = new_s - cur_s
-                            if d_s <= 0.0 or rng.random() < math.exp(-min(50.0, d_s)):
+                            # Exact Hastings ratio q_unfold(P'->P) / q_fold(P->P'):
+                            hastings = (p_unfold_branch / p_fold_branch) * (
+                                float(deg_w_old) / float(v - u - 19)
+                            )
+                            acc_prob = min(
+                                1.0, hastings * math.exp(-min(50.0, max(-50.0, d_s)))
+                            )
+                            if rng.random() < acc_prob:
                                 cur_s = new_s
                                 accepted += 1
                             else:

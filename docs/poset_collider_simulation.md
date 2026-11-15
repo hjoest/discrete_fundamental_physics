@@ -112,14 +112,14 @@ To test whether $(P, \prec_P)$ requires pre-built 4D coordinates or dynamically 
 | MCMC Step | Total Covering Links | Mean Out-Degree $\langle d_{\text{out}}\rangle$ | Causal Layers $L_{\max}$ | Ordering Fraction $f = C_2 / \binom{N}{2}$ | Emergent Myrheim–Meyer Dim $D_{\text{MM}}$ | Microscopic Action $S[P, G_\star]$ |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | `0` | `2,872` | **`22.44`** | **`3`** | `0.3172` | **`2.60`** | `34321.0` |
-| `1,400` | `2,236` | **`17.47`** | **`3`** | `0.2698` | **`2.82`** | `26204.7` |
-| `2,800` | `1,659` | **`12.96`** | **`3`** | `0.2223` | **`3.04`** | `18024.7` |
-| `4,200` | `1,126` | **`8.80`** | **`4`** | `0.1460` | **`3.55`** | `10912.7` |
-| `5,600` | `753` | **`5.88`** | **`4`** | `0.0941` | **`4.08`** | `6223.7` |
-| `7,000` | `535` | **`4.18`** | **`6`** | `0.1013` | **`3.99`** | `3337.7` |
-| `8,400` | `468` | **`3.66`** | **`8`** | `0.1446` | **`3.56`** | `2187.7` |
+| `2,200` | `2,132` | **`16.66`** | **`3`** | `0.2598` | **`2.86`** | `24908.2` |
+| `4,400` | `1,503` | **`11.74`** | **`4`** | `0.2050` | **`3.15`** | `15961.5` |
+| `6,600` | `1,057` | **`8.26`** | **`4`** | `0.1344` | **`3.66`** | `9947.2` |
+| `8,800` | `834` | **`6.52`** | **`4`** | `0.1134` | **`3.87`** | `6958.4` |
+| `11,000` | `652` | **`5.09`** | **`6`** | `0.1180` | **`3.82`** | `4300.2` |
+| `13,200` | `550` | **`4.30`** | **`7`** | `0.1355` | **`3.65`** | `2686.3` |
 
-> **Coordinate-Free Self-Organization Result:** Without any reference to $\mathbb{R}^4$ coordinates, the Metropolis–Hastings chain spontaneously melts the 3-layer Kleitman–Rothschild pancake ($L_{\max}: 3 \to 8$ causal layers), drives the vertex coordination degree from $\langle d_{\text{out}}\rangle = 22.44$ to **`3.66`** (pinned by the $d=4$ factorial melting threshold $18.461/4! = 0.7692 < 1$), and brings the emergent Myrheim–Meyer dimension from $D_{\text{MM}} = 2.60$ to **`3.56`**.
+> **Coordinate-Free Self-Organization Result:** Without any reference to $\mathbb{R}^4$ coordinates, the Metropolis–Hastings chain spontaneously melts the 3-layer Kleitman–Rothschild pancake ($L_{\max}: 3 \to 7$ causal layers), drives the vertex coordination degree from $\langle d_{\text{out}}\rangle = 22.44$ to **`4.30`** (pinned by the $d=4$ factorial melting threshold $18.461/4! = 0.7692 < 1$), and brings the emergent Myrheim–Meyer dimension from $D_{\text{MM}} = 2.60$ to **`3.65`**.
 
 ---
 
@@ -219,13 +219,13 @@ Using Experiment 7's unquenched coupled 1-loop 9-channel ratio $R_{d/e}^{\text{9
    - The `poisson` sprinkling reduces directional anisotropy statistically, but introduces higher local degree variance ($\operatorname{std}(d_{\text{in}}) = 0.66$) and lower 1-loop causal diamond closure.
    - The `aperiodic` 4D one-stone / $E_8 \to H_4$ (600-cell) quasicrystal combines hyperuniform $d \approx 4$ connectivity ($\operatorname{std}(d_{\text{in}}) = 0.53$) with $7.3\times$ lower light-cone anisotropy than the cubic lattice and exact spherical 11-design isotropy up to degree 10.
 3. **Coordinate-Free Kleitman–Rothschild Pancake Melting (Open Problem 1 — Dynamical Self-Organization):**
-   - Starting from a pathological 3-layer Kleitman–Rothschild pancake with **no 4D coordinates**, reversible Metropolis–Hastings evolution under the microscopic Theorem 1 & 3 action melts the pancake into a 8-layer causal poset, driving $\langle d_{\text{out}}\rangle: 22.44 \to 3.66$ and $D_{\text{MM}}: 2.60 \to 3.56$.
+   - Starting from a pathological 3-layer Kleitman–Rothschild pancake with **no 4D coordinates**, reversible Metropolis–Hastings evolution under the microscopic Theorem 1 & 3 action melts the pancake into a 7-layer causal poset, driving $\langle d_{\text{out}}\rangle: 22.44 \to 4.30$ and $D_{\text{MM}}: 2.60 \to 3.65$.
 4. **Plancherel Heat-Kernel Convergence under Kadanoff RG (Open Problem 2):**
    - Under $b^2$-fold Kadanoff plaquette convolution on $\mathbb{R}[2I]$, higher-spin representations are exponentially suppressed relative to the minimal-gap chiral spinor $\mathbf{2}_L$, and the discrete block action converges in functional form to $\beta_{\text{eff}}(b)(2 - \operatorname{Re}\chi_{\mathbf{2}_L}(g))$ with $R^2 = 0.998608$ by $b = 8$ as $\beta_{\text{eff}}(b) \to 0$ in the coarse-grained random-walk regime.
 5. **Top-Quark & Flavon-Higgs 1-Loop Causal Diamonds (Open Problem 3):**
    - Evolving the genuine coupled 1-loop $(y_t, y_b, y_\tau)$ RGEs shows that ultraviolet self-damping ($\frac{9}{2}N_{\text{ch}}y_t^3$) reduces the unquenched pure-gauge ratio `2.1700` to `1.9131` (for Parseval-normalized $N_{\text{ch}}=1$) and **`1.9097`** (for $N_{\text{ch}}=9$ independent UV flavons, closing $52\%$ of the gap to `1.6709` while the remaining gap requires either the quenched $4/11$ causal-diamond gluon exponent `1.7313` or two-loop/threshold corrections), while top-quark decoupling below $m_t$ shifts $\alpha_s(M_Z)$ from `0.1170` to **`0.1179`** (`0.0 sigma`).
 6. **Single-Anchor ($M_Z$-Only) Cascade & Look-Elsewhere Quantification (Open Problem 4):**
-   - Using $R_{d/e}^{\text{9ch}}(M_Z) = 1.9097$, all 12 dimensionful masses and scales ($v_{\text{ew}}, m_t, m_b, m_\tau, m_\mu, m_e, m_s, m_d, m_c, m_u, m_{\nu_3}, E_\Lambda$) are predicted from **$M_Z = 91.1876\text{ GeV}$ alone** with an unquenched mean absolute error of **`7.39%`** (down from $10.0\%$ unquenched pure-gauge, or $4.84\%$ with the quenched $4/11$ baseline). Enumerating all `2,268` group-invariant monomials across the 6 measured scale hierarchies yields a look-elsewhere-corrected joint probability of **`1.032e-05`** (**`4.26 sigma`** one-sided).
+   - Using $R_{d/e}^{\text{9ch}}(M_Z) = 1.9097$, all 12 dimensionful masses and scales ($v_{\text{ew}}, m_t, m_b, m_\tau, m_\mu, m_e, m_s, m_d, m_c, m_u, m_{\nu_3}, E_\Lambda$) are predicted from **$M_Z = 91.1876\text{ GeV}$ alone** with an unquenched mean absolute error of **`7.39%`** (down from $10.00\%$ unquenched pure-gauge, or $5.16\%$ with the quenched $4/11$ baseline). Enumerating all `2,268` group-invariant monomials across the 6 measured scale hierarchies yields a look-elsewhere-corrected joint probability of **`1.032e-05`** (**`4.26 sigma`** one-sided).
 7. **Quantum Wavepackets & Miniature LHC Collisions:**
    - Firing discrete $2I[1]$ Weyl spinor wavepackets uses exact unitary $\operatorname{SU}(2)$ single-link transport gates while exhibiting relativistic group-velocity drift and quantum dispersion across slice-normalized causal slices.
    - In head-on $2 \to 2$ collisions at shared $d=4$ vertices, summing over the $(4!)^2 = 576$ Axiom 3 permutations reproduces the non-abelian commutator cross-sections on the arena links and the exact $1/9 = N_c^{-2}$ color-singlet lepton branching ratio.
