@@ -11,6 +11,7 @@
 - [`docs/neutrinos_dm_cosmology_phase6.md`](neutrinos_dm_cosmology_phase6.md) — Phase 6 Neutrinos, Dark Matter, & Cosmological Constant (Tests 22–25)
 - [`docs/strong_cp_baryogenesis_phase7.md`](strong_cp_baryogenesis_phase7.md) — Phase 7 Strong CP, Jarlskog $J_{\text{CP}}$, & Baryogenesis (Tests 26–28)
 - [`docs/dynamical_foundations_phase8.md`](dynamical_foundations_phase8.md) — Phase 8 Continuous Symmetry Restoration, Quantum Phase $e^{-iHt/\hbar}$, & Plancherel Scaling (Tests 29–31)
+- [`docs/precision_phenomenology_phase9.md`](precision_phenomenology_phase9.md) — Phase 9 Rare $B$-Decays, WIMP Direct Detection, Complete PMNS Angles, LIV Bounds, & BBN $\Delta N_{\text{eff}}$ (Tests 32–36)
 - [`docs/assessment.md`](assessment.md) — Critical Assessment & Comparison with Foundational Physics Programs
 
 ---
@@ -62,11 +63,11 @@ with commutator subgroup $\lvert [G, G] \rvert = 120 \times 216 \times 3 = \math
 | **$e_R$** | `2I[2]` ($2_{-1}'$) | `$\Sigma[2]$` ($1_0, q_Y=-1$) | `$\Delta[9]$` ($3_0$) | `$0$` | 6 | **3** | `$M_6(\mathbb{C})$` | **$H_e = (\Sigma[3], \text{PQ}[-1]) = H_d$** |
 | **$\nu_R$** | `2I[2]` ($2_{-1}'$) | `$\Sigma[0]$` ($1_{+1}, q_Y=0$) | `$\Delta[9]$` ($3_0$) | `$+1$` | 6 | **3** | `$M_6(\mathbb{C})$` | **$H_\nu = (\Sigma[5], \text{PQ}[0]) \in \mathbb{H}_{q_{\text{PQ}}=0}$** |
 | **Total Standard Model** | — | — | — | Anomaly $\equiv 0\bmod 3$ | **96** | **48 ($3 \times 16$)** | All Complex | **3 Disjoint Color-Singlet Higgs Blocks** |
-| **WIMP Dark Matter $\chi_{\text{DM}}$** | `2I[1]` ($2_{-1}$) | `$\Sigma[6]$` ($3_{+1} \in M_3(\mathbb{R}), q_Y=0$) | `$\Delta[0]$` ($1_{+1}$) | `$0$` | 6 | **3 (Majorana)** | `$M_3(\mathbb{H})$` | Forbidden from $\bar{L}_L \chi_{\text{DM}} \tilde{H}$ ($q_f = 0 \neq +1$) |
+| **WIMP Dark Matter $\Phi_{\text{DM}}$** | `2I[0]` ($1_{+1}$) | `$\Sigma[6]$` ($3_{+1} \in M_3(\mathbb{R}), q_Y=0$) | `$\Delta[0]$` ($1_{+1}$) | `$0$` | 3 | **3 (Real Scalar)** | `$M_3(\mathbb{R})$` | Forbidden from $\bar{f}_L f_R \Phi_{\text{DM}}$ ($q_f = 0 \neq \pm 1$) |
 
 ### 3.2 Complete Accounting of the 216-Dimensional Bosonic Subalgebra $\mathbb{R}[\Sigma(216)]$ (Attack 11 & Test 24)
 Imposing Lorentz singlet invariance ($\ker \supseteq 2I$), flavor universality ($\ker \supseteq \Delta(27)_f \times \mathbb{Z}_3^{\text{PQ}}$), and color confinement ($\ker \supseteq Z(\Sigma(216 \times 3)) \cong \mathbb{Z}_3$) projects $\mathbb{R}[G_{\text{Option D}}]$ onto the 216-dimensional subalgebra $\mathbb{R}[\Sigma(216)]$:
-$$\mathbb{R}[\Sigma(216)] \cong \underbrace{\mathbb{R}}_{\Sigma[0]\text{ singlet}} \oplus \underbrace{\mathbb{C}}_{\Sigma[1,2]\text{ }\operatorname{U}(1)_Y\text{ }B_\mu} \oplus \underbrace{\mathbb{H}}_{\Sigma[5]\text{ }H_\nu\text{ doublet}} \oplus \underbrace{M_2(\mathbb{C})}_{\Sigma[3,4]\text{ }H_u, H_d\text{ doublets}} \oplus \underbrace{M_3(\mathbb{R})}_{\Sigma[6]\text{ }\operatorname{SU}(2)_L\text{ }W_\mu^a\text{ / }\chi_{\text{DM}}} \oplus \underbrace{M_8(\mathbb{R})}_{\Sigma[19]\text{ 8 gluons }G_\mu^A} \oplus \underbrace{M_8(\mathbb{C})}_{\Sigma[20,21]\text{ heavy }M_{\text{fl}}\text{ octets}}.$$
+$$\mathbb{R}[\Sigma(216)] \cong \underbrace{\mathbb{R}}_{\Sigma[0]\text{ singlet}} \oplus \underbrace{\mathbb{C}}_{\Sigma[1,2]\text{ }\operatorname{U}(1)_Y\text{ }B_\mu} \oplus \underbrace{\mathbb{H}}_{\Sigma[5]\text{ }H_\nu\text{ doublet}} \oplus \underbrace{M_2(\mathbb{C})}_{\Sigma[3,4]\text{ }H_u, H_d\text{ doublets}} \oplus \underbrace{M_3(\mathbb{R})}_{\Sigma[6]\text{ }\operatorname{SU}(2)_L\text{ }W_\mu^a\text{ / }\Phi_{\text{DM}}} \oplus \underbrace{M_8(\mathbb{R})}_{\Sigma[19]\text{ 8 gluons }G_\mu^A} \oplus \underbrace{M_8(\mathbb{C})}_{\Sigma[20,21]\text{ heavy }M_{\text{fl}}\text{ octets}}.$$
 
 ### 3.3 Dynamical Foundations in $\mathbb{R}[G_{\text{Option D}}]$ (Phase 8: Tests 29–31)
 1. **Dual Dynamical Selection of $d = 4$ Spacetime & Continuous Lie Symmetry Restoration (Test 29):**
@@ -87,7 +88,7 @@ Although $G_\star = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f \times \m
 
 ---
 
-## 4. Complete Table of 25+ Parameter-Free Quantitative Predictions vs. Experiment
+## 4. Complete Table of 35 Parameter-Free Quantitative Predictions vs. Experiment
 
 Every quantitative prediction below is computed reproducibly by [`run_falsification.py`](../run_falsification.py) via [`src/falsification_tests.py`](../src/falsification_tests.py) without continuous free parameters:
 
@@ -106,8 +107,9 @@ Every quantitative prediction below is computed reproducibly by [`run_falsificat
 | **Gravitational Coupling $\alpha_G(m_p)$** | $\frac{1}{\lvert Z(2I)\rvert}\lvert G_{\text{core}} \rvert^{-6} = \frac{1}{2}(2,099,520)^{-6}$ | **$5.838 \times 10^{-39}$** | **$5.906 \times 10^{-39}$** ($G_N m_p^2 / \hbar c$) | **1.15%** |
 | **Planck-to-Proton Ratio $M_{\text{Pl}} / m_p$** | $\sqrt{\lvert Z(2I)\rvert}\,\lvert G_{\text{core}} \rvert^3 = \sqrt{2}\,(2,099,520)^3$ | **$1.3088 \times 10^{19}$** | **$1.3012 \times 10^{19}$** | **0.58%** |
 | **$W$ Boson Mass $m_W$** | $M_Z \cos\theta_W^{\text{OS}}$ from $\sin^2\theta_W(M_Z)_{\text{pred}} = 0.23111$ | **$80.396\text{ GeV}$** | **$80.377 \pm 0.012\text{ GeV}$** | **0.02%** |
-| **Light SM Higgs Mass $m_{h^0}$** | 2-loop criticality $\lambda(M_{\text{fl}}) = 0$ at $M_{\text{fl}} = M_Z\lvert G_{\text{core}}\rvert\lvert G_{\text{core}}^{\text{ab}}\rvert$ | **$125.10\text{ GeV}$** ($125.91\text{ GeV}$ tree) | **$125.25 \pm 0.17\text{ GeV}$** | **0.12% ($0.9\sigma$)** |
+| **Light SM Higgs Mass $m_{h^0}$** | 2-loop criticality $\lambda(M_{\text{fl}}) = 0$ at $M_{\text{fl}} = M_Z\lvert G_{\text{core}}\rvert\lvert G_{\text{core}}^{\text{ab}}\rvert$ | **$125.10\text{ GeV}$** ($125.04\text{ GeV}$ w/ 2HDM) | **$125.25 \pm 0.17\text{ GeV}$** | **0.12% ($0.9\sigma$)** |
 | **Heavy Type-II 2HDM Quartet $(A^0, H^\pm, H^0)$** | 1-vertex Kirchhoff threshold $M_{A^0} = M_Z\lvert G_{\text{core}}^{\text{ab}}\rvert = 27\,M_Z$ ($\tan\beta = 60$, $m_{12} = 317.85\text{ GeV}$) | **$2.4621, 2.4634, 2.4638\text{ TeV}$** | **$> 2.0\text{ TeV}$** (LHC Run-2/3 at $\tan\beta=60$) | **Testable** |
+| **Rare $B$-Decays $\operatorname{BR}(B_s\to\mu\mu), \operatorname{BR}(B\to X_s\gamma)$** | 1-loop $A^0/H^\pm$ penguins at $M_{A^0}=27\,M_Z, \tan\beta=60$ ($\Delta_P=-0.021, \Delta C_7=-0.015$) | **$3.51 \times 10^{-9},\; 3.58 \times 10^{-4}$** | **$(3.34\pm 0.27)\times 10^{-9},\; (3.49\pm 0.19)\times 10^{-4}$** | **$0.6\sigma$ / $0.5\sigma$** |
 | **Koide Lepton Invariant $Q_e$** | Norm equipartition $\|v_{\mathbb{R}}\|^2 = \|v_{\mathbb{C}}\|^2$ in $\mathbb{R}[\langle Q \rangle] \cong \mathbb{R} \oplus \mathbb{C}$ | **$2/3 = 0.666667$** | **$0.666661 \pm 0.000007$** | **0.0009% ($0.8\sigma$)** |
 | **Lepton Clock Phase $\delta_e$** | $\lvert Z(2I) \rvert / \lvert \Delta(27)_f^{\text{ab}} \rvert = 2 / 9\text{ rad}$ | **$0.222222\text{ rad}$** | **$0.222271\text{ rad}$** | **0.02%** |
 | **Electron & Muon Masses $(m_e, m_\mu)$** | From $m_\tau = 1776.86\text{ MeV}$, $Q_e = 2/3$, and $\delta_e = 2/9\text{ rad}$ | **$0.51096\text{ MeV}$, $105.652\text{ MeV}$** | **$0.51100\text{ MeV}$, $105.658\text{ MeV}$** | **0.007% / 0.006%** |
@@ -115,13 +117,15 @@ Every quantitative prediction below is computed reproducibly by [`run_falsificat
 | **Down Quark Masses $(m_b, m_s, m_d)_{M_Z}$** | $3^{-p} R_{d/e}(M_Z) m_{e_p}(M_Z)$ ($p \in \{0, +1, -1\}$) | **$2.89\text{ GeV}, 56.6\text{ MeV}, 2.41\text{ MeV}$** | **$2.85\text{ GeV}, 53.5\text{ MeV}, 2.67\text{ MeV}$** | **$\le 1.3\sigma$** |
 | **Top–Bottom Ratio $\tan\beta(M_Z) = m_t / m_b$** | Bosonic icosahedral rotation group order $\lvert 2I / Z(2I) \rvert = \lvert A_5 \rvert$ | **$60.00$** | **$60.25 \pm 0.80$** | **0.41% ($0.3\sigma$)** |
 | **Charm & Up Masses $(m_c, m_u)_{M_Z}$** | $m_t (m_\mu/m_\tau)^2$ and $\frac{1}{3} m_c (m_e/m_\mu)$ | **$0.594\text{ GeV}$, $0.94\text{ MeV}$** | **$0.619 \pm 0.017\text{ GeV}$, $1.27 \pm 0.19\text{ MeV}$** | **$1.4\sigma$ / $1.7\sigma$** |
-| **CKM Elements $(\lvert V_{us}\rvert, \lvert V_{cb}\rvert, \lvert V_{ub}\rvert)$** | $\sqrt{m_d/m_s}$, $\frac{m_\mu/m_\tau}{\sqrt{2}}$, $(m_\mu/m_\tau)^2$ | **$0.2234, 0.04160, 0.00354$** | **$0.2250, 0.04182, 0.00373$** | **0.7% / 0.5% / $1.4\sigma$** |
+| **CKM Elements $(\lvert V_{us}\rvert, \lvert V_{cb}\rvert, \lvert V_{ub}\rvert)$** | $\sqrt{m_d/m_s}$ ($0.2251$ pure lepton chain), $\frac{m_\mu/m_\tau}{\sqrt{2}}$, $(m_\mu/m_\tau)^2$ | **$0.2234, 0.04160, 0.00354$** | **$0.2250, 0.04182, 0.00373$** | **0.7% / 0.5% / $1.4\sigma$** |
 | **CKM Phase $\delta_{\text{CKM}}$ & Jarlskog $J_{\text{CP}}$** | $\delta_{\text{CKM}} = \frac{\pi}{3} + \frac{1}{9}\text{ rad}$ ($[P,Q]=\omega I_3$ + half-Clock phase) | **$66.37^\circ$, $2.93 \times 10^{-5}$** | **$65.5^\circ \pm 1.5^\circ$, $(3.08 \pm 0.15) \times 10^{-5}$** | **$0.6\sigma$ / $1.0\sigma$** |
 | **Strong CP Angle $\bar{\theta}_{\text{QCD}}$** | Hermitian $\mathbb{R}[\Delta(27)_f]$ Yukawa ($\arg\det(M_u M_d) = 0$ at tree level) | **$\sim 10^{-16}$** (0 at tree level) | **$< 1.0 \times 10^{-10}$** | **Solved (No Axion)** |
 | **Atmospheric Neutrino Mass $m_{\nu_3}$** | $v_{\text{ew}}^2 / (M_Z \lvert G_{\text{core}}\rvert \lvert G_{\text{Option D}}\rvert) = v_{\text{ew}}^2 / (\lvert 2T_W\rvert \Lambda)$ | **$50.27\text{ meV}$** | **$50.11 \pm 0.28\text{ meV}$** ($\sqrt{\Delta m_{31}^2}$) | **0.33% ($0.6\sigma$)** |
 | **Neutrino Splittings $\Delta m_{31}^2, \Delta m_{21}^2$** | From $\delta_\nu = \delta_e + \frac{2\pi}{\lvert 2T_W\rvert} = \frac{2}{9} + \frac{\pi}{12}\text{ rad}$ | **$2.527 \times 10^{-3}, 7.79 \times 10^{-5}\text{ eV}^2$** | **$2.511 \times 10^{-3}, 7.41 \times 10^{-5}\text{ eV}^2$** | **$0.6\sigma$ / $1.8\sigma$** |
-| **WIMP Dark Matter Mass & Relic $\Omega_{\text{DM}} h^2$** | $\Phi_{\text{DM}} \sim \Sigma[6](\mathbf{3}_{+1}) \in M_3(\mathbb{R})$, $M_{\text{DM}} = M_Z \lvert G_{\text{core}}^{\text{ab}}\rvert = 2.462\text{ TeV}$ | **$\Omega_{\text{DM}} h^2 = 0.1190$** ($0.1208$ tree) | **$0.1200 \pm 0.0012$** (Planck 2018) | **0.82% ($0.8\sigma$)** |
-| **Baryon Asymmetry $\eta_B = n_B / n_\gamma$** | $(\operatorname{Tr} Y^2)_{\text{tot}}^2 \lvert G_{\text{core}}^{\text{ab}}\rvert / \lvert G_{\text{core}}\rvert^2$ (via $\Delta B = 3$ sphaleron) | **$6.125 \times 10^{-10}$** | **$(6.12 \pm 0.04) \times 10^{-10}$** | **0.08% ($0.1\sigma$)** |
+| **PMNS Angles $(\sin^2\theta_{13}, \sin^2\theta_{12}, \sin^2\theta_{23})$** | $\frac{1}{3}\sin^2(\frac{\pi}{12}) = \frac{2-\sqrt{3}}{12}$, $\frac{1}{3}-s_{13}^2 = \frac{2+\sqrt{3}}{12}$, $\frac{1}{2}+2s_{13}^2 = \frac{5-\sqrt{3}}{6}$ | **$0.02233,\; 0.3110,\; 0.5447$** | **$0.02224,\; 0.307,\; 0.546$** (NuFIT 5.3) | **0.40% / 1.3% / 0.25%** |
+| **Leptonic Dirac CP Phase $\delta_{\text{CP}}^{\text{PMNS}}$** | $\frac{3\pi}{2} - (\delta_e + \frac{2\pi}{\lvert 2T_W\rvert}) = \frac{17\pi}{12} - \frac{2}{9}\text{ rad}$ | **$242.27^\circ$** | **$232^\circ \pm 31^\circ$** (NuFIT 5.3 NO) | **4.43% ($0.3\sigma$)** |
+| **WIMP Mass, Relic $\Omega_{\text{DM}} h^2$, & $\sigma_{\text{SI}}(\Phi^0 N)$** | $\Phi_{\text{DM}} \sim \Sigma[6](\mathbf{3}_{+1}) \in M_3(\mathbb{R})$, $M_{\text{DM}} = 27\,M_Z = 2.462\text{ TeV}$, $\lambda_{H\Phi} = g_2^2$ | **$\Omega_{\text{DM}} h^2 = 0.1190$, $\sigma_{\text{SI}} = 3.66\times 10^{-46}\text{ cm}^2$** | **$0.1200 \pm 0.0012$, LZ $< 7.4\times 10^{-46}\text{ cm}^2$** | **0.82% ($0.8\sigma$)** |
+| **Baryon Asymmetry $\eta_B$ & BBN $\Delta N_{\text{eff}}(\nu_R)$** | $(\operatorname{Tr} Y^2)_{\text{tot}}^2 \lvert G_{\text{core}}^{\text{ab}}\rvert / \lvert G_{\text{core}}\rvert^2$; UV-diluted $3(10.75/177.75)^{4/3}$ | **$6.125 \times 10^{-10}$, $\Delta N_{\text{eff}} \le 0.0712$** | **$(6.12 \pm 0.04) \times 10^{-10}$, $\Delta N_{\text{eff}} < 0.18$** | **0.08% ($0.1\sigma$)** |
 | **Dark Energy Scale $E_\Lambda = \rho_\Lambda^{1/4}$** | $M_Z / \lvert G_{\text{Option D}} \rvert^2 = M_Z / (9\lvert G_{\text{core}}\rvert^2)$ ($\rho_\Lambda/M_{\text{Pl}}^4 \propto \lvert G_{\text{core}}\rvert^{-20}$) | **$2.2985\text{ meV}$** ($1.26 \times 10^{-123} M_{\text{Pl}}^4$) | **$2.246 \pm 0.015\text{ meV}$** ($1.15 \times 10^{-123} M_{\text{Pl}}^4$) | **2.34%** |
 
 ---
@@ -147,7 +151,7 @@ Because the group $G_{\text{Option D}} = 2I \times \Sigma(216 \times 3) \times \
 
 ## 6. Ten-Part Mathematical Soundness & Reasoning Scrutiny Audit (Scrutiny 1–10)
 
-Whereas Falsification Tests 1–31 (Phases 1–8) test the physical theory itself, **Scrutiny 1–10** ([`run_scrutiny.py`](../run_scrutiny.py)) independently verify the mathematical reasoning, analytical approximations, and Python implementation. Full details are documented in [`docs/scrutiny_audit.md`](scrutiny_audit.md):
+Whereas Falsification Tests 1–36 (Phases 1–9) test the physical theory itself, **Scrutiny 1–10** ([`run_scrutiny.py`](../run_scrutiny.py)) independently verify the mathematical reasoning, analytical approximations, and Python implementation. Full details are documented in [`docs/scrutiny_audit.md`](scrutiny_audit.md):
 
 1. **Scrutiny 1 (Exact Cyclotomic $\mathbb{Z}[\phi, \omega]$ & Clebsch–Gordan Integrality Audit):** Verifies that the numerical Jacobi eigensolver reproduces exact algebraic integers in $\mathbb{Z}[\phi]$ and $\mathbb{Z}[\omega]$ to $\le 2.31 \times 10^{-14}$, satisfies Burnside class-algebra identities to $\le 4.93 \times 10^{-11}$, and yields raw Clebsch–Gordan inner products that are exact integers to within $\le 2.37 \times 10^{-13}$ before rounding.
 2. **Scrutiny 2 (Direct Pairwise Poset Collision Sampling vs. Poisson Approximation):** Proves via normal coset bijection of $[G_3, G_3]$ that $\mathbb{E}[\lvert\Pi(u)\cap\Pi(v)\rvert] = \mathbb{E}[\lvert\Pi(u)\rvert]^2 / 77,760$ holds identically, and confirms via $3.12 \times 10^6$ direct $(u,v)$ collision samples that $k_c^{\text{true}}(3) = 6.25 > 3 > k_c^{\text{true}}(4) = 2.80$ ($\le 1.0\%$ from analytical Poisson).

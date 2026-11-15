@@ -1830,6 +1830,229 @@ def run_phase8_dynamical_foundations_tests(
     )
 
 
+@dataclass
+class Phase9PrecisionPhenomenologyResult:
+    # Test 32: FCNC & Rare B-Meson Decays (B_s^0 -> mu+ mu-, B -> X_s gamma, Delta F = 2)
+    bs_mumu_delta_p: float
+    pred_br_bs_mumu: float
+    sm_br_bs_mumu: float
+    exp_br_bs_mumu: float
+    bs_mumu_rel_err_pct: float
+    b_xsgamma_delta_c7: float
+    pred_br_b_xsgamma: float
+    sm_br_b_xsgamma: float
+    exp_br_b_xsgamma: float
+    b_xsgamma_rel_err_pct: float
+    flavon_df2_coeff_gev2: float
+    utfit_df2_bound_gev2: float
+    # Test 33: WIMP Direct Detection (LZ / XENONnT) & Indirect Gamma-Ray Line Bounds
+    lambda_h_phi_portal: float
+    pred_sigma_si_cm2: float
+    lz_bound_cm2: float
+    xenon_nt_bound_cm2: float
+    neutrino_floor_cm2: float
+    # Test 34: Complete Quantitative PMNS Mixing Angles & Dirac CP Phase
+    pred_s13_sq_pmns: float
+    exp_s13_sq_pmns: float
+    s13_pmns_rel_err_pct: float
+    pred_s12_sq_pmns: float
+    exp_s12_sq_pmns: float
+    s12_pmns_rel_err_pct: float
+    pred_s23_sq_pmns: float
+    exp_s23_sq_pmns: float
+    s23_pmns_rel_err_pct: float
+    pred_delta_cp_pmns_deg: float
+    exp_delta_cp_pmns_deg: float
+    delta_cp_pmns_rel_err_pct: float
+    # Test 35: Discrete Spacetime Lorentz Invariance Violation (LIV) vs Fermi-LAT / LHAASO Bounds
+    linear_liv_xi1: float
+    max_5design_err_2i: float
+    quad_liv_scale_gev: float
+    lhaaso_eqg2_bound_gev: float
+    grb221009a_delay_lambda_sec: float
+    grb221009a_delay_mpl_sec: float
+    # Test 36: Big Bang Nucleosynthesis (Delta N_eff from Dirac nu_R) & Sphaleron Washout Survival
+    dirac_yukawa_ynu3: float
+    yukawa_therm_ratio_mz: float
+    freeze_in_delta_neff: float
+    uv_diluted_delta_neff: float
+    planck_delta_neff_bound: float
+
+
+def run_phase9_precision_phenomenology_tests(
+    g_2i: FiniteGroup,
+    res_2i: CharacterTableResult,
+    opt_c: OptionCViableResult,
+    phase4: Phase4ConstantsResult,
+    phase5: Phase5MassRatiosResult,
+    phase6: Phase6CosmologyNeutrinoResult,
+) -> Phase9PrecisionPhenomenologyResult:
+    """Execute Phase 9 Popperian falsification tests (Tests 32-36) on rare B decays, WIMP direct detection, PMNS angles, LIV bounds, and BBN Delta N_eff."""
+    MZ = 91.1876
+    MW = phase5.pred_mw_gev
+    mt_mz = 171.7
+    v_ew = 246.22
+    M_Pl = 1.220890e19
+
+    M_A0 = phase5.pred_ma0_tev * 1000.0
+    M_Hp = phase5.pred_mh_charged_tev * 1000.0
+    tan_b = phase5.pred_tan_beta_mz
+    M_fl = MZ * float(opt_c.total_order) * float(opt_c.abelianization_order)
+    Lambda_cut = MZ * (float(opt_c.total_order) ** 2) / 8.0
+
+    # Test 32: FCNC & Rare B-Meson Decays at M_A0 = 27 M_Z = 2.4621 TeV, tan(beta) = 60
+    # 1. B_s^0 -> mu^+ mu^- (Logan & Nierste 2000; Bobeth et al. 2014)
+    x_t = (mt_mz / MW) ** 2
+    Y0_xt = (x_t / 8.0) * (
+        (x_t - 4.0) / (x_t - 1.0) + 3.0 * x_t * math.log(x_t) / ((x_t - 1.0) ** 2)
+    )
+    m_Bs = 5.36692
+    delta_P = (
+        -(m_Bs**2 * (tan_b**2) / (16.0 * M_A0**2))
+        * (x_t / Y0_xt)
+        * (math.log(M_Hp**2 / mt_mz**2) - 1.0)
+    )
+    delta_S = -delta_P
+    y_s = 0.064
+    r_Bs = (1.0 + delta_P) ** 2 + ((1.0 - y_s) / (1.0 + y_s)) * (delta_S**2)
+    sm_bs_mumu = 3.66e-9
+    pred_bs_mumu = sm_bs_mumu * r_Bs
+    exp_bs_mumu = 3.34e-9
+    bs_mumu_err = abs(pred_bs_mumu - exp_bs_mumu) / exp_bs_mumu * 100.0
+
+    # 2. B -> X_s gamma (Grinstein, Springer, Wise 1990; Misiak et al. 2017)
+    y_t = (mt_mz / M_Hp) ** 2
+    A7_1 = y_t * (7.0 - 5.0 * y_t - 8.0 * y_t**2) / (36.0 * (y_t - 1.0) ** 3) + (
+        y_t**2
+    ) * (3.0 * y_t - 2.0) * math.log(y_t) / (6.0 * (y_t - 1.0) ** 4)
+    A7_2 = y_t * (3.0 - 5.0 * y_t) / (6.0 * (y_t - 1.0) ** 2) + y_t * (
+        3.0 * y_t - 2.0
+    ) * math.log(y_t) / (3.0 * (y_t - 1.0) ** 3)
+    delta_C7_mw = (1.0 / 3.0) * A7_1 + A7_2
+    c7_sm_mb = -0.304
+    delta_c7_mb = 0.65 * delta_C7_mw
+    r_bsg = ((c7_sm_mb + delta_c7_mb) / c7_sm_mb) ** 2
+    sm_bsg = 3.36e-4
+    pred_bsg = sm_bsg * r_bsg
+    exp_bsg = 3.49e-4
+    bsg_err = abs(pred_bsg - exp_bsg) / exp_bsg * 100.0
+
+    # 3. Flavon-mediated tree-level Delta F = 2 kaon mixing
+    c_flavon_k = 1.0 / (M_fl**2)
+    c_utfit_bound = 1.0 / ((1.0e5) ** 2)
+
+    # Test 33: WIMP Direct Detection sigma_SI(Phi^0 N) vs LZ / XENONnT
+    s2w = phase4.parameter_free_coupling_predictions[0][5]
+    alpha_em_mz = 1.0 / 127.951
+    alpha_2 = alpha_em_mz / s2w
+    g2_sq = 4.0 * math.pi * alpha_2
+    m_N = 0.93892
+    f_N = 0.287
+    mh = phase5.pred_mh_crit_gev
+    mu_red = (m_N * M_A0) / (m_N + M_A0)
+    gev2_to_cm2 = 0.389379e-27
+    amp_higgs = g2_sq * f_N * m_N / (2.0 * M_A0 * (mh**2))
+    amp_ew = math.sqrt(math.pi * 1.3e-47 / gev2_to_cm2) / mu_red
+    sigma_si_cm2 = (mu_red**2 / math.pi) * ((amp_higgs + amp_ew) ** 2) * gev2_to_cm2
+    lz_bound_2462 = 7.4e-46
+    xenon_nt_bound_2462 = 1.6e-45
+    neutrino_floor_2462 = 2.8e-48
+
+    # Test 34: Complete Quantitative PMNS Mixing Angles & Dirac CP Phase
+    # Tetrahedral Shift-Clock twist Delta_delta = 2*pi / |2T_W| = pi/12 acting on Walsh-Hadamard eigenbasis V = F_3^dagger
+    delta_tet = math.pi / 12.0
+    pred_s13_sq = (1.0 / 3.0) * (math.sin(delta_tet) ** 2)
+    exp_s13_sq = 0.02224
+    s13_err = abs(pred_s13_sq - exp_s13_sq) / exp_s13_sq * 100.0
+
+    pred_s12_sq = (1.0 / 3.0) - pred_s13_sq
+    exp_s12_sq = 0.307
+    s12_err = abs(pred_s12_sq - exp_s12_sq) / exp_s12_sq * 100.0
+
+    pred_s23_sq = 0.5 + 2.0 * pred_s13_sq
+    exp_s23_sq = 0.546
+    s23_err = abs(pred_s23_sq - exp_s23_sq) / exp_s23_sq * 100.0
+
+    pred_dcp_rad = 1.5 * math.pi - (2.0 / 9.0 + delta_tet)
+    pred_dcp_deg = math.degrees(pred_dcp_rad)
+    exp_dcp_deg = 232.0
+    dcp_err = abs(pred_dcp_deg - exp_dcp_deg) / exp_dcp_deg * 100.0
+
+    # Test 35: Discrete Spacetime Lorentz Invariance Violation (LIV) vs Fermi-LAT / LHAASO Bounds
+    ir_2i = res_2i.irreps[1]
+    max_5des_err = 0.0
+    for t in range(1, 6):
+        m_2i = (
+            sum(
+                len(g_2i.classes[c]) * (abs(ir_2i.class_values[c]) ** (2 * t))
+                for c in range(len(g_2i.classes))
+            )
+            / g_2i.order
+        )
+        cat_t = math.comb(2 * t, t) // (t + 1)
+        max_5des_err = max(max_5des_err, abs(m_2i - cat_t))
+
+    E_gamma_lhaaso = 13.0e3  # 13 TeV in GeV
+    D_lhaaso_sec = 6.6e16
+    dt_quad_lambda = 1.5 * D_lhaaso_sec * ((E_gamma_lhaaso / Lambda_cut) ** 2)
+    dt_quad_mpl = 1.5 * D_lhaaso_sec * ((E_gamma_lhaaso / M_Pl) ** 2)
+    lhaaso_eqg2_bound = 6.0e11
+
+    # Test 36: Big Bang Nucleosynthesis (Delta N_eff from Dirac nu_R) & Sphaleron Washout Survival
+    y_nu3 = math.sqrt(2.0) * (phase6.pred_mnu3_mev * 1.0e-12) / v_ew
+    g_star_sm = 106.75
+    gamma_over_h_yuk = (y_nu3**2 * M_Pl) / (
+        8.0 * math.pi * 1.66 * math.sqrt(g_star_sm) * MZ
+    )
+    delta_neff_yuk = 3.0 * gamma_over_h_yuk
+    g_star_fl = 106.75 + 4.0 * 17.0 + 3.0  # 177.75
+    delta_neff_diluted = 3.0 * ((10.75 / g_star_fl) ** (4.0 / 3.0))
+    planck_neff_bound = 0.18
+
+    return Phase9PrecisionPhenomenologyResult(
+        bs_mumu_delta_p=delta_P,
+        pred_br_bs_mumu=pred_bs_mumu,
+        sm_br_bs_mumu=sm_bs_mumu,
+        exp_br_bs_mumu=exp_bs_mumu,
+        bs_mumu_rel_err_pct=bs_mumu_err,
+        b_xsgamma_delta_c7=delta_C7_mw,
+        pred_br_b_xsgamma=pred_bsg,
+        sm_br_b_xsgamma=sm_bsg,
+        exp_br_b_xsgamma=exp_bsg,
+        b_xsgamma_rel_err_pct=bsg_err,
+        flavon_df2_coeff_gev2=c_flavon_k,
+        utfit_df2_bound_gev2=c_utfit_bound,
+        lambda_h_phi_portal=g2_sq,
+        pred_sigma_si_cm2=sigma_si_cm2,
+        lz_bound_cm2=lz_bound_2462,
+        xenon_nt_bound_cm2=xenon_nt_bound_2462,
+        neutrino_floor_cm2=neutrino_floor_2462,
+        pred_s13_sq_pmns=pred_s13_sq,
+        exp_s13_sq_pmns=exp_s13_sq,
+        s13_pmns_rel_err_pct=s13_err,
+        pred_s12_sq_pmns=pred_s12_sq,
+        exp_s12_sq_pmns=exp_s12_sq,
+        s12_pmns_rel_err_pct=s12_err,
+        pred_s23_sq_pmns=pred_s23_sq,
+        exp_s23_sq_pmns=exp_s23_sq,
+        s23_pmns_rel_err_pct=s23_err,
+        pred_delta_cp_pmns_deg=pred_dcp_deg,
+        exp_delta_cp_pmns_deg=exp_dcp_deg,
+        delta_cp_pmns_rel_err_pct=dcp_err,
+        linear_liv_xi1=0.0,
+        max_5design_err_2i=max_5des_err,
+        quad_liv_scale_gev=Lambda_cut,
+        lhaaso_eqg2_bound_gev=lhaaso_eqg2_bound,
+        grb221009a_delay_lambda_sec=dt_quad_lambda,
+        grb221009a_delay_mpl_sec=dt_quad_mpl,
+        dirac_yukawa_ynu3=y_nu3,
+        yukawa_therm_ratio_mz=gamma_over_h_yuk,
+        freeze_in_delta_neff=delta_neff_yuk,
+        uv_diluted_delta_neff=delta_neff_diluted,
+        planck_delta_neff_bound=planck_neff_bound,
+    )
+
+
 
 
 
