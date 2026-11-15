@@ -16,10 +16,10 @@ Having established that $G = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f$
 | :--- | :--- | :--- | :--- |
 | **Test 13a: Flavon-Higgs Threshold $M_{\text{fl}} / M_Z$** | `5.891e+07` ($M_{\text{fl}} = 5.37e+09\text{ GeV}$) | `$\lvert G \rvert \cdot \lvert G^{\text{ab}} \rvert = 5.669e+07$` | **3.77%** — **PASSES** |
 | **Test 13b: Unification Cutoff $\Lambda / M_Z$** | `5.563e+11` ($\Lambda = 5.07e+13\text{ GeV}$) | `$\lvert G \rvert^2 / 8 = 5.510e+11$` | **0.95%** — **PASSES** |
-| **Test 13c: Weak Mixing Angle $\sin^2\theta_W(M_Z)$** | `0.23121 ± 0.00004` | `0.23111` (from $\sin^2\theta_W(\Lambda) = 3/8$) | **0.11%** — **PASSES** |
-| **Test 13d: Strong Coupling $\alpha_s(M_Z)$** | `0.1179 ± 0.0009` | `0.1170` (vs. $0.0711$ in 1HDM) | **0.76%** ($< 1\sigma$) — **PASSES** |
+| **Test 13c: Weak Mixing Angle $\sin^2\theta_W(M_Z)$** | `0.23121 ± 0.00004` | `0.23111` (from $\sin^2\theta_W(\Lambda) = 3/8$) | **0.045%** ($-2.6\sigma$) |
+| **Test 13d: Strong Coupling $\alpha_s(M_Z)$** | `0.1179 ± 0.0009` | `0.1170` (vs. $0.0711$ in 1HDM) | **0.76%** ($-1.0\sigma$) — **PASSES** |
 | **Test 14a: Bare Unified Coupling $\alpha_U^{-1}(\Lambda)$** | `38.6117` ($\alpha_{\text{em}}^{-1}(\Lambda) = 102.965$) | `$36 + 8/3 = 116/3 = 38.6667$` (or `$\frac{8}{3}\ln\lvert G \rvert = 38.6667$`) | **0.14%** (or **0.54%**) — **PASSES** |
-| **Test 14b: Fine-Structure Constant $\alpha_{\text{em}}^{-1}(0)$** | `137.035999` ($\alpha_{\text{em}}^{-1}(M_Z) = 127.951$) | `137.026` ($\alpha_{\text{em}}^{-1}(M_Z) = 127.941$) | **0.12%** — **PASSES** |
+| **Test 14b: Fine-Structure Constant $\alpha_{\text{em}}^{-1}(M_Z)$ / $\alpha_{\text{em}}^{-1}(0)$** | `127.951 ± 0.009` (`137.036`) | `127.941` (`137.026` w/ $\Delta_{\text{QED}}$) | **0.008%** ($-1.1\sigma$) — **PASSES** |
 | **Test 15a: Gravitational Coupling $\alpha_G(m_p)$** | `5.906e-39` ($G_N m_p^2 / \hbar c$) | `$\frac{1}{2}\lvert G \rvert^{-6} = 5.838e-39$` | **1.15%** (over $10^{39}$!) — **PASSES** |
 | **Test 15b: Planck-to-Proton Ratio $M_{\text{Pl}} / m_p$** | `1.3012e+19` | `$\sqrt{2}\lvert G \rvert^3 = 1.3088e+19$` | **0.58%** — **PASSES** |
 | **Test 16: CKM vs. PMNS Shift Fraction ($p \neq 0$)** | CKM small ($13^\circ$) vs. PMNS large ($45^\circ, 33.4^\circ$) | CKM Shift $= 0.20\%$ vs. PMNS Shift $= 50.61\%$ ($\theta_{13}^{\text{QLC}} = 9.15^\circ$) | **Clock vs. Clock–Shift Equipartition!** — **PASSES** |
@@ -81,7 +81,7 @@ Combining these parameter-free bare couplings with the parameter-free group scal
 ## 3. Test 15: Gravitational Coupling Constant $\alpha_G(m_p)$ and the Planck Hierarchy
 
 Why is gravity $\sim 10^{38}$ times weaker than the gauge interactions? In the discrete poset $(P, G, Z, \prec_Z)$:
-- The group order $\lvert G \rvert = 120 \times 648 \times 27 = \mathbf{2,099,520}$ was uniquely fixed by the **4-Point Design Theorem** using purely internal and spinor representation theory—with **zero** input from gravity.
+- The group order $\lvert G \rvert = 120 \times 648 \times 27 = \mathbf{2,099,520}$ was fixed by the **4-Point Design Theorem** using purely internal and spinor representation theory—with **zero** input from gravity.
 - On a $d=1$ causal link, the baseline compatibility probability is $p_{1,1}(G) = \lvert G \rvert^{-1} = 4.763 \times 10^{-7}$. Across 3 spatial dimensions ($3$ independent link pairs for a composite spin-2 graviton exchange $h_{\mu\nu} \sim e_\mu \otimes e_\nu$, involving $2 \times 3 = 6$ group factors $\lvert G \rvert^{-6}$) and dividing by the order-$2$ spin-statistics center $\lvert Z(2I) \rvert = 2$:
   $$\alpha_G^{\text{pred}} = \frac{1}{\lvert Z(2I) \rvert} \lvert G \rvert^{-6} = \frac{1}{2} (2,099,520)^{-6} = \mathbf{5.838e-39},$$
   compared to the experimental dimensionless gravitational fine-structure constant of the proton (whose stability is guaranteed to all orders by $Z(\Delta(27)_f) \cong \mathbb{Z}_3$):

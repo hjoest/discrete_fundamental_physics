@@ -35,12 +35,12 @@ For any finite subgroup $H \subset G_{\text{Lie}}$ and faithful representation $
 | **Sigma[19] (8_gluon real octet)** | `8` | `0.25000` | `0.75000` | **1.33** | **UNFROZEN ($0.7692 < 1.33$)** |
 | **Delta27[9] (3_f flavor triplet)** | `3` | `0.00000` | `1.00000` | **1.00** | **UNFROZEN ($0.7692 < 1.00$)** |
 
-### 1.2 Second Independent Proof of $d = 4$ Spacetime Selection: Melting the Crystal via $S_d$ Permutation Channels
+### 1.2 Second Independent Proof of Vertex Coordination $d = 4$ Selection: Melting the Crystal via $S_d$ Permutation Channels
 At the poset unification cutoff $\Lambda$, our bare unified coupling $\alpha_U^{-1}(\Lambda) = 116/3 = 38.6667$ fixes the total $\operatorname{SU}(3)_c$ Wilson coupling $\beta_{\text{tot}}(\Lambda) = \frac{2 N_c}{g_U^2(\Lambda)} = \mathbf{18.462}$.
 - On a rigid periodic lattice ($1$ fixed ordering, $N_{\text{perm}} = 1$), $\beta_{\text{tot}} = 18.462 > \beta_c(\Sigma[7]) = 2.32$, which would lock the group into a frozen crystal phase!
 - On the causal poset $(P, G, Z, \prec_Z)$, however, the $(d \to d)$ vertex conservation law $\prod_{i=1}^d u_{\sigma(i)} = \prod_{j=1}^d v_{\tau(j)}$ sums coherently over **$d!$ permutation channels $\sigma \in S_d$**, partitioning the bare coupling per channel as $\beta_{\text{channel}}(d) = \beta_{\text{tot}}(\Lambda) / d!$: 
 
-| Spacetime Coordination $d$ | Permutation Channels $d!$ | Channel Coupling $\beta_{\text{channel}}(d) = \beta_{\text{tot}} / d!$ | Minimum Freezing Threshold $\min_\chi \beta_c(\chi)$ | Phase Status Across $G_{\text{Option D}}$ |
+| Vertex Coordination $d$ | Permutation Channels $d!$ | Channel Coupling $\beta_{\text{channel}}(d) = \beta_{\text{tot}} / d!$ | Minimum Freezing Threshold $\min_\chi \beta_c(\chi)$ | Phase Status Across $G_{\text{Option D}}$ |
 | :---: | :---: | :---: | :---: | :--- |
 | **$d = 1$** | `1` | **18.4620** | `1.00` | FROZEN (Discrete Crystal Phase: $\beta_{\text{channel}} > \beta_c$) |
 | **$d = 2$** | `2` | **9.2310** | `1.00` | FROZEN (Discrete Crystal Phase: $\beta_{\text{channel}} > \beta_c$) |
@@ -49,7 +49,7 @@ At the poset unification cutoff $\Lambda$, our bare unified coupling $\alpha_U^{
 | **$d = 5$** | `120` | **0.1538** | `1.00` | **COMPLETELY UNFROZEN (Continuous Lie Phase!)** |
 | **$d = 6$** | `720` | **0.0256** | `1.00` | **COMPLETELY UNFROZEN (Continuous Lie Phase!)** |
 
-**Theorem (Dual Dynamical Selection of $d = 4$ Spacetime):**
+**Theorem (Dual Dynamical Selection of Vertex Coordination $d = 4$):**
 1. For $d \in \{1, 2, 3\}$, the causal poset is both **sub-critical for percolation** ($k_c(d) > 3$, Attack 12) and **frozen in the discrete crystal phase** ($\beta_{\text{channel}}(d) \ge 3.08 > \beta_c$).
 2. **$d = 4$ is the unique minimal coordination degree** where the poset simultaneously **percolates** ($k_c(4) = 2.83 < 3$) AND **melts the lattice freezing transition across every sector of $G_{\text{Option D}}$** ($\beta_{\text{channel}}(4) = 0.7692 < 1.00$), so that by Burnside's Theorem the $S_4$-coarse-grained vertex operators $\overline{U}_4 = \frac{1}{24}\sum_{\sigma \in S_4} \rho(u_{\sigma(1)}\cdots u_{\sigma(4)})$ densely generate the continuous Lie algebras $\mathfrak{spin}(4)$ and $\mathfrak{su}(3)_c \oplus \mathfrak{su}(2)_{W,L} \oplus \mathfrak{u}(1)_Y$!
 

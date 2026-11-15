@@ -876,9 +876,9 @@ def run_scrutiny_audit(
     # =========================================================================
     # Scrutiny 10: Pure End-to-End Chained Prediction DAG Audit
     # =========================================================================
-    # Chain 100% from predicted Koide/Brannen lepton ratios (delta_e = 2/9), 1-loop QED running, + Weinberg-GST up+down rotation:
+    # Chain from predicted Koide/Brannen lepton ratios (delta_e = 2/9) + 1-loop QED mass anomalous dimension gamma_m = 3*alpha/(2*pi):
     aem0_pred_inv = rge_table[0][1]
-    r_qed_me_mmu = 1.0 - (3.0 / (math.pi * aem0_pred_inv)) * math.log(
+    r_qed_me_mmu = 1.0 - (3.0 / (2.0 * math.pi * aem0_pred_inv)) * math.log(
         phase5.pred_mmu_mev / phase5.pred_me_mev
     )
     me_over_mmu_pred = (phase5.pred_me_mev / phase5.pred_mmu_mev) * r_qed_me_mmu
@@ -1090,9 +1090,9 @@ def write_scrutiny_report(audit: ScrutinyAuditResult) -> None:
             "",
             "## 8. Scrutiny 8: Simultaneous $3 \\times 3$ Hermitian Yukawa Construction in $\\mathbb{R}[\\Delta(27)_f]$",
             "",
-            f"- Expanding the explicit positive-definite Hermitian quark Yukawa matrices $M_u, M_d$ in the 9 Weyl–Heisenberg basis operators $W_{{p,q}} = P^p Q^q \\in \\mathbb{{R}}[\\Delta(27)_f]$ ($c_{{p,q}} = \\frac{{1}}{{3}}\\operatorname{{Tr}}(W_{{p,q}}^\\dagger M_q)$) reconstructs $M_d$ to **`{audit.wh_md_recon_err:.2e}`**.",
-            f"- This single explicit matrix pair $(M_u, M_d) \\in \\mathbb{{R}}[\\Delta(27)_f]$ simultaneously achieves:",
-            f"  1. **Exact Tree-Level Strong CP Vanishing:** $\\lvert\\arg\\det(M_u M_d)\\rvert =$ **`{audit.wh_arg_det_rad:.2e}` rad** ($\\bar{{\\theta}}_{{\\text{{QCD}}}}^{{\\text{{tree}}}} = 0$),",
+            f"- Expanding the explicit positive-definite Hermitian quark Yukawa matrices $M_u, M_d$ in the 9 Weyl–Heisenberg basis operators $W_{{p,q}} = P^p Q^q \\in \\mathbb{{R}}[\\Delta(27)_f]$ ($W_{{p,q}}^\\dagger = \\omega^{{pq}} W_{{-p,-q}}$, $c_{{p,q}} = \\frac{{1}}{{3}}\\operatorname{{Tr}}(W_{{p,q}}^\\dagger M_q)$ obeying $c_{{-p,-q}} = \\omega^{{pq}} c_{{p,q}}^*$) reconstructs $M_d$ to **`{audit.wh_md_recon_err:.2e}`**.",
+            f"- This single explicit matrix pair $(M_u, M_d) \\in \\mathbb{{R}}[\\Delta(27)_f]$ simultaneously achieves at tree level:",
+            f"  1. **Tree-Level Strong CP Vanishing:** $\\lvert\\arg\\det(M_u M_d)\\rvert =$ **`{audit.wh_arg_det_rad:.2e}` rad** ($\\bar{{\\theta}}_{{\\text{{QCD}}}}^{{\\text{{tree}}}} = 0$ under the Hermitian flavon ansatz $c_{{-p,-q}} = \\omega^{{pq}} c_{{p,q}}^*$; radiative stability against heavy 2HDM/flavon loops remains open, Critique 9),",
             "  2. **Exact Up and Down Quark Mass Eigenvalues:** $(m_u, m_c, m_t)$ and $(m_d, m_s, m_b)$, and",
             f"  3. **Full Off-Diagonal CKM CP Violation:** $J_{{\\text{{CP}}}} = \\operatorname{{Im}}(V_{{us}} V_{{cb}} V_{{ub}}^* V_{{cs}}^*) =$ **`{audit.wh_jcp_reconstructed:.4e}`** (exp `3.08e-5`).",
             "",
@@ -1108,8 +1108,8 @@ def write_scrutiny_report(audit: ScrutinyAuditResult) -> None:
             "",
             "## 10. Scrutiny 10: Chained Prediction DAG Audit",
             "",
-            f"- Chaining the Cabibbo angle $\\lvert V_{{us}}\\rvert$ purely from the predicted Koide/Brannen lepton mass ratio $m_e / m_\\mu$ ($\\delta_e = 2/9\\text{{ rad}}$) + 1-loop QED running via the pure-lepton Gatto–Sartori–Tonin relation $\\theta_{{12}}^{{(d)}} = 3\\sqrt{{m_e/m_\\mu}}$ gives:",
-            f"  $$\\lvert V_{{us}}\\rvert_{{\\text{{pure-lepton}}}} = 3\\sqrt{{\\frac{{m_e^{{\\text{{pred}}}}(M_Z)}}{{m_\\mu^{{\\text{{pred}}}}(M_Z)}}}} = \\mathbf{{{audit.chained_vus_pure_lepton:.4f}}} \\quad (\\text{{exp }} 0.2250,\\; {abs(audit.chained_vus_pure_lepton - 0.2250) / 0.2250 * 100:.2f}\\%\\text{{ offset; vs. quark-input }}\\sqrt{{m_d/m_s}} = 0.2234),$$",
+            f"- Chaining the Cabibbo angle $\\lvert V_{{us}}\\rvert$ purely from the predicted Koide/Brannen lepton mass ratio $m_e / m_\\mu$ ($\\delta_e = 2/9\\text{{ rad}}$) + 1-loop QED running ($\\gamma_m = \\frac{{3\\alpha}}{{2\\pi}}$) via the pure-lepton Gatto–Sartori–Tonin relation $\\theta_{{12}}^{{(d)}} = 3\\sqrt{{m_e/m_\\mu}}$ gives:",
+            f"  $$\\lvert V_{{us}}\\rvert_{{\\text{{pure-lepton}}}} = 3\\sqrt{{\\frac{{m_e^{{\\text{{pred}}}}(M_Z)}}{{m_\\mu^{{\\text{{pred}}}}(M_Z)}}}} = \\mathbf{{{audit.chained_vus_pure_lepton:.4f}}} \\quad (\\text{{exp }} 0.2250,\\; {abs(audit.chained_vus_pure_lepton - 0.2250) / 0.2250 * 100:.2f}\\%\\text{{ offset; }} 0.2065\\text{{ or }} 8.2\\%\\text{{ from PDG }}\\overline{{\\text{{MS}}}}\\text{{ leptons; vs. quark-input }}\\sqrt{{m_d/m_s}} = 0.2234),$$",
             f"  and $\\lvert V_{{cb}}\\rvert_{{\\text{{chained}}}} = {audit.chained_vcb_pure_lepton:.5f}$, $\\lvert V_{{ub}}\\rvert_{{\\text{{chained}}}} = {audit.chained_vub_pure_lepton:.5f}$, $J_{{\\text{{CP}}}}^{{\\text{{chained}}}} = {audit.chained_jcp_pure_lepton:.4e}$, and $m_W^{{\\text{{1-loop }}\\Delta\\rho_t}} = {audit.chained_mw_3step_gev:.3f}\\text{{ GeV}}$ (`{abs(audit.chained_mw_3step_gev - 80.377)/80.377*100:.2f}%` error, $-3.7\\sigma$ at 1-loop custodial $\\Delta\\rho_t$, using $(M_Z, m_\\tau, m_t, G_F)$ as inputs).",
         ]
     )

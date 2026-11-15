@@ -18,13 +18,13 @@ In Option D ($G_{\text{Option D}} = 2I \times \Sigma(216 \times 3) \times \Delta
 | **Test 18b: Bottom Mass $m_b(M_Z)$ ($p = 0$)** | `2.85 ± 0.03 GeV` | `3.02 GeV` ($3^0 R_{d/e} m_\tau(M_Z)$, quenched $4/11$ ansatz) | **+6.1%** ($+5.8\sigma$, Yukawa running open) |
 | **Test 18c: Strange Mass $m_s(M_Z)$ ($p = +1$)** | `53.5 ± 4.6 MeV` | `59.3 MeV` ($3^{-1} R_{d/e} m_\mu(M_Z)$) | **$1.3\sigma$** (10.8%) — **PASSES** |
 | **Test 18d: Down Mass $m_d(M_Z)$ ($p = -1$)** | `2.67 ± 0.19 MeV` | `2.53 MeV` ($3^{+1} R_{d/e} m_e(M_Z)$) | **$0.8\sigma$** (5.4%) — **PASSES** |
-| **Test 18e: GST Cabibbo Angle $\sin\theta_C$** | `0.2250` | `$\sqrt{m_d / m_s} = 0.2234$` (`0.2065` from $3\sqrt{m_e/m_\mu}$) | **0.7%** (7.3%) — **PASSES** |
+| **Test 18e: GST Cabibbo Angle $\sin\theta_C$** | `0.2250` | `$\sqrt{m_d / m_s} = 0.2234$` (`0.2065` from $3\sqrt{m_e/m_\mu}$) | **0.7%** (8.2% from leptons) — **PASSES** |
 | **Test 19a: Koide Parameter $Q_e$** | `0.666661 ± 0.000007` | `$2/3 = 0.666667$` (Norm Equipartition $\|v_{\mathbb{R}}\|^2 = \|v_{\mathbb{C}}\|^2$) | **0.0009%** ($0.8\sigma$) — **PASSES** |
 | **Test 19b: Brannen Clock Phase $\delta_e$** | `0.2222296 rad` | `$\lvert Z(2I)\rvert / \lvert\Delta(27)_f^{\text{ab}}\rvert = 2/9 = 0.2222222\text{ rad}$` | **0.003%** ($0.9\sigma$) — **PASSES** |
 | **Test 19c: Electron & Muon Masses $(m_e, m_\mu)$** | `(0.51100, 105.658) MeV` | `(0.51096, 105.652) MeV` (from $m_\tau$ & $\delta_e = 2/9$) | **0.007% / 0.006%** — **PASSES** |
 | **Test 20a: Top–Bottom Ratio $\tan\beta(M_Z) = m_t / m_b$** | `60.25 ± 0.80` | `$\lvert 2I / Z(2I) \rvert = \lvert A_5 \rvert = 60.00$` | **0.41%** ($0.3\sigma$) — **PASSES** |
-| **Test 20b: Charm Mass $m_c(M_Z)$** | `0.619 ± 0.017 GeV` | `0.594 GeV` ($m_t(M_Z)(m_\mu / m_\tau)^2$) | **1.9%** ($0.7\sigma$) — **PASSES** |
-| **Test 20c: Up Mass $m_u(M_Z)$** | `1.27 ± 0.19 MeV` | `0.94 MeV` ($\frac{1}{3} m_c(M_Z)(m_e / m_\mu)$) | **$1.4\sigma$** — **PASSES** |
+| **Test 20b: Charm Mass $m_c(M_Z)$** | `0.619 ± 0.017 GeV` | `0.594 GeV` ($m_t(M_Z)(m_\mu / m_\tau)^2$) | **-4.0%** ($-1.5\sigma$) — **PASSES** |
+| **Test 20c: Up Mass $m_u(M_Z)$** | `1.27 ± 0.19 MeV` | `0.94 MeV` ($\frac{1}{3} m_c(M_Z)(m_e / m_\mu)$) | **-26.1%** ($-1.7\sigma$) — **PASSES** |
 | **Test 21a: $W$ Boson Mass $m_W$** | `80.377 ± 0.012 GeV` | `80.332 GeV` (1-loop $c_W^2\Delta\rho_t^1$ from $\sin^2\theta_W(M_Z)_{\text{pred}} = 0.23111$; `80.379 GeV` w/ full SM conversion) | **0.06%** ($-3.7\sigma$ at 1-loop $\Delta\rho_t$) |
 | **Test 21b: Light SM Higgs $m_{h^0}$ ($\lambda(M_{\text{fl}})=0$)** | `125.25 ± 0.17 GeV` | `125.10 GeV` (2-loop $\lambda(M_{\text{fl}}) = 0$) / `125.91 GeV` (Weinberg) | **0.12%** ($0.9\sigma$) / **0.53%** — **PASSES** |
 | **Test 21c: Heavy Type-II 2HDM Quartet $(A^0, H^\pm, H^0)$** | `> 2.0 TeV` (LHC Run-2/3 at $\tan\beta = 60$) | `$M_{A^0} = 27\,M_Z = 2.4621\text{ TeV}$, $M_{H^\pm} = 2.4634\text{ TeV}$, $M_{H^0} = 2.4638\text{ TeV}$ ($m_{12} = 317.81\text{ GeV}$)` | **Falsifiable Prediction** — **PASSES** |
@@ -70,7 +70,7 @@ matching the experimental value $Q_e^{\text{exp}} = \mathbf{0.666661 \pm 0.00000
 
 ### 2.2 First-Principles Derivation of the Clock Phase $\delta_e = \frac{\lvert Z(2I)\rvert}{\lvert\Delta(27)_f^{\text{ab}}\rvert} = \frac{2}{9}\text{ rad}$
 What fixes the Clock phase $\delta_e$ that produces the $4$-order-of-magnitude hierarchy $m_e / m_\tau \approx 2.88 \times 10^{-4}$? When $\delta_e = \pi/12 = 15^\circ$, the $k=1$ eigenvalue vanishes identically ($1 + \sqrt{2}\cos(15^\circ + 120^\circ) = 0 \implies m_e = 0$). In $G$, the phase offset of the spinor-flavor Clock operator is the ratio of the spinor center order $\lvert Z(2I) \rvert = 2$ to the flavor abelianization order $\lvert \Delta(27)_f^{\text{ab}} \rvert = 9$:
-$$\delta_e^{\text{pred}} = \frac{\lvert Z(2I) \rvert}{\lvert \Delta(27)_f^{\text{ab}} \rvert} = \frac{2}{9}\text{ rad} = \mathbf{0.2222222\text{ rad}} \quad \text{vs.} \quad \delta_e^{\text{exp}} = \mathbf{0.2222296\text{ rad}} \quad (\text{deviation: }\mathbf{0.0001\%}!).$$
+$$\delta_e^{\text{pred}} = \frac{\lvert Z(2I) \rvert}{\lvert \Delta(27)_f^{\text{ab}} \rvert} = \frac{2}{9}\text{ rad} = \mathbf{0.2222222\text{ rad}} \quad \text{vs.} \quad \delta_e^{\text{exp}} = \mathbf{0.2222296\text{ rad}} \quad (\text{deviation: }\mathbf{0.003\%}!).$$
 Using $m_\tau = 1776.86\text{ MeV}$ to set the overall dimensionful scale $v_0^2$, $\delta_e = 2/9$ predicts both lighter lepton masses with **zero free parameters**:
 - **Electron Mass:** $m_e^{\text{pred}} = \mathbf{0.51096\text{ MeV}}$ vs. $m_e^{\text{exp}} = \mathbf{0.51100\text{ MeV}}$ (**0.007% error**),
 - **Muon Mass:** $m_\mu^{\text{pred}} = \mathbf{105.652\text{ MeV}}$ vs. $m_\mu^{\text{exp}} = \mathbf{105.658\text{ MeV}}$ (**0.006% error**).
@@ -84,8 +84,8 @@ Using $m_\tau = 1776.86\text{ MeV}$ to set the overall dimensionful scale $v_0^2
    $$\tan\beta(M_Z)_{\text{exp}} = \frac{m_t(M_Z)}{m_b(M_Z)} = \frac{171.7 \pm 1.5\text{ GeV}}{2.85 \pm 0.03\text{ GeV}} = \mathbf{60.25 \pm 0.80} \;\longleftrightarrow\; \lvert A_5 \rvert = \mathbf{60.00} \quad (\mathbf{0.41\% = 0.3\sigma}\text{ match!}).$$
 2. **Quadratic Clock Scaling in the $q_{\text{PQ}} = 0$ Up-Quark Sector ($m_c / m_t = (m_\mu / m_\tau)^2$):**
    Because $H_u = (\Sigma[4], \text{PQ}[0])$ carries $q_{\text{PQ}} = 0$ (unlike $H_d = H_e = (\Sigma[3], \text{PQ}[-1])$, which carries $q_{\text{PQ}} = -1$), the up-quark mass matrix is quadratic in the Clock Yukawa operator ($Y_u \propto Y_e^2$):
-   - **Charm-to-Top Ratio at $M_Z$:** $\left(\frac{m_c}{m_t}\right)_{M_Z}^{\text{pred}} = \left(\frac{m_\mu}{m_\tau}\right)_{M_Z}^2 = \mathbf{0.003460} = \frac{1}{282.8}$ vs. $\left(\frac{m_c}{m_t}\right)_{M_Z}^{\text{exp}} = \mathbf{0.003605} = \frac{1}{277.4}$, predicting $m_c(M_Z) = \mathbf{0.594\text{ GeV}}$ vs. exp `0.619 ± 0.017 GeV` (**1.9% error, $0.7\sigma$**).
-   - **Up-to-Charm Ratio at $M_Z$:** Including the single-color $N_c^{-1} = 1/3$ suppression, $\left(\frac{m_u}{m_c}\right)_{M_Z}^{\text{pred}} = \frac{1}{3}\frac{m_e}{m_\mu} = \mathbf{0.00158}$ vs. exp `0.00205`, predicting $m_u(M_Z) = \mathbf{0.94\text{ MeV}}$ vs. exp `1.27 ± 0.19 MeV` (**$1.4\sigma$**).
+   - **Charm-to-Top Ratio at $M_Z$:** $\left(\frac{m_c}{m_t}\right)_{M_Z}^{\text{pred}} = \left(\frac{m_\mu}{m_\tau}\right)_{M_Z}^2 = \mathbf{0.003460} = \frac{1}{288.8}$ vs. $\left(\frac{m_c}{m_t}\right)_{M_Z}^{\text{exp}} = \mathbf{0.003605} = \frac{1}{277.4}$, predicting $m_c(M_Z) = \mathbf{0.594\text{ GeV}}$ vs. exp `0.619 ± 0.017 GeV` (**-4.0% offset, $-1.5\sigma$**).
+   - **Up-to-Charm Ratio at $M_Z$:** Including the single-color $N_c^{-1} = 1/3$ suppression, $\left(\frac{m_u}{m_c}\right)_{M_Z}^{\text{pred}} = \frac{1}{3}\frac{m_e}{m_\mu} = \mathbf{0.00158}$ vs. exp `0.00205`, predicting $m_u(M_Z) = \mathbf{0.94\text{ MeV}}$ vs. exp `1.27 ± 0.19 MeV` (**-26.1% offset, $-1.7\sigma$**).
 
 ---
 

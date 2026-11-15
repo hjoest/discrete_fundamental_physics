@@ -102,4 +102,4 @@ If each spacetime event $x \in P$ carries a local fiber $Z_x \subset G$ of size 
 | **$d=5$** | `6.026e-03` | `165.9` | **1.67** | **SUPER-CRITICAL (Percolates!)** |
 | **$d=6$** | `3.695e-02` | `27.1` | **1.32** | **SUPER-CRITICAL (Percolates!)** |
 
-**Dynamical Selection of 4D Spacetime Coordination ($d = 4$):** When each spacetime event $x \in P$ carries a minimal $\mathbb{Z}_3$ triplet fiber ($k = 3$), degrees $d \in \{1, 2, 3\}$ are strictly sub-critical ($k_c(d) \in \{1449.0, 26.5, 6.2\} > 3$) and freeze out, whereas **$d = 4$ is the minimal vertex degree that crosses the percolation threshold ($k_c(4) = 2.83 < 3$)**!
+**Dynamical Selection of Vertex Coordination ($d = 4$):** When each spacetime event $x \in P$ carries a minimal $\mathbb{Z}_3$ triplet fiber ($k = 3$), degrees $d \in \{1, 2, 3\}$ are strictly sub-critical ($k_c(d) \in \{1449.0, 26.5, 6.2\} > 3$) and freeze out, whereas **$d = 4$ is the minimal vertex degree that crosses the percolation threshold ($k_c(4) = 2.83 < 3$)**!

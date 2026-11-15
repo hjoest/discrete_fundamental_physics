@@ -19,7 +19,7 @@ Whereas Falsification Tests 1–31 ([`run_falsification.py`](../run_falsificatio
 | **Scrutiny 7: Unitary $t$-Design & Haar Measure Moments** | Do finite links $2I, \Sigma(216\times 3)$ reproduce continuous $\operatorname{SU}(2), \operatorname{SU}(3)$ Haar integrals? | $2I$ is an exact $5$-design (matches $\operatorname{SU}(2)$ Catalan $C_t$ up to $2t=10$ to `1.8e-13`); $\Sigma(216\times 3)$ is an exact $2$-design (exact up to $2t=4$) | **EXACT FOR ALL $d\le 4$ OPS** |
 | **Scrutiny 8: Joint $3\times 3$ Hermitian Yukawa Construction in $\mathbb{R}[\Delta(27)_f]$** | Simultaneous $\bar{\theta}_{\text{QCD}}^{\text{tree}} = 0$, quark masses, and CKM $J_{\text{CP}}$ in a single matrix pair | Explicit $M_u, M_d \in \mathbb{R}[\Delta(27)_f]$: recon err `6.91e-16`, $\lvert\arg\det(M_u M_d)\rvert =$ `2.33e-13` rad, $J_{\text{CP}} =$ `2.9352e-05` | **EXACT ($\bar{\theta}_{\text{tree}} = 0$ & $J_{\text{CP}} \neq 0$)** |
 | **Scrutiny 9: WIMP Splitting $\Phi^\pm \to \Phi^0\pi^\pm$, $(S,T,U)$, & 2HDM Unitarity** | Charged WIMP survival at BBN; oblique $\Delta S, \Delta T$; 2HDM quartic scattering unitarity | $\Delta M_\Phi = 171.10\text{ MeV} > m_{\pi^\pm}$, $\tau(\Phi^\pm) = 0.159\text{ ns} \ll 1\text{ s}$; $\lvert\Delta T\rvert = 8.76e-06 \ll 0.06$; $\lambda_{\max}/(8\pi) = 1.57\%$ | **PASSES ALL BOUNDS** |
-| **Scrutiny 10: Chained Prediction DAG Audit** | Chaining Koide/Brannen lepton ratios ($\delta_e = 2/9$) + 1-loop QED/top shifts without intermediate PDG lepton ratios | Pure-lepton GST $3\sqrt{m_e/m_\mu} = 0.2047$ (`9.0%`; quark $\sqrt{m_d/m_s} = 0.2234$), $\lvert V_{cb}\rvert = 0.04204$, $m_W = 80.332\text{ GeV}$ (`0.06%`, $-3.7\sigma$ at 1-loop $\Delta\rho_t$) | **AUDITED (Uses $(M_Z, m_\tau, m_t, G_F)$ Inputs)** |
+| **Scrutiny 10: Chained Prediction DAG Audit** | Chaining Koide/Brannen lepton ratios ($\delta_e = 2/9$) + 1-loop QED/top shifts without intermediate PDG lepton ratios | Pure-lepton GST $3\sqrt{m_e/m_\mu} = 0.2067$ (`8.1%`; quark $\sqrt{m_d/m_s} = 0.2234$), $\lvert V_{cb}\rvert = 0.04204$, $m_W = 80.332\text{ GeV}$ (`0.06%`, $-3.7\sigma$ at 1-loop $\Delta\rho_t$) | **AUDITED (Uses $(M_Z, m_\tau, m_t, G_F)$ Inputs)** |
 
 ---
 
@@ -105,9 +105,9 @@ Comparing the finite-group character moments $M_{2t}(H) = \frac{1}{\lvert H\rver
 
 ## 8. Scrutiny 8: Simultaneous $3 \times 3$ Hermitian Yukawa Construction in $\mathbb{R}[\Delta(27)_f]$
 
-- Expanding the explicit positive-definite Hermitian quark Yukawa matrices $M_u, M_d$ in the 9 Weyl–Heisenberg basis operators $W_{p,q} = P^p Q^q \in \mathbb{R}[\Delta(27)_f]$ ($c_{p,q} = \frac{1}{3}\operatorname{Tr}(W_{p,q}^\dagger M_q)$) reconstructs $M_d$ to **`6.91e-16`**.
-- This single explicit matrix pair $(M_u, M_d) \in \mathbb{R}[\Delta(27)_f]$ simultaneously achieves:
-  1. **Exact Tree-Level Strong CP Vanishing:** $\lvert\arg\det(M_u M_d)\rvert =$ **`2.33e-13` rad** ($\bar{\theta}_{\text{QCD}}^{\text{tree}} = 0$),
+- Expanding the explicit positive-definite Hermitian quark Yukawa matrices $M_u, M_d$ in the 9 Weyl–Heisenberg basis operators $W_{p,q} = P^p Q^q \in \mathbb{R}[\Delta(27)_f]$ ($W_{p,q}^\dagger = \omega^{pq} W_{-p,-q}$, $c_{p,q} = \frac{1}{3}\operatorname{Tr}(W_{p,q}^\dagger M_q)$ obeying $c_{-p,-q} = \omega^{pq} c_{p,q}^*$) reconstructs $M_d$ to **`6.91e-16`**.
+- This single explicit matrix pair $(M_u, M_d) \in \mathbb{R}[\Delta(27)_f]$ simultaneously achieves at tree level:
+  1. **Tree-Level Strong CP Vanishing:** $\lvert\arg\det(M_u M_d)\rvert =$ **`2.33e-13` rad** ($\bar{\theta}_{\text{QCD}}^{\text{tree}} = 0$ under the Hermitian flavon ansatz $c_{-p,-q} = \omega^{pq} c_{p,q}^*$; radiative stability against heavy 2HDM/flavon loops remains open, Critique 9),
   2. **Exact Up and Down Quark Mass Eigenvalues:** $(m_u, m_c, m_t)$ and $(m_d, m_s, m_b)$, and
   3. **Full Off-Diagonal CKM CP Violation:** $J_{\text{CP}} = \operatorname{Im}(V_{us} V_{cb} V_{ub}^* V_{cs}^*) =$ **`2.9352e-05`** (exp `3.08e-5`).
 
@@ -123,6 +123,6 @@ Comparing the finite-group character moments $M_{2t}(H) = \frac{1}{\lvert H\rver
 
 ## 10. Scrutiny 10: Chained Prediction DAG Audit
 
-- Chaining the Cabibbo angle $\lvert V_{us}\rvert$ purely from the predicted Koide/Brannen lepton mass ratio $m_e / m_\mu$ ($\delta_e = 2/9\text{ rad}$) + 1-loop QED running via the pure-lepton Gatto–Sartori–Tonin relation $\theta_{12}^{(d)} = 3\sqrt{m_e/m_\mu}$ gives:
-  $$\lvert V_{us}\rvert_{\text{pure-lepton}} = 3\sqrt{\frac{m_e^{\text{pred}}(M_Z)}{m_\mu^{\text{pred}}(M_Z)}} = \mathbf{0.2047} \quad (\text{exp } 0.2250,\; 9.01\%\text{ offset; vs. quark-input }\sqrt{m_d/m_s} = 0.2234),$$
-  and $\lvert V_{cb}\rvert_{\text{chained}} = 0.04204$, $\lvert V_{ub}\rvert_{\text{chained}} = 0.00354$, $J_{\text{CP}}^{\text{chained}} = 2.7264e-05$, and $m_W^{\text{1-loop }\Delta\rho_t} = 80.332\text{ GeV}$ (`0.06%` error, $-3.7\sigma$ at 1-loop custodial $\Delta\rho_t$, using $(M_Z, m_\tau, m_t, G_F)$ as inputs).
+- Chaining the Cabibbo angle $\lvert V_{us}\rvert$ purely from the predicted Koide/Brannen lepton mass ratio $m_e / m_\mu$ ($\delta_e = 2/9\text{ rad}$) + 1-loop QED running ($\gamma_m = \frac{3\alpha}{2\pi}$) via the pure-lepton Gatto–Sartori–Tonin relation $\theta_{12}^{(d)} = 3\sqrt{m_e/m_\mu}$ gives:
+  $$\lvert V_{us}\rvert_{\text{pure-lepton}} = 3\sqrt{\frac{m_e^{\text{pred}}(M_Z)}{m_\mu^{\text{pred}}(M_Z)}} = \mathbf{0.2067} \quad (\text{exp } 0.2250,\; 8.14\%\text{ offset; } 0.2065\text{ or } 8.2\%\text{ from PDG }\overline{\text{MS}}\text{ leptons; vs. quark-input }\sqrt{m_d/m_s} = 0.2234),$$
+  and $\lvert V_{cb}\rvert_{\text{chained}} = 0.04204$, $\lvert V_{ub}\rvert_{\text{chained}} = 0.00354$, $J_{\text{CP}}^{\text{chained}} = 2.7514e-05$, and $m_W^{\text{1-loop }\Delta\rho_t} = 80.332\text{ GeV}$ (`0.06%` error, $-3.7\sigma$ at 1-loop custodial $\Delta\rho_t$, using $(M_Z, m_\tau, m_t, G_F)$ as inputs).
