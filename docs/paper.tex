@@ -211,18 +211,18 @@ $\Phi_{\mathrm{DM}}$ (WIMP) & $2I[0]\;(1_{+1})$ & $\Sigma[6]\;(3_{+1} \in M_3(\R
 \subsection{Structural Simplicity of \texorpdfstring{$\Gstar$}{G*}: The Clifford--Heisenberg Tower and \texorpdfstring{$E_8$}{E8} Golden--Eisenstein Duality}
 \label{sec:e8_duality}
 
-Beyond the bottom-up no-go theorems of Section~2.1, $\Gstar$ is not an arbitrary four-factor patchwork: it is completely determined by just two canonical algebraic objects corresponding to the two non-real Hurwitz division algebras ($\quat$ and $\C$) and the two arithmetic constructions of the $E_8$ root lattice $\Lambda_{E_8} \subset \R^8$:
+Beyond the bottom-up no-go theorems of Section~2.1, $\Gstar$ is not an arbitrary four-factor patchwork: it is organized around two canonical algebraic structures corresponding to the two non-real Hurwitz division algebras ($\quat$ and $\C$) and the two arithmetic constructions of the $E_8$ root lattice $\Lambda_{E_8} \subset \R^8$:
 \begin{enumerate}
     \item \textbf{The Internal Clifford--Heisenberg Normal Tower of $H = \Delta(27) \subset \SU(3)$:}
-    Let $H \equiv \Delta(27) \cong H_3(\F_3) \subset \SU(3)$ denote the minimal faithful $3$D Weyl--Heisenberg group over $\F_3$. Its center is $Z(H) \cong \Z_3$ (order $3$), and its full normalizer inside $\SU(3)$---the single-qutrit Clifford group $\operatorname{Cl}_1(\F_3) = \{U \in \SU(3) : U H U^\dagger = H\}$, where the symplectic outer automorphism group $\operatorname{Sp}(2,\F_3) = \SL(2,\F_3) \cong 2T_W$ (order $24$) acts on the discrete phase space $H / Z(H) \cong \F_3^2$---is precisely the Hessian group:
+    Let $H \equiv \Delta(27) \cong H_3(\F_3) \subset \SU(3)$ denote the minimal faithful $3$D Weyl--Heisenberg group over $\F_3$ (with exponent $3$; Section~\ref{sec:critiques}, Critique~8). Its center is $Z(H) \cong \Z_3$ (order $3$), and its full normalizer inside $\SU(3)$---the single-qutrit Clifford group $\operatorname{Cl}_1(\F_3) = \{U \in \SU(3) : U H U^\dagger = H\}$, where the symplectic outer automorphism group $\operatorname{Sp}(2,\F_3) = \SL(2,\F_3) \cong 2T_W$ (order $24$) acts on the discrete phase space $H / Z(H) \cong \F_3^2$---is precisely the Hessian group:
     \begin{equation}
     N_{\SU(3)}(H) \;=\; H \rtimes \SL(2,\F_3) \;=\; \Delta(27)_c \rtimes 2T_W \;\cong\; \Sigma(216 \times 3) \qquad (\text{order } 27 \times 24 = 648).
     \end{equation}
-    The three internal factors of $\Gstar$ are therefore the three canonical levels of the normal series of $H = \Delta(27)$ in $\SU(3)$,
+    The three internal factors of $\Gstar$ are the direct product of the three levels of the normal series of $H = \Delta(27)$ in $\SU(3)$,
     \begin{equation}
     \underbrace{Z(H)}_{\Z_3^{\mathrm{PQ}}\text{ (Peccei--Quinn grading)}} \;\triangleleft\; \underbrace{H}_{\Delta(27)_f\text{ (Flavor translations)}} \;\triangleleft\; \underbrace{N_{\SU(3)}(H)}_{\Sigma(216 \times 3)\text{ (Color + Weak gauge)}} \;\subset\; \SU(3),
     \end{equation}
-    reducing the entire group $\Gstar$ to the maximal McKay-$E_8$ subgroup $2I \subset \SU(2)$ paired with the Clifford--Heisenberg tower of $H = \Delta(27) \subset \SU(3)$:
+    pairing the maximal McKay-$E_8$ subgroup $2I \subset \SU(2)$ with the direct product of the Clifford--Heisenberg tower of $H = \Delta(27) \subset \SU(3)$:
     \begin{equation}
     \label{eq:clifford_tower}
     \Gstar \;=\; \underbrace{2I}_{\text{Maximal in }\SU(2)} \;\times\; \underbrace{N_{\SU(3)}(H) \;\times\; H \;\times\; Z(H)}_{\text{Clifford--Heisenberg tower of }H = \Delta(27)\text{ in }\SU(3)}.
@@ -292,9 +292,9 @@ $d = 5$ & $120$ & $3.433 \times 10^{-3}$ & $1.76 < 3$ & $0.1538 < 1.00$ & Super-
 }
 \end{table}
 
-\begin{theorem}[Dual Dynamical Selection of Vertex Coordination $d=4$ and Continuous Lie Restoration]
+\begin{theorem}[Dual Dynamical Selection of Vertex Coordination $d=4$ and Wedderburn Lie Spanning]
 \label{thm:d4_melting}
-Coordination degree $d = 4$ is the unique minimal vertex degree for which the causal poset simultaneously (i) crosses the percolation threshold $k_c(4) = p_{\mathrm{joint}}(4)^{-1/8} = 2.83 < 3$ for a minimal $\Z_3$ triplet fiber, and (ii) reduces the per-channel coupling $\beta_{\mathrm{channel}}(4) = 18.462 / 24 = 0.7692$ below $\min_\chi \beta_c(\chi) = 1.00$. By Burnside's Theorem on the simple Wedderburn blocks of $\R[\Gstar]$, the $S_4$-symmetrized vertex operators $\overline{U}_4 = \frac{1}{24}\sum_{\sigma \in S_4} \rho(u_{\sigma(1)}\cdots u_{\sigma(4)})$ densely generate the continuous Lie algebras $\mathfrak{spin}(4)$ and $\mathfrak{su}(3)_c \oplus \mathfrak{su}(2)_{W,L} \oplus \mathfrak{u}(1)_Y$ with vanishing coarse-grained trace gap ($\Delta E_{\mathrm{coarse}} \to 0$).
+Coordination degree $d = 4$ is the unique minimal vertex degree for which the causal poset simultaneously (i) crosses the percolation threshold $k_c(4) = p_{\mathrm{joint}}(4)^{-1/8} = 2.83 < 3$ for a minimal $\Z_3$ triplet fiber, and (ii) reduces the per-channel coupling $\beta_{\mathrm{channel}}(4) = 18.462 / 24 = 0.7692$ below the single-channel crystal-freezing threshold $\min_\chi \beta_c(\chi) = 1.00$. By Burnside's Theorem on the simple Wedderburn blocks of $\R[\Gstar]$, linear combinations of the $S_4$-symmetrized vertex operators $\overline{U}_4 = \frac{1}{24}\sum_{\sigma \in S_4} \rho(u_{\sigma(1)}\cdots u_{\sigma(4)})$ span the full matrix blocks $M_{n_\alpha}(\mathbb{D}_\alpha)$ containing the Lie algebras $\mathfrak{spin}(4)$ and $\mathfrak{su}(3)_c \oplus \mathfrak{su}(2)_{W,L} \oplus \mathfrak{u}(1)_Y$ (whereas a single $d = 4$ vertex average $\overline{U}_4$ takes finitely many discrete values in the convex hull of $\rho(\Gstar)$ with a strictly positive finite-group trace gap, so approaching a continuous Lie distribution with $\Delta E_{\mathrm{coarse}} \to 0$ requires the $N \to \infty$ coarse-graining limit; Section~\ref{sec:open_problems}, item~2).
 \end{theorem}
 
 Furthermore, because $2I \subset \SU(2)_{\mathrm{spin}}$ is an exact unitary $5$-design (whose character moments $\frac{1}{|2I|}\sum_{g\in 2I} |\chi_1(g)|^{2t}$ equal the continuous $\SU(2)$ Haar Catalan numbers $C_t = \frac{1}{t+1}\binom{2t}{t} = (1, 2, 5, 14, 42)$ identically up to polynomial degree $2t = 10$), all rotationally anisotropic operators under the compact rotation subgroup $2I/Z(2I) \cong A_5 \subset \SO(3)$ vanish up to polynomial degree $2t = 10$ (whereas $Z(2I) = \{\pm 1\}$ is the $2\pi$ spinor rotation $(-1)^F$, so forbidding isotropic dimension-$5$ $\mathcal{CPT}$-odd dispersion shifts $\xi_1$ requires unbroken macroscopic $\mathcal{CPT}$ and boost invariance in the continuum limit; Section~\ref{sec:open_problems}, item~1), while the quadratic ($n=2$) dispersion scale $\Lambda = 5.024 \times 10^{13}\text{ GeV}$ exceeds the $13\text{ TeV}$ photon bound from LHAASO GRB 221009A ($E_{\mathrm{QG},2} > 6.0 \times 10^{11}\text{ GeV}$) by a factor of $83.7$.
@@ -314,11 +314,14 @@ On the real group algebra $\R[\Gthree]$ ($\dim_{\R} = 2{,}099{,}520$), left tran
     \end{aligned}
     \end{equation}
     Across the $99.78\%$ of $\R[\Gthree]$ belonging to complex and quaternionic blocks, the canonical complex structure $J^2 = -I$ identifies $\mathcal{A}(g) \equiv -iH(g)/\hbar$ for a self-adjoint Hamiltonian $H(g) = H(g)^\dagger$, so Stone's Theorem yields unitary quantum time evolution $U(t) = \exp(-i\int H\,dt/\hbar)$.
-    \item \textbf{Non-Supersymmetric Bose--Fermi Balance:} Because the bosonic ($z_{\mathrm{spin}} = +1$, $\iota = +1$) and fermionic ($z_{\mathrm{spin}} = -1$, $\iota = -1$) sectors of $2I$ both have $\sum d_\chi^2 = 60$, tensoring with $\Sigma(216 \times 3) \times \Delta(27)_f$ enforces exact equality between strictly real and quaternionic dimensions:
+    \item \textbf{Non-Supersymmetric Bose--Fermi Balance ($z_{\mathrm{spin}}$ and $\iota_{\mathrm{tot}}$):} In $2I$, the bosonic ($z_{\mathrm{spin}} = +1$, $\iota_{2I} = +1$) and fermionic ($z_{\mathrm{spin}} = -1$, $\iota_{2I} = -1$) sectors both have $\sum d_\chi^2 = 60$. Grading the full algebra $\R[\Gthree]$ ($\dim_\R = 2{,}099{,}520$, including the $99.55\%$ $\iota_{\mathrm{tot}} = 0$ complex sector that houses the $48$ chiral SM Weyl fermions in $\Delta[9]$) by the central spin-statistics involution $z_{\mathrm{spin}} \in Z(2I) = \{\pm 1\}$ gives exact full-algebra Bose--Fermi balance, together with exact equality between strictly real ($\iota_{\mathrm{tot}} = +1$) and quaternionic ($\iota_{\mathrm{tot}} = -1$) dimensions on the $\Delta[0]$ sector:
     \begin{equation}
-    \STr_{\iota \neq 0}\bigl(\R[\Gthree]\bigr) \;=\; \dim\bigl(\R[\Gthree]_{\iota = +1}\bigr) - \dim\bigl(\R[\Gthree]_{\iota = -1}\bigr) \;=\; 4{,}680 - 4{,}680 \;=\; 0,
+    \begin{aligned}
+    \STr_{z_{\mathrm{spin}}}\bigl(\R[\Gthree]\bigr) &= \dim(z_{\mathrm{spin}}=+1) - \dim(z_{\mathrm{spin}}=-1) = 1{,}049{,}760 - 1{,}049{,}760 = 0, \\
+    \STr_{\iota \neq 0}\bigl(\R[\Gthree]\bigr) &= \dim(\iota_{\mathrm{tot}}=+1) - \dim(\iota_{\mathrm{tot}}=-1) = 4{,}680 - 4{,}680 = 0,
+    \end{aligned}
     \end{equation}
-    achieving Bose--Fermi vacuum cancellation without unobserved spacetime superpartners.
+    achieving ultraviolet Bose--Fermi dimension balance without doubling the spectrum into spacetime superpartners.
 \end{enumerate}
 \end{theorem}
 
@@ -349,7 +352,7 @@ At the cutoff $\Lambda$, the Spectral Action trace across the $48$ Weyl fermions
 \label{eq:bare_alpha_u}
 \alpha_U^{-1}(\Lambda) = N_{\mathrm{quark}} + \frac{\dim M_8(\R)}{\dim\R[2T_W]} = 36 + \frac{8}{3} = \frac{116}{3} = 38.6667 \quad (\text{vs.\ RG } 38.6117,\; 0.14\%\text{ error}).
 \end{equation}
-Running in three group-determined stages---(i) from $\Lambda = M_Z |\Gthree|^2 / 8$ to $M_{\mathrm{fl}} = M_Z |\Gthree| |\Gthree^{\mathrm{ab}}|$ with all $N_{H,\mathrm{high}} = 18$ Weyl--Heisenberg Higgs doublets active, (ii) from $M_{\mathrm{fl}}$ to the 1-vertex Kirchhoff threshold $M_{A^0} = M_Z |\Gthree^{\mathrm{ab}}| = 27\,M_Z = 2.4621\text{ TeV}$ with the $N_{H,\mathrm{mid}} = 2$ flavor-diagonal zero-mode doublets $(H_u^{(0,0)}, H_d^{(0,0)})$ active, and (iii) from $27\,M_Z$ to $M_Z$ with only the $N_{H,\mathrm{low}} = 1$ light Standard Model Higgs doublet $h^0$ active---predicts with zero free parameters:
+Running in three group-determined stages---(i) from $\Lambda = M_Z |\Gthree|^2 / 8$ to $M_{\mathrm{fl}} = M_Z |\Gthree| |\Gthree^{\mathrm{ab}}|$ with all $N_{H,\mathrm{high}} = 18$ Weyl--Heisenberg Higgs doublets active, (ii) from $M_{\mathrm{fl}}$ to the 1-vertex Kirchhoff threshold $M_{A^0} = M_Z |\Gthree^{\mathrm{ab}}| = 27\,M_Z = 2.4621\text{ TeV}$ with the $N_{H,\mathrm{mid}} = 2$ flavor-diagonal zero-mode doublets $(H_u^{(0,0)}, H_d^{(0,0)})$ active, and (iii) from $27\,M_Z$ to $M_Z$ with only the $N_{H,\mathrm{low}} = 1$ light Standard Model Higgs doublet $h^0$ active---yields at one loop:
 \begin{equation}
 \begin{aligned}
 \sin^2\theta_W(M_Z)_{\mathrm{pred}} &= 0.23111 \quad (\text{exp } 0.23121 \pm 0.00004,\; 0.045\%\text{ error},\; -2.6\sigma), \\
@@ -409,7 +412,7 @@ At $M_{A^0} = 2.4621\text{ TeV}$ and $\tan\beta = 60$, the 1-loop heavy Higgs $(
 %=============================================================================
 
 \begin{enumerate}
-    \item \textbf{Dirac Neutrino Spectrum, Complete PMNS Mixing Angles, and BBN $\Delta N_{\mathrm{eff}}$:} From $\Lambda_\nu = M_Z |\Gthree| |\Gstar| = |2T_W|\Lambda = 1.206 \times 10^{15}\text{ GeV}$, the atmospheric Dirac neutrino mass is $m_{\nu_3} = v_{\mathrm{ew}}^2 / \Lambda_\nu = 50.27\text{ meV}$ (exp $\sqrt{\Delta m_{31}^2} = 50.11 \pm 0.28\text{ meV}$, $0.33\%$ error). Shifting $\delta_e = 2/9$ by one elementary $2T_W$ discrete phase quantum $2\pi / |2T_W| = \pi/12$ ($\delta_\nu = 2/9 + \pi/12$) predicts $m_{\nu_2} = 8.84\text{ meV}$ and $m_{\nu_1} = 0.38\text{ meV}$, giving $\Delta m_{31}^2 = 2.527 \times 10^{-3}\text{ eV}^2$ ($0.6\sigma$), $\Delta m_{21}^2 = 7.79 \times 10^{-5}\text{ eV}^2$ ($1.8\sigma$), and $\sum m_{\nu_i} = 59.49\text{ meV}$ (Normal Ordering, strictly Dirac). Acting on the Walsh--Hadamard eigenbasis $V = F_3^\dagger$ ($\sin^2\theta_{23}^{(0)} = 1/2, \sin^2\theta_{12}^{(0)} = 1/3, \sin^2\theta_{13}^{(0)} = 0$), this same tetrahedral twist $\Delta\delta_{\ell\nu} = \pi/12$ predicts all three PMNS mixing angles and the Dirac CP phase without free parameters:
+    \item \textbf{Dirac Neutrino Spectrum, Complete PMNS Mixing Angles, and BBN $\Delta N_{\mathrm{eff}}$:} From $\Lambda_\nu = M_Z |\Gthree| |\Gstar| = |2T_W|\Lambda = 1.206 \times 10^{15}\text{ GeV}$, the atmospheric Dirac neutrino mass is $m_{\nu_3} = v_{\mathrm{ew}}^2 / \Lambda_\nu = 50.27\text{ meV}$ (exp $\sqrt{\Delta m_{31}^2} = 50.11 \pm 0.28\text{ meV}$, $0.33\%$ error). Shifting $\delta_e = 2/9$ by one elementary $2T_W$ discrete phase quantum $2\pi / |2T_W| = \pi/12$ ($\delta_\nu = 2/9 + \pi/12$) predicts $m_{\nu_2} = 8.84\text{ meV}$ and $m_{\nu_1} = 0.38\text{ meV}$, giving $\Delta m_{31}^2 = 2.527 \times 10^{-3}\text{ eV}^2$ ($0.6\sigma$), $\Delta m_{21}^2 = 7.79 \times 10^{-5}\text{ eV}^2$ ($1.8\sigma$), and $\sum m_{\nu_i} = 59.49\text{ meV}$ (Normal Ordering, strictly Dirac). Acting on the Walsh--Hadamard eigenbasis $V = F_3^\dagger$ ($\sin^2\theta_{23}^{(0)} = 1/2, \sin^2\theta_{12}^{(0)} = 1/3, \sin^2\theta_{13}^{(0)} = 0$), this same tetrahedral twist $\Delta\delta_{\ell\nu} = \pi/12$ yields all three PMNS mixing angles and the Dirac CP phase:
     \begin{equation}
     \label{eq:pmns_angles}
     \begin{aligned}
@@ -432,7 +435,7 @@ At $M_{A^0} = 2.4621\text{ TeV}$ and $\tan\beta = 60$, the 1-loop heavy Higgs $(
 
 \subsection{Six Sharp Experimental Falsifiers}
 
-Because $\Gstar$ contains no continuous adjustable parameters, its discrete selection rules and threshold scales yield six sharp experimental falsifiers:
+The discrete selection rules and threshold scales of $\Gstar$ yield six sharp experimental falsifiers:
 \begin{enumerate}
     \item \textbf{Zero Neutrinoless Double-Beta Decay ($0\nu\beta\beta = 0$):} Unbroken $Z(\Delta(27)_f) \cong \Z_3$ forbids $\Delta L = 2$ Majorana neutrino masses to all orders; any confirmed $0\nu\beta\beta$ signal (LEGEND-1000, nEXO, CUPID) falsifies the theory.
     \item \textbf{Normal Neutrino Ordering with $\sum_{i=1}^3 m_{\nu_i} = 59.5\text{ meV}$:} Inverted ordering is ruled out and $\sum m_\nu$ is pinned at $59.5\text{ meV}$ (Section~6), testable by DESI, Euclid, JUNO, DUNE, and CMB-S4.
@@ -443,13 +446,13 @@ Because $\Gstar$ contains no continuous adjustable parameters, its discrete sele
 \end{enumerate}
 
 \newpage
-\subsection{Summary of Parameter-Free Predictions}
+\subsection{Summary of Leading-Order Group-Algebraic Predictions}
 
-Table~\ref{tab:master} compiles the 35 parameter-free structural and quantitative predictions derived in Sections~3--6 from the invariants of $\Gstar$ and compares them against current experimental values.
+Table~\ref{tab:master} compiles the 35 structural and leading-order quantitative predictions obtained in Sections~3--6 from the invariants of $\Gstar$ and compares them against current experimental values (subject to the input dependencies and theoretical truncation caveats detailed in Section~\ref{sec:open_problems}).
 
 \begin{table}[!htbp]
 \centering
-\caption{Summary of 35 parameter-free predictions from $\Gstar$ compared with experiment.}
+\caption{Summary of 35 structural and leading-order quantitative predictions from $\Gstar$ compared with experiment.}
 \label{tab:master}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}llccc@{}}
@@ -457,7 +460,7 @@ Table~\ref{tab:master} compiles the 35 parameter-free structural and quantitativ
 \textbf{Observable} & \textbf{Group-Algebraic Formula} & \textbf{Predicted} & \textbf{Experimental} & \textbf{Error} \\
 \midrule
 Vertex Coordination Degree $d$ & $k_c(d) < 3$ \& $\beta_{\mathrm{ch}}(d) = \beta_{\mathrm{tot}}/d! < 1$ & $d = 4$ & $d = 4$ & Exact (vertex degree) \\
-Bose--Fermi Supertrace & $\dim(\iota=+1) - \dim(\iota=-1)$ in $\R[\Gthree]$ & $4680 - 4680 = 0$ & $0$ (no SUSY) & Exact \\
+Bose--Fermi Supertrace & $\STr_{z_{\mathrm{spin}}}(\R[\Gthree])$ ($\STr_{\iota\neq 0}$) & $1{,}049{,}760 - 1{,}049{,}760 = 0$ ($4680-4680$) & $0$ (no SUSY) & Exact (UV) \\
 Generations $N_{\mathrm{gen}}$ & $\dim\Delta[9] = 3$ \& $N_{\mathrm{gen}} \equiv 0 \bmod 3$ & $3$ & $3$ & Exact \\
 Bare $\sin^2\theta_W(\Lambda)$ & $\Tr(T_{3L}^2) / (\Tr(T_{3L}^2) + \Tr(Y^2))$ & $3/8 = 0.3750$ & $0.3750$ (GUT) & Exact \\
 Bare $\alpha_U^{-1}(\Lambda)$ & $N_{\mathrm{quark}} + \dim M_8(\R)/\dim\R[2T_W]$ & $116/3 = 38.667$ & $38.612$ (RG) & $0.14\%$ \\
@@ -499,10 +502,10 @@ Dark Energy $E_\Lambda$ & $M_Z / |\Gstar|^2 = M_Z / (9|\Gthree|^2)$ & $2.2985\te
 We'd like to note several recurring structural obstructions in unification and quantum-gravity model building from which the present framework $(P, \Gstar, Z, \prec_Z)$ is free:
 \begin{itemize}
     \item \textbf{Extra spatial dimensions, vacuum landscapes, and unstabilized moduli:} Microscopic vertex coordination degree $d = 4$ is selected by causal percolation and lattice crystal melting (Theorem~\ref{thm:d4_melting}) without compactification manifolds, continuous moduli fields, or a landscape of competing vacua (while establishing that $d = 4$ vertex coordination induces macroscopic Hausdorff and spectral dimension $D = 4$ in the $|P| \to \infty$ limit remains Open Problem~1 in Section~\ref{sec:open_problems}).
-    \item \textbf{Unobserved spacetime supersymmetry:} Exact Bose--Fermi supertrace balance ($\dim(\iota=+1) = \dim(\iota=-1) = 4{,}680$, Theorem~\ref{thm:quantum}) is enforced algebraically by the binary icosahedral factor $2I$ without doubling the particle spectrum into superpartners.
+    \item \textbf{Unobserved spacetime supersymmetry:} Ultraviolet Bose--Fermi supertrace balance ($\STr_{z_{\mathrm{spin}}}(\R[\Gthree]) = 1{,}049{,}760 - 1{,}049{,}760 = 0$ across the full algebra and $\dim(\iota_{\mathrm{tot}}=+1) = \dim(\iota_{\mathrm{tot}}=-1) = 4{,}680$, Theorem~\ref{thm:quantum}) is enforced algebraically by the binary icosahedral factor $2I$ without doubling the particle spectrum into superpartners.
     \item \textbf{Matterless geometry and unfixed quantization parameters:} Rather than quantizing pure geometry in isolation with an adjustable area-entropy parameter and appending gauge and matter fields externally, spacetime spinors, gauge bosons, Higgs doublets, and flavor generations emerge from a single finite group $\Gstar$ locked at every poset vertex by shared permutations $(\sigma, \tau) \in S_d^2$.
     \item \textbf{Pathological poset dominance and finite-subgroup lattice freezing:} Abelianization Kirchhoff conservation on $\Gstar^{\mathrm{ab}}$ (Theorem~\ref{thm:kirchhoff}) prevents high-degree combinatorial washout, while the $4! = 24$ vertex permutation channels reduce the per-channel coupling below the crystal-freezing threshold ($\beta_{\mathrm{channel}}(4) = 0.7692 < 1.00$).
-    \item \textbf{Ad-hoc generation triplication and manual Yukawa couplings:} Both $N_{\mathrm{gen}} = 3$ and the CKM/PMNS mass and mixing hierarchies follow deductively from the Heisenberg flavor group $\Delta(27)_f$ and the discrete anomaly cancellation condition $3 \mid N_{\mathrm{gen}}$ (Theorem~\ref{thm:design}), rather than being postulated by hand or fitted via free continuous Yukawa parameters.
+    \item \textbf{Ad-hoc generation triplication:} Three fermion generations ($N_{\mathrm{gen}} = 3$) are forced by the faithful $3$D irrep of $\Delta(27)_f$ and the discrete anomaly cancellation condition $3 \mid N_{\mathrm{gen}}$ (Theorem~\ref{thm:design}), while the leading-order CKM/PMNS mass and mixing hierarchies are motivated by the Clock and Shift subalgebras of $\R[\Delta(27)_f]$.
     \item \textbf{Leptoquark-mediated proton decay, doublet--triplet fine-tuning, and chiral mirror doubling:} Gauge unification arises from the Spectral Action trace on $\R[\Gstar]$ without leptoquark gauge bosons or colored Higgs triplets ($p \to e^+\pi^0 = 0$ to all orders under $Z(\Delta(27)_f)$), and the finite direct-product realization of the $\Z[\phi]$ and $\Z[\omega]$ symmetries of $\Lambda_{E_8}$ pairs chiral spinors with chiral matter without vector-like mirror doubling.
 \end{itemize}
 
@@ -543,22 +546,21 @@ Replacing continuous spacetime manifolds and Lie groups with a discrete causal p
 \paragraph{Objection.}
 In Sections~1--5, the microscopic kinematics is discrete (a causal poset $(P, \prec)$ decorated by finite group elements $g_{xy} \in \Gstar$ obeying the ordered vertex product law), whereas the low-energy couplings and renormalization-group flows are evaluated using the continuum Connes--Chamseddine Spectral Action~\cite{ChamseddineConnes1997} and continuum $\overline{\mathrm{MS}}$ beta functions. Where is the explicit path-integral bridge showing that a purely combinatorial counting sum $\mathcal{Z}[P, \Gstar]$ converges to the continuum Einstein--Cartan and Yang--Mills actions without severe lattice-anisotropy artifacts?
 
-\paragraph{Resolution (Plancherel Character Expansion and Unitary $t$-Design Theorem).}
+\paragraph{Resolution (Plancherel Character Expansion, Kinematic Unitary $t$-Design Isotropy, and Open Dynamical Continuum Limit).}
 On a causal poset $P$ whose vertices enforce the ordered product compatibility condition (Axiom~\ref{ax:conservation}), the microscopic weight of each elementary causal diamond (plaquette $\square$) with boundary holonomy $U_\square = g_1 g_2 g_3^{-1} g_4^{-1} \in \Gstar$ is the exact group delta function $\delta_{\Gstar}(U_\square)$. By the Plancherel theorem on the semisimple group algebra $\R[\Gstar]$, $\delta_{\Gstar}(U_\square)$ expands uniquely over the irreducible characters $\chi \in \operatorname{Irr}(\Gstar)$:
 \begin{equation}
 \label{eq:plancherel_partition}
 \mathcal{Z}[P, \Gstar] = \sum_{\{g_{xy}\}} \prod_{\square \subset P} \delta_{\Gstar}(U_\square), \qquad
-\delta_{\Gstar}(U_\square) = \frac{1}{|\Gstar|} \sum_{\chi \in \operatorname{Irr}(\Gstar)} d_\chi\,\chi(U_\square),
+\delta_{\Gstar}(U_\square) = \frac{1}{|\Gstar|} \sum_{\chi \in \operatorname{Irr}(\Gstar)} d_\chi\,\chi(U_\square).
 \end{equation}
-which exponentiates via the heat-kernel character weights $\beta_\chi$ to $\exp\bigl(-\sum_\chi \beta_\chi(d_\chi - \operatorname{Re}\chi(U_\square)) + \cdots\bigr)$.
-When the link holonomy $U_\square = \exp(i a^2 F_{\mu\nu})$ is expanded in powers of the fundamental cutoff spacing $a \sim \Lambda^{-1}$ up to dimension-4 continuum operators $\int d^4x\,\sqrt{g}\,\mathcal{L}_{\dim \le 4}$ (which correspond to polynomial moments of degree $2t \le 4$ in the group elements), a finite subgroup $H \subset \operatorname{U}(d)$ reproduces the exact continuum Haar measure of $\operatorname{U}(d)$ with zero anisotropy artifacts if and only if $H$ is a \emph{unitary $t$-design} for $t \ge 2$:
+Because $\delta_{\Gstar}(U_\square)$ is a discrete Kronecker delta on a finite group ($U_\square \in \Gstar$ with a finite nearest-neighbor trace gap $\Delta E_{\min} > 0$), proving that coarse-graining $\mathcal{Z}[P, \Gstar]$ over large poset subgraphs dynamically produces a smooth heat-kernel effective action $\exp\bigl(-\sum_\chi \beta_\chi^{\mathrm{eff}}(d_\chi - \operatorname{Re}\chi(U_\square)) + \cdots\bigr)$ with massless continuum Yang--Mills fields remains an open mathematical-physics problem (Section~\ref{sec:open_problems}, item~2). What can be proved algebraically at the kinematic level is that \emph{if} a smooth continuum limit with coarse-grained holonomy $U_\square = \exp(i a^2 F_{\mu\nu})$ is reached, expanding in powers of $a \sim \Lambda^{-1}$ up to dimension-4 continuum operators $\int d^4x\,\sqrt{g}\,\mathcal{L}_{\dim \le 4}$ (polynomial moments of degree $2t \le 4$ in $U$ and $U^\dagger$) introduces zero rotational or cubic lattice-anisotropy operators if and only if the finite subgroup $H \subset \operatorname{SU}(d)$ is a \emph{unitary $t$-design} for $t \ge 2$:
 \begin{equation}
 \frac{1}{|H|} \sum_{U \in H} |\Tr(U)|^{2t} \;=\; \int_{\operatorname{SU}(d)} |\Tr(U)|^{2t}\,d\mu_{\mathrm{Haar}}(U).
 \end{equation}
 Evaluating the character moments of the two non-abelian gauge/spin factors of $\Gstar$ directly from their character tables yields:
 \begin{enumerate}
-    \item \textbf{Spacetime Spin Factor $2I \subset \SU(2)_{\mathrm{spin}}$:} As noted in Section~3.1, the discrete moments $\frac{1}{120}\sum_{g \in 2I} |\chi_1(g)|^{2t}$ of $\chi_1 = \mathbf{2}_{\mathrm{spin},L}$ match the continuous $\SU(2)$ Catalan Haar moments $C_t$ identically for all $t \in \{1, \dots, 5\}$ ($2t \le 10$, numerical deviation $1.85 \times 10^{-13}$). Thus $2I$ is an \emph{exact unitary $5$-design}: rotational or Lorentz-violating lattice artifacts vanish not only at dimension $4$ ($2t = 4$), but up to dimension $10$, departing from continuous $\SU(2)$ first at $t = 6$ ($2t = 12$, where $131.6 \neq C_6 = 132$, suppressed by $(E/\Lambda)^8$).
-    \item \textbf{Color/Weak Factor $\Sigma(216 \times 3) \subset \SU(3)_c$:} For the fundamental color triplet $\chi_7 = \mathbf{3}_c$, the discrete average $\frac{1}{648}\sum_{g \in \Sigma(216\times 3)} |\chi_7(g)|^{2t}$ equals the exact $\SU(3)$ Haar moments $(1, 2)$ for $t = 1, 2$ ($2t \le 4$, numerical deviation $1.47 \times 10^{-14}$). Thus $\Sigma(216 \times 3)$ is an \emph{exact unitary $2$-design} in $\SU(3)_c$, guaranteeing that the dimension-4 Yang--Mills action $\frac{1}{4g^2}\Tr(F_{\mu\nu}F^{\mu\nu})$ emerges from Eq.~\eqref{eq:plancherel_partition} with zero dimension-4 cubic or hypercubic anisotropy operators.
+    \item \textbf{Spacetime Spin Factor $2I \subset \SU(2)_{\mathrm{spin}}$:} As noted in Section~3.1, the discrete moments $\frac{1}{120}\sum_{g \in 2I} |\chi_1(g)|^{2t}$ of $\chi_1 = \mathbf{2}_{\mathrm{spin},L}$ match the continuous $\SU(2)$ Catalan Haar moments $C_t$ identically for all $t \in \{1, \dots, 5\}$ ($2t \le 10$, numerical deviation $1.85 \times 10^{-13}$). Thus $2I$ is an \emph{exact unitary $5$-design}: single-holonomy polynomial invariants match the isotropic $\SU(2)$ Haar integral up to degree $2t = 10$, departing from continuous $\SU(2)$ first at $t = 6$ ($2t = 12$, where $133 \neq C_6 = 132$).
+    \item \textbf{Color/Weak Factor $\Sigma(216 \times 3) \subset \SU(3)_c$:} For the fundamental color triplet $\chi_7 = \mathbf{3}_c$, the discrete average $\frac{1}{648}\sum_{g \in \Sigma(216\times 3)} |\chi_7(g)|^{2t}$ equals the exact $\SU(3)$ Haar moments $(1, 2)$ for $t = 1, 2$ ($2t \le 4$, numerical deviation $1.47 \times 10^{-14}$). Thus $\Sigma(216 \times 3)$ is an \emph{exact unitary $2$-design} in $\SU(3)_c$, ensuring that any dimension-4 coarse-grained curvature invariant $\Tr(F_{\mu\nu}F^{\mu\nu})$ is free of dimension-4 cubic or hypercubic anisotropy operators.
 \end{enumerate}
 
 \subsection{Critique 2: Compact \texorpdfstring{$2I \subset \Spin(4)$}{2I in Spin(4)} vs.\ Lorentzian \texorpdfstring{$\Spin(3,1) \cong \SL(2,\C)$}{Spin(3,1)} and the Bombelli--Henson--Sorkin Theorem}
@@ -612,18 +614,18 @@ Both expressions follow directly from standard functional analysis on $\R[\Gstar
     \item \textbf{Why $\alpha_U^{-1}(\Lambda) = 36 + 8/3$ is homogeneous:} In the heat-kernel expansion of the Spectral Action $\Tr\,f(D_A/\Lambda)$ on the Hilbert space $\mathcal{H} = \mathcal{H}_F \oplus \mathcal{H}_B$~\cite{ChamseddineConnes1997}, the coefficient of the dimension-4 Yang--Mills curvature $\Tr(F_{\mu\nu}F^{\mu\nu})$ is the sum of two dimensionless traces: the fermionic trace over the colored Weyl spinor space $\mathcal{H}_F^{\mathrm{color}}$ ($\Tr_{\mathcal{H}_F}^{\mathrm{color}}(1) = N_{\mathrm{gen}} N_c N_{\mathrm{chirality}} N_{\mathrm{iso}} = 3 \times 3 \times 2 \times 2 = 36$) and the normalized bosonic bimodule trace of the gluon block $M_8(\R)$ relative to the weak isospin subalgebra $\R[2T_W]$ ($\dim_\R M_8(\R) / \dim_\R \R[2T_W] = 64/24 = 8/3$). Both terms are dimensionless spectral-action trace invariants on $\R[\Gstar]$.
 \end{enumerate}
 
-\subsection{Critique 5: All-Orders Factorization of Gauge/Yukawa-Weighted Bose--Fermi Supertraces}
+\subsection{Critique 5: Ultraviolet Factorization of Spin-Graded Supertraces vs.\ Chiral Survival Splitting}
 
 \paragraph{Objection.}
-Theorem~\ref{thm:quantum} establishes that the unweighted non-chiral Wedderburn dimension supertrace vanishes identically: $\operatorname{STr}_{\iota \neq 0}(1) = \sum_{\iota(\Pi)=\pm 1} \iota(\Pi)\dim_\R B_\Pi = 4680 - 4680 = 0$. In quantum field theory, however, 1-loop and higher-loop vacuum energy divergences $\Lambda^2 \operatorname{STr}(\mathcal{M}^2)$ and $\operatorname{STr}(\mathcal{M}^4 \ln\mathcal{M}^2)$ are weighted by mass matrices and gauge Casimir operators. Since bosons and fermions have different masses without supersymmetry, why don't gauge and Yukawa loop corrections reintroduce quadratic and quartic UV divergences?
+Theorem~\ref{thm:quantum} establishes both the full-algebra spin-graded supertrace $\operatorname{STr}_{z_{\mathrm{spin}}}(\R[\Gthree]) = 1{,}049{,}760 - 1{,}049{,}760 = 0$ (which grades the entire algebra, including the $99.55\%$ $\iota_{\mathrm{tot}} = 0$ complex sector containing the 48 SM Weyl fermions, by $z_{\mathrm{spin}} \in Z(2I) = \{\pm 1\}$) and the non-chiral Wedderburn balance $\operatorname{STr}_{\iota \neq 0}(\R[\Gthree]) = 4{,}680 - 4{,}680 = 0$. In quantum field theory, however, 1-loop and higher-loop vacuum energy divergences $\Lambda^2 \operatorname{STr}(\mathcal{M}^2)$ and $\operatorname{STr}(\mathcal{M}^4 \ln\mathcal{M}^2)$ are weighted by mass matrices and gauge Casimir operators, and Critique~3 showed that Chiral Survival gives $\mathcal{O}(\Lambda)$ masses specifically to the vector-like irreps $2I[6,8]$ while leaving $2I[1,2]$ massless. What is the exact scope of the $(60 - 60)$ supertrace factorization?
 
-\paragraph{Resolution (Exact Tensor-Product Factorization Across $\operatorname{Irr}(2I)$).}
-Because the spacetime factor $2I$ commutes with the internal gauge and flavor factors $\Sigma(216 \times 3) \times \Delta(27)_f \times \Z_3^{\mathrm{PQ}}$, every Lorentz-invariant internal operator $\mathcal{O}_{\mathrm{int}} = 1_{2I} \otimes \mathcal{O}(\Sigma, \Delta)$—including arbitrary powers of the internal gauge Casimir operators $C_2(\Sigma)^k$, flavon mass matrices $\mathcal{M}_{\mathrm{fl}}^{2k}$, and cutoff masses $\mathcal{M}_\Lambda^{2k}$—acts as the identity $1_{2I}$ on the $2I$ factor. Since $\iota(\chi_{2I} \boxtimes \chi_\Sigma \boxtimes \chi_\Delta) = \iota(\chi_{2I})\iota(\chi_\Sigma)\iota(\chi_\Delta)$, the supertrace over the entire non-chiral sector ($\iota \neq 0$) factorizes identically:
+\paragraph{Resolution (Unbroken Ultraviolet Factorization vs.\ Post-Survival Infrared Spectrum).}
+Because the spacetime factor $2I$ commutes with the internal gauge and flavor factors $\Sigma(216 \times 3) \times \Delta(27)_f \times \Z_3^{\mathrm{PQ}}$, any unbroken ultraviolet operator of the factored form $\mathcal{O}_{\mathrm{int}} = 1_{2I} \otimes \mathcal{O}(\Sigma, \Delta, \mathrm{PQ})$—such as arbitrary powers of the internal gauge Casimir operators $C_2(\Sigma)^k$ or $2I$-independent flavon operators—acts as the identity $1_{2I}$ on the $2I$ factor. Consequently, both the full-algebra spin-graded supertrace $\operatorname{STr}_{z_{\mathrm{spin}}}$ (over all $\iota_{\mathrm{tot}} \in \{0, \pm 1\}$, including $\Delta[9]$) and the non-chiral supertrace $\operatorname{STr}_{\iota \neq 0}$ factorize identically in the unbroken ultraviolet algebra:
 \begin{equation}
 \label{eq:factored_supertrace}
-\operatorname{STr}_{\iota \neq 0}\!\bigl(1_{2I} \otimes \mathcal{O}(\Sigma, \Delta)\bigr) \;=\; \left(\sum_{\chi \in \operatorname{Irr}(2I)} \iota(\chi)\,d_\chi^2\right) \Tr_{\mathrm{int}}\!\bigl(\mathcal{O}(\Sigma, \Delta)\bigr) \;=\; (60 - 60)\,\Tr_{\mathrm{int}}(\mathcal{O}) \;\equiv\; 0.
+\operatorname{STr}_{z_{\mathrm{spin}}}\!\bigl(1_{2I} \otimes \mathcal{O}(\Sigma, \Delta)\bigr) \;=\; \left(\sum_{\chi \in \operatorname{Irr}(2I)} z_{\mathrm{spin}}(\chi)\,d_\chi^2\right) \Tr_{\mathrm{int}}\!\bigl(\mathcal{O}(\Sigma, \Delta)\bigr) \;=\; (60 - 60)\,\Tr_{\mathrm{int}}(\mathcal{O}) \;\equiv\; 0,
 \end{equation}
-Equation~\eqref{eq:factored_supertrace} is a mathematical identity: \emph{any} operator $\mathcal{O}(\Sigma, \Delta)$ that depends only on internal gauge, Higgs, or flavor quantum numbers has a strictly vanishing supertrace at the cutoff $\Lambda$, because the bosonic ($A_5$, $\sum_{\iota=+1} d_\chi^2 = 1^2 + 3^2 + 3^2 + 4^2 + 5^2 = 60$) and fermionic ($2I \setminus A_5$, $\sum_{\iota=-1} d_\chi^2 = 2^2 + 2^2 + 4^2 + 6^2 = 60$) sectors of $2I$ share the exact same internal trace $\Tr_{\mathrm{int}}(\mathcal{O})$. A non-zero supertrace requires an operator that simultaneously breaks $2I$ spin grading and internal electroweak symmetry, which occurs only below the electroweak scale $v_{\mathrm{ew}}$ and is further protected at tree level by vertex Kirchhoff conservation (Theorem~\ref{thm:kirchhoff}).
+since the bosonic ($A_5$, $z_{\mathrm{spin}} = +1$, $\sum d_\chi^2 = 1^2 + 3^2 + 3^2 + 4^2 + 5^2 = 60$) and fermionic ($2I \setminus A_5$, $z_{\mathrm{spin}} = -1$, $\sum d_\chi^2 = 2^2 + 2^2 + 4^2 + 6^2 = 60$) sectors of $2I$ share the exact same internal trace $\Tr_{\mathrm{int}}(\mathcal{O})$. By contrast, once the Chiral Survival mass operator $\mathcal{M}_\Lambda$ (Critique~3) decouples the vector-like higher-spin irreps $2I[6]$ ($d=4$) and $2I[8]$ ($d=6$) at $\Lambda$ while leaving the chiral spin-$1/2$ doublets $2I[1,2]$ ($d=2$) light, the mass operator depends non-trivially on the $2I$ representation ($\mathcal{M}_\Lambda \neq 1_{2I} \otimes \mathcal{O}$) and the low-energy spectrum below $\Lambda$ is no longer $2I$-symmetric; in the infrared regime, tree-level vacuum energy cancellation relies on vertex Kirchhoff conservation (Theorem~\ref{thm:kirchhoff}), while a full loop-level derivation of the residual vacuum energy $E_\Lambda$ from $\mathcal{Z}[P, \Gstar]$ remains an open problem (Section~\ref{sec:open_problems}, items~2 and~3).
 
 \subsection{Critique 6: Cosmological \texorpdfstring{$\Z_3$}{Z\_3} Domain Walls and Pre-BBN Annihilation}
 
