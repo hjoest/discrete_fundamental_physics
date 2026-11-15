@@ -1209,10 +1209,9 @@ def run_phase5_mass_ratios_tests(
     aU = 1.0 / aU_inv
     a1_mz = (5.0 / 3.0) / (aem_mz_inv * (1.0 - s2_mz))
 
-    # Effective QCD + U(1)_Y exponent for 2-step flow (Delta(Y^2)_{d-e} = 5/36 - 5/4 = -10/9 < 0 suppresses R_{d/e})
+    # Quenched pure-gluon Yang-Mills exponent gamma_m^(0)/(2 b_0^YM) = 4/11 (no free +0.11 hypercharge exponent)
     r_qcd = (as_mz / aU) ** (4.0 / 11.0)
-    r_u1 = (a1_mz / aU) ** (+0.11)
-    r_de = r_qcd * r_u1
+    r_de = r_qcd
 
     exp_det_cbrt = ((md_mz * ms_mz * mb_mz) / (me_mz * mmu_mz * mtau_mz)) ** (1.0 / 3.0)
     det_err_pct = abs(r_de - exp_det_cbrt) / exp_det_cbrt * 100.0
@@ -1232,10 +1231,11 @@ def run_phase5_mass_ratios_tests(
     koide_err_pct = abs(koide_pred - koide_exp) / koide_exp * 100.0
 
     delta_pred = 2.0 / 9.0  # |Z(2I)| / |Delta(27)_f^ab| = 2 / 9
-    # Experimental Brannen phase extracted from sqrt(m_e), sqrt(m_mu), sqrt(m_tau)
-    v0_exp = s_sqrt / 3.0
-    c_tau = (math.sqrt(mtau_pole) / v0_exp - 1.0) / math.sqrt(2.0)
-    delta_exp = math.acos(max(-1.0, min(1.0, c_tau)))
+    # Experimental Brannen phase extracted directly from the Z_3-Fourier / complex Wedderburn block C(chi_{0,1} + chi_{0,2})
+    delta_exp = math.atan2(
+        math.sqrt(3.0) * (math.sqrt(mmu_pole) - math.sqrt(me_pole)),
+        2.0 * math.sqrt(mtau_pole) - math.sqrt(mmu_pole) - math.sqrt(me_pole),
+    )
 
     # Predict m_e and m_mu from m_tau and delta_e = 2/9
     f_e = (1.0 + math.sqrt(2.0) * math.cos(delta_pred + 2.0 * math.pi / 3.0)) ** 2

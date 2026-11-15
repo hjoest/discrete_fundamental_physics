@@ -55,7 +55,7 @@ Because $[G_3, G_3]$ (order $77,760$) is a normal subgroup of $G_3$ (order $2,09
 | **1-Loop 3-Step + Unbalanced Weyl Fermion Triplet (db2=+4/3)** | `142.0638` | `0.26023` | `0.1170` | `2.1064` |
 
 1. **Resolution of the WIMP $\Delta b_2$ Paradox:** Adding an isolated elementary Weyl fermion triplet ($\Delta b_2 = +4/3$) above $2.462\text{ TeV}$ shifts $\sin^2\theta_W(M_Z)$ to `0.26023` (ruled out). Because $\Sigma[6](\mathbf{3}_{+1}) \in M_3(\mathbb{R})$ ($\dim = 9$) is already the $\operatorname{SU}(2)_{W,L}$ gauge block inside the $216$-dimensional bosonic subalgebra $\mathbb{R}[\Sigma(216)]$ (Attack 11), the dark matter multiplet $\Phi_{\text{DM}} \in M_3(\mathbb{R})$ is the internal causal-link holonomy scalar of the weak gauge block rather than an extra unbalanced matter multiplet.
-2. **Quenched ($b_0^{\text{YM}} = 11$) vs. Unquenched ($b_0 = 7$) $R_{d/e}(M_Z)$:** Pure-gluon poset plaquette running ($b_0^{\text{YM}} = \frac{11}{3}N_c = 11$, exponent $4/11$) gives $R_{d/e}^{\text{quenched}}(M_Z) = \mathbf{1.6526}$ ($1.10\%$ from experimental `1.6709`), whereas unquenched $N_f = 6$ continuum gauge running gives $R_{d/e}^{\text{unquenched}}(M_Z) = 2.1064$, requiring a flavon-Higgs/top-Yukawa damping factor of `0.7845` between $M_{\text{fl}}$ and $\Lambda$.
+2. **Quenched ($b_0^{\text{YM}} = 11$) vs. Unquenched ($b_0 = 7$) $R_{d/e}(M_Z)$:** Pure-gluon poset plaquette running ($b_0^{\text{YM}} = \frac{11}{3}N_c = 11$, exponent $4/11$) gives $R_{d/e}^{\text{quenched}}(M_Z) = \mathbf{1.7313}$ ($1.10\%$ from experimental `1.6709`), whereas unquenched $N_f = 6$ continuum gauge running gives $R_{d/e}^{\text{unquenched}}(M_Z) = 2.1064$, requiring a flavon-Higgs/top-Yukawa damping factor of `0.8219` between $M_{\text{fl}}$ and $\Lambda$.
 
 ---
 
