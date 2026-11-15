@@ -14,12 +14,12 @@ Whereas Falsification Tests 1–31 ([`run_falsification.py`](../run_falsificatio
 | **Scrutiny 2: Direct Pairwise Poset Collision vs. Poisson** | Birthday-paradox Poisson approximation for $p_{\text{joint}}(d)$ on $G_3$ | True $k_c(3) = 6.251 > 3$ vs. $k_c(4) = 2.800 < 3$ ($\le 1\%$ from Poisson) | **PASSES ($d=4$ Exact)** |
 | **Scrutiny 3: 2-Loop RGE, WIMP $\Delta b_2$, & $R_{d/e}(M_Z)$** | Unbalanced WIMP $\Delta b_2$ in RGE; quenched $4/11$ vs. unquenched $4/7$ in $R_{d/e}$ | Unbalanced fermion triplet gives $\sin^2\theta_W = 0.2602$ (ruled out!); holonomy scalar in $\mathbb{R}[\Sigma(216)]$ preserves $\sin^2\theta_W = 0.23111$ | **RESOLVED ($\Phi_{\text{DM}} \in M_3(\mathbb{R})$)** |
 | **Scrutiny 4: Wedderburn Spin of $\Sigma[6]$, Sommerfeld, & 2HDM $m_{h^0}$** | Spin-$0$ $M_3(\mathbb{R})$ vs. Spin-$1/2$ $M_3(\mathbb{H})$; Sommerfeld factor; 2HDM threshold in $\lambda(M_{\text{fl}})=0$ | $\iota(\Phi_{\text{DM}}) = +1 \implies M_3(\mathbb{R})$ scalar; Sommerfeld $\langle S_{\text{eff}}\rangle = 1.2269 \implies \Omega_{\text{DM}} h^2 = 0.1190$; $m_{h^0}^{\text{2HDM}} = 125.04\text{ GeV}$ | **PASSES ($0.82\%$ & $0.17\%$)** |
-| **Scrutiny 5: Anti-Numerology Monte Carlo Null Test** | Look-elsewhere probability across random 4-tuples of group orders $(n_1,n_2,n_3,n_4)$ | `204` / `200,000` hit $M_{\text{Pl}}/m_p$; **`0` / `200,000`** hit the overconstrained scale hierarchy ($p < 10^{-10}$) | **PASSES (Non-Numerological)** |
+| **Scrutiny 5: Fixed-Formula Integer Sensitivity Test** | Sensitivity to integer orders $(n_1,n_2,n_3,n_4)$ for fixed functional forms (formula-space look-elsewhere open) | `204` / `200,000` hit $M_{\text{Pl}}/m_p$; **`0` / `200,000`** hit all fixed-form scales ($p_{\text{emp}} \lesssim 1.5 \times 10^{-5}$ at 95% CL) | **FIXED-FORM INTEGER TEST (Formula Look-Elsewhere Open)** |
 | **Scrutiny 6: Exact Symbolic $\frac{1}{3}\mathbb{Z}[\zeta_9]$ Cayley Table of $\Sigma(216\times 3)$** | Floating-point BFS drift & 5-digit rounding in `_build_su3_matrix_group` | **`0` / `419,904`** Cayley table mismatches vs. exact integer $\frac{1}{3}\mathbb{Z}[\zeta_9]$; max BFS drift `2.91e-15` | **EXACT (0 Mismatches)** |
 | **Scrutiny 7: Unitary $t$-Design & Haar Measure Moments** | Do finite links $2I, \Sigma(216\times 3)$ reproduce continuous $\operatorname{SU}(2), \operatorname{SU}(3)$ Haar integrals? | $2I$ is an exact $5$-design (matches $\operatorname{SU}(2)$ Catalan $C_t$ up to $2t=10$ to `1.8e-13`); $\Sigma(216\times 3)$ is an exact $2$-design (exact up to $2t=4$) | **EXACT FOR ALL $d\le 4$ OPS** |
 | **Scrutiny 8: Joint $3\times 3$ Hermitian Yukawa Construction in $\mathbb{R}[\Delta(27)_f]$** | Simultaneous $\bar{\theta}_{\text{QCD}}^{\text{tree}} = 0$, quark masses, and CKM $J_{\text{CP}}$ in a single matrix pair | Explicit $M_u, M_d \in \mathbb{R}[\Delta(27)_f]$: recon err `6.91e-16`, $\lvert\arg\det(M_u M_d)\rvert =$ `2.33e-13` rad, $J_{\text{CP}} =$ `2.9352e-05` | **EXACT ($\bar{\theta}_{\text{tree}} = 0$ & $J_{\text{CP}} \neq 0$)** |
 | **Scrutiny 9: WIMP Splitting $\Phi^\pm \to \Phi^0\pi^\pm$, $(S,T,U)$, & 2HDM Unitarity** | Charged WIMP survival at BBN; oblique $\Delta S, \Delta T$; 2HDM quartic scattering unitarity | $\Delta M_\Phi = 171.10\text{ MeV} > m_{\pi^\pm}$, $\tau(\Phi^\pm) = 0.159\text{ ns} \ll 1\text{ s}$; $\lvert\Delta T\rvert = 8.76e-06 \ll 0.06$; $\lambda_{\max}/(8\pi) = 1.57\%$ | **PASSES ALL BOUNDS** |
-| **Scrutiny 10: Pure End-to-End Chained Prediction DAG Audit** | Downstream formulas using intermediate PDG values instead of predicted outputs | Pure Koide + QED + $\Delta(27)_f$ GST chain gives $\lvert V_{us}\rvert = 0.2251$ (`0.02%`), $J_{\text{CP}} = 2.98e-05$, $m_W = 80.332\text{ GeV}$ | **100% SELF-CONTAINED** |
+| **Scrutiny 10: Chained Prediction DAG Audit** | Chaining Koide/Brannen lepton ratios ($\delta_e = 2/9$) + 1-loop QED/top shifts without intermediate PDG lepton ratios | Pure-lepton GST $3\sqrt{m_e/m_\mu} = 0.2047$ (`9.0%`; quark $\sqrt{m_d/m_s} = 0.2234$), $\lvert V_{cb}\rvert = 0.04204$, $m_W = 80.332\text{ GeV}$ (`0.06%`, $-3.7\sigma$ at 1-loop $\Delta\rho_t$) | **AUDITED (Uses $(M_Z, m_\tau, m_t, G_F)$ Inputs)** |
 
 ---
 
@@ -69,11 +69,12 @@ Because $[G_3, G_3]$ (order $77,760$) is a normal subgroup of $G_3$ (order $2,09
 
 ---
 
-## 5. Scrutiny 5: Anti-Numerology / Look-Elsewhere Monte Carlo Null Test
+## 5. Scrutiny 5: Fixed-Formula Integer Sensitivity Test (vs. Open Formula-Space Look-Elsewhere Problem)
 
-- Across **200,000** random 4-tuples of finite-group orders $(n_1, n_2, n_3, n_4)$ and abelianization divisors $(a_2 \mid n_2, a_3 \mid n_3)$:
+- Holding the algebraic functional forms of the scale formulas fixed and randomizing **200,000** 4-tuples of integer orders $(n_1, n_2, n_3, n_4)$ and abelianization divisors $(a_2 \mid n_2, a_3 \mid n_3)$:
   - **204** trials (`0.1020%`) match the Planck hierarchy $M_{\text{Pl}}/m_p = \sqrt{2}\,\lvert G_3\rvert^3$ within $2\%$.
-  - **0** trials (`0.00000%`) simultaneously match the remaining overconstrained scales ($M_{\text{fl}}/M_Z$, $\eta_B$, $E_\Lambda/M_Z$, $m_{\nu_3}$) and mixing invariants ($\tan\beta = 60, \delta_e = 2/9$).
+  - **0** trials (`0 / 200,000`, corresponding to a $95\%$ binomial upper bound $p_{\text{emp}} \lesssim 3 / 200,000 = 1.5 \times 10^{-5}$ for fixed functional forms) simultaneously match the remaining scale formulas ($M_{\text{fl}}/M_Z$, $\eta_B$, $E_\Lambda/M_Z$, $m_{\nu_3}$) and mixing ratios ($\tan\beta = 60, \delta_e = 2/9$).
+- **Caveat (Open Problem 4 of `docs/paper.tex`):** Because this Monte Carlo keeps the post-hoc selected functional forms fixed and varies only the integer arguments, it tests sensitivity to the integer orders rather than the full look-elsewhere trial factor across the space of candidate formulas.
 
 ---
 
@@ -120,8 +121,8 @@ Comparing the finite-group character moments $M_{2t}(H) = \frac{1}{\lvert H\rver
 
 ---
 
-## 10. Scrutiny 10: Pure End-to-End Chained Prediction DAG Audit
+## 10. Scrutiny 10: Chained Prediction DAG Audit
 
-- Chaining the Cabibbo angle $\lvert V_{us}\rvert$ purely from the predicted Koide/Brannen lepton mass ratio $m_e / m_\mu$ ($\delta_e = 2/9\text{ rad}$) + 1-loop QED running via the combined down-sector ($\theta_{12}^{(d)} = 3\sqrt{m_e/m_\mu}$) and up-sector ($\theta_{12}^{(u)} = \frac{1}{\sqrt{3}}\sqrt{m_e/m_\mu}$) rotations with the $\Delta(27)_f$ Weyl–Heisenberg commutator phase $\omega = e^{2\pi i/3}$ gives:
-  $$\lvert V_{us}\rvert_{\text{chained}} = \sin\!\left(\left\lvert 3 - \frac{e^{2\pi i/3}}{\sqrt{3}} \right\rvert \sqrt{\frac{m_e^{\text{pred}}(M_Z)}{m_\mu^{\text{pred}}(M_Z)}}\right) = \mathbf{0.2251} \quad (\text{exp } 0.2250,\; 0.02\%\text{ error}),$$
-  and $\lvert V_{cb}\rvert_{\text{chained}} = 0.04204$, $\lvert V_{ub}\rvert_{\text{chained}} = 0.00354$, $J_{\text{CP}}^{\text{chained}} = 2.9835e-05$, and $m_W^{\text{3-step}} = 80.332\text{ GeV}$ ($0.02\%$ error)—confirming that the entire 29-observable prediction chain is 100% self-contained from $(M_Z, m_\tau)$ and the group integers of $G_\star$.
+- Chaining the Cabibbo angle $\lvert V_{us}\rvert$ purely from the predicted Koide/Brannen lepton mass ratio $m_e / m_\mu$ ($\delta_e = 2/9\text{ rad}$) + 1-loop QED running via the pure-lepton Gatto–Sartori–Tonin relation $\theta_{12}^{(d)} = 3\sqrt{m_e/m_\mu}$ gives:
+  $$\lvert V_{us}\rvert_{\text{pure-lepton}} = 3\sqrt{\frac{m_e^{\text{pred}}(M_Z)}{m_\mu^{\text{pred}}(M_Z)}} = \mathbf{0.2047} \quad (\text{exp } 0.2250,\; 9.01\%\text{ offset; vs. quark-input }\sqrt{m_d/m_s} = 0.2234),$$
+  and $\lvert V_{cb}\rvert_{\text{chained}} = 0.04204$, $\lvert V_{ub}\rvert_{\text{chained}} = 0.00354$, $J_{\text{CP}}^{\text{chained}} = 2.7264e-05$, and $m_W^{\text{1-loop }\Delta\rho_t} = 80.332\text{ GeV}$ (`0.06%` error, $-3.7\sigma$ at 1-loop custodial $\Delta\rho_t$, using $(M_Z, m_\tau, m_t, G_F)$ as inputs).

@@ -15,7 +15,7 @@ In Option D ($G_{\text{Option D}} = 2I \times \Sigma(216 \times 3) \times \Delta
 | Particle Mass Ratio / Yukawa Test | Experimental Value (PDG / $\overline{\text{MS}}$ at $M_Z$) | Parameter-Free Prediction from $G$ | Error / Verdict |
 | :--- | :--- | :--- | :--- |
 | **Test 18a: Determinant Ratio $\bigl(\frac{\det M_d}{\det M_e}\bigr)_{M_Z}^{1/3}$** | `1.6709` | `$R_{d/e}(M_Z) = 1.7313$` (from $3^0 \cdot 3^{-1} \cdot 3^{+1} = 1$) | **3.61%** — **PASSES** |
-| **Test 18b: Bottom Mass $m_b(M_Z)$ ($p = 0$)** | `2.85 ± 0.03 GeV` | `3.02 GeV` ($3^0 R_{d/e} m_\tau(M_Z)$; `2.85 GeV` w/ $y_t$) | **6.1%** ($0.0\%$ w/ $y_t$) — **PASSES** |
+| **Test 18b: Bottom Mass $m_b(M_Z)$ ($p = 0$)** | `2.85 ± 0.03 GeV` | `3.02 GeV` ($3^0 R_{d/e} m_\tau(M_Z)$, quenched $4/11$ ansatz) | **+6.1%** ($+5.8\sigma$, Yukawa running open) |
 | **Test 18c: Strange Mass $m_s(M_Z)$ ($p = +1$)** | `53.5 ± 4.6 MeV` | `59.3 MeV` ($3^{-1} R_{d/e} m_\mu(M_Z)$) | **$1.3\sigma$** (10.8%) — **PASSES** |
 | **Test 18d: Down Mass $m_d(M_Z)$ ($p = -1$)** | `2.67 ± 0.19 MeV` | `2.53 MeV` ($3^{+1} R_{d/e} m_e(M_Z)$) | **$0.8\sigma$** (5.4%) — **PASSES** |
 | **Test 18e: GST Cabibbo Angle $\sin\theta_C$** | `0.2250` | `$\sqrt{m_d / m_s} = 0.2234$` (`0.2065` from $3\sqrt{m_e/m_\mu}$) | **0.7%** (7.3%) — **PASSES** |
@@ -25,7 +25,7 @@ In Option D ($G_{\text{Option D}} = 2I \times \Sigma(216 \times 3) \times \Delta
 | **Test 20a: Top–Bottom Ratio $\tan\beta(M_Z) = m_t / m_b$** | `60.25 ± 0.80` | `$\lvert 2I / Z(2I) \rvert = \lvert A_5 \rvert = 60.00$` | **0.41%** ($0.3\sigma$) — **PASSES** |
 | **Test 20b: Charm Mass $m_c(M_Z)$** | `0.619 ± 0.017 GeV` | `0.594 GeV` ($m_t(M_Z)(m_\mu / m_\tau)^2$) | **1.9%** ($0.7\sigma$) — **PASSES** |
 | **Test 20c: Up Mass $m_u(M_Z)$** | `1.27 ± 0.19 MeV` | `0.94 MeV` ($\frac{1}{3} m_c(M_Z)(m_e / m_\mu)$) | **$1.4\sigma$** — **PASSES** |
-| **Test 21a: $W$ Boson Mass $m_W$** | `80.377 ± 0.012 GeV` | `80.332 GeV` (from $\sin^2\theta_W(M_Z)_{\text{pred}} = 0.23111$) | **0.06%** — **PASSES** |
+| **Test 21a: $W$ Boson Mass $m_W$** | `80.377 ± 0.012 GeV` | `80.332 GeV` (1-loop $c_W^2\Delta\rho_t^1$ from $\sin^2\theta_W(M_Z)_{\text{pred}} = 0.23111$; `80.379 GeV` w/ full SM conversion) | **0.06%** ($-3.7\sigma$ at 1-loop $\Delta\rho_t$) |
 | **Test 21b: Light SM Higgs $m_{h^0}$ ($\lambda(M_{\text{fl}})=0$)** | `125.25 ± 0.17 GeV` | `125.10 GeV` (2-loop $\lambda(M_{\text{fl}}) = 0$) / `125.91 GeV` (Weinberg) | **0.12%** ($0.9\sigma$) / **0.53%** — **PASSES** |
 | **Test 21c: Heavy Type-II 2HDM Quartet $(A^0, H^\pm, H^0)$** | `> 2.0 TeV` (LHC Run-2/3 at $\tan\beta = 60$) | `$M_{A^0} = 27\,M_Z = 2.4621\text{ TeV}$, $M_{H^\pm} = 2.4634\text{ TeV}$, $M_{H^0} = 2.4638\text{ TeV}$ ($m_{12} = 317.81\text{ GeV}$)` | **Falsifiable Prediction** — **PASSES** |
 
@@ -48,7 +48,7 @@ $$\frac{y_d^{(p)}(\Lambda)}{y_e^{(p)}(\Lambda)} = N_c^{-p} = 3^{-p}, \qquad p \i
    Because $\prod_{p \in \mathbb{Z}_3} 3^{-p} = 1$, the determinant of the down-quark and charged-lepton mass matrices is **identically equal at the unification scale $\Lambda$**: $\det M_d(\Lambda) = \det M_e(\Lambda)$. Running down to $\mu = M_Z$ under the parameter-free 2-step RG flow of Phase 4 gives:
    $$R_{d/e}(M_Z)_{\text{pred}} = \left(\frac{\alpha_s(M_Z)}{\alpha_U(\Lambda)}\right)^{4/11} = \mathbf{1.7313} \quad \text{vs.} \quad \left(\frac{m_d m_s m_b}{m_e m_\mu m_\tau}\right)_{M_Z}^{1/3} = \mathbf{1.6709} \quad (\text{error: }\mathbf{3.61\%}!).$$
 2. **All Three Down-Quark Masses Predicted at $\mu = M_Z$ from $(m_e, m_\mu, m_\tau)$:**
-   - **Bottom ($p = 0$, $3^0 = 1$):** $m_b(M_Z)_{\text{pred}} = R_{d/e}(M_Z) m_\tau(M_Z) = \mathbf{3.02\text{ GeV}}$ (`2.85 GeV` including top-Yukawa running vs. exp `2.85 ± 0.03 GeV`),
+   - **Bottom ($p = 0$, $3^0 = 1$):** $m_b(M_Z)_{\text{pred}} = R_{d/e}(M_Z) m_\tau(M_Z) = \mathbf{3.02\text{ GeV}}$ (quenched $4/11$ ansatz vs. exp `2.85 ± 0.03 GeV`, $+5.8\sigma$; coupled 2-loop gauge+Yukawa running open),
    - **Strange ($p = +1$, $3^{-1} = 1/3$):** $m_s(M_Z)_{\text{pred}} = \frac{1}{3} R_{d/e}(M_Z) m_\mu(M_Z) = \mathbf{59.3\text{ MeV}}$ (vs. exp `53.5 ± 4.6 MeV`, **$1.3\sigma$**),
    - **Down ($p = -1$, $3^{+1} = 3$):** $m_d(M_Z)_{\text{pred}} = 3 R_{d/e}(M_Z) m_e(M_Z) = \mathbf{2.53\text{ MeV}}$ (vs. exp `2.67 ± 0.19 MeV`, **$0.8\sigma$**).
 3. **Gatto–Sartori–Tonin (GST) Cabibbo Angle Relation:**
