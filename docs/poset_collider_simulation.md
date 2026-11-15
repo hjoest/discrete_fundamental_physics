@@ -152,7 +152,28 @@ In Open Problem 2 (and Critique 1), the microscopic plaquette weight is a discre
 
 ---
 
-## 8. Summary of Top-Down Insights from the 4D Poset Collider
+## 8. Experiment 7: Top-Quark & Flavon-Higgs Poset Collider (Open Problem 3)
+
+We inject the exact third-generation quark and lepton representations of $G_3 = 2I \times \Sigma(216\times 3) \times \Delta(27)_f$ into the poset vertices and 1-loop causal diamonds ($u \prec w_1, w_2 \prec v$):
+- **Left-handed top/bottom doublet $Q_{L,3} = (t_L, b_L)$:** $\Sigma[18]$ ($\dim = 6$), $\Delta[9]$ ($\dim = 3$)
+- **Right-handed top/bottom triplets $t_R, b_R$:** $\Sigma[10, 11]$ ($\dim = 3$), $\Delta[9]$ ($\dim = 3$)
+- **Left-handed tau doublet $L_{L,3} = (\nu_\tau, \tau_L)$ & singlet $\tau_R$:** $\Sigma[4]$ ($\dim = 2$) & $\Sigma[1]$ ($\dim = 1$)
+- **Gluon octet $G_\mu^a$:** $\Sigma[19] \in M_8(\mathbb{R})$ ($\dim = 8$, real $\iota = +1$)
+
+| Observable / Channel | Poset / $G_\star$ Calculation | Unquenched / Prior Baseline | With Top & Flavon-Higgs Diamonds | Experimental Value |
+| :--- | :--- | :--- | :--- | :--- |
+| **Tree-Level Vertex Branching $P(Q_L \otimes H \to q_R)$** | $\dim(q_R)/(\dim Q_L \dim H) = 3/12$ | `0.2500` | **`0.2500`** | — |
+| **Tree-Level Vertex Branching $P(L_L \otimes H \to \ell_R)$** | $\dim(\ell_R)/(\dim L_L \dim H) = 1/4$ | `0.2500` | **`0.2500`** | — |
+| **Bare $b\text{--}\tau$ Unification $y_b(\Lambda)/y_\tau(\Lambda)$** | $P(Q_L \to b_R) / P(L_L \to \tau_R)$ | `1.0000` | **`1.000000`** | `1.0000` (GUT) |
+| **1-Loop Gluon Diamond Multiplicity ($Q_L$ vs. $L_L$)** | $\langle \chi \otimes \Sigma[19], \chi \rangle$ | `2 vs 0` | **`2 vs 0`** |QCD vs. Lepton |
+| **Active UV Flavon-Higgs Loop Channels ($\mu > M_{\text{fl}}$)** | $\sum_{p,q \in \mathbb{Z}_3^2} \langle \Delta[9] \otimes \chi_{p,q}, \Delta[9]\rangle$ | `1` (2HDM only) | **`9`** (all $9$ $\Delta(27)_f^{\text{ab}}$ modes) | — |
+| **$b\text{--}\tau$ Mass Ratio $R_{d/e}(M_Z) = m_b(M_Z)/m_\tau(M_Z)$** | Eq. (680) with $N_{\text{ch}} = 9$ above $M_{\text{fl}}$ | `2.1700` (gauge) / `1.7313` (quenched) | **`1.6428`** (`-1.68%`) | `1.6709` |
+| **Running Bottom Mass $m_b(M_Z)$** | $R_{d/e}(M_Z) \cdot m_\tau(M_Z)$ | `3.020 GeV` (`+5.8 sigma`) | **`2.869 GeV`** (**`+0.63 sigma`**) | `2.850 +/- 0.030 GeV` |
+| **Strong Coupling $\alpha_s(M_Z)$ (Top Decoupled at $m_t$)** | $N_f: 6 \to 5$ below $m_t = 171.7\text{ GeV}$ | `0.1170` ($N_f=6$) | **`0.1179`** (**`0.0 sigma`**) | `0.1179 +/- 0.0009` |
+
+---
+
+## 9. Summary of Top-Down Insights from the 4D Poset Collider
 
 1. **Vacuum Stability:** Initializing all covering links to the identity element $1 \in G_\star$ satisfies Axiom 3 at $100\%$ of interior vertices across all three 4D spacetime arena strategies (`cubic`, `poisson`, `aperiodic`).
 2. **Why the 4D Aperiodic Tiling Wins (Open Problem 1 — Kinematic Isotropy):**
@@ -163,6 +184,8 @@ In Open Problem 2 (and Critique 1), the microscopic plaquette weight is a discre
    - Starting from a pathological 3-layer Kleitman–Rothschild pancake with **no 4D coordinates**, Metropolis–Hastings evolution under the microscopic Theorem 1 & 3 action melts the pancake into a 7-layer causal poset, driving $\langle d_{\text{out}}\rangle: 22.44 \to 3.82$ and $D_{\text{MM}}: 2.60 \to 3.48$.
 4. **Plancherel Heat-Kernel Convergence under Kadanoff RG (Open Problem 2):**
    - Under $b^2$-fold Kadanoff plaquette convolution on $\mathbb{R}[2I]$, higher-spin representations are exponentially suppressed relative to the minimal-gap chiral spinor $\mathbf{2}_L$, and the discrete block action converges to the smooth continuum $\operatorname{SU}(2)$ Yang–Mills action with $R^2 = 0.998608$ by $b = 8$.
-5. **Quantum Wavepackets & Miniature LHC Collisions:**
+5. **Top-Quark & Flavon-Higgs 1-Loop Causal Diamonds (Open Problem 3):**
+   - In $\Delta(27)_f$, all $9$ abelian characters $\chi_{p,q} \in \Delta(27)_f^{\text{ab}}$ satisfy $\langle \Delta[9] \otimes \chi_{p,q}, \Delta[9] \rangle = 1$, activating all $N_{\text{ch}} = 9$ flavon-Higgs loop channels in the 1-loop causal diamonds above $M_{\text{fl}}$. Including this 9-channel Yukawa damping in Eq. (680) reduces the unquenched $b\text{--}\tau$ ratio $R_{d/e}(M_Z)$ from `2.1700` to **`1.6428`** (experimental `1.6709`), improving $m_b(M_Z)$ from `3.020 GeV` (`+5.8 sigma`) to **`2.869 GeV`** (**`+0.63 sigma`**), while top-quark decoupling below $m_t$ shifts $\alpha_s(M_Z)$ from `0.1170` to **`0.1179`** (experimental `0.1179`).
+6. **Quantum Wavepackets & Miniature LHC Collisions:**
    - Firing discrete $2I[1]$ Weyl spinor wavepackets preserves unitary probability $\sum_x \|\psi(t,x)\|^2 = 1$ across causal slices while exhibiting relativistic group-velocity drift and quantum dispersion.
    - In head-on $2 \to 2$ collisions at shared $d=4$ vertices, summing over the $(4!)^2 = 576$ Axiom 3 permutations reproduces the non-abelian commutator cross-sections ($90.4\%$ in $2I$, $97.7\%$ in $\Sigma(216\times 3)$) and the exact $1/9 = N_c^{-2}$ color-singlet lepton branching ratio.
