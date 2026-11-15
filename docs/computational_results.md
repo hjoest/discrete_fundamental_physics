@@ -6,7 +6,7 @@ All results in this report are computed by the exact group-theoretic and spectra
 
 ## 1. Candidate Finite Groups and Structural Invariants
 
-| Group $G$ | Order $\lvert G \rvert$ | Conjugacy Classes $k(G)$ | Commutator $\lvert [G,G] \rvert$ | Abelianization $\lvert G^{\text{ab}} \rvert$ | Perfect ($G=[G,G]$)? | Commuting Prob $\operatorname{cp}(G)$ |
+| Group $G$ | Order $\lvert G \rvert$ | Conjugacy Classes $k(G)$ | Commutator $\lvert [G,G] \rvert$ | Abelianization $\lvert G^{\text{ab}} \rvert$ | Perfect ($G=[G,G]$)? | Commuting Prob $\mathrm{cp}(G)$ |
 | --- | --- | --- | --- | --- | --- | --- |
 | **S_3** | 6 | 3 | 3 | 2 | No | 0.50000 (3/6) |
 | **A_4** | 12 | 4 | 4 | 3 | No | 0.33333 (4/12) |
@@ -43,17 +43,17 @@ Using the Frobenius–Schur indicator $\iota(\chi) = \frac{1}{\lvert G \rvert} \
 ### 2.2 Three Major Algebraic Discoveries from Exact Computation
 
 1. **Correction to the $2I$ Irrep Spectrum & Why $2I$ Alone Cannot Produce $M_3(\mathbb{C})$:**
-   - $2I \cong \operatorname{SL}(2, \mathbb{F}_5)$ (order 120) has **9** irreducible representations of dimensions $1_{+1}, 2_{-1}, 2_{-1}, 3_{+1}, 3_{+1}, 4_{+1}, 4_{-1}, 5_{+1}, 6_{-1}$ ($\sum d_\chi^2 = 120$; note that Exchange 16/18 of the Gemini chat omitted one of the two 4D irreps).
-   - Every irrep of $2I$ has Frobenius–Schur indicator $\iota = +1$ (real, factoring through $\operatorname{SO}(3) \supset A_5$) or $\iota = -1$ (quaternionic, faithful in $\operatorname{SU}(2)$):
+   - $2I \cong \mathrm{SL}(2, \mathbb{F}_5)$ (order 120) has **9** irreducible representations of dimensions $1_{+1}, 2_{-1}, 2_{-1}, 3_{+1}, 3_{+1}, 4_{+1}, 4_{-1}, 5_{+1}, 6_{-1}$ ($\sum d_\chi^2 = 120$; note that Exchange 16/18 of the Gemini chat omitted one of the two 4D irreps).
+   - Every irrep of $2I$ has Frobenius–Schur indicator $\iota = +1$ (real, factoring through $\mathrm{SO}(3) \supset A_5$) or $\iota = -1$ (quaternionic, faithful in $\mathrm{SU}(2)$):
      $$\mathbb{R}[2I] \cong \mathbb{R} \oplus M_3(\mathbb{R})^2 \oplus M_4(\mathbb{R}) \oplus M_5(\mathbb{R}) \oplus \mathbb{H}^2 \oplus M_2(\mathbb{H}) \oplus M_3(\mathbb{H}).$$
-   - Because $2I$ has **zero** complex irreps ($\iota = 0$), its 3D irreps generate $M_3(\mathbb{R})$ rather than $M_3(\mathbb{C})$. Thus $2I$ natively supplies the **quaternionic electroweak doublets ($\mathbb{H}^2$)**, but **must** be paired with a complex-triality group ($\iota(\chi_3) = 0$) to yield $\operatorname{SU}(3)_c$ color.
-2. **Projective $\Sigma(216) \subset \operatorname{PSU}(3)$ vs. Faithful $\Sigma(216 \times 3) \subset \operatorname{SU}(3)$:**
-   - The centerless Hessian group $\Sigma(216) \cong (\mathbb{Z}_3 \times \mathbb{Z}_3) \rtimes \operatorname{SL}(2, \mathbb{F}_3)$ of order 216 is a subgroup of $\operatorname{PSU}(3) = \operatorname{SU}(3)/\mathbb{Z}_3$. Because fundamental 3D triplets transform faithfully under the center $Z(\operatorname{SU}(3)) \cong \mathbb{Z}_3$, **$\mathbb{R}[\Sigma(216)]$ contains zero $M_3(\mathbb{C})$ blocks** (its 3D irrep is real, $M_3(\mathbb{R})$, and its complex irreps have degrees $1, 2, 8$).
-   - By contrast, its triple cover **$\Sigma(216 \times 3) \subset \operatorname{SU}(3)$ of order 648** has Real Wedderburn decomposition:
+   - Because $2I$ has **zero** complex irreps ($\iota = 0$), its 3D irreps generate $M_3(\mathbb{R})$ rather than $M_3(\mathbb{C})$. Thus $2I$ natively supplies the **quaternionic electroweak doublets ($\mathbb{H}^2$)**, but **must** be paired with a complex-triality group ($\iota(\chi_3) = 0$) to yield $\mathrm{SU}(3)_c$ color.
+2. **Projective $\Sigma(216) \subset \mathrm{PSU}(3)$ vs. Faithful $\Sigma(216 \times 3) \subset \mathrm{SU}(3)$:**
+   - The centerless Hessian group $\Sigma(216) \cong (\mathbb{Z}_3 \times \mathbb{Z}_3) \rtimes \mathrm{SL}(2, \mathbb{F}_3)$ of order 216 is a subgroup of $\mathrm{PSU}(3) = \mathrm{SU}(3)/\mathbb{Z}_3$. Because fundamental 3D triplets transform faithfully under the center $Z(\mathrm{SU}(3)) \cong \mathbb{Z}_3$, **$\mathbb{R}[\Sigma(216)]$ contains zero $M_3(\mathbb{C})$ blocks** (its 3D irrep is real, $M_3(\mathbb{R})$, and its complex irreps have degrees $1, 2, 8$).
+   - By contrast, its triple cover **$\Sigma(216 \times 3) \subset \mathrm{SU}(3)$ of order 648** has Real Wedderburn decomposition:
      $$\mathbb{R}[\Sigma(216 \times 3)] \cong \mathbb{R} \oplus M_3(\mathbb{R}) \oplus M_8(\mathbb{R}) \oplus \mathbb{C} \oplus M_2(\mathbb{C}) \oplus M_3(\mathbb{C})^3 \oplus M_6(\mathbb{C})^3 \oplus M_8(\mathbb{C}) \oplus M_9(\mathbb{C}) \oplus \mathbb{H}.$$
    - Look at what sits inside this single group of order 648: Connes' $\mathbb{C} \oplus \mathbb{H} \oplus M_3(\mathbb{C})$ directly, **plus exactly 3 generations of $M_3(\mathbb{C})$ color triplets and 3 generations of $M_6(\mathbb{C})$ electroweak-color $(2, 3)$ quark multiplets!**
-3. **Comparison of $\operatorname{SU}(3)$ Triality Series ($\Delta(27) \subset \Delta(54) \subset \Sigma(36 \times 3) \subset \Sigma(216 \times 3)$) and $\operatorname{PSL}(2, \mathbb{F}_7)$:**
-   - $\operatorname{PSL}(2, \mathbb{F}_7)$ (order 168) and $\Delta(27)$ (order 27) each provide **1** copy of $M_3(\mathbb{C})$.
+3. **Comparison of $\mathrm{SU}(3)$ Triality Series ($\Delta(27) \subset \Delta(54) \subset \Sigma(36 \times 3) \subset \Sigma(216 \times 3)$) and $\mathrm{PSL}(2, \mathbb{F}_7)$:**
+   - $\mathrm{PSL}(2, \mathbb{F}_7)$ (order 168) and $\Delta(27)$ (order 27) each provide **1** copy of $M_3(\mathbb{C})$.
    - $\Delta(54)$ provides **2** copies of $M_3(\mathbb{C})$.
    - $\Sigma(36 \times 3)$ (order 108) provides **4** copies of $M_3(\mathbb{C})$.
    - $\Sigma(216 \times 3)$ (order 648) provides **3** copies of $M_3(\mathbb{C})$—matching the observed **3 fermion generations ($N_g = 3$)**.
@@ -75,7 +75,7 @@ Using $\iota(\chi_1 \boxtimes \chi_2) = \iota(\chi_1)\iota(\chi_2)$, the product
 
 ## 3. Cayley Graph Spectra and Bare Higgs / Gauge Coupling Ratios
 
-For each symmetric generating set $S = S^{-1} \subset G \setminus \{e\}$, we compute the exact 3-cycle count $W_3(S)$, 4-cycle (plaquette) count $W_4(S)$, spectral quartic ratios $\kappa(A_S) = \lvert G \rvert \operatorname{Tr}(A_S^4) / (\operatorname{Tr}(A_S^2))^2 = W_4(S)/\lvert S \rvert^2$ and $\kappa(\Delta_S)$, and the resulting tree-level bare ratio $m_H(\Lambda)/m_W(\Lambda) = 2\sqrt{\kappa}$:
+For each symmetric generating set $S = S^{-1} \subset G \setminus \{e\}$, we compute the exact 3-cycle count $W_3(S)$, 4-cycle (plaquette) count $W_4(S)$, spectral quartic ratios $\kappa(A_S) = \lvert G \rvert \mathrm{Tr}(A_S^4) / (\mathrm{Tr}(A_S^2))^2 = W_4(S)/\lvert S \rvert^2$ and $\kappa(\Delta_S)$, and the resulting tree-level bare ratio $m_H(\Lambda)/m_W(\Lambda) = 2\sqrt{\kappa}$:
 
 | Group $G$ | Generating Set $S$ | Degree $\lvert S \rvert$ | Triangles $W_3(S)$ | Plaquettes $W_4(S)$ | $\kappa(A_S)$ | $\kappa(\Delta_S)$ | $2\sqrt{\kappa(\Delta_S)}$ |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -95,7 +95,7 @@ For each symmetric generating set $S = S^{-1} \subset G \setminus \{e\}$, we com
 
 The 12 nearest neighbors of the identity in the 600-cell form a single conjugacy class of order-10 elements in $2I$. Via Schur's lemma ($\lambda_\chi = \frac{12 \chi(C_{12})}{d_\chi}$ with multiplicity $d_\chi^2$), the exact adjacency spectrum on $\ell^2(2I)$ has **9** distinct eigenvalues (correcting the 6-value list in the Gemini chat):
 
-$$\operatorname{Spec}(A_{600}) = \{ 12.0000^{(1)}, 9.7082^{(4)}, 6.4721^{(9)}, 3.0000^{(16)}, 0.0000^{(25)}, -2.0000^{(36)}, -2.4721^{(9)}, -3.0000^{(16)}, -3.7082^{(4)} \}$$
+$$\mathrm{Spec}(A_{600}) = \{ 12.0000^{(1)}, 9.7082^{(4)}, 6.4721^{(9)}, 3.0000^{(16)}, 0.0000^{(25)}, -2.0000^{(36)}, -2.4721^{(9)}, -3.0000^{(16)}, -3.7082^{(4)} \}$$
 
 in exact agreement with $\{12^{(1)}, (6\phi)^{(4)}, (4\phi)^{(9)}, 3^{(16)}, 0^{(25)}, (-2)^{(36)}, (-3)^{(16)}, (-4\phi^{-1})^{(9)}, (-6\phi^{-1})^{(4)}\}$.
 
@@ -120,7 +120,7 @@ in exact agreement with $\{12^{(1)}, (6\phi)^{(4)}, (4\phi)^{(9)}, 3^{(16)}, 0^{
 
 ### 4.2 Causal Selectivity vs. Vertex Degree: Why Bounded-Degree Posets Beat Kleitman–Rothschild Posets
 
-For each vertex degree $d = \lvert\operatorname{Pred}_Z(z)\rvert = \lvert\operatorname{Succ}_Z(z)\rvert$, we measure the commutator-coset fill fraction $\mathbb{E}[\lvert\Pi(\mathbf{g})\rvert]/\lvert[G,G]\rvert$, the $(d \to d)$ compatibility probability $p_{d,d}(G)$, and the **causal selectivity** $S_d(G) = -\log_2 p_{d,d}(G)$ (in bits of constraint information per vertex):
+For each vertex degree $d = \lvert\mathrm{Pred}_Z(z)\rvert = \lvert\mathrm{Succ}_Z(z)\rvert$, we measure the commutator-coset fill fraction $\mathbb{E}[\lvert\Pi(\mathbf{g})\rvert]/\lvert[G,G]\rvert$, the $(d \to d)$ compatibility probability $p_{d,d}(G)$, and the **causal selectivity** $S_d(G) = -\log_2 p_{d,d}(G)$ (in bits of constraint information per vertex):
 
 | Group $G$ | $d=1$ ($S_1$ bits) | $d=2$ ($S_2$ bits) | $d=3$ ($S_3$ bits) | $d=4$ ($S_4$ bits) | $d=5$ ($S_5$ bits) | $d=6$ ($S_6$ bits) |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -138,8 +138,8 @@ For each vertex degree $d = \lvert\operatorname{Pred}_Z(z)\rvert = \lvert\operat
 ### 4.3 Physical Interpretation of the Degree Sweep
 
 1. **Degenerate Chains ($d=1$):** At $d=1$, $\lvert\Pi(g)\rvert = 1$, so no non-abelian commutator $[g_i, g_j]$ can ever be generated; the state is frozen along 1D chains.
-2. **The Manifold-Like Window ($d \in \{2, 3, 4\}$):** For candidate groups like $2I$, $\operatorname{PSL}(2, \mathbb{F}_7)$, $\Sigma(216)$, and $\Sigma(216 \times 3)$, degrees $d \in \{2, 3, 4\}$ simultaneously generate rich non-abelian permutation sets ($\mathbb{E}[\lvert\Pi\rvert] \in [1.9, 19.3]$) **while maintaining high causal selectivity** ($1.7$ to $7.4$ bits of constraint per vertex).
-3. **Kleitman–Rothschild Washout ($d \ge 5\text{--}6$):** In pathological 3-layer Kleitman–Rothschild posets, interior vertices have macroscopic degree $d \sim N/4$. As shown in the table above, once $d \ge 5\text{--}6$, $\Pi(g_1, \dots, g_d)$ rapidly fills the entire commutator coset $g_1 \cdots g_d [G,G]$. For perfect groups ($2I$ and $\operatorname{PSL}(2, \mathbb{F}_7)$ where $[G,G]=G$), $p_{d,d}(G) \to 1$ and the causal selectivity $-\log_2 p_{d,d}(G) \to 0.00\text{ bits}$—meaning high-degree Kleitman–Rothschild hubs suffer **complete causal washout** (zero mutual information between past and future).
+2. **The Manifold-Like Window ($d \in \{2, 3, 4\}$):** For candidate groups like $2I$, $\mathrm{PSL}(2, \mathbb{F}_7)$, $\Sigma(216)$, and $\Sigma(216 \times 3)$, degrees $d \in \{2, 3, 4\}$ simultaneously generate rich non-abelian permutation sets ($\mathbb{E}[\lvert\Pi\rvert] \in [1.9, 19.3]$) **while maintaining high causal selectivity** ($1.7$ to $7.4$ bits of constraint per vertex).
+3. **Kleitman–Rothschild Washout ($d \ge 5\text{--}6$):** In pathological 3-layer Kleitman–Rothschild posets, interior vertices have macroscopic degree $d \sim N/4$. As shown in the table above, once $d \ge 5\text{--}6$, $\Pi(g_1, \dots, g_d)$ rapidly fills the entire commutator coset $g_1 \cdots g_d [G,G]$. For perfect groups ($2I$ and $\mathrm{PSL}(2, \mathbb{F}_7)$ where $[G,G]=G$), $p_{d,d}(G) \to 1$ and the causal selectivity $-\log_2 p_{d,d}(G) \to 0.00\text{ bits}$—meaning high-degree Kleitman–Rothschild hubs suffer **complete causal washout** (zero mutual information between past and future).
 
 ---
 
@@ -149,25 +149,25 @@ For each vertex degree $d = \lvert\operatorname{Pred}_Z(z)\rvert = \lvert\operat
 
 To recover Connes' internal Standard Model algebra $\mathcal{A}_F = \mathbb{C} \oplus \mathbb{H} \oplus M_3(\mathbb{C})$ from the real group algebra $\mathbb{R}[G]$, a candidate group must simultaneously supply:
 - **$\mathbb{C}$ (hypercharge $U(1)_Y$):** a 1D complex conjugate irrep pair ($d=1, \iota=0$),
-- **$\mathbb{H}$ (weak $\operatorname{SU}(2)_L$):** a 2D quaternionic/pseudoreal irrep ($d=2, \iota=-1$), and
-- **$M_3(\mathbb{C})$ (color $\operatorname{SU}(3)_c$):** a 3D complex conjugate irrep pair ($d=3, \iota=0$).
+- **$\mathbb{H}$ (weak $\mathrm{SU}(2)_L$):** a 2D quaternionic/pseudoreal irrep ($d=2, \iota=-1$), and
+- **$M_3(\mathbb{C})$ (color $\mathrm{SU}(3)_c$):** a 3D complex conjugate irrep pair ($d=3, \iota=0$).
 
 Evaluating the initial candidates against this criterion and the poset conservation law reveals three critical filtering results:
-1. **$2I \cong \operatorname{SL}(2, \mathbb{F}_5)$ (order 120) has no color sector:** Every irrep of $2I$ has $\iota = +1$ (real) or $\iota = -1$ (quaternionic); $\iota = 0$ never occurs. Thus its 3D irreps yield real rotations $M_3(\mathbb{R})$ rather than complex color $M_3(\mathbb{C})$. Instead, $2I$ provides 4D icosahedral ($H_4$ / 600-cell) spacetime symmetry and two quaternionic spinor doublets $\mathbb{H}^2$ (matching left/right chiral spinors $\mathbb{H}_L \oplus \mathbb{H}_R$).
-2. **Projective $\Sigma(216) \subset \operatorname{PSU}(3)$ (order 216) loses its color triplets:** Because $\Sigma(216)$ quotients out the $\mathbb{Z}_3$ center of $\operatorname{SU}(3)$, all faithful 3D triplets disappear ($\mathbb{R}[\Sigma(216)]$ has zero $M_3(\mathbb{C})$ blocks).
-3. **$2I \times \operatorname{PSL}(2, \mathbb{F}_7)$ (order 20,160) has only 1 generation and zero conserved abelian charge:** While $2I \times \operatorname{PSL}(2, \mathbb{F}_7)$ yields $\mathbb{H}^2 \oplus M_3(\mathbb{C}) \oplus M_6(\mathbb{C})^2$, it produces only **one** copy of $M_3(\mathbb{C})$ ($N_g = 1$). Furthermore, because both $2I$ and $\operatorname{PSL}(2, \mathbb{F}_7)$ are **perfect groups** ($[G,G]=G \implies G^{\text{ab}} = \{1\}$), the Abelianization Kirchhoff Theorem implies **zero conserved additive/abelian charge** under the ordered product law and 100% causal washout ($p_{d,d} \to 1.000$, $0.00\text{ bits}$) for vertex degrees $d \ge 5$.
+1. **$2I \cong \mathrm{SL}(2, \mathbb{F}_5)$ (order 120) has no color sector:** Every irrep of $2I$ has $\iota = +1$ (real) or $\iota = -1$ (quaternionic); $\iota = 0$ never occurs. Thus its 3D irreps yield real rotations $M_3(\mathbb{R})$ rather than complex color $M_3(\mathbb{C})$. Instead, $2I$ provides 4D icosahedral ($H_4$ / 600-cell) spacetime symmetry and two quaternionic spinor doublets $\mathbb{H}^2$ (matching left/right chiral spinors $\mathbb{H}_L \oplus \mathbb{H}_R$).
+2. **Projective $\Sigma(216) \subset \mathrm{PSU}(3)$ (order 216) loses its color triplets:** Because $\Sigma(216)$ quotients out the $\mathbb{Z}_3$ center of $\mathrm{SU}(3)$, all faithful 3D triplets disappear ($\mathbb{R}[\Sigma(216)]$ has zero $M_3(\mathbb{C})$ blocks).
+3. **$2I \times \mathrm{PSL}(2, \mathbb{F}_7)$ (order 20,160) has only 1 generation and zero conserved abelian charge:** While $2I \times \mathrm{PSL}(2, \mathbb{F}_7)$ yields $\mathbb{H}^2 \oplus M_3(\mathbb{C}) \oplus M_6(\mathbb{C})^2$, it produces only **one** copy of $M_3(\mathbb{C})$ ($N_g = 1$). Furthermore, because both $2I$ and $\mathrm{PSL}(2, \mathbb{F}_7)$ are **perfect groups** ($[G,G]=G \implies G^{\text{ab}} = \{1\}$), the Abelianization Kirchhoff Theorem implies **zero conserved additive/abelian charge** under the ordered product law and 100% causal washout ($p_{d,d} \to 1.000$, $0.00\text{ bits}$) for vertex degrees $d \ge 5$.
 
-### 5.2 The Standout Candidate: $\Sigma(216 \times 3) \subset \operatorname{SU}(3)$ (Order 648)
+### 5.2 The Standout Candidate: $\Sigma(216 \times 3) \subset \mathrm{SU}(3)$ (Order 648)
 
-Restoring the $\mathbb{Z}_3$ center to $\Sigma(216)$ yields the **faithful Hessian group $\Sigma(216 \times 3) \cong H_{27} \rtimes \operatorname{SL}(2, \mathbb{F}_3)$ of order 648**, whose exact Real Wedderburn decomposition is:
+Restoring the $\mathbb{Z}_3$ center to $\Sigma(216)$ yields the **faithful Hessian group $\Sigma(216 \times 3) \cong H_{27} \rtimes \mathrm{SL}(2, \mathbb{F}_3)$ of order 648**, whose exact Real Wedderburn decomposition is:
 
 $$\mathbb{R}[\Sigma(216 \times 3)] \cong \mathbb{R} \oplus M_3(\mathbb{R}) \oplus M_8(\mathbb{R}) \oplus \underbrace{\mathbb{C} \oplus \mathbb{H} \oplus M_3(\mathbb{C})^3}_{\text{Connes' }\mathcal{A}_F\text{ with }3\text{ generations}} \oplus \underbrace{M_6(\mathbb{C})^3}_{3\text{ gen. }(2,3)\text{ quarks}} \oplus \underbrace{M_8(\mathbb{C})}_{\text{gluon octet}} \oplus M_2(\mathbb{C}) \oplus M_9(\mathbb{C})$$
 
 Inside this single group of order 648, five key features of the Standard Model emerge simultaneously:
-1. **Full Standard Model Gauge Algebra $\mathbb{C} \oplus \mathbb{H} \oplus M_3(\mathbb{C})$ in One Group:** Because $\Sigma(216 \times 3) \cong H_{27} \rtimes 2T$ contains $\operatorname{SL}(2, \mathbb{F}_3) \cong 2T \subset \operatorname{SU}(2)$ as its quotient over the discrete Heisenberg group $H_{27} = \Delta(27)$, it possesses both a quaternionic weak doublet block $\mathbb{H}$ ($d=2, \iota=-1$) and a complex scalar block $\mathbb{C}$ ($d=1, \iota=0$) alongside $M_3(\mathbb{C})$.
-2. **Exact Selection of $N_g = 3$ Fermion Generations:** Across the $\operatorname{SU}(3)$ subgroup ladder ($\Delta(27) \to 1$, $\Delta(54) \to 2$, $\Sigma(36 \times 3) \to 4$), **$\Sigma(216 \times 3)$ uniquely yields 3 copies of $M_3(\mathbb{C})^3$** (from 3 conjugate pairs of 3D complex irreps $3_0^6$).
+1. **Full Standard Model Gauge Algebra $\mathbb{C} \oplus \mathbb{H} \oplus M_3(\mathbb{C})$ in One Group:** Because $\Sigma(216 \times 3) \cong H_{27} \rtimes 2T$ contains $\mathrm{SL}(2, \mathbb{F}_3) \cong 2T \subset \mathrm{SU}(2)$ as its quotient over the discrete Heisenberg group $H_{27} = \Delta(27)$, it possesses both a quaternionic weak doublet block $\mathbb{H}$ ($d=2, \iota=-1$) and a complex scalar block $\mathbb{C}$ ($d=1, \iota=0$) alongside $M_3(\mathbb{C})$.
+2. **Exact Selection of $N_g = 3$ Fermion Generations:** Across the $\mathrm{SU}(3)$ subgroup ladder ($\Delta(27) \to 1$, $\Delta(54) \to 2$, $\Sigma(36 \times 3) \to 4$), **$\Sigma(216 \times 3)$ uniquely yields 3 copies of $M_3(\mathbb{C})^3$** (from 3 conjugate pairs of 3D complex irreps $3_0^6$).
 3. **Three Generations of $(2,3)$ Electroweak-Color Quark Multiplets ($M_6(\mathbb{C})^3$):** The semidirect action of the $2T$ weak doublet ($d=2$) on the $H_{27}$ color triplets ($d=3$) automatically generates **three conjugate pairs of 6D complex irreps ($6_0^6 \to M_6(\mathbb{C})^3$)**, matching 3 generations of left-handed quark doublets-of-triplets $(2_L, 3_c)$.
-4. **Built-In 8D Adjoint Gluon Sector ($M_8(\mathbb{R}) \oplus M_8(\mathbb{C})$):** Its 8D irreps ($8_{+1}$ and $8_0^2$) match the dimension of the $\operatorname{SU}(3)_c$ gluon octet ($\mathbf{3} \otimes \bar{\mathbf{3}} = \mathbf{8} \oplus \mathbf{1}$).
+4. **Built-In 8D Adjoint Gluon Sector ($M_8(\mathbb{R}) \oplus M_8(\mathbb{C})$):** Its 8D irreps ($8_{+1}$ and $8_0^2$) match the dimension of the $\mathrm{SU}(3)_c$ gluon octet ($\mathbf{3} \otimes \bar{\mathbf{3}} = \mathbf{8} \oplus \mathbf{1}$).
 5. **Conserved Kirchhoff Charge & Protection Against Washout:** Because $[\Sigma(216 \times 3), \Sigma(216 \times 3)]$ has order 216, the abelianization is $\Sigma(216 \times 3)^{\text{ab}} \cong \mathbb{Z}_3$ (with center $Z(G) \cong \mathbb{Z}_3$). Under the ordered product conservation law, this enforces an **exact conserved $\mathbb{Z}_3$ charge** (analogous to triality / $B - L \bmod 3$) at every vertex of the poset, preventing high-degree washout and achieving the highest causal selectivity in the manifold-like window $d \in \{2, 3, 4\}$ ($7.42\text{ bits}$ at $d=2$, $4.50\text{ bits}$ at $d=3$, and $1.97\text{ bits}$ at $d=4$).
 
 ### 5.3 Architectural Options A and B
@@ -176,5 +176,5 @@ Depending on how 4D spacetime geometry and spinors are coupled to the internal g
 
 | Architecture | Group $G$ | Order $\lvert G \rvert$ | How Spacetime, Spinors, and Gauge Fields Emerge |
 | :--- | :--- | :--- | :--- |
-| **Option A: Pure Internal-Spacetime Unification** | **$\Sigma(216 \times 3)$** | **648** | A single group of order 648 supplies $\mathbb{C} \oplus \mathbb{H} \oplus M_3(\mathbb{C})^3 \oplus M_6(\mathbb{C})^3 \oplus M_8$. Its quotient $\Sigma(216 \times 3)/H_{27} \cong 2T \subset \operatorname{SU}(2)$ acts as the discrete spinor/electroweak frame while $H_{27} \subset \operatorname{SU}(3)$ carries the 3-generation color/flavor degrees of freedom. |
+| **Option A: Pure Internal-Spacetime Unification** | **$\Sigma(216 \times 3)$** | **648** | A single group of order 648 supplies $\mathbb{C} \oplus \mathbb{H} \oplus M_3(\mathbb{C})^3 \oplus M_6(\mathbb{C})^3 \oplus M_8$. Its quotient $\Sigma(216 \times 3)/H_{27} \cong 2T \subset \mathrm{SU}(2)$ acts as the discrete spinor/electroweak frame while $H_{27} \subset \mathrm{SU}(3)$ carries the 3-generation color/flavor degrees of freedom. |
 | **Option B: 4D Quasicrystal Frame $\times$ Internal Fiber** | **$2I \times \Sigma(216 \times 3)$** *(or central product over $\mathbb{Z}_2$)* | **77,760** *(or 38,880)* | **$2I$** (order 120, 600-cell) drives the 4D aperiodic spacetime projection ($H_4$) and left/right chiral spinors ($\mathbb{H}_L \oplus \mathbb{H}_R$), while **$\Sigma(216 \times 3)$** (order 648) provides the 3-generation Standard Model gauge/matter fiber and protects the poset from Kleitman–Rothschild washout via its $\mathbb{Z}_3$ abelianization. |

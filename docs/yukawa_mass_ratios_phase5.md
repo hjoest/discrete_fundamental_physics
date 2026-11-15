@@ -59,12 +59,12 @@ $$\frac{y_d^{(p)}(\Lambda)}{y_e^{(p)}(\Lambda)} = N_c^{-p} = 3^{-p}, \qquad p \i
 ## 2. Test 19: Intra-Generation Hierarchy ($m_e \ll m_\mu \ll m_\tau$), Koide's Formula ($Q_e = 2/3$), and Phase $\delta_e = 2/9$ in $\mathbb{R}[\Delta(27)_f]$
 
 ### 2.1 Wedderburn Norm Equipartition in the Clock Subalgebra $\mathbb{R}[\langle Q \rangle] \cong \mathbb{R} \oplus \mathbb{C}$
-In the real group algebra $\mathbb{R}[\Delta(27)_f]$, the $p = 0$ Clock subalgebra $\mathbb{R}[\langle Q \rangle] = \operatorname{span}_{\mathbb{R}}\{I_3, Q, Q^2\}$ decomposes into exactly **two simple Wedderburn blocks**:
+In the real group algebra $\mathbb{R}[\Delta(27)_f]$, the $p = 0$ Clock subalgebra $\mathbb{R}[\langle Q \rangle] = \mathrm{span}_{\mathbb{R}}\{I_3, Q, Q^2\}$ decomposes into exactly **two simple Wedderburn blocks**:
 $$\mathbb{R}[\langle Q \rangle] \cong \underbrace{\mathbb{R}}_{\chi_{0,0}^{(f)} = I_3} \;\oplus\; \underbrace{\mathbb{C}}_{\chi_{0,1}^{(f)} \oplus \chi_{0,2}^{(f)} = \{Q, Q^2\}}.$$
 Writing the hermitian square-root Yukawa element in $\mathbb{R}[\langle Q \rangle]$ as $\sqrt{Y_e} = v_0 I_3 + v_1 Q + \bar{v}_1 Q^2$ ($v_1 = \lvert v_1 \rvert e^{i\delta_e}$), its eigenvalues are $\sqrt{y_k} = v_0 + 2\lvert v_1 \rvert \cos(\delta_e + 2\pi k / 3)$ ($k = 0, 1, 2$).
 
 **Theorem (Koide's Formula from Wedderburn Norm Equipartition):**
-Equipartition of the Frobenius norm $\frac{1}{3}\operatorname{Tr}(\cdot^2)$ between the trivial block $\mathbb{R}$ ($\|v_{\mathbb{R}}\|^2 = v_0^2$) and the complex block $\mathbb{C}$ ($\|v_{\mathbb{C}}\|^2 = 2\lvert v_1 \rvert^2$) enforces $2\lvert v_1 \rvert = \sqrt{2}\,v_0$, yielding:
+Equipartition of the Frobenius norm $\frac{1}{3}\mathrm{Tr}(\cdot^2)$ between the trivial block $\mathbb{R}$ ($\|v_{\mathbb{R}}\|^2 = v_0^2$) and the complex block $\mathbb{C}$ ($\|v_{\mathbb{C}}\|^2 = 2\lvert v_1 \rvert^2$) enforces $2\lvert v_1 \rvert = \sqrt{2}\,v_0$, yielding:
 $$\sqrt{m_k} = v_0 \left(1 + \sqrt{2}\cos\!\left(\delta_e + \frac{2\pi k}{3}\right)\right) \implies Q_e \equiv \frac{m_e + m_\mu + m_\tau}{(\sqrt{m_e} + \sqrt{m_\mu} + \sqrt{m_\tau})^2} = \frac{3(1 + 2 \cdot \frac{1}{2})}{9} = \frac{2}{3} = \mathbf{0.666667},$$
 matching the experimental value $Q_e^{\text{exp}} = \mathbf{0.666661 \pm 0.000007}$ to **0.0009%** ($0.8\sigma$)!
 

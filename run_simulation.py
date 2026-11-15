@@ -266,12 +266,12 @@ def main() -> None:
         "quasicrystal built from the **600-cell**) can tessellate 4D spacetime and serve as the causal poset $(P, \\prec_P)$ without "
         "breaking Lorentz invariance like a cubic crystal.",
         "",
-        "Because the 120 vertices of the regular 4D 600-cell are the elements of the **binary icosahedral group $2I \\subset \\operatorname{SU}(2)$**, "
+        "Because the 120 vertices of the regular 4D 600-cell are the elements of the **binary icosahedral group $2I \\subset \\mathrm{SU}(2)$**, "
         "they form an exact **spherical 11-design** on $S^3$. Every polynomial moment $\\langle (\\hat{n} \\cdot x)^{2m} \\rangle$ of degree "
-        "$2m \\le 10$ matches the continuum $\\operatorname{SO}(4)$-invariant integral on $S^3$ to machine precision, whereas a 4D hypercubic "
-        "lattice breaks $\\operatorname{SO}(4)$ rotational invariance already at degree $2m = 4$ ($100\\%$ error):",
+        "$2m \\le 10$ matches the continuum $\\mathrm{SO}(4)$-invariant integral on $S^3$ to machine precision, whereas a 4D hypercubic "
+        "lattice breaks $\\mathrm{SO}(4)$ rotational invariance already at degree $2m = 4$ ($100\\%$ error):",
         "",
-        "| Moment Degree $2m$ | Exact Continuum $\\operatorname{SO}(4)$ Average on $S^3$ | 4D Hypercubic Lattice ($8$ axes) | 4D 600-Cell / $2I$ Quasicrystal ($120$ vertices) |",
+        "| Moment Degree $2m$ | Exact Continuum $\\mathrm{SO}(4)$ Average on $S^3$ | 4D Hypercubic Lattice ($8$ axes) | 4D 600-Cell / $2I$ Quasicrystal ($120$ vertices) |",
         "| :--- | :--- | :--- | :--- |",
     ]
 
@@ -323,9 +323,9 @@ def main() -> None:
             "",
             "A 2-component discrete Weyl spinor wavepacket $|\\Psi(t_0)\\rangle$ carrying internal spinor representation $\\mathbf{2}_L = 2I[1]$ "
             "and initial momentum $\\vec{k}_0 = (+1.2, 0, 0)$ is injected into the vacuum arena at $t = 0$ and evolved causally along covering links "
-            "(each single-link $\\operatorname{SU}(2)$ hop matrix satisfies $\\det U = 1, U^\\dagger U = I_2$, and $\\Psi(t)$ is normalized on each causal slice $\\Sigma_t$ to measure single-particle expectation values):",
+            "(each single-link $\\mathrm{SU}(2)$ hop matrix satisfies $\\det U = 1, U^\\dagger U = I_2$, and $\\Psi(t)$ is normalized on each causal slice $\\Sigma_t$ to measure single-particle expectation values):",
             "",
-            "| Arena Strategy | Initial Center $\\langle x(0)\\rangle$ | Final Center $\\langle x(L-1)\\rangle$ | Group Velocity $v_g = d\\langle x\\rangle/dt$ | Initial Spread $\\Delta r(0)$ | Final Spread $\\Delta r(L-1)$ | Single-Link $\\operatorname{SU}(2)$ Unitarity $1 - \\|U^\\dagger U - I_2\\|$ |",
+            "| Arena Strategy | Initial Center $\\langle x(0)\\rangle$ | Final Center $\\langle x(L-1)\\rangle$ | Group Velocity $v_g = d\\langle x\\rangle/dt$ | Initial Spread $\\Delta r(0)$ | Final Spread $\\Delta r(L-1)$ | Single-Link $\\mathrm{SU}(2)$ Unitarity $1 - \\|U^\\dagger U - I_2\\|$ |",
             "| :--- | :--- | :--- | :--- | :--- | :--- | :--- |",
         ]
     )
@@ -451,7 +451,7 @@ def main() -> None:
             f"{hk_res.spinor_gap_delta_e:.4f}$), coarse-graining over a $b \\times b$ Kadanoff block plaquette convolves $N_\\square = b^2$ "
             "elementary plaquettes in $\\mathbb{R}[2I]$. Because the faithful chiral spinor $\\mathbf{2}_L = 2I[1]$ has the largest non-trivial "
             "Plancherel character eigenvalue $\\lambda_{\\mathbf{2}_L}$, all higher irreps decay exponentially as $(\\lambda_\\chi / \\lambda_{\\mathbf{2}_L})^{b^2}$, "
-            "and the discrete block action $S_{\\text{eff}}^{(b)}(g) = -\\ln(P_b(g)/P_b(1))$ converges in functional form to $\\beta_{\\text{eff}}(b)\\bigl(2 - \\operatorname{Re}\\chi_{\\mathbf{2}_L}(g)\\bigr)$ "
+            "and the discrete block action $S_{\\text{eff}}^{(b)}(g) = -\\ln(P_b(g)/P_b(1))$ converges in functional form to $\\beta_{\\text{eff}}(b)\\bigl(2 - \\mathrm{Re}\\,\\chi_{\\mathbf{2}_L}(g)\\bigr)$ "
             "as $\\beta_{\\text{eff}}(b) \\to 0$ (demonstrating representation-space isotropization in the coarse-grained random-walk regime, while a $\\beta_{\\text{eff}} \\to \\infty$ continuum limit remains blocked on a finite group by $\\Delta E_{\\min} > 0$):",
             "",
             "| Kadanoff Scale $b$ | Convolved Plaquettes $N_\\square = b^2$ | Spinor Mode $\\lambda_{\\mathbf{2}_L}^{b^2}$ | Higher-Irrep Suppression $(\\lambda_{\\text{next}}/\\lambda_{\\mathbf{2}_L})^{b^2}$ | Effective YM Coupling $\\beta_{\\text{eff}}(b)$ | Continuum Yang–Mills Fit $R^2$ | Max Relative Action Error ($w \\le 3$) |",
@@ -471,7 +471,7 @@ def main() -> None:
             "",
             "### Conjugacy-Class Action Profile at Kadanoff Scale $b = 4$ ($N_\\square = 16$ Plaquettes)",
             "",
-            "| Class Index $c$ | Class Size $|C_c|$ | Chordal Distance $2 - \\operatorname{Re}\\chi_{\\mathbf{2}_L}(c)$ | Exact Discrete Plancherel Action $S_{\\text{eff}}^{(b=4)}(c)$ | Continuum YM Fit $\\beta_{\\text{eff}}(2 - \\operatorname{Re}\\chi_{\\mathbf{2}_L}(c))$ |",
+            "| Class Index $c$ | Class Size $\\lvert C_c\\rvert$ | Chordal Distance $2 - \\mathrm{Re}\\,\\chi_{\\mathbf{2}_L}(c)$ | Exact Discrete Plancherel Action $S_{\\text{eff}}^{(b=4)}(c)$ | Continuum YM Fit $\\beta_{\\text{eff}}(2 - \\mathrm{Re}\\,\\chi_{\\mathbf{2}_L}(c))$ |",
             "| :--- | :--- | :--- | :--- | :--- |",
         ]
     )
@@ -553,19 +553,19 @@ def main() -> None:
             "",
             "1. **Vacuum Stability:** Initializing all covering links to the identity element $1 \\in G_\\star$ satisfies Axiom 3 at $100\\%$ of interior vertices across all three 4D spacetime arena strategies (`cubic`, `poisson`, `aperiodic`).",
             "2. **Why the 4D Aperiodic Tiling Wins (Open Problem 1 — Kinematic Isotropy):**",
-            "   - The `cubic` lattice has zero degree variance ($d = 4.00 \\pm 0.00$), but suffers from the largest directional light-cone anisotropy ($\\Delta c / c = 0.4071$) and $100\\%$ degree-4 $\\operatorname{SO}(4)$ tensor anisotropy.",
-            "   - The `poisson` sprinkling reduces directional anisotropy statistically, but introduces higher local degree variance ($\\operatorname{std}(d_{\\text{in}}) = 0.66$) and lower 1-loop causal diamond closure.",
-            "   - The `aperiodic` 4D one-stone / $E_8 \\to H_4$ (600-cell) quasicrystal combines hyperuniform $d \\approx 4$ connectivity ($\\operatorname{std}(d_{\\text{in}}) = 0.53$) with $7.3\\times$ lower light-cone anisotropy than the cubic lattice and exact spherical 11-design isotropy up to degree 10.",
+            "   - The `cubic` lattice has zero degree variance ($d = 4.00 \\pm 0.00$), but suffers from the largest directional light-cone anisotropy ($\\Delta c / c = 0.4071$) and $100\\%$ degree-4 $\\mathrm{SO}(4)$ tensor anisotropy.",
+            "   - The `poisson` sprinkling reduces directional anisotropy statistically, but introduces higher local degree variance ($\\mathrm{std}(d_{\\text{in}}) = 0.66$) and lower 1-loop causal diamond closure.",
+            "   - The `aperiodic` 4D one-stone / $E_8 \\to H_4$ (600-cell) quasicrystal combines hyperuniform $d \\approx 4$ connectivity ($\\mathrm{std}(d_{\\text{in}}) = 0.53$) with $7.3\\times$ lower light-cone anisotropy than the cubic lattice and exact spherical 11-design isotropy up to degree 10.",
             "3. **Coordinate-Free Kleitman–Rothschild Pancake Melting (Open Problem 1 — Dynamical Self-Organization):**",
             f"   - Starting from a pathological 3-layer Kleitman–Rothschild pancake with **no 4D coordinates**, reversible Metropolis–Hastings evolution under the microscopic Theorem 1 & 3 action melts the pancake into a {mcmc_res.final_layers}-layer causal poset, driving $\\langle d_{{\\text{{out}}}}\\rangle: {mcmc_res.initial_mean_degree:.2f} \\to {mcmc_res.final_mean_degree:.2f}$ and $D_{{\\text{{MM}}}}: {mcmc_res.initial_myrheim_meyer_dim:.2f} \\to {mcmc_res.final_myrheim_meyer_dim:.2f}$.",
             "4. **Plancherel Heat-Kernel Convergence under Kadanoff RG (Open Problem 2):**",
-            f"   - Under $b^2$-fold Kadanoff plaquette convolution on $\\mathbb{{R}}[2I]$, higher-spin representations are exponentially suppressed relative to the minimal-gap chiral spinor $\\mathbf{{2}}_L$, and the discrete block action converges in functional form to $\\beta_{{\\text{{eff}}}}(b)(2 - \\operatorname{{Re}}\\chi_{{\\mathbf{{2}}_L}}(g))$ with $R^2 = {hk_res.scale_points[-1].continuum_ym_r_squared:.6f}$ by $b = {hk_res.scale_points[-1].block_scale_b}$ as $\\beta_{{\\text{{eff}}}}(b) \\to 0$ in the coarse-grained random-walk regime.",
+            f"   - Under $b^2$-fold Kadanoff plaquette convolution on $\\mathbb{{R}}[2I]$, higher-spin representations are exponentially suppressed relative to the minimal-gap chiral spinor $\\mathbf{{2}}_L$, and the discrete block action converges in functional form to $\\beta_{{\\text{{eff}}}}(b)(2 - \\mathrm{{Re}}\\,\\chi_{{\\mathbf{{2}}_L}}(g))$ with $R^2 = {hk_res.scale_points[-1].continuum_ym_r_squared:.6f}$ by $b = {hk_res.scale_points[-1].block_scale_b}$ as $\\beta_{{\\text{{eff}}}}(b) \\to 0$ in the coarse-grained random-walk regime.",
             "5. **Top-Quark & Flavon-Higgs 1-Loop Causal Diamonds (Open Problem 3):**",
             f"   - Evolving the genuine coupled 1-loop $(y_t, y_b, y_\\tau)$ RGEs shows that ultraviolet self-damping ($\\frac{{9}}{{2}}N_{{\\text{{ch}}}}y_t^3$) reduces the unquenched pure-gauge ratio `2.1700` to `{top_res.r_de_with_2hdm_only:.4f}` (for Parseval-normalized $N_{{\\text{{ch}}}}=1$) and **`{top_res.r_de_with_9channel_flavon_diamonds:.4f}`** (for $N_{{\\text{{ch}}}}=9$ independent UV flavons, closing $52\\%$ of the gap to `1.6709` while the remaining gap requires either the quenched $4/11$ causal-diamond gluon exponent `1.7313` or two-loop/threshold corrections), while top-quark decoupling below $m_t$ shifts $\\alpha_s(M_Z)$ from `0.1170` to **`{top_res.alpha_s_mz_top_decoupled:.4f}`** (`0.0 sigma`).",
             "6. **Single-Anchor ($M_Z$-Only) Cascade & Look-Elsewhere Quantification (Open Problem 4):**",
             f"   - Using $R_{{d/e}}^{{\\text{{9ch}}}}(M_Z) = {top_res.r_de_with_9channel_flavon_diamonds:.4f}$, all 12 dimensionful masses and scales ($v_{{\\text{{ew}}}}, m_t, m_b, m_\\tau, m_\\mu, m_e, m_s, m_d, m_c, m_u, m_{{\\nu_3}}, E_\\Lambda$) are predicted from **$M_Z = 91.1876\\text{{ GeV}}$ alone** with an unquenched mean absolute error of **`{op4_res.mean_abs_rel_error_pct:.2f}%`** (down from $10.00\\%$ unquenched pure-gauge, or $5.16\\%$ with the quenched $4/11$ baseline). Enumerating all `{op4_res.total_monomial_hypotheses:,}` group-invariant monomials across the 6 measured scale hierarchies yields a look-elsewhere-corrected joint probability of **`{op4_res.joint_look_elsewhere_p_value:.3e}`** (**`{op4_res.effective_sigma_significance:.2f} sigma`** one-sided).",
             "7. **Quantum Wavepackets & Miniature LHC Collisions:**",
-            "   - Firing discrete $2I[1]$ Weyl spinor wavepackets uses exact unitary $\\operatorname{SU}(2)$ single-link transport gates while exhibiting relativistic group-velocity drift and quantum dispersion across slice-normalized causal slices.",
+            "   - Firing discrete $2I[1]$ Weyl spinor wavepackets uses exact unitary $\\mathrm{SU}(2)$ single-link transport gates while exhibiting relativistic group-velocity drift and quantum dispersion across slice-normalized causal slices.",
             "   - In head-on $2 \\to 2$ collisions at shared $d=4$ vertices, summing over the $(4!)^2 = 576$ Axiom 3 permutations reproduces the non-abelian commutator cross-sections on the arena links and the exact $1/9 = N_c^{-2}$ color-singlet lepton branching ratio.",
             "",
         ]

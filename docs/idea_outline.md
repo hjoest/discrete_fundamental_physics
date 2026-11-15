@@ -34,7 +34,7 @@ To unify spacetime causality with internal gauge structure in the spirit of Kalu
 ## 3. Microscopic Dynamics: The Ordered Product Conservation Law
 
 For each event $z \in Z$, let its immediate predecessors (incoming covering links) and immediate successors (outgoing covering links) be:
-$$\operatorname{Pred}(z) = \{u \in Z \mid u \prec_Z z\} = \{u_1, \dots, u_m\}, \qquad \operatorname{Succ}(z) = \{v \in Z \mid z \prec_Z v\} = \{v_1, \dots, v_n\}.$$
+$$\mathrm{Pred}(z) = \{u \in Z \mid u \prec_Z z\} = \{u_1, \dots, u_m\}, \qquad \mathrm{Succ}(z) = \{v \in Z \mid z \prec_Z v\} = \{v_1, \dots, v_n\}.$$
 
 **Axiom (Local Algebraic Balance):** At every interior event $z \in Z$, there exist orderings (permutations $\sigma \in S_m$ and $\tau \in S_n$) such that the ordered product of incoming group labels equals the ordered product of outgoing group labels in $G$:
 $$\prod_{i=1}^m \pi_G(u_{\sigma(i)}) = \prod_{j=1}^n \pi_G(v_{\tau(j)}).$$
@@ -55,17 +55,17 @@ the finite group $G$ must generate the required real/complex/quaternionic matrix
 
 | Candidate Group $G$ | Order $\lvert G \rvert$ | Role & Motivation |
 | --- | --- | --- |
-| **$2I \cong \operatorname{SL}(2, \mathbb{F}_5)$** | $120$ | Binary icosahedral group (vertices of the regular 4D 600-cell); maximal finite subgroup of $\operatorname{SU}(2) \cong U(1, \mathbb{H})$; generates quaternionic ($\mathbb{H}$) electroweak doublets. |
-| **$\operatorname{PSL}(2, \mathbb{F}_7) \cong \operatorname{GL}(3, \mathbb{F}_2)$** | $168$ | Klein quartic / Fano plane automorphism group; discrete symmetry of octonion multiplication ($\mathbb{O}$), linked to $\operatorname{SU}(3)_c$ color. |
+| **$2I \cong \mathrm{SL}(2, \mathbb{F}_5)$** | $120$ | Binary icosahedral group (vertices of the regular 4D 600-cell); maximal finite subgroup of $\mathrm{SU}(2) \cong U(1, \mathbb{H})$; generates quaternionic ($\mathbb{H}$) electroweak doublets. |
+| **$\mathrm{PSL}(2, \mathbb{F}_7) \cong \mathrm{GL}(3, \mathbb{F}_2)$** | $168$ | Klein quartic / Fano plane automorphism group; discrete symmetry of octonion multiplication ($\mathbb{O}$), linked to $\mathrm{SU}(3)_c$ color. |
 | **$\Delta(27) \cong (\mathbb{Z}_3 \times \mathbb{Z}_3) \rtimes \mathbb{Z}_3$** | $27$ | Discrete Heisenberg group ($SU(3)$ subgroup); smallest group with faithful 3D complex irreps and triality. |
-| **$\Sigma(216)$ (Hessian group)** | $216$ (or $648$ in $\operatorname{SU}(3)$) | Principal finite subgroup of $\operatorname{PSU}(3)$ / $\operatorname{SU}(3)$ used in discrete flavor/color models. |
-| **$2I \times \operatorname{PSL}(2, \mathbb{F}_7)$** | $20,160$ | Minimal bit-depth composite candidate combining quaternionic weak isospin ($2I$) and octonionic color ($\operatorname{PSL}(2, \mathbb{F}_7)$). |
-| **$2I \times \Sigma(216)$ / $2I \times \Delta(27)$** | $25,920$ / $3,240$ | Direct geometric product of binary icosahedral weak sector with discrete $\operatorname{SU}(3)$ color/generation sector. |
-| **$W(E_8)$** | $696,729,600$ | Weyl group of $E_8$; single unified reflection group preserving the $E_8$ root lattice, containing $W(\operatorname{Spin}(10)) \times \mathbb{Z}_3$ and the H4 (600-cell) symmetries. |
+| **$\Sigma(216)$ (Hessian group)** | $216$ (or $648$ in $\mathrm{SU}(3)$) | Principal finite subgroup of $\mathrm{PSU}(3)$ / $\mathrm{SU}(3)$ used in discrete flavor/color models. |
+| **$2I \times \mathrm{PSL}(2, \mathbb{F}_7)$** | $20,160$ | Minimal bit-depth composite candidate combining quaternionic weak isospin ($2I$) and octonionic color ($\mathrm{PSL}(2, \mathbb{F}_7)$). |
+| **$2I \times \Sigma(216)$ / $2I \times \Delta(27)$** | $25,920$ / $3,240$ | Direct geometric product of binary icosahedral weak sector with discrete $\mathrm{SU}(3)$ color/generation sector. |
+| **$W(E_8)$** | $696,729,600$ | Weyl group of $E_8$; single unified reflection group preserving the $E_8$ root lattice, containing $W(\mathrm{Spin}(10)) \times \mathbb{Z}_3$ and the H4 (600-cell) symmetries. |
 
 ### Quantitative Falsification Targets
 Because finite groups possess no continuous free parameters, candidate groups $G$ can be tested and ruled out by computing:
 1. **Real Wedderburn Decomposition of $\mathbb{R}[G]$:** Checking whether $\mathbb{R}[G]$ contains $\mathbb{C} \oplus \mathbb{H} \oplus M_3(\mathbb{C})$ (using Frobenius–Schur indicators $\iota \in \{+1, 0, -1\}$) and counting the multiplicity of fundamental irreps (number of fermion generations $N_g = 3$).
-2. **Weinberg Angle $\sin^2\theta_W(\Lambda)$ & Coupling Ratios:** Evaluating generator trace normalizations $\operatorname{Tr}(T_{3L}^2)/\operatorname{Tr}(Q^2)$ across the fiber Hilbert space.
-3. **Bare Higgs Quartic Ratio from Cayley Spectra:** Computing the eigenvalue spectrum of the discrete Dirac / Laplacian operator $D_G$ on the Cayley graph of $(G, S)$ to evaluate $\kappa_G = \operatorname{Tr}(D_G^4) / (\operatorname{Tr}(D_G^2))^2$ and the resulting bare Higgs mass prediction.
+2. **Weinberg Angle $\sin^2\theta_W(\Lambda)$ & Coupling Ratios:** Evaluating generator trace normalizations $\mathrm{Tr}(T_{3L}^2)/\mathrm{Tr}(Q^2)$ across the fiber Hilbert space.
+3. **Bare Higgs Quartic Ratio from Cayley Spectra:** Computing the eigenvalue spectrum of the discrete Dirac / Laplacian operator $D_G$ on the Cayley graph of $(G, S)$ to evaluate $\kappa_G = \mathrm{Tr}(D_G^4) / (\mathrm{Tr}(D_G^2))^2$ and the resulting bare Higgs mass prediction.
 4. **Combinatorial Branching & Mass Hierarchies:** Analyzing the solution space of $\prod \pi_G(u_{\sigma(i)}) = \prod \pi_G(v_{\tau(j)})$ across conjugacy classes and word-length shells of $G$.
