@@ -126,9 +126,9 @@ Every quantitative prediction below is computed reproducibly by [`run_falsificat
 
 ---
 
-## 5. Five Sharp Experimental Falsifiers
+## 5. Six Sharp Experimental Falsifiers
 
-Because the group $G_{\text{Option D}} = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f \times \mathbb{Z}_3^{\text{PQ}}$ has zero continuous free parameters, it makes five sharp predictions that upcoming experiments can directly falsify:
+Because the group $G_{\text{Option D}} = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f \times \mathbb{Z}_3^{\text{PQ}}$ has zero continuous free parameters, it makes six sharp predictions that upcoming experiments can directly falsify:
 
 1. **Zero Neutrinoless Double-Beta Decay ($0\nu\beta\beta = 0$):**
    Unbroken $Z(\Delta(27)_f) \cong \mathbb{Z}_3$ forbids $\Delta L = 2$ Majorana neutrino masses to all orders. Any confirmed observation of $0\nu\beta\beta$ at **LEGEND-1000**, **nEXO**, or **CUPID** immediately falsifies unbroken $Z(\Delta(27)_f)$.
@@ -138,5 +138,7 @@ Because the group $G_{\text{Option D}} = 2I \times \Sigma(216 \times 3) \times \
    While $\Delta B = \Delta L = 3$ sphaleron transitions are allowed ($q_f = 12 \equiv 0 \bmod 3$), $\Delta B = 1$ proton decay ($q_f = 1 \not\equiv 0 \bmod 3$) and $\Delta B = 2$ neutron–antineutron oscillations ($q_{\text{PQ}} = 2 \not\equiv 0 \bmod 3$) are forbidden to all orders. Any observation of $p \to \ell^+ + \text{mesons}$ at **Hyper-Kamiokande** or **DUNE** falsifies the theory.
 4. **Absence of a Light Peccei–Quinn Axion & Ultra-Small Neutron EDM ($d_n \sim 10^{-32}\,e\cdot\text{cm}$):**
    Because $\mathbb{Z}_3^{\text{PQ}}$ is discrete and $\arg\det(M_u M_d) = 0$ at tree level on the hermitian subspace of $\mathbb{R}[\Delta(27)_f]$, there is no light QCD axion (searchable at **ADMX** / **IAXO**), and the neutron EDM is predicted at $\sim 10^{-32}\,e\cdot\text{cm}$ (six orders of magnitude below current bounds).
-5. **Co-Located $2.4621\text{ TeV}$ Real $\operatorname{SU}(2)_{W,L}$ Triplet WIMP ($\chi_{\text{DM}} \sim \Sigma[6](\mathbf{3}_{+1})$) & Heavy Type-II 2HDM Quartet ($A^0, H^\pm, H^0$ at $\tan\beta = 60$):**
-   Both the flavor-singlet real weak-isospin triplet fermion WIMP $\chi_{\text{DM}}$ and the heavy Type-II 2HDM states $(A^0, H^\pm, H^0)$ sit at the 1-vertex Kirchhoff threshold $M_{\text{DM}} = M_{A^0} = 27\,M_Z = 2.4621\text{ TeV}$ ($M_{H^\pm} = 2.4634\text{ TeV}$, $M_{H^0} = 2.4638\text{ TeV}$), testable via monochromatic $\gamma$-ray annihilation lines ($\chi^0 \chi^0 \to \gamma\gamma, \gamma Z$ at $E_\gamma = 2.46\text{ TeV}$) at the **Cherenkov Telescope Array (CTA)** and via $\tan\beta = 60$-enhanced $b\bar{b}H/A \to \tau^+\tau^-, b\bar{b}$ and $tbH^\pm \to tb\tau\nu$ searches at the **HL-LHC** and **FCC-hh**.
+5. **A $2.4621\text{ TeV}$ Real $\operatorname{SU}(2)_{W,L}$ Triplet Fermion Dark Matter Multiplet ($\chi_{\text{DM}} \sim \Sigma[6](\mathbf{3}_{+1})$):**
+   The dark matter of the universe is predicted to be a flavor-singlet real weak-isospin triplet fermion ($q_f = 0 \neq \pm 1$) at $M_{\text{DM}} = 27\,M_Z = 2.4621\text{ TeV}$ ($\Omega_{\text{DM}} h^2 = 0.1208$), testable via monochromatic $\gamma$-ray annihilation lines ($\chi^0 \chi^0 \to \gamma\gamma, \gamma Z$ at $E_\gamma = 2.46\text{ TeV}$) at the **Cherenkov Telescope Array (CTA)**.
+6. **A Heavy Type-II 2HDM Quartet ($A^0, H^\pm, H^0$) at $2.4621\text{--}2.4638\text{ TeV}$ with $\tan\beta(M_Z) = 60$:**
+   Co-located at the 1-vertex Kirchhoff threshold $M_{A^0} = 27\,M_Z = 2.4621\text{ TeV}$ ($M_{H^\pm} = 2.4634\text{ TeV}$, $M_{H^0} = 2.4638\text{ TeV}$, $m_{12} = 317.85\text{ GeV}$), this heavy Higgs quartet sits just above the current $2.0\text{--}2.1\text{ TeV}$ LHC Run-2/Run-3 exclusion boundary at $\tan\beta = 60$, making it directly testable via $\tan\beta$-enhanced $b\bar{b} \to H^0/A^0 \to \tau^+\tau^-, b\bar{b}$ and $gb \to tH^\pm \to tb, t\tau\nu$ production at the **High-Luminosity LHC (HL-LHC)** and **FCC-hh**.
