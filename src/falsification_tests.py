@@ -976,20 +976,35 @@ def run_phase4_constants_tests(opt_c: OptionCViableResult) -> Phase4ConstantsRes
     d3 = (b3_low * t_low_th + b3_hi * t_hi_th) / (2.0 * math.pi)
     qed_low_shift = alpha_em_0_inv_exp - alpha_em_MZ_inv_exp
 
+    # 3-step running including the 1-vertex Kirchhoff Type-II 2HDM threshold M_A = M_Z |G^ab| = 27 M_Z (N_H: 18 -> 2 -> 1)
+    t_1h = math.log(float(opt_c.abelianization_order))  # M_Z to 27 M_Z (N_H = 1)
+    t_2h = t_low_th - t_1h                              # 27 M_Z to M_fl (N_H = 2)
+    b1_1h, b2_1h, b3_1h = 4.1, -19.0 / 6.0, -7.0
+    d1_3step = (b1_1h * t_1h + b1_low * t_2h + b1_hi * t_hi_th) / (2.0 * math.pi)
+    d2_3step = (b2_1h * t_1h + b2_low * t_2h + b2_hi * t_hi_th) / (2.0 * math.pi)
+    d3_3step = (b3_1h * t_1h + b3_low * t_2h + b3_hi * t_hi_th) / (2.0 * math.pi)
+
     param_free_preds: List[Tuple[str, float, float, float, float, float, float]] = []
-    for label, aU_th in [
+    for label, aU_th, (dd1, dd2, dd3) in [
         (
-            "Formula A: N_quark + dim(M_8(R))/dim(R[2T]) = 36 + 8/3 = 116/3",
+            "Formula A (3-step, M_A = 27 M_Z): 36 + 8/3 = 116/3 (N_H: 18->2->1)",
             36.0 + 8.0 / 3.0,
+            (d1_3step, d2_3step, d3_3step),
+        ),
+        (
+            "Formula A (2-step, no M_A threshold): 36 + 8/3 = 116/3 (N_H: 18->2)",
+            36.0 + 8.0 / 3.0,
+            (d1, d2, d3),
         ),
         (
             "Formula B: (8/3) ln|G| = (1/sin^2 theta_W(Lambda)) ln(2,099,520)",
             (8.0 / 3.0) * math.log(G_ord),
+            (d1, d2, d3),
         ),
     ]:
-        a1_mz = aU_th + d1
-        a2_mz = aU_th + d2
-        a3_mz = aU_th + d3
+        a1_mz = aU_th + dd1
+        a2_mz = aU_th + dd2
+        a3_mz = aU_th + dd3
         a_em_mz = (5.0 / 3.0) * a1_mz + a2_mz
         a_em_0 = a_em_mz + qed_low_shift
         sin2_mz = a2_mz / a_em_mz
@@ -1151,15 +1166,19 @@ class Phase5MassRatiosResult:
     exp_mu_over_mc_mz: float  # 1.27 / 619 = 0.002052
     pred_mu_mz_mev: float  # 1.00 MeV
     exp_mu_mz_mev: float  # 1.27 +- 0.19 MeV
-    # Test 21: Electroweak Boson Ratio m_W / m_Z and Higgs Boson Mass m_H = 125.25 GeV
-    pred_mw_gev: float  # 80.363 GeV (from predicted sin^2 theta_W(M_Z) = 0.23147 + top loop Delta_rho)
+    # Test 21: Electroweak Boson Ratio m_W / m_Z, Light SM Higgs m_h0 = 125.25 GeV, and Heavy Type-II 2HDM Quartet (A^0, H^+- , H^0)
+    pred_mw_gev: float  # 80.382 GeV (from predicted sin^2 theta_W(M_Z) = 0.23111 + top loop Delta_rho)
     exp_mw_gev: float  # 80.377 +- 0.012 GeV
-    mw_rel_err_pct: float  # 0.02%
+    mw_rel_err_pct: float  # 0.01%
     pred_mh_crit_gev: float  # 125.09 GeV (2-loop criticality lambda(M_fl) = 0 at M_fl = M_Z |G||G^ab|)
-    pred_mh_weinberg_gev: float  # m_t(M_Z) * sqrt(1 - 2 sin^2 theta_W(M_Z)) = 125.83 GeV
+    pred_mh_weinberg_gev: float  # m_t(M_Z) * sqrt(1 - 2 sin^2 theta_W(M_Z)) = 125.92 GeV
     exp_mh_gev: float  # 125.25 +- 0.17 GeV
     mh_crit_rel_err_pct: float  # 0.13%
-    mh_weinberg_rel_err_pct: float  # 0.46%
+    mh_weinberg_rel_err_pct: float  # 0.54%
+    pred_ma0_tev: float  # M_Z |G_3^ab| = 27 M_Z = 2.46207 TeV
+    pred_mh_charged_tev: float  # sqrt(M_A0^2 + m_W^2) = 2.46338 TeV
+    pred_mh_heavy_tev: float  # sqrt(M_A0^2 + M_Z^2 cos^2(2 beta)) = 2.46375 TeV
+    pred_m12_gev: float  # M_A0 / sqrt(tan(beta) + cot(beta)) = M_A0 / sqrt(60) = 317.85 GeV
 
 
 def run_phase5_mass_ratios_tests(
@@ -1303,6 +1322,13 @@ def run_phase5_mass_ratios_tests(
     mh_crit_err = abs(pred_mh_crit - exp_mh) / exp_mh * 100.0
     mh_wein_err = abs(pred_mh_weinberg - exp_mh) / exp_mh * 100.0
 
+    # Heavy Type-II 2HDM quartet (A^0, H^+-, H^0) at 1-vertex Kirchhoff threshold M_A0 = M_Z |G_3^ab| = 27 M_Z
+    ma0_gev = MZ * float(opt_c.abelianization_order)
+    cos_2beta = (1.0 - pred_tb_mz**2) / (1.0 + pred_tb_mz**2)
+    mh_charged_gev = math.sqrt(ma0_gev**2 + pred_mw**2)
+    mh_heavy_gev = math.sqrt(ma0_gev**2 + (MZ * cos_2beta) ** 2)
+    m12_gev = ma0_gev / math.sqrt(pred_tb_mz + 1.0 / pred_tb_mz)
+
     return Phase5MassRatiosResult(
         cg_quark_hd_branching=cg_q_branching,
         cg_lepton_he_branching=cg_l_branching,
@@ -1348,6 +1374,10 @@ def run_phase5_mass_ratios_tests(
         exp_mh_gev=exp_mh,
         mh_crit_rel_err_pct=mh_crit_err,
         mh_weinberg_rel_err_pct=mh_wein_err,
+        pred_ma0_tev=ma0_gev / 1000.0,
+        pred_mh_charged_tev=mh_charged_gev / 1000.0,
+        pred_mh_heavy_tev=mh_heavy_gev / 1000.0,
+        pred_m12_gev=m12_gev,
     )
 
 
