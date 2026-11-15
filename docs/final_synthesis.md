@@ -12,6 +12,7 @@
 - [`docs/strong_cp_baryogenesis_phase7.md`](strong_cp_baryogenesis_phase7.md) — Phase 7 Strong CP, Jarlskog $J_{\text{CP}}$, & Baryogenesis (Tests 26–28)
 - [`docs/dynamical_foundations_phase8.md`](dynamical_foundations_phase8.md) — Phase 8 Continuous Symmetry Restoration, Quantum Phase $e^{-iHt/\hbar}$, & Plancherel Scaling (Tests 29–31)
 - [`docs/precision_phenomenology_phase9.md`](precision_phenomenology_phase9.md) — Phase 9 Rare $B$-Decays, WIMP Direct Detection, Complete PMNS Angles, LIV Bounds, & BBN $\Delta N_{\text{eff}}$ (Tests 32–36)
+- [`docs/foundational_critiques_phase10.md`](foundational_critiques_phase10.md) — Phase 10 Foundational Mathematical-Physical Critiques & Resolutions: Plancherel $t$-Design Bridge, Lorentzian Boosts $\mathfrak{sl}(2,\mathbb{C})$ from $\sigma : \sqrt{5} \mapsto -\sqrt{5}$, Chiral Survival Theorem on $\mathbb{R}[G_\star]$, Factored Supertraces, Pre-BBN Domain Wall Collapse, & Single-Scale Reduction to $M_Z$ Alone (Tests 37–40)
 - [`docs/assessment.md`](assessment.md) — Critical Assessment & Comparison with Foundational Physics Programs
 
 ---
@@ -151,7 +152,7 @@ Because the group $G_{\text{Option D}} = 2I \times \Sigma(216 \times 3) \times \
 
 ## 6. Ten-Part Mathematical Soundness & Reasoning Scrutiny Audit (Scrutiny 1–10)
 
-Whereas Falsification Tests 1–36 (Phases 1–9) test the physical theory itself, **Scrutiny 1–10** ([`run_scrutiny.py`](../run_scrutiny.py)) independently verify the mathematical reasoning, analytical approximations, and Python implementation. Full details are documented in [`docs/scrutiny_audit.md`](scrutiny_audit.md):
+Whereas Falsification Tests 1–40 (Phases 1–10) test the physical theory and resolve foundational mathematical-physical objections, **Scrutiny 1–10** ([`run_scrutiny.py`](../run_scrutiny.py)) independently verify the mathematical reasoning, analytical approximations, and Python implementation. Full details are documented in [`docs/scrutiny_audit.md`](scrutiny_audit.md):
 
 1. **Scrutiny 1 (Exact Cyclotomic $\mathbb{Z}[\phi, \omega]$ & Clebsch–Gordan Integrality Audit):** Verifies that the numerical Jacobi eigensolver reproduces exact algebraic integers in $\mathbb{Z}[\phi]$ and $\mathbb{Z}[\omega]$ to $\le 2.31 \times 10^{-14}$, satisfies Burnside class-algebra identities to $\le 4.93 \times 10^{-11}$, and yields raw Clebsch–Gordan inner products that are exact integers to within $\le 2.37 \times 10^{-13}$ before rounding.
 2. **Scrutiny 2 (Direct Pairwise Poset Collision Sampling vs. Poisson Approximation):** Proves via normal coset bijection of $[G_3, G_3]$ that $\mathbb{E}[\lvert\Pi(u)\cap\Pi(v)\rvert] = \mathbb{E}[\lvert\Pi(u)\rvert]^2 / 77,760$ holds identically, and confirms via $3.12 \times 10^6$ direct $(u,v)$ collision samples that $k_c^{\text{true}}(3) = 6.25 > 3 > k_c^{\text{true}}(4) = 2.80$ ($\le 1.0\%$ from analytical Poisson).
