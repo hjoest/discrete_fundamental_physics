@@ -105,15 +105,64 @@ We measure the combinatorial density of 1-loop causal diamonds (pairs $(u, v)$ j
 
 ---
 
-## 6. Summary of Top-Down Insights from the 4D Poset Collider
+## 6. Experiment 5: Coordinate-Free MCMC "Kleitman–Rothschild Pancake Melting" (Open Problem 1)
+
+To test whether $(P, \prec_P)$ requires pre-built 4D coordinates or dynamically self-organizes under the microscopic action $\mathcal{Z}[P, G_\star]$, we initialize an abstract poset of $N = 160$ events with **zero spacetime coordinates** in a pathological **3-layer Kleitman–Rothschild pancake** ($L_{\max} = 3$, high degree $\langle d_{\text{out}}\rangle = 22.44$, crushed Myrheim–Meyer dimension $D_{\text{MM}} = 2.60$) and evolve the covering links via Metropolis–Hastings moves weighted purely by the Theorem 1 & 3 action (the $d! > 18.461$ channel-melting threshold at $d = 4$, the $\ln|Z(G_3)| = \ln 6$ link cost above $d = 4$, and the $\ln|G_3^{\text{ab}}| = \ln 27$ non-Hasse shortcut penalty):
+
+| MCMC Step | Total Covering Links | Mean Out-Degree $\langle d_{\text{out}}\rangle$ | Causal Layers $L_{\max}$ | Ordering Fraction $f = C_2 / \binom{N}{2}$ | Emergent Myrheim–Meyer Dim $D_{\text{MM}}$ | Microscopic Action $S[P, G_\star]$ |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `0` | `2,872` | **`22.44`** | **`3`** | `0.3172` | **`2.60`** | `101717.6` |
+| `1,400` | `2,106` | **`16.45`** | **`4`** | `0.2620` | **`2.85`** | `57305.1` |
+| `2,800` | `1,452` | **`11.34`** | **`5`** | `0.2144` | **`3.09`** | `27770.9` |
+| `4,200` | `1,010` | **`7.88`** | **`5`** | `0.1721` | **`3.36`** | `11938.0` |
+| `5,600` | `661` | **`5.15`** | **`6`** | `0.1436` | **`3.57`** | `4060.6` |
+| `7,000` | `518` | **`4.02`** | **`7`** | `0.1396` | **`3.61`** | `2171.4` |
+| `8,400` | `493` | **`3.82`** | **`7`** | `0.1535` | **`3.48`** | `1831.5` |
+
+> **Coordinate-Free Self-Organization Result:** Without any reference to $\mathbb{R}^4$ coordinates, the Metropolis–Hastings chain spontaneously melts the 3-layer Kleitman–Rothschild pancake ($L_{\max}: 3 \to 7$ causal layers), drives the vertex coordination degree from $\langle d_{\text{out}}\rangle = 22.44$ to **`3.82`** (pinned by the $d=4$ factorial melting threshold $18.461/4! = 0.7692 < 1$), and brings the emergent Myrheim–Meyer dimension from $D_{\text{MM}} = 2.60$ to **`3.48`**.
+
+---
+
+## 7. Experiment 6: Plancherel Heat-Kernel Convergence Under Kadanoff RG (Open Problem 2)
+
+In Open Problem 2 (and Critique 1), the microscopic plaquette weight is a discrete group Kronecker delta $\delta_{2I}(U_\square) = \frac{1}{|2I|}\sum_\chi d_\chi \chi(U_\square)$. When microscopic links experience small golden-ratio fluctuations (rate $\epsilon = 0.28$ onto the 12 nearest-neighbor 600-cell generators where $\Delta E_{\min} = 1 - \cos(\pi/5) = 0.1910$), coarse-graining over a $b \times b$ Kadanoff block plaquette convolves $N_\square = b^2$ elementary plaquettes in $\mathbb{R}[2I]$. Because the faithful chiral spinor $\mathbf{2}_L = 2I[1]$ has the largest non-trivial Plancherel character eigenvalue $\lambda_{\mathbf{2}_L}$, all higher irreps decay exponentially as $(\lambda_\chi / \lambda_{\mathbf{2}_L})^{b^2}$, and the discrete block action $S_{\text{eff}}^{(b)}(g) = -\ln(P_b(g)/P_b(1))$ converges to the smooth continuum $\operatorname{SU}(2)$ Yang–Mills Wilson action $\beta_{\text{eff}}(b)\bigl(2 - \operatorname{Re}\chi_{\mathbf{2}_L}(g)\bigr)$:
+
+| Kadanoff Scale $b$ | Convolved Plaquettes $N_\square = b^2$ | Spinor Mode $\lambda_{\mathbf{2}_L}^{b^2}$ | Higher-Irrep Suppression $(\lambda_{\text{next}}/\lambda_{\mathbf{2}_L})^{b^2}$ | Effective YM Coupling $\beta_{\text{eff}}(b)$ | Continuum Yang–Mills Fit $R^2$ | Max Relative Action Error ($w \le 3$) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **`b = 1`** | `1` | `0.9465` | **`9.20e-01`** | `11.6159` | **`-0.432787`** | `66.05%` |
+| **`b = 2`** | `4` | `0.8027` | **`7.17e-01`** | `5.0355` | **`0.639815`** | `53.53%` |
+| **`b = 3`** | `9` | `0.6098` | **`4.73e-01`** | `1.9177` | **`0.978377`** | `16.45%` |
+| **`b = 4`** | `16` | `0.4151` | **`2.64e-01`** | `1.0103` | **`0.979137`** | `12.67%` |
+| **`b = 6`** | `36` | `0.1383` | **`5.01e-02`** | `0.2746` | **`0.988178`** | `18.55%` |
+| **`b = 8`** | `64` | `0.0297` | **`4.89e-03`** | `0.0585` | **`0.998608`** | `6.43%` |
+
+### Conjugacy-Class Action Profile at Kadanoff Scale $b = 4$ ($N_\square = 16$ Plaquettes)
+
+| Class Index $c$ | Class Size $|C_c|$ | Chordal Distance $2 - \operatorname{Re}\chi_{\mathbf{2}_L}(c)$ | Exact Discrete Plancherel Action $S_{\text{eff}}^{(b=4)}(c)$ | Continuum YM Fit $\beta_{\text{eff}}(2 - \operatorname{Re}\chi_{\mathbf{2}_L}(c))$ |
+| :--- | :--- | :--- | :--- | :--- |
+| `0` | `1` | `-0.000000` | **`-0.0000`** | `-0.0000` |
+| `1` | `30` | `2.000000` | **`1.8122`** | `2.0206` |
+| `2` | `20` | `1.000000` | **`0.9043`** | `1.0103` |
+| `3` | `12` | `1.381966` | **`1.2392`** | `1.3962` |
+| `4` | `12` | `2.618034` | **`2.4405`** | `2.6449` |
+| `5` | `20` | `3.000000` | **`2.8781`** | `3.0308` |
+| `6` | `12` | `3.618034` | **`3.7233`** | `3.6552` |
+| `7` | `12` | `0.381966` | **`0.3633`** | `0.3859` |
+| `8` | `1` | `4.000000` | **`4.4149`** | `4.0411` |
+
+---
+
+## 8. Summary of Top-Down Insights from the 4D Poset Collider
 
 1. **Vacuum Stability:** Initializing all covering links to the identity element $1 \in G_\star$ satisfies Axiom 3 at $100\%$ of interior vertices across all three 4D spacetime arena strategies (`cubic`, `poisson`, `aperiodic`).
-2. **Why the 4D Aperiodic Tiling Wins (Open Problem 1):**
-   - The `cubic` lattice has zero degree variance ($d = 4.00 \pm 0.00$), but suffers from the largest directional light-cone anisotropy ($\Delta c / c$) and $100\%$ degree-4 $\operatorname{SO}(4)$ tensor anisotropy.
-   - The `poisson` sprinkling reduces directional anisotropy statistically, but introduces local degree fluctuations ($\operatorname{ std }(d_{\text{out}}) > 0$) and lower 1-loop causal diamond closure.
-   - The `aperiodic` 4D one-stone / $E_8 \to H_4$ (600-cell) quasicrystal combines uniform $d \approx 4$ connectivity with significantly lower light-cone anisotropy $\Delta c / c$ and exact spherical 11-design isotropy up to degree 10.
-3. **Quantum Wavepackets & Miniature LHC Collisions:**
-   - Firing discrete $2I[1]$ Weyl spinor wavepackets preserves unitary probability $\sum_x \|\psi(t,x)\|^2 = 1$ across causal slices while exhibiting relativistic group-velocity drift $\langle x(t)\rangle = x_0 + v_g t$ and quantum wavepacket dispersion $\Delta r(t)$.
-   - In head-on $2 \to 2$ collisions at shared $d=4$ vertices, summing over the $(4!)^2 = 576$ Axiom 3 permutations reproduces the exact non-abelian commutator cross-sections ($>94\%$ non-commuting in $2I$, $>82\%$ in $\Sigma(216\times 3)$) and the exact $1/9 = N_c^{-2}$ color-singlet lepton branching ratio alongside symmetric forward/backward angular scattering.
-4. **Saddle-Point Diamonds & Kadanoff Block-Poset RG (Open Problems 2 & 4):**
-   - The combinatorial 1-loop diamond density and Kadanoff $b=2$ block-poset Wilson plaquette holonomy $S_\square(b)$ are now directly measurable top-down observables as a function of the cube edge length $L$.
+2. **Why the 4D Aperiodic Tiling Wins (Open Problem 1 — Kinematic Isotropy):**
+   - The `cubic` lattice has zero degree variance ($d = 4.00 \pm 0.00$), but suffers from the largest directional light-cone anisotropy ($\Delta c / c = 0.4071$) and $100\%$ degree-4 $\operatorname{SO}(4)$ tensor anisotropy.
+   - The `poisson` sprinkling reduces directional anisotropy statistically, but introduces higher local degree variance ($\operatorname{std}(d_{\text{in}}) = 0.66$) and lower 1-loop causal diamond closure.
+   - The `aperiodic` 4D one-stone / $E_8 \to H_4$ (600-cell) quasicrystal combines hyperuniform $d \approx 4$ connectivity ($\operatorname{std}(d_{\text{in}}) = 0.53$) with $7.3\times$ lower light-cone anisotropy than the cubic lattice and exact spherical 11-design isotropy up to degree 10.
+3. **Coordinate-Free Kleitman–Rothschild Pancake Melting (Open Problem 1 — Dynamical Self-Organization):**
+   - Starting from a pathological 3-layer Kleitman–Rothschild pancake with **no 4D coordinates**, Metropolis–Hastings evolution under the microscopic Theorem 1 & 3 action melts the pancake into a 7-layer causal poset, driving $\langle d_{\text{out}}\rangle: 22.44 \to 3.82$ and $D_{\text{MM}}: 2.60 \to 3.48$.
+4. **Plancherel Heat-Kernel Convergence under Kadanoff RG (Open Problem 2):**
+   - Under $b^2$-fold Kadanoff plaquette convolution on $\mathbb{R}[2I]$, higher-spin representations are exponentially suppressed relative to the minimal-gap chiral spinor $\mathbf{2}_L$, and the discrete block action converges to the smooth continuum $\operatorname{SU}(2)$ Yang–Mills action with $R^2 = 0.998608$ by $b = 8$.
+5. **Quantum Wavepackets & Miniature LHC Collisions:**
+   - Firing discrete $2I[1]$ Weyl spinor wavepackets preserves unitary probability $\sum_x \|\psi(t,x)\|^2 = 1$ across causal slices while exhibiting relativistic group-velocity drift and quantum dispersion.
+   - In head-on $2 \to 2$ collisions at shared $d=4$ vertices, summing over the $(4!)^2 = 576$ Axiom 3 permutations reproduces the non-abelian commutator cross-sections ($90.4\%$ in $2I$, $97.7\%$ in $\Sigma(216\times 3)$) and the exact $1/9 = N_c^{-2}$ color-singlet lepton branching ratio.

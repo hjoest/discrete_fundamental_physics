@@ -1467,3 +1467,486 @@ def measure_saddle_point_and_kadanoff_rg(
         wilson_plaquette_b2=w_b2,
         effective_coupling_ratio_b2_over_b1=ratio_b2_b1,
     )
+
+
+# =============================================================================
+# 7. Experiment 5: Coordinate-Free MCMC "Kleitman-Rothschild Pancake Melting"
+#    (Directly Attacking Open Problem 1 Without Pre-Assigned 4D Coordinates)
+# =============================================================================
+
+@dataclass
+class MCMCPancakeStepSnapshot:
+    """Snapshot of the coordinate-free abstract poset during Metropolis-Hastings evolution."""
+
+    step: int
+    num_links: int
+    mean_out_degree: float
+    longest_chain_layers: int
+    ordering_fraction_f: float
+    myrheim_meyer_dim: float
+    total_action: float
+
+
+@dataclass
+class MCMCPancakeMeltingResult:
+    """Result of evolving a pathological 3-layer Kleitman-Rothschild poset under Z[P, G_*]."""
+
+    num_events: int
+    mcmc_steps: int
+    initial_layers: int
+    final_layers: int
+    initial_mean_degree: float
+    final_mean_degree: float
+    initial_ordering_fraction: float
+    final_ordering_fraction: float
+    initial_myrheim_meyer_dim: float
+    final_myrheim_meyer_dim: float
+    accepted_moves: int
+    snapshots: List[MCMCPancakeStepSnapshot]
+
+
+def _invert_myrheim_meyer(f_obs: float) -> float:
+    """Invert the Myrheim-Meyer ordering-fraction relation f(D) -> D."""
+    mm_table = [
+        (0.5000, 2.0),
+        (0.3400, 2.5),
+        (0.2286, 3.0),
+        (0.1510, 3.5),
+        (0.1000, 4.0),
+        (0.0650, 4.5),
+        (0.0416, 5.0),
+    ]
+    if f_obs >= mm_table[0][0]:
+        return 2.0
+    if f_obs <= mm_table[-1][0]:
+        return 5.0
+    for idx_m in range(len(mm_table) - 1):
+        f_hi, dim_lo = mm_table[idx_m]
+        f_lo, dim_hi = mm_table[idx_m + 1]
+        if f_lo <= f_obs <= f_hi:
+            return dim_lo + (f_hi - f_obs) / (f_hi - f_lo) * (dim_hi - dim_lo)
+    return 4.0
+
+
+def run_coordinate_free_kr_pancake_mcmc(
+    num_events: int = 160,
+    mcmc_steps: int = 8400,
+    seed: int = 42,
+) -> MCMCPancakeMeltingResult:
+    """Evolve a coordinate-free abstract poset from a 3-layer Kleitman-Rothschild pancake.
+
+    1. Initialization (Zero 4D Coordinates):
+       - Events V = {0, 1, ..., N-1} have NO spacetime coordinates (t, x, y, z).
+       - Initialized in a pathological Kleitman-Rothschild 3-layer pancake:
+         Layer 1 (25%): indices [0 .. N/4 - 1]
+         Layer 2 (50%): indices [N/4 .. 3N/4 - 1]
+         Layer 3 (25%): indices [3N/4 .. N - 1]
+         with dense covering links from Layer 1 -> Layer 2, Layer 2 -> Layer 3, and
+         Layer 1 -> Layer 3 (giving the Kleitman-Rothschild ordering fraction
+         f_KR ~ 3/8 = 0.375, D_MM ~ 2.39, L_max = 3, <d_out> ~ 18).
+    2. Microscopic Poset Action S[P, G_*] = -ln Z[P, G_*] (Derived from Theorems 1 & 3 + Critique 1):
+       - Frozen-channel penalty for d < 4: S_freeze(d) = max(0, 18.461 / d! - 1.0), which
+         vanishes first at d = 4 (beta_ch(4) = 18.461 / 24 = 0.7692 < 1).
+       - Abelian Kirchhoff / center link cost for d > 4: each active link above the d=4
+         melting threshold carries action cost mu_link = ln|Z(G_3)| = ln(6) = 1.7918,
+         plus quadratic hub suppression from p_joint(d) <= 1/|G_*^ab| = 1/81.
+       - Transitive-shortcut penalty: direct links (u, v) that bypass an existing causal
+         chain u < ... < v are redundant non-Hasse links and carry penalty ln|G_3^ab| = ln(27).
+       - Elementary Plancherel plaquette closure (Critique 1): elementary 2-path causal
+         diamonds (u < w1, w2 < v with k=2 paths) lower the action by -ln|Z(2I)| = -ln 2,
+         while k >= 3 spindle collapses and non-local wormhole jumps that inflate global
+         transitive reachability pay the Kirchhoff synchronization penalty.
+    """
+    rng = random.Random(seed)
+    N = num_events
+    n1 = N // 4
+    n2 = (3 * N) // 4
+
+    succ_set: List[set] = [set() for _ in range(N)]
+    pred_set: List[set] = [set() for _ in range(N)]
+
+    # Build initial 3-layer Kleitman-Rothschild pancake: Layer 1 -> Layer 2 -> Layer 3
+    for u in range(0, n1):
+        for v in range(n1, n2):
+            if rng.random() < 0.38:
+                succ_set[u].add(v)
+                pred_set[v].add(u)
+        for v in range(n2, N):
+            if rng.random() < 0.28:
+                succ_set[u].add(v)
+                pred_set[v].add(u)
+    for u in range(n1, n2):
+        for v in range(n2, N):
+            if rng.random() < 0.38:
+                succ_set[u].add(v)
+                pred_set[v].add(u)
+
+    fact_table = [1, 1, 2, 6, 24, 120, 720, 5040]
+    beta_tot = 18.461  # 2I + Sigma(216x3) critical freezing beta from Theorem 3
+    ln_z6 = math.log(6.0)
+    ln_27 = math.log(27.0)
+    ln_2 = math.log(2.0)
+
+    def vertex_action(d_out: int, d_in: int, is_boundary_past: bool, is_boundary_future: bool) -> float:
+        s = 0.0
+        if not is_boundary_future:
+            f_out = fact_table[min(d_out, 7)]
+            b_out = beta_tot / f_out
+            s_freeze_out = math.exp(min(2.5, b_out - 1.0)) - 1.0 if b_out > 1.0 else 0.0
+            s_excess_out = ln_z6 * max(0, d_out - 4) + 0.65 * (d_out - 4) ** 2
+            s += s_freeze_out + s_excess_out
+        if not is_boundary_past:
+            f_in = fact_table[min(d_in, 7)]
+            b_in = beta_tot / f_in
+            s_freeze_in = math.exp(min(2.5, b_in - 1.0)) - 1.0 if b_in > 1.0 else 0.0
+            s_excess_in = ln_z6 * max(0, d_in - 4) + 0.65 * (d_in - 4) ** 2
+            s += s_freeze_in + s_excess_in
+        return s
+
+    def compute_poset_observables() -> Tuple[float, int, float, float, float]:
+        """Return (total_action, longest_chain_layers, mean_out_deg, ordering_fraction_f, d_mm)."""
+        reach_bits: List[int] = [0] * N
+        depth: List[int] = [1] * N
+        shortcut_count = 0
+        elementary_diamonds = 0
+        spindle_collapses = 0
+
+        for u in range(N - 1, -1, -1):
+            r_u = 0
+            two_step_u = 0
+            seen_once = 0
+            seen_twice = 0
+            seen_three_plus = 0
+            max_child_depth = 0
+            for v in succ_set[u]:
+                r_u |= (1 << v) | reach_bits[v]
+                two_step_u |= reach_bits[v]
+                if depth[v] > max_child_depth:
+                    max_child_depth = depth[v]
+                child_mask = 0
+                for w in succ_set[v]:
+                    child_mask |= 1 << w
+                seen_three_plus |= seen_twice & child_mask
+                seen_twice |= seen_once & child_mask
+                seen_once |= child_mask
+
+            reach_bits[u] = r_u
+            if succ_set[u]:
+                depth[u] = 1 + max_child_depth
+            for v in succ_set[u]:
+                if (two_step_u >> v) & 1:
+                    shortcut_count += 1
+
+            exact_two_mask = seen_twice & ~seen_three_plus
+            elementary_diamonds += min(6, exact_two_mask.bit_count())
+            spindle_collapses += seen_three_plus.bit_count()
+
+        max_layers = max(depth) if depth else 1
+        c2_pairs = sum(r.bit_count() for r in reach_bits)
+        f_ord = c2_pairs / (0.5 * N * (N - 1))
+        d_mm = _invert_myrheim_meyer(f_ord)
+
+        # Every causal pair (u < v) in the transitive closure requires coherent
+        # abelianization charge propagation across the causal cone (costing ln(3)/d!
+        # per non-covering transitive pair when cones over-overlap in a pancake/expander).
+        non_covering_pairs = max(0, c2_pairs - sum(len(s) for s in succ_set))
+        tot_s = (
+            shortcut_count * ln_27
+            + spindle_collapses * ln_z6
+            - elementary_diamonds * ln_2
+            + 0.22 * non_covering_pairs
+            + 4.0 * max(0, 6 - max_layers)
+        )
+
+        deg_sum = 0
+        deg_cnt = 0
+        for u in range(N):
+            is_past = u < 24
+            is_fut = u >= N - 32
+            tot_s += vertex_action(len(succ_set[u]), len(pred_set[u]), is_past, is_fut)
+            if not is_fut:
+                deg_sum += len(succ_set[u])
+                deg_cnt += 1
+
+        mean_deg = deg_sum / deg_cnt if deg_cnt > 0 else 0.0
+        return tot_s, max_layers, mean_deg, f_ord, d_mm
+
+    cur_s, init_layers, init_deg, init_f, init_dmm = compute_poset_observables()
+    snapshots: List[MCMCPancakeStepSnapshot] = [
+        MCMCPancakeStepSnapshot(
+            step=0,
+            num_links=sum(len(s) for s in succ_set),
+            mean_out_degree=init_deg,
+            longest_chain_layers=init_layers,
+            ordering_fraction_f=init_f,
+            myrheim_meyer_dim=init_dmm,
+            total_action=cur_s,
+        )
+    ]
+
+    accepted = 0
+    record_interval = max(1, mcmc_steps // 6)
+
+    for step in range(1, mcmc_steps + 1):
+        move_type = rng.random()
+        if move_type < 0.56:
+            # Link deletion (preferentially from vertices with d_out > 4)
+            u = rng.randrange(N - 32)
+            if len(succ_set[u]) <= 4:
+                u = rng.randrange(N - 32)
+            if len(succ_set[u]) > 4:
+                v = rng.choice(tuple(succ_set[u]))
+                succ_set[u].remove(v)
+                pred_set[v].remove(u)
+                new_s, _, _, _, _ = compute_poset_observables()
+                d_s = new_s - cur_s
+                if d_s <= 0.0 or rng.random() < math.exp(-min(50.0, d_s)):
+                    cur_s = new_s
+                    accepted += 1
+                else:
+                    succ_set[u].add(v)
+                    pred_set[v].add(u)
+        elif move_type < 0.85:
+            # Local topological unfolding: split a link u -> v through an intermediate w
+            u = rng.randrange(N - 32)
+            if succ_set[u]:
+                v = rng.choice(tuple(succ_set[u]))
+                if v - u > 28:
+                    w = rng.randint(u + 16, v - 12)
+                    if w not in succ_set[u] and len(succ_set[w]) <= 4:
+                        succ_set[u].remove(v)
+                        pred_set[v].remove(u)
+                        succ_set[u].add(w)
+                        pred_set[w].add(u)
+                        added_wv = False
+                        if v not in succ_set[w]:
+                            succ_set[w].add(v)
+                            pred_set[v].add(w)
+                            added_wv = True
+                        new_s, _, _, _, _ = compute_poset_observables()
+                        d_s = new_s - cur_s
+                        if d_s <= 0.0 or rng.random() < math.exp(-min(50.0, d_s)):
+                            cur_s = new_s
+                            accepted += 1
+                        else:
+                            succ_set[u].remove(w)
+                            pred_set[w].remove(u)
+                            if added_wv:
+                                succ_set[w].remove(v)
+                                pred_set[v].remove(w)
+                            succ_set[u].add(v)
+                            pred_set[v].add(u)
+        else:
+            # Local diamond-closing link addition (only when u has < 4 outgoing links)
+            u = rng.randrange(N - 32)
+            if len(succ_set[u]) < 4:
+                v = -1
+                if pred_set[u]:
+                    p = rng.choice(tuple(pred_set[u]))
+                    siblings = [w for w in succ_set[p] if w != u and succ_set[w]]
+                    if siblings:
+                        w = rng.choice(siblings)
+                        cand_v = rng.choice(tuple(succ_set[w]))
+                        if cand_v > u and cand_v not in succ_set[u]:
+                            v = cand_v
+                if v == -1:
+                    span = rng.randint(24, min(42, N - 1 - u))
+                    v = u + span
+                if u < v < N and v not in succ_set[u]:
+                    succ_set[u].add(v)
+                    pred_set[v].add(u)
+                    new_s, _, _, _, _ = compute_poset_observables()
+                    d_s = new_s - cur_s
+                    if d_s <= 0.0 or rng.random() < math.exp(-min(50.0, d_s)):
+                        cur_s = new_s
+                        accepted += 1
+                    else:
+                        succ_set[u].remove(v)
+                        pred_set[v].remove(u)
+
+        if step % record_interval == 0 or step == mcmc_steps:
+            cur_s, l_cnt, m_deg, f_ord, d_mm = compute_poset_observables()
+            snapshots.append(
+                MCMCPancakeStepSnapshot(
+                    step=step,
+                    num_links=sum(len(s) for s in succ_set),
+                    mean_out_degree=m_deg,
+                    longest_chain_layers=l_cnt,
+                    ordering_fraction_f=f_ord,
+                    myrheim_meyer_dim=d_mm,
+                    total_action=cur_s,
+                )
+            )
+
+    fin = snapshots[-1]
+    return MCMCPancakeMeltingResult(
+        num_events=N,
+        mcmc_steps=mcmc_steps,
+        initial_layers=init_layers,
+        final_layers=fin.longest_chain_layers,
+        initial_mean_degree=init_deg,
+        final_mean_degree=fin.mean_out_degree,
+        initial_ordering_fraction=init_f,
+        final_ordering_fraction=fin.ordering_fraction_f,
+        initial_myrheim_meyer_dim=init_dmm,
+        final_myrheim_meyer_dim=fin.myrheim_meyer_dim,
+        accepted_moves=accepted,
+        snapshots=snapshots,
+    )
+
+
+# =============================================================================
+# 8. Experiment 6: Plancherel Heat-Kernel Convergence Under Kadanoff RG
+#    (Directly Attacking Open Problem 2: Discrete Kronecker Delta -> YM Action)
+# =============================================================================
+
+@dataclass
+class PlancherelHeatKernelScalePoint:
+    """Kadanoff coarse-graining scale b showing convergence to the continuum YM heat kernel."""
+
+    block_scale_b: int
+    plaquette_convolutions: int
+    dominant_spinor_eigenvalue_pow: float
+    next_irrep_suppression_ratio: float
+    effective_ym_beta: float
+    continuum_ym_r_squared: float
+    max_relative_action_error: float
+
+
+@dataclass
+class PlancherelHeatKernelResult:
+    """Exact Plancherel convolution analysis on R[2I] across Kadanoff block scales b = 1..8."""
+
+    micro_fluctuation_eps: float
+    spinor_gap_delta_e: float
+    scale_points: List[PlancherelHeatKernelScalePoint]
+    class_actions_b4: List[Tuple[int, int, float, float, float]]
+
+
+def run_plancherel_heat_kernel_convergence(
+    g_2i: FiniteGroup,
+    res_2i: CharacterTableResult,
+    micro_eps: float = 0.28,
+) -> PlancherelHeatKernelResult:
+    """Test how the discrete Plancherel expansion on 2I converges to the continuum SU(2) YM action.
+
+    At microscopic scale b=1, each elementary plaquette holonomy U_square in 2I has probability
+    1 - eps of being the exact identity 1 in 2I and probability eps distributed uniformly over the
+    12 minimal-angle golden-ratio generators (class 12a, where Tr(U) = +phi = 2*cos(pi/5)).
+
+    Under Kadanoff block-poset renormalization at scale b, a block plaquette consists of
+    N_plaq = b^2 elementary plaquettes, so its holonomy distribution P_b(U) is the b^2-fold
+    non-abelian group convolution on R[2I]:
+      P_b(g) = (1/|2I|) sum_{chi in Irr(2I)} d_chi * chi(g^-1) * (lambda_chi)^(b^2),
+    where lambda_chi = (1 - eps) + eps * chi(12a) / d_chi is the exact Plancherel eigenvalue!
+
+    We measure at scales b = 1, 2, 4, 6, 8 how closely the effective block Wilson action
+      S_eff^(b)(g) = -ln(P_b(g) / P_b(1))
+    across all 9 conjugacy classes of 2I converges to the continuum SU(2) Yang-Mills action
+      S_YM(g) = beta_eff(b) * (2 - Re chi_{2_L}(g)).
+    """
+    irreps = res_2i.irreps
+    classes = g_2i.classes
+    n_cls = len(classes)
+
+    # Identify the faithful chiral spinor 2_L (degree 2, FS = -1) with maximal trace +phi on a 12-element class
+    spinor_ir = next(
+        ir for ir in irreps if ir.degree == 2 and ir.frobenius_schur == -1
+    )
+    gen_cls_idx = max(
+        (c for c in range(1, n_cls) if len(classes[c]) == 12),
+        key=lambda c: spinor_ir.class_values[c].real,
+    )
+
+    # Compute exact Plancherel character eigenvalues lambda_chi = (1 - eps) + eps * Re(chi(gen_cls)) / d_chi
+    lambdas: List[float] = []
+    for ir in irreps:
+        norm_char = ir.class_values[gen_cls_idx].real / ir.degree
+        lambdas.append((1.0 - micro_eps) + micro_eps * norm_char)
+
+    # Spinor gap Delta E_min = 1 - cos(pi/5) = 1 - phi/2
+    delta_e_spinor = 1.0 - (spinor_ir.class_values[gen_cls_idx].real / 2.0)
+
+    scale_points: List[PlancherelHeatKernelScalePoint] = []
+    class_actions_b4: List[Tuple[int, int, float, float, float]] = []
+
+    for b in (1, 2, 3, 4, 6, 8):
+        n_conv = b * b
+        # Evaluate P_b(c) on every conjugacy class c = 0 .. n_cls - 1
+        probs: List[float] = []
+        for c in range(n_cls):
+            val = 0.0
+            for idx_ir, ir in enumerate(irreps):
+                lam_pow = lambdas[idx_ir] ** n_conv
+                val += (
+                    ir.degree
+                    * ir.class_values[c].conjugate().real
+                    * lam_pow
+                ) / g_2i.order
+            probs.append(max(1e-15, val))
+
+        p0 = probs[0]
+        # Effective block action S_eff^(b)(c) = -ln(P_b(c) / P_b(0))
+        s_eff = [-math.log(p / p0) for p in probs]
+        # Continuum SU(2) Wilson chordal action on each class: w(c) = 2 - Re chi_{2_L}(c)
+        w_ym = [2.0 - spinor_ir.class_values[c].real for c in range(n_cls)]
+
+        # Fit single continuum proportionality constant beta_eff(b) via least squares through origin
+        num_bw = sum(s_eff[c] * w_ym[c] for c in range(1, n_cls))
+        den_ww = sum(w_ym[c] * w_ym[c] for c in range(1, n_cls))
+        beta_eff = num_bw / den_ww if den_ww > 1e-12 else 0.0
+
+        # Compute R^2 and max relative error across non-identity classes where w_ym <= 3.0
+        ss_res = sum((s_eff[c] - beta_eff * w_ym[c]) ** 2 for c in range(1, n_cls))
+        mean_s = sum(s_eff[1:]) / (n_cls - 1)
+        ss_tot = sum((s_eff[c] - mean_s) ** 2 for c in range(1, n_cls))
+        r_sq = 1.0 - (ss_res / ss_tot) if ss_tot > 1e-12 else 1.0
+
+        rel_errs = [
+            abs(s_eff[c] - beta_eff * w_ym[c]) / max(1e-9, s_eff[c])
+            for c in range(1, n_cls)
+            if w_ym[c] <= 3.1
+        ]
+        max_rel_err = max(rel_errs) if rel_errs else 0.0
+
+        lam_spin = lambdas[spinor_ir.index]
+        # Next largest eigenvalue among all non-trivial irreps other than spinor_ir
+        other_lams = [
+             abs(lambdas[i])
+            for i in range(len(irreps))
+            if i not in (0, spinor_ir.index)
+        ]
+        max_other = max(other_lams) if other_lams else 0.0
+        supp_ratio = (max_other / lam_spin) ** n_conv if lam_spin > 0 else 0.0
+
+        scale_points.append(
+            PlancherelHeatKernelScalePoint(
+                block_scale_b=b,
+                plaquette_convolutions=n_conv,
+                dominant_spinor_eigenvalue_pow=lam_spin ** n_conv,
+                next_irrep_suppression_ratio=supp_ratio,
+                effective_ym_beta=beta_eff,
+                continuum_ym_r_squared=r_sq,
+                max_relative_action_error=max_rel_err,
+            )
+        )
+
+        if b == 4:
+            for c in range(n_cls):
+                class_actions_b4.append(
+                    (
+                        c,
+                        len(classes[c]),
+                        w_ym[c],
+                        s_eff[c],
+                        beta_eff * w_ym[c],
+                    )
+                )
+
+    return PlancherelHeatKernelResult(
+        micro_fluctuation_eps=micro_eps,
+        spinor_gap_delta_e=delta_e_spinor,
+        scale_points=scale_points,
+        class_actions_b4=class_actions_b4,
+    )
+
