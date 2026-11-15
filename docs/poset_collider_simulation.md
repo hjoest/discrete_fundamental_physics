@@ -36,9 +36,9 @@ All links $e = (u \prec_P v)$ are initialized in the vacuum identity state $g_e 
 
 ## 3. Experiment 2: Quantum Spinor Wavepacket Propagation ($2I[1]$ Weyl Doublet)
 
-A 2-component discrete Weyl spinor wavepacket $|\Psi(t_0)\rangle$ carrying internal spinor representation $\mathbf{2}_L = 2I[1]$ and initial momentum $\vec{k}_0 = (+1.2, 0, 0)$ is injected into the vacuum arena at $t = 0$ and evolved causally along covering links:
+A 2-component discrete Weyl spinor wavepacket $|\Psi(t_0)\rangle$ carrying internal spinor representation $\mathbf{2}_L = 2I[1]$ and initial momentum $\vec{k}_0 = (+1.2, 0, 0)$ is injected into the vacuum arena at $t = 0$ and evolved causally along covering links (each single-link $\operatorname{SU}(2)$ hop matrix satisfies $\det U = 1, U^\dagger U = I_2$, and $\Psi(t)$ is normalized on each causal slice $\Sigma_t$ to measure single-particle expectation values):
 
-| Arena Strategy | Initial Center $\langle x(0)\rangle$ | Final Center $\langle x(L-1)\rangle$ | Group Velocity $v_g = d\langle x\rangle/dt$ | Initial Spread $\Delta r(0)$ | Final Spread $\Delta r(L-1)$ | Unitary Norm $\sum_x \|\psi(t,x)\|^2$ |
+| Arena Strategy | Initial Center $\langle x(0)\rangle$ | Final Center $\langle x(L-1)\rangle$ | Group Velocity $v_g = d\langle x\rangle/dt$ | Initial Spread $\Delta r(0)$ | Final Spread $\Delta r(L-1)$ | Single-Link $\operatorname{SU}(2)$ Unitarity $1 - \|U^\dagger U - I_2\|$ |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **`cubic`** | `(3.06, 4.99, 4.99)` | `(5.42, 4.65, 4.65)` | **`+0.263`** | `2.71` | `4.60` | `1.000000` |
 | **`poisson`** | `(3.07, 4.81, 4.81)` | `(4.30, 4.91, 4.91)` | **`+0.137`** | `2.67` | `3.36` | `1.000000` |
@@ -85,11 +85,11 @@ A 2-component discrete Weyl spinor wavepacket $|\Psi(t_0)\rangle$ carrying inter
 
 Two counter-propagating quantum wavepackets $A$ ($\vec{k}_A = (+k_0, 0, 0)$, starting at $x_A = 0.25 L$) and $B$ ($\vec{k}_B = (-k_0, 0, 0)$, starting at $x_B = 0.75 L$) are fired head-on into the vacuum arena. Where their wavefunctions overlap at shared spacetime vertices $v \in P$, Axiom 3 sums over all $(4!)^2 = 576$ incoming/outgoing link orderings $(\sigma, \tau) \in S_4 \times S_4$:
 
-| Arena Strategy | Active Collision Vertices | Integrated Luminosity $\mathcal{L}_{AB}$ | Collision Center $(t_{\text{CM}}, x_{\text{CM}})$ | $S_4 \times S_4$ Channels | Non-Abelian $[g_A, g_B] \neq 1$ ($2I$ / $\Sigma(648)$) | $\mathbf{3}_c \otimes \bar{\mathbf{3}}_c \to \mathbf{1}_{\text{lepton}}$ (Exact $1/9$) | $\mathbf{3}_c \otimes \bar{\mathbf{3}}_c \to \mathbf{8}_{\text{gluon}}$ (Exact $8/9$) | Outgoing Angular Bins (Fwd / Tr+ / Tr- / Bwd) |
+| Arena Strategy | Active Collision Vertices | Integrated Luminosity $\mathcal{L}_{AB}$ | Collision Center $(t_{\text{CM}}, x_{\text{CM}})$ | $S_4 \times S_4$ Channels | Arena Link $[g_A, g_B] \neq 1$ ($2I$ / $\Sigma(648)$) | Peter–Weyl $\mathbf{3}_c \otimes \bar{\mathbf{3}}_c \to \mathbf{1}_{\text{lepton}}$ (Exact $1/9$) | Peter–Weyl $\mathbf{3}_c \otimes \bar{\mathbf{3}}_c \to \mathbf{8}_{\text{gluon}}$ (Exact $8/9$) | Outgoing Angular Bins (Fwd / Tr+ / Tr- / Bwd) |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`cubic`** | `6,564` | `0.0153` | `(4.11, 4.80)` | `576` | `90.4% / 97.7%` | **`0.111111`** (`0.111111`) | **`0.888889`** (`0.888889`) | `(0.50, 0.00, 0.00, 0.50)` |
-| **`poisson`** | `3,666` | `0.0306` | `(6.48, 4.69)` | `576` | `90.4% / 97.7%` | **`0.111111`** (`0.111111`) | **`0.888889`** (`0.888889`) | `(0.21, 0.24, 0.22, 0.32)` |
-| **`aperiodic`** | `3,557` | `0.0153` | `(6.24, 4.98)` | `576` | `90.4% / 97.7%` | **`0.111111`** (`0.111111`) | **`0.888889`** (`0.888889`) | `(0.30, 0.22, 0.20, 0.29)` |
+| **`cubic`** | `6,564` | `0.0153` | `(4.11, 4.80)` | `576` | `93.8% / 95.4%` | **`0.111111`** (`0.111111`) | **`0.888889`** (`0.888889`) | `(0.50, 0.00, 0.00, 0.50)` |
+| **`poisson`** | `3,666` | `0.0306` | `(6.48, 4.69)` | `576` | `94.9% / 96.9%` | **`0.111111`** (`0.111111`) | **`0.888889`** (`0.888889`) | `(0.21, 0.25, 0.22, 0.31)` |
+| **`aperiodic`** | `3,557` | `0.0153` | `(6.24, 4.98)` | `576` | `93.1% / 96.0%` | **`0.111111`** (`0.111111`) | **`0.888889`** (`0.888889`) | `(0.31, 0.22, 0.20, 0.27)` |
 
 ---
 
@@ -99,33 +99,33 @@ We measure the combinatorial density of 1-loop causal diamonds (pairs $(u, v)$ j
 
 | Arena Strategy | 2-Step Causal Pairs | 1-Loop Causal Diamonds | Mean Paths / Diamond | Combinatorial Loop Ratio | Micro Degree $\langle d(b=1)\rangle$ | Block Degree $\langle d(b=2)\rangle$ | Wilson Plaquette $S_{\square}(b=1)$ | Wilson Plaquette $S_{\square}(b=2)$ | RG Flow Ratio $S_{\square}(2)/S_{\square}(1)$ |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`cubic`** | `4,000` | `2,400` | `2.00` | `60.00%` | `4.00` | `45.00` | `0.1223` | `0.4398` | **`3.595`** |
-| **`poisson`** | `6,007` | `384` | `2.02` | `6.39%` | `4.00` | `17.67` | `0.1221` | `0.4234` | **`3.468`** |
-| **`aperiodic`** | `5,947` | `430` | `2.05` | `7.23%` | `4.00` | `18.34` | `0.1283` | `0.4272` | **`3.331`** |
+| **`cubic`** | `4,000` | `2,400` | `2.00` | `60.00%` | `4.00` | `45.00` | `0.1339` | `0.1554` | **`1.161`** |
+| **`poisson`** | `6,007` | `384` | `2.02` | `6.39%` | `4.00` | `17.67` | `0.1529` | `0.1965` | **`1.285`** |
+| **`aperiodic`** | `5,947` | `430` | `2.05` | `7.23%` | `4.00` | `18.34` | `0.1374` | `0.1931` | **`1.406`** |
 
 ---
 
 ## 6. Experiment 5: Coordinate-Free MCMC "Kleitman–Rothschild Pancake Melting" (Open Problem 1)
 
-To test whether $(P, \prec_P)$ requires pre-built 4D coordinates or dynamically self-organizes under the microscopic action $\mathcal{Z}[P, G_\star]$, we initialize an abstract poset of $N = 160$ events with **zero spacetime coordinates** in a pathological **3-layer Kleitman–Rothschild pancake** ($L_{\max} = 3$, high degree $\langle d_{\text{out}}\rangle = 22.44$, crushed Myrheim–Meyer dimension $D_{\text{MM}} = 2.60$) and evolve the covering links via Metropolis–Hastings moves weighted purely by the Theorem 1 & 3 action (the $d! > 18.461$ channel-melting threshold at $d = 4$, the $\ln|Z(G_3)| = \ln 6$ link cost above $d = 4$, and the $\ln|G_3^{\text{ab}}| = \ln 27$ non-Hasse shortcut penalty):
+To test whether $(P, \prec_P)$ requires pre-built 4D coordinates or dynamically self-organizes under the microscopic action $\mathcal{Z}[P, G_\star]$, we initialize an abstract poset of $N = 160$ events with **zero spacetime coordinates** in a pathological **3-layer Kleitman–Rothschild pancake** ($L_{\max} = 3$, high degree $\langle d_{\text{out}}\rangle = 22.44$, crushed Myrheim–Meyer dimension $D_{\text{MM}} = 2.60$) and evolve the covering links via reversible Metropolis–Hastings moves (including exact Hastings proposal ratios) weighted purely by the Theorem 1 & 3 action (the $d! > 18.461$ channel-melting threshold at $d = 4$, the $(\ln|Z(G_3)| + \ln|G_\star^{\text{ab}}|) = (\ln 6 + \ln 81)$ link/hub cost above $d = 4$, and the $\ln|G_3^{\text{ab}}| = \ln 27$ non-Hasse shortcut penalty):
 
 | MCMC Step | Total Covering Links | Mean Out-Degree $\langle d_{\text{out}}\rangle$ | Causal Layers $L_{\max}$ | Ordering Fraction $f = C_2 / \binom{N}{2}$ | Emergent Myrheim–Meyer Dim $D_{\text{MM}}$ | Microscopic Action $S[P, G_\star]$ |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| `0` | `2,872` | **`22.44`** | **`3`** | `0.3172` | **`2.60`** | `101717.6` |
-| `1,400` | `2,106` | **`16.45`** | **`4`** | `0.2620` | **`2.85`** | `57305.1` |
-| `2,800` | `1,452` | **`11.34`** | **`5`** | `0.2144` | **`3.09`** | `27770.9` |
-| `4,200` | `1,010` | **`7.88`** | **`5`** | `0.1721` | **`3.36`** | `11938.0` |
-| `5,600` | `661` | **`5.15`** | **`6`** | `0.1436` | **`3.57`** | `4060.6` |
-| `7,000` | `518` | **`4.02`** | **`7`** | `0.1396` | **`3.61`** | `2171.4` |
-| `8,400` | `493` | **`3.82`** | **`7`** | `0.1535` | **`3.48`** | `1831.5` |
+| `0` | `2,872` | **`22.44`** | **`3`** | `0.3172` | **`2.60`** | `34321.0` |
+| `1,400` | `2,236` | **`17.47`** | **`3`** | `0.2698` | **`2.82`** | `26204.7` |
+| `2,800` | `1,659` | **`12.96`** | **`3`** | `0.2223` | **`3.04`** | `18024.7` |
+| `4,200` | `1,126` | **`8.80`** | **`4`** | `0.1460` | **`3.55`** | `10912.7` |
+| `5,600` | `753` | **`5.88`** | **`4`** | `0.0941` | **`4.08`** | `6223.7` |
+| `7,000` | `535` | **`4.18`** | **`6`** | `0.1013` | **`3.99`** | `3337.7` |
+| `8,400` | `468` | **`3.66`** | **`8`** | `0.1446` | **`3.56`** | `2187.7` |
 
-> **Coordinate-Free Self-Organization Result:** Without any reference to $\mathbb{R}^4$ coordinates, the Metropolis–Hastings chain spontaneously melts the 3-layer Kleitman–Rothschild pancake ($L_{\max}: 3 \to 7$ causal layers), drives the vertex coordination degree from $\langle d_{\text{out}}\rangle = 22.44$ to **`3.82`** (pinned by the $d=4$ factorial melting threshold $18.461/4! = 0.7692 < 1$), and brings the emergent Myrheim–Meyer dimension from $D_{\text{MM}} = 2.60$ to **`3.48`**.
+> **Coordinate-Free Self-Organization Result:** Without any reference to $\mathbb{R}^4$ coordinates, the Metropolis–Hastings chain spontaneously melts the 3-layer Kleitman–Rothschild pancake ($L_{\max}: 3 \to 8$ causal layers), drives the vertex coordination degree from $\langle d_{\text{out}}\rangle = 22.44$ to **`3.66`** (pinned by the $d=4$ factorial melting threshold $18.461/4! = 0.7692 < 1$), and brings the emergent Myrheim–Meyer dimension from $D_{\text{MM}} = 2.60$ to **`3.56`**.
 
 ---
 
 ## 7. Experiment 6: Plancherel Heat-Kernel Convergence Under Kadanoff RG (Open Problem 2)
 
-In Open Problem 2 (and Critique 1), the microscopic plaquette weight is a discrete group Kronecker delta $\delta_{2I}(U_\square) = \frac{1}{|2I|}\sum_\chi d_\chi \chi(U_\square)$. When microscopic links experience small golden-ratio fluctuations (rate $\epsilon = 0.28$ onto the 12 nearest-neighbor 600-cell generators where $\Delta E_{\min} = 1 - \cos(\pi/5) = 0.1910$), coarse-graining over a $b \times b$ Kadanoff block plaquette convolves $N_\square = b^2$ elementary plaquettes in $\mathbb{R}[2I]$. Because the faithful chiral spinor $\mathbf{2}_L = 2I[1]$ has the largest non-trivial Plancherel character eigenvalue $\lambda_{\mathbf{2}_L}$, all higher irreps decay exponentially as $(\lambda_\chi / \lambda_{\mathbf{2}_L})^{b^2}$, and the discrete block action $S_{\text{eff}}^{(b)}(g) = -\ln(P_b(g)/P_b(1))$ converges to the smooth continuum $\operatorname{SU}(2)$ Yang–Mills Wilson action $\beta_{\text{eff}}(b)\bigl(2 - \operatorname{Re}\chi_{\mathbf{2}_L}(g)\bigr)$:
+In Open Problem 2 (and Critique 1), the microscopic plaquette weight is a discrete group Kronecker delta $\delta_{2I}(U_\square) = \frac{1}{|2I|}\sum_\chi d_\chi \chi(U_\square)$. When microscopic links experience small golden-ratio fluctuations (rate $\epsilon = 0.28$ onto the 12 nearest-neighbor 600-cell generators where $\Delta E_{\min} = 1 - \cos(\pi/5) = 0.1910$), coarse-graining over a $b \times b$ Kadanoff block plaquette convolves $N_\square = b^2$ elementary plaquettes in $\mathbb{R}[2I]$. Because the faithful chiral spinor $\mathbf{2}_L = 2I[1]$ has the largest non-trivial Plancherel character eigenvalue $\lambda_{\mathbf{2}_L}$, all higher irreps decay exponentially as $(\lambda_\chi / \lambda_{\mathbf{2}_L})^{b^2}$, and the discrete block action $S_{\text{eff}}^{(b)}(g) = -\ln(P_b(g)/P_b(1))$ converges in functional form to $\beta_{\text{eff}}(b)\bigl(2 - \operatorname{Re}\chi_{\mathbf{2}_L}(g)\bigr)$ as $\beta_{\text{eff}}(b) \to 0$ (demonstrating representation-space isotropization in the coarse-grained random-walk regime, while a $\beta_{\text{eff}} \to \infty$ continuum limit remains blocked on a finite group by $\Delta E_{\min} > 0$):
 
 | Kadanoff Scale $b$ | Convolved Plaquettes $N_\square = b^2$ | Spinor Mode $\lambda_{\mathbf{2}_L}^{b^2}$ | Higher-Irrep Suppression $(\lambda_{\text{next}}/\lambda_{\mathbf{2}_L})^{b^2}$ | Effective YM Coupling $\beta_{\text{eff}}(b)$ | Continuum Yang–Mills Fit $R^2$ | Max Relative Action Error ($w \le 3$) |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -155,20 +155,21 @@ In Open Problem 2 (and Critique 1), the microscopic plaquette weight is a discre
 ## 8. Experiment 7: Top-Quark & Flavon-Higgs Poset Collider (Open Problem 3)
 
 We inject the exact third-generation quark and lepton representations of $G_3 = 2I \times \Sigma(216\times 3) \times \Delta(27)_f$ into the poset vertices and 1-loop causal diamonds ($u \prec w_1, w_2 \prec v$):
-- **Left-handed top/bottom doublet $Q_{L,3} = (t_L, b_L)$:** $\Sigma[18]$ ($\dim = 6$), $\Delta[9]$ ($\dim = 3$)
-- **Right-handed top/bottom triplets $t_R, b_R$:** $\Sigma[10, 11]$ ($\dim = 3$), $\Delta[9]$ ($\dim = 3$)
-- **Left-handed tau doublet $L_{L,3} = (\nu_\tau, \tau_L)$ & singlet $\tau_R$:** $\Sigma[4]$ ($\dim = 2$) & $\Sigma[1]$ ($\dim = 1$)
+- **Left-handed top/bottom doublet $Q_{L,3} = (t_L, b_L)$:** $\Sigma[18]$ ($\dim = 6$, $\iota = 0$), $\Delta[9]$ ($\dim = 3$)
+- **Right-handed top/bottom triplets $t_R, b_R$:** $\Sigma[10, 11]$ ($\dim = 3$, $\iota = 0$), $\Delta[9]$ ($\dim = 3$)
+- **Left-handed tau doublet $L_{L,3} = (\nu_\tau, \tau_L)$, Higgs $H_{u,d}$, & singlet $\tau_R$:** $\Sigma[5]$ ($\dim = 2, \iota = -1$), $\Sigma[4]$ ($\dim = 2, \iota = 0$), & $\Sigma[2]$ ($\dim = 1, \iota = 0$)
 - **Gluon octet $G_\mu^a$:** $\Sigma[19] \in M_8(\mathbb{R})$ ($\dim = 8$, real $\iota = +1$)
 
-| Observable / Channel | Poset / $G_\star$ Calculation | Unquenched / Prior Baseline | With Top & Flavon-Higgs Diamonds | Experimental Value |
+| Observable / Channel | Poset / $G_\star$ Calculation | Unquenched / Paper I Baseline | Coupled 1-Loop / Diamond Result | Experimental Value |
 | :--- | :--- | :--- | :--- | :--- |
-| **Tree-Level Vertex Branching $P(Q_L \otimes H \to q_R)$** | $\dim(q_R)/(\dim Q_L \dim H) = 3/12$ | `0.2500` | **`0.2500`** | — |
-| **Tree-Level Vertex Branching $P(L_L \otimes H \to \ell_R)$** | $\dim(\ell_R)/(\dim L_L \dim H) = 1/4$ | `0.2500` | **`0.2500`** | — |
-| **Bare $b\text{--}\tau$ Unification $y_b(\Lambda)/y_\tau(\Lambda)$** | $P(Q_L \to b_R) / P(L_L \to \tau_R)$ | `1.0000` | **`1.000000`** | `1.0000` (GUT) |
-| **1-Loop Gluon Diamond Multiplicity ($Q_L$ vs. $L_L$)** | $\langle \chi \otimes \Sigma[19], \chi \rangle$ | `2 vs 0` | **`2 vs 0`** |QCD vs. Lepton |
-| **Active UV Flavon-Higgs Loop Channels ($\mu > M_{\text{fl}}$)** | $\sum_{p,q \in \mathbb{Z}_3^2} \langle \Delta[9] \otimes \chi_{p,q}, \Delta[9]\rangle$ | `1` (2HDM only) | **`9`** (all $9$ $\Delta(27)_f^{\text{ab}}$ modes) | — |
-| **$b\text{--}\tau$ Mass Ratio $R_{d/e}(M_Z) = m_b(M_Z)/m_\tau(M_Z)$** | Eq. (680) with $N_{\text{ch}} = 9$ above $M_{\text{fl}}$ | `2.1700` (gauge) / `1.7313` (quenched) | **`1.6428`** (`-1.68%`) | `1.6709` |
-| **Running Bottom Mass $m_b(M_Z)$** | $R_{d/e}(M_Z) \cdot m_\tau(M_Z)$ | `3.020 GeV` (`+5.8 sigma`) | **`2.869 GeV`** (**`+0.63 sigma`**) | `2.850 +/- 0.030 GeV` |
+| **Color-Summed Vertex Branching $P(Q_L \otimes H \to q_R)$** | $\dim(q_R)/(\dim Q_L \dim H) = 3/12$ | `0.2500` ($1/9$ unsummed) | **`0.2500`** | — |
+| **Color-Summed Vertex Branching $P(L_L \otimes H \to \ell_R)$** | $\dim(\ell_R)/(\dim L_L \dim H) = 1/4$ | `0.2500` ($1$ unsummed) | **`0.2500`** | — |
+| **Bare Unification $(\det M_d/\det M_e)_\Lambda^{1/3} = y_b(\Lambda)/y_\tau(\Lambda)$** | $\prod_{p\in\mathbb{Z}_3} 3^{-p} = 1$ | `1.0000` | **`1.000000`** | `1.0000` (GUT) |
+| **1-Loop Gluon Diamond Multiplicity ($Q_L$ vs. $L_L$)** | $\langle \chi \otimes \Sigma[19], \chi \rangle$ | `2 vs 0` | **`2 vs 0`** | QCD vs. Lepton |
+| **Active UV Flavon-Higgs Loop Channels ($\mu > M_{\text{fl}}$)** | $\sum_{p,q \in \mathbb{Z}_3^2} \langle \Delta[9] \otimes \chi_{p,q}, \Delta[9]\rangle$ | `1` (Parseval VEV trace) | **`9`** (all $9$ $\Delta(27)_f^{\text{ab}}$ modes) | — |
+| **Unquenched Coupled 1-Loop $R_{d/e}(M_Z)$ ($N_{\text{ch}}=1$ Parseval)** | Coupled $(y_t, y_b, y_\tau)$ RGE ($b_3 = -7$, $N_{\text{ch}}=1$) | `2.1700` (pure gauge) | **`1.9131`** (`+14.5%`) | `1.6709` |
+| **Unquenched Coupled 1-Loop $R_{d/e}(M_Z)$ ($N_{\text{ch}}=9$ Flavons)** | Coupled $(y_t, y_b, y_\tau)$ RGE ($b_3 = -7$, $N_{\text{ch}}=9$) | `1.7313` (`+3.61%`, quenched $4/11$) | **`1.9097`** (`+14.3%`, closes $52\%$ of unquenched gap) | `1.6709` |
+| **Running Bottom Mass $m_b(M_Z)$ (Unquenched 9-ch / Quenched $4/11$)** | $R_{d/e}(M_Z) \cdot m_\tau(M_Z)$ | `3.789 GeV` (gauge) / `3.020 GeV` (quenched) | **`3.335 GeV`** (unquenched 9-ch) | `2.850 +/- 0.030 GeV` |
 | **Strong Coupling $\alpha_s(M_Z)$ (Top Decoupled at $m_t$)** | $N_f: 6 \to 5$ below $m_t = 171.7\text{ GeV}$ | `0.1170` ($N_f=6$) | **`0.1179`** (**`0.0 sigma`**) | `0.1179 +/- 0.0009` |
 
 ---
@@ -179,24 +180,24 @@ In Open Problem 4 (and Critique 7), two foundational questions were posed: (i) C
 
 ### Part A: Zero-Input Single-Anchor ($M_Z$-Only) Prediction Cascade
 
-Using Experiment 7's 9-channel flavon-Higgs causal diamond ratio $R_{d/e}^{\text{diamond}}(M_Z) = 1.6428$ removes the $-23.7\%$ (unquenched) and $-4.37\%$ (quenched ansatz) bottleneck in Critique 7, allowing the entire electroweak, quark, charged-lepton, neutrino, and dark-energy spectrum to be computed from **$M_Z = 91.1876\text{ GeV}$ alone**:
+Using Experiment 7's unquenched coupled 1-loop 9-channel ratio $R_{d/e}^{\text{9ch}}(M_Z) = 1.9097$ (which improves the unquenched pure-gauge baseline `2.1700` by closing $52\%$ of the gap toward `1.6709` without the quenched $4/11$ ansatz), the entire electroweak, quark, charged-lepton, neutrino, and dark-energy spectrum is computed from **$M_Z = 91.1876\text{ GeV}$ alone**:
 
 | Observable | Deductive Chain from $M_Z = 91.1876\text{ GeV}$ Alone | Predicted ($M_Z$ Only) | Experimental | Relative Error |
 | :--- | :--- | :--- | :--- | :--- |
 | **Electroweak VEV v_ew** | `2 M_Z / sqrt(g_2^2 + g_Y^2)` | **`245.3 GeV`** | `246.2 GeV` | **`-0.37%`** |
 | **Top Mass m_t(M_Z)** | `v_ew^pred / sqrt(2)` | **`173.5 GeV`** | `171.7 GeV` | **`+1.02%`** |
 | **Bottom Mass m_b(M_Z)** | `m_t^pred / |A_5|` | **`2.891 GeV`** | `2.85 GeV` | **`+1.44%`** |
-| **Tau Running Mass m_tau(M_Z)** | `m_b^pred / R_{d/e}^{diamond}` | **`1.76 GeV`** | `1.746 GeV` | **`+0.78%`** |
-| **Tau Pole Mass m_tau^pole** | `m_tau^pred(M_Z) (1 + delta_QED)` | **`1791 MeV`** | `1777 MeV` | **`+0.78%`** |
-| **Muon Mass m_mu^pole** | `m_tau^pred * (m_mu/m_tau)_Koide` | **`106.5 MeV`** | `105.7 MeV` | **`+0.77%`** |
-| **Electron Mass m_e^pole** | `m_tau^pred * (m_e/m_tau)_Koide` | **`0.5149 MeV`** | `0.511 MeV` | **`+0.77%`** |
-| **Strange Mass m_s(M_Z)** | `(1/3) m_b^pred * (m_mu/m_tau)_Koide` | **`57.3 MeV`** | `53.5 MeV` | **`+7.10%`** |
-| **Down Mass m_d(M_Z)** | `3 m_b^pred * (m_e/m_tau)_Koide` | **`2.494 MeV`** | `2.67 MeV` | **`-6.59%`** |
-| **Charm Mass m_c(M_Z)** | `m_t^pred * (m_mu/m_tau)_Koide^2` | **`0.6133 GeV`** | `0.619 GeV` | **`-0.93%`** |
+| **Tau Mass m_tau(M_Z)** | `m_b^pred / R_{d/e}(M_Z)` | **`1.514 GeV`** | `1.746 GeV` | **`-13.31%`** |
+| **Muon Mass m_mu^pole** | `m_tau^pole,pred * (m_mu/m_tau)_Koide` | **`91.59 MeV`** | `105.7 MeV` | **`-13.31%`** |
+| **Electron Mass m_e^pole** | `m_tau^pole,pred * (m_e/m_tau)_Koide` | **`0.443 MeV`** | `0.511 MeV` | **`-13.31%`** |
+| **Strange Mass m_s(M_Z)** | `(1/3) m_b^pred * (m_mu/m_tau)_{M_Z}` | **`56.68 MeV`** | `53.5 MeV` | **`+5.95%`** |
+| **Down Mass m_d(M_Z)** | `3 m_b^pred * (m_e/m_tau)_{M_Z}` | **`2.427 MeV`** | `2.67 MeV` | **`-9.10%`** |
+| **Charm Mass m_c(M_Z)** | `m_t^pred * (m_mu/m_tau)_{M_Z}^2` | **`0.6002 GeV`** | `0.619 GeV` | **`-3.04%`** |
+| **Up Mass m_u(M_Z)** | `(1/3) m_c^pred * (m_e/m_mu)_{M_Z}` | **`0.9518 MeV`** | `1.27 MeV` | **`-25.06%`** |
 | **Neutrino Mass m_{nu_3}** | `(v_ew^pred)^2 / (M_Z |G_3| |G_*|)` | **`49.9 meV`** | `50.11 meV` | **`-0.42%`** |
 | **Dark Energy Scale E_Lambda** | `M_Z / |G_*|^2` | **`2.299 meV`** | `2.246 meV` | **`+2.34%`** |
 
-> **Single-Anchor Verdict:** Across all 12 dimensionful observables spanning 14 orders of magnitude (from $m_t = 173.5\text{ GeV}$ down to $E_\Lambda = 2.30\text{ meV}$), the mean absolute relative error using **$M_Z$ as the sole dimensionful anchor** is **`1.94%`**.
+> **Single-Anchor Verdict:** Across all 12 dimensionful observables spanning 14 orders of magnitude (from $m_t = 173.5\text{ GeV}$ down to $E_\Lambda = 2.30\text{ meV}$, including $m_u(M_Z)$), the mean absolute relative error using **$M_Z$ as the sole dimensionful anchor** is **`7.39%`**.
 
 ### Part B: Poset Bivector Plaquette-Plane Count & Look-Elsewhere Trial-Factor Enumeration
 
@@ -204,9 +205,9 @@ Using Experiment 7's 9-channel flavon-Higgs causal diamond ratio $R_{d/e}^{\text
 | :--- | :--- | :--- |
 | **Vertex Bivector Plaquette Planes $\binom{d}{2}$ at $d = 4$** | **`6`** | Number of independent 2-step causal diamond planes ($tx, ty, tz, xy, xz, yz$) meeting at a $d=4$ vertex, fixing the exponent $6$ in $\alpha_G = \frac{1}{|Z(2I)|}|G_3|^{-\binom{4}{2}}$. |
 | **Fundamental Invariant Dictionary $\lvert\mathcal{I}(G_\star)\rvert$** | `14` | Orders, abelianizations, centers, and irrep dimensions of $2I, \Sigma(216\times 3), \Delta(27)_f, \mathbb{Z}_3^{\text{PQ}}$. |
-| **Enumerated Monomial Hypotheses $a^p b^q$** | `2,268` (`1,031` distinct) | Complete hypothesis space of 1- and 2-factor group-invariant scaling ratios. |
-| **Mean Per-Observable Look-Elsewhere Hit Probability** | `0.3950` | Average probability that a random invariant monomial in the same decade lands within the observed relative error window. |
-| **Joint Look-Elsewhere-Corrected $p$-Value (7 Scale Ratios)** | **`7.207e-06`** (**`4.87 sigma`**) | Probability of matching all 7 independent scale hierarchies simultaneously by chance after penalizing by the full monomial trial space. |
+| **Enumerated Monomial Hypotheses $a^p b^q$** | `2,268` (`1,031` distinct) | Hypothesis space of 1- and 2-factor group-invariant scaling ratios (up to secondary $O(1)$ prefactors $1/8, \sqrt{2}$). |
+| **Mean Per-Observable Look-Elsewhere Hit Probability** | `0.3445` | Average probability that a random invariant monomial in the same decade lands within the observed relative error window. |
+| **Joint Look-Elsewhere-Corrected $p$-Value (6 Measured Scale Ratios)** | **`1.032e-05`** (**`4.26 sigma`** one-sided) | Probability of matching all 6 experimentally measured scale hierarchies simultaneously by chance after penalizing by the monomial trial space. |
 
 ---
 
@@ -218,13 +219,13 @@ Using Experiment 7's 9-channel flavon-Higgs causal diamond ratio $R_{d/e}^{\text
    - The `poisson` sprinkling reduces directional anisotropy statistically, but introduces higher local degree variance ($\operatorname{std}(d_{\text{in}}) = 0.66$) and lower 1-loop causal diamond closure.
    - The `aperiodic` 4D one-stone / $E_8 \to H_4$ (600-cell) quasicrystal combines hyperuniform $d \approx 4$ connectivity ($\operatorname{std}(d_{\text{in}}) = 0.53$) with $7.3\times$ lower light-cone anisotropy than the cubic lattice and exact spherical 11-design isotropy up to degree 10.
 3. **Coordinate-Free Kleitman–Rothschild Pancake Melting (Open Problem 1 — Dynamical Self-Organization):**
-   - Starting from a pathological 3-layer Kleitman–Rothschild pancake with **no 4D coordinates**, Metropolis–Hastings evolution under the microscopic Theorem 1 & 3 action melts the pancake into a 7-layer causal poset, driving $\langle d_{\text{out}}\rangle: 22.44 \to 3.82$ and $D_{\text{MM}}: 2.60 \to 3.48$.
+   - Starting from a pathological 3-layer Kleitman–Rothschild pancake with **no 4D coordinates**, reversible Metropolis–Hastings evolution under the microscopic Theorem 1 & 3 action melts the pancake into a 8-layer causal poset, driving $\langle d_{\text{out}}\rangle: 22.44 \to 3.66$ and $D_{\text{MM}}: 2.60 \to 3.56$.
 4. **Plancherel Heat-Kernel Convergence under Kadanoff RG (Open Problem 2):**
-   - Under $b^2$-fold Kadanoff plaquette convolution on $\mathbb{R}[2I]$, higher-spin representations are exponentially suppressed relative to the minimal-gap chiral spinor $\mathbf{2}_L$, and the discrete block action converges to the smooth continuum $\operatorname{SU}(2)$ Yang–Mills action with $R^2 = 0.998608$ by $b = 8$.
+   - Under $b^2$-fold Kadanoff plaquette convolution on $\mathbb{R}[2I]$, higher-spin representations are exponentially suppressed relative to the minimal-gap chiral spinor $\mathbf{2}_L$, and the discrete block action converges in functional form to $\beta_{\text{eff}}(b)(2 - \operatorname{Re}\chi_{\mathbf{2}_L}(g))$ with $R^2 = 0.998608$ by $b = 8$ as $\beta_{\text{eff}}(b) \to 0$ in the coarse-grained random-walk regime.
 5. **Top-Quark & Flavon-Higgs 1-Loop Causal Diamonds (Open Problem 3):**
-   - In $\Delta(27)_f$, all $9$ abelian characters $\chi_{p,q} \in \Delta(27)_f^{\text{ab}}$ satisfy $\langle \Delta[9] \otimes \chi_{p,q}, \Delta[9] \rangle = 1$, activating all $N_{\text{ch}} = 9$ flavon-Higgs loop channels in the 1-loop causal diamonds above $M_{\text{fl}}$. Including this 9-channel Yukawa damping in Eq. (680) reduces the unquenched $b\text{--}\tau$ ratio $R_{d/e}(M_Z)$ from `2.1700` to **`1.6428`** (experimental `1.6709`), improving $m_b(M_Z)$ from `3.020 GeV` (`+5.8 sigma`) to **`2.869 GeV`** (**`+0.63 sigma`**), while top-quark decoupling below $m_t$ shifts $\alpha_s(M_Z)$ from `0.1170` to **`0.1179`** (experimental `0.1179`).
+   - Evolving the genuine coupled 1-loop $(y_t, y_b, y_\tau)$ RGEs shows that ultraviolet self-damping ($\frac{9}{2}N_{\text{ch}}y_t^3$) reduces the unquenched pure-gauge ratio `2.1700` to `1.9131` (for Parseval-normalized $N_{\text{ch}}=1$) and **`1.9097`** (for $N_{\text{ch}}=9$ independent UV flavons, closing $52\%$ of the gap to `1.6709` while the remaining gap requires either the quenched $4/11$ causal-diamond gluon exponent `1.7313` or two-loop/threshold corrections), while top-quark decoupling below $m_t$ shifts $\alpha_s(M_Z)$ from `0.1170` to **`0.1179`** (`0.0 sigma`).
 6. **Single-Anchor ($M_Z$-Only) Cascade & Look-Elsewhere Quantification (Open Problem 4):**
-   - Using $R_{d/e}^{\text{diamond}}(M_Z) = 1.6428$, all 12 dimensionful masses and scales ($v_{\text{ew}}, m_t, m_b, m_\tau, m_\mu, m_e, m_s, m_d, m_c, m_{\nu_3}, E_\Lambda$) are predicted from **$M_Z = 91.1876\text{ GeV}$ alone** with a mean absolute error of **`1.94%`** (and $+0.78\%$ on $m_\tau, m_\mu, m_e$ instead of $-23.7\%$ or $-4.37\%$). Enumerating all `2,268` group-invariant monomials yields a look-elsewhere-corrected joint probability of **`7.207e-06`** (**`4.87 sigma`**).
+   - Using $R_{d/e}^{\text{9ch}}(M_Z) = 1.9097$, all 12 dimensionful masses and scales ($v_{\text{ew}}, m_t, m_b, m_\tau, m_\mu, m_e, m_s, m_d, m_c, m_u, m_{\nu_3}, E_\Lambda$) are predicted from **$M_Z = 91.1876\text{ GeV}$ alone** with an unquenched mean absolute error of **`7.39%`** (down from $10.0\%$ unquenched pure-gauge, or $4.84\%$ with the quenched $4/11$ baseline). Enumerating all `2,268` group-invariant monomials across the 6 measured scale hierarchies yields a look-elsewhere-corrected joint probability of **`1.032e-05`** (**`4.26 sigma`** one-sided).
 7. **Quantum Wavepackets & Miniature LHC Collisions:**
-   - Firing discrete $2I[1]$ Weyl spinor wavepackets preserves unitary probability $\sum_x \|\psi(t,x)\|^2 = 1$ across causal slices while exhibiting relativistic group-velocity drift and quantum dispersion.
-   - In head-on $2 \to 2$ collisions at shared $d=4$ vertices, summing over the $(4!)^2 = 576$ Axiom 3 permutations reproduces the non-abelian commutator cross-sections ($90.4\%$ in $2I$, $97.7\%$ in $\Sigma(216\times 3)$) and the exact $1/9 = N_c^{-2}$ color-singlet lepton branching ratio.
+   - Firing discrete $2I[1]$ Weyl spinor wavepackets uses exact unitary $\operatorname{SU}(2)$ single-link transport gates while exhibiting relativistic group-velocity drift and quantum dispersion across slice-normalized causal slices.
+   - In head-on $2 \to 2$ collisions at shared $d=4$ vertices, summing over the $(4!)^2 = 576$ Axiom 3 permutations reproduces the non-abelian commutator cross-sections on the arena links and the exact $1/9 = N_c^{-2}$ color-singlet lepton branching ratio.

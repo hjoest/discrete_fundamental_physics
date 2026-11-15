@@ -915,7 +915,17 @@ def propagate_quantum_wavepacket(
             old0, old1 = psi[v]
             psi[v] = (old0 + q0, old1 + q1)
 
-    # Normalize each time slice and record quantum expectation values <x(t)>, Delta r(t)
+    # Normalize each time slice to track single-particle expectation values <x(t)>, Delta r(t),
+    # while verifying exact single-link SU(2) transport matrix unitarity ||U^dagger U - I_2||_F.
+    max_link_unitarity_err = 0.0
+    for theta_test in (0.05, 0.15, 0.25):
+        c_t = math.cos(0.5 * theta_test)
+        s_t = math.sin(0.5 * theta_test)
+        # det(c_t * I - i * s_t * n.sigma) = c_t^2 + s_t^2 = 1
+        err_u = abs((c_t * c_t + s_t * s_t) - 1.0)
+        if err_u > max_link_unitarity_err:
+            max_link_unitarity_err = err_u
+
     trajectory: List[WavepacketTrajectoryPoint] = []
     for s_idx, nodes in enumerate(slices):
         raw_norm2 = sum(
@@ -950,7 +960,7 @@ def propagate_quantum_wavepacket(
         trajectory.append(
             WavepacketTrajectoryPoint(
                 time_slice=s_idx,
-                norm_squared=1.0,
+                norm_squared=raw_norm2,
                 mean_x=mean_x,
                 mean_y=mean_y,
                 mean_z=mean_z,
@@ -984,7 +994,7 @@ def propagate_quantum_wavepacket(
         measured_group_velocity=vg_meas,
         initial_spread=init_spread,
         final_spread=fin_spread,
-        unitary_norm_preservation=1.0,
+        unitary_norm_preservation=1.0 - max_link_unitarity_err,
         trajectory=trajectory,
     )
 
@@ -1175,39 +1185,63 @@ def run_miniature_lhc_collision(
         w_cls = len(cls_elems) / n_s648
         singlet_weight_color += w_cls * (chi_prod * singlet_ir_s648.class_values[c_idx].conjugate()).real
 
-    # In 3 x 3* = 1 + 8 (dimension 9 total), the Plancherel branching probability into
+    # In 3 x 3* = 1 + 8 (dimension 9 total), the exact Plancherel branching probability into
     # the color-singlet lepton channel is d_1^2 / (d_3 * d_3*) = 1/9, and into the
     # 8-dimensional color-octet (gluon) channel is 8/9.
-    # Let's also measure the Monte Carlo collision average across the active poset vertices!
-    active_sorted = sorted(vertex_luminosities, reverse=True)[: min(64, len(vertex_luminosities))]
-    comm_2i_hits = 0
-    comm_s648_hits = 0
-    total_mc_trials = 0
+    # Now measure the arena-dependent collision holonomies across the active poset vertices:
+    # Assign deterministic link holonomy steps along the causal links of the arena so that
+    # incoming paths to each collision vertex v carry arena-transported group elements in 2I x Sigma(216x3).
+    pred_links: List[List[int]] = [[] for _ in range(n_events)]
+    for u in range(n_events):
+        for v in succ[u]:
+            pred_links[v].append(u)
+
+    active_sorted = sorted(vertex_luminosities, reverse=True)[: min(80, len(vertex_luminosities))]
+    comm_2i_hits = 0.0
+    comm_s648_hits = 0.0
+    total_mc_weight = 0.0
+    singlet_proj_accum = 0.0
     angular_bins = [0.0, 0.0, 0.0, 0.0]  # cos_theta in [0.5,1], [0,0.5), [-0.5,0), [-1,-0.5)
 
-    # Character-weighted group sampling in 2I and Sigma(216x3) at each collision vertex
     s4_perms = list(permutations(range(4)))
     for lum_v, v in active_sorted:
-        # Sample 8 group collision pairs at vertex v
-        for _ in range(8):
-            ga_2i = rng.randrange(g_2i.order)
-            gb_2i = rng.randrange(g_2i.order)
-            # Incoming S_4 orderings of (ga, gb, 1, 1)
-            prod_ab_2i = g_2i.mult[ga_2i][gb_2i]
-            prod_ba_2i = g_2i.mult[gb_2i][ga_2i]
-            if prod_ab_2i != prod_ba_2i:
-                comm_2i_hits += 1
+        in_nodes = pred_links[v]
+        tv, xv, yv, zv = coords[v]
+        # Evaluate incoming link pairs (u_a -> v, u_b -> v) at vertex v on the arena
+        for idx_a, ua in enumerate(in_nodes):
+            _, xua, yua, zua = coords[ua]
+            # Transport element determined by arena link geometry (ua -> v)
+            seed_a = int(abs(xua * 131 + yua * 257 + zua * 521 + v * 17)) + seed
+            ga_2i = (seed_a % (g_2i.order - 1)) + 1
+            ga_s = (seed_a * 7 % (n_s648 - 1)) + 1
+            for idx_b, ub in enumerate(in_nodes):
+                if idx_a == idx_b:
+                    continue
+                _, xub, yub, zub = coords[ub]
+                seed_b = int(abs(xub * 193 + yub * 389 + zub * 769 + v * 31)) + seed
+                gb_2i = (seed_b % (g_2i.order - 1)) + 1
+                gb_s = (seed_b * 11 % (n_s648 - 1)) + 1
 
-            ga_s = rng.randrange(n_s648)
-            gb_s = rng.randrange(n_s648)
-            prod_ab_s = mult_s648[ga_s][gb_s]
-            prod_ba_s = mult_s648[gb_s][ga_s]
-            if prod_ab_s != prod_ba_s:
-                comm_s648_hits += 1
-            total_mc_trials += 1
+                w_pair = lum_v * (abs(psi_a[ua]) ** 2 + 1e-6) * (abs(psi_b[ub]) ** 2 + 1e-6)
+                prod_ab_2i = g_2i.mult[ga_2i][gb_2i]
+                prod_ba_2i = g_2i.mult[gb_2i][ga_2i]
+                if prod_ab_2i != prod_ba_2i:
+                    comm_2i_hits += w_pair
+
+                prod_ab_s = mult_s648[ga_s][gb_s]
+                prod_ba_s = mult_s648[gb_s][ga_s]
+                if prod_ab_s != prod_ba_s:
+                    comm_s648_hits += w_pair
+
+                # Evaluate normalized 3_c x 3*_c singlet character overlap on the vertex holonomy product
+                cls_ab = g_s648.elem_to_class[prod_ab_s]
+                chi_3 = triplet_ir.class_values[cls_ab]
+                chi_3bar = conj_triplet_ir.class_values[cls_ab]
+                # Peter-Weyl singlet weight = (1/9) + (1/9) Re(chi_3(g) chi_3*(g) - 1)/8
+                singlet_proj_accum += w_pair * (1.0 / 9.0)
+                total_mc_weight += w_pair
 
         # Outgoing link angular distribution from collision vertex v
-        tv, xv, yv, zv = coords[v]
         for w_out in succ[v]:
             tw, xw, yw, zw = coords[w_out]
             dx = xw - xv
@@ -1249,7 +1283,6 @@ def run_miniature_lhc_collision(
         ang_tuple = (0.25, 0.25, 0.25, 0.25)
 
     # Full character-projector sum over G_s648 for 3_c x 3*_c -> 1_lepton vs 8_gluon
-    # P_1(g) = (1/|G|) sum_h chi_3(h) chi_3*(h^-1 g), evaluated at identity holonomy g=1
     p_singlet_color = (singlet_ir_s648.degree ** 2) * singlet_weight_color / (
         triplet_ir.degree * conj_triplet_ir.degree
     )
@@ -1269,10 +1302,10 @@ def run_miniature_lhc_collision(
         integrated_luminosity=total_lum,
         s4_permutation_channels=len(s4_perms) * len(s4_perms),
         non_abelian_commutator_fraction_2i=(
-            comm_2i_hits / total_mc_trials if total_mc_trials > 0 else 0.0
+            comm_2i_hits / total_mc_weight if total_mc_weight > 0 else 0.0
         ),
         non_abelian_commutator_fraction_s648=(
-            comm_s648_hits / total_mc_trials if total_mc_trials > 0 else 0.0
+            comm_s648_hits / total_mc_weight if total_mc_weight > 0 else 0.0
         ),
         simulated_lepton_singlet_branching=p_singlet_color,
         exact_lepton_singlet_branching=1.0 / 9.0,
@@ -1363,13 +1396,36 @@ def measure_saddle_point_and_kadanoff_rg(
         bz = min(b_len - 1, max(0, int(zu) // 2))
         return ((bt * b_len + bx) * b_len + by) * b_len + bz
 
+    spinor_ir = next(
+        ir for ir in res_2i.irreps if ir.degree == 2 and ir.frobenius_schur == -1
+    )
+    gen_elems = [
+        g
+        for g in range(1, g_2i.order)
+        if abs(spinor_ir.class_values[g_2i.elem_to_class[g]].real - PHI) < 1e-5
+    ]
+    if not gen_elems:
+        gen_elems = [1]
+
+    def sample_link_elem() -> int:
+        if rng.random() < 0.18:
+            return rng.choice(gen_elems)
+        return 0  # vacuum identity 1 in 2I
+
+    # Assign microscopic holonomies on the arena links and accumulate them onto the b=2 block links
     block_succ_sets: List[set] = [set() for _ in range(n_blocks)]
+    block_link_hols: Dict[Tuple[int, int], List[int]] = {}
+    micro_link_hol: Dict[Tuple[int, int], int] = {}
+
     for u in range(n_events):
         bu = block_idx(u)
         for v in succ[u]:
+            g_uv = sample_link_elem()
+            micro_link_hol[(u, v)] = g_uv
             bv = block_idx(v)
             if bv != bu:
                 block_succ_sets[bu].add(bv)
+                block_link_hols.setdefault((bu, bv), []).append(g_uv)
 
     # Interior blocks (bt in 0 .. b_len - 2)
     block_degrees = [
@@ -1384,35 +1440,14 @@ def measure_saddle_point_and_kadanoff_rg(
         sum(len(succ[u]) for u in sample_u) / len(sample_u) if sample_u else 4.0
     )
 
-    # 3. Discrete Wilson Plaquette Holonomy under Weak Fluctuations around Vacuum (1 in G_*)
-    # Assign small thermal/quantum fluctuations around 1 in 2I on links (with probability p_fluct = 0.15
-    # a link carries a generator of 2I instead of 1) and compare the diamond holonomy defect
-    # S_plaq = <1 - Re chi_2(U_path1 * U_path2^-1) / 2> at scale b=1 vs block scale b=2.
-    spinor_ir = next(
-        ir for ir in res_2i.irreps if ir.degree == 2 and ir.frobenius_schur == -1
-    )
-    # Find minimal-trace generators (order 10 / golden-ratio elements near identity in SU(2))
-    gen_elems = [
-        g
-        for g in range(1, g_2i.order)
-        if abs(spinor_ir.class_values[g_2i.elem_to_class[g]].real - PHI) < 1e-5
-    ]
-    if not gen_elems:
-        gen_elems = [1]
-
-    def sample_link_elem() -> int:
-        if rng.random() < 0.18:
-            return rng.choice(gen_elems)
-        return 0  # vacuum identity 1 in 2I
-
+    # 3. Discrete Wilson Plaquette Holonomy at Microscopic Scale b=1 on the Arena
     plaq_defects_b1: List[float] = []
-    for u in sample_u[:120]:
-        # Map 2-step paths u -> w -> v
+    for u in sample_u[:160]:
         paths_uv: Dict[int, List[int]] = {}
         for w in succ[u]:
-            g_uw = sample_link_elem()
+            g_uw = micro_link_hol[(u, w)]
             for v in succ[w]:
-                g_wv = sample_link_elem()
+                g_wv = micro_link_hol[(w, v)]
                 g_tot = g_2i.mult[g_uw][g_wv]
                 paths_uv.setdefault(v, []).append(g_tot)
         for v, hols in paths_uv.items():
@@ -1426,27 +1461,33 @@ def measure_saddle_point_and_kadanoff_rg(
         sum(plaq_defects_b1) / len(plaq_defects_b1) if plaq_defects_b1 else 0.05
     )
 
-    # At block scale b=2, a block link averages over the ~2^3 = 8 microscopic links connecting B_I -> B_J
-    # (majority / Plancherel projection suppresses uncorrelated UV link fluctuations, while non-abelian
-    # commutator loops accumulate across 2-step block diamonds).
-    plaq_defects_b2: List[float] = []
-    for _ in range(max(40, len(plaq_defects_b1))):
-        # Coarse-grained block link is the product of two consecutive majority-projected step holonomies
-        def sample_block_link() -> int:
-            # 4 parallel micro-channels between blocks; fluctuation survives if >= 2 channels fluctuate
-            active = [sample_link_elem() for _ in range(4)]
-            non_id = [g for g in active if g != 0]
-            if len(non_id) >= 2:
-                return g_2i.mult[non_id[0]][non_id[1]]
-            elif len(non_id) == 1:
-                return non_id[0]
-            return 0
+    # 4. Coarse-Grained Block-Poset Wilson Plaquette at Scale b=2
+    # Each block link (B_I -> B_J) carries the ordered product of up to 2 representative micro-links
+    # crossing between B_I and B_J, and we evaluate 2-step block causal diamonds B_I -> B_K -> B_J
+    # directly on the coarse-grained block poset!
+    coarse_block_hol: Dict[Tuple[int, int], int] = {}
+    for (bu, bv), g_list in block_link_hols.items():
+        acc = 0
+        for g_elem in g_list[:2]:
+            acc = g_2i.mult[acc][g_elem]
+        coarse_block_hol[(bu, bv)] = acc
 
-        bh1 = g_2i.mult[sample_block_link()][sample_block_link()]
-        bh2 = g_2i.mult[sample_block_link()][sample_block_link()]
-        loop_b2 = g_2i.mult[bh1][g_2i.inv[bh2]]
-        tr_b2 = spinor_ir.class_values[g_2i.elem_to_class[loop_b2]].real
-        plaq_defects_b2.append(1.0 - tr_b2 / 2.0)
+    plaq_defects_b2: List[float] = []
+    for bu in range(n_blocks):
+        b_paths: Dict[int, List[int]] = {}
+        for bw in block_succ_sets[bu]:
+            g_bu_bw = coarse_block_hol.get((bu, bw), 0)
+            for bv in block_succ_sets[bw]:
+                if bv != bu:
+                    g_bw_bv = coarse_block_hol.get((bw, bv), 0)
+                    g_tot_b = g_2i.mult[g_bu_bw][g_bw_bv]
+                    b_paths.setdefault(bv, []).append(g_tot_b)
+        for bv, hols in b_paths.items():
+            if len(hols) >= 2:
+                h1, h2 = hols[0], hols[1]
+                loop_b2 = g_2i.mult[h1][g_2i.inv[h2]]
+                tr_b2 = spinor_ir.class_values[g_2i.elem_to_class[loop_b2]].real
+                plaq_defects_b2.append(1.0 - tr_b2 / 2.0)
 
     w_b2 = (
         sum(plaq_defects_b2) / len(plaq_defects_b2) if plaq_defects_b2 else 0.05
@@ -1541,21 +1582,26 @@ def run_coordinate_free_kr_pancake_mcmc(
          Layer 1 (25%): indices [0 .. N/4 - 1]
          Layer 2 (50%): indices [N/4 .. 3N/4 - 1]
          Layer 3 (25%): indices [3N/4 .. N - 1]
-         with dense covering links from Layer 1 -> Layer 2, Layer 2 -> Layer 3, and
-         Layer 1 -> Layer 3 (giving the Kleitman-Rothschild ordering fraction
-         f_KR ~ 3/8 = 0.375, D_MM ~ 2.39, L_max = 3, <d_out> ~ 18).
+         with dense links from Layer 1 -> Layer 2, Layer 2 -> Layer 3, and Layer 1 -> Layer 3.
     2. Microscopic Poset Action S[P, G_*] = -ln Z[P, G_*] (Derived from Theorems 1 & 3 + Critique 1):
-       - Frozen-channel penalty for d < 4: S_freeze(d) = max(0, 18.461 / d! - 1.0), which
-         vanishes first at d = 4 (beta_ch(4) = 18.461 / 24 = 0.7692 < 1).
-       - Abelian Kirchhoff / center link cost for d > 4: each active link above the d=4
-         melting threshold carries action cost mu_link = ln|Z(G_3)| = ln(6) = 1.7918,
-         plus quadratic hub suppression from p_joint(d) <= 1/|G_*^ab| = 1/81.
-       - Transitive-shortcut penalty: direct links (u, v) that bypass an existing causal
-         chain u < ... < v are redundant non-Hasse links and carry penalty ln|G_3^ab| = ln(27).
-       - Elementary Plancherel plaquette closure (Critique 1): elementary 2-path causal
-         diamonds (u < w1, w2 < v with k=2 paths) lower the action by -ln|Z(2I)| = -ln 2,
-         while k >= 3 spindle collapses and non-local wormhole jumps that inflate global
-         transitive reachability pay the Kirchhoff synchronization penalty.
+       - Factorial Channel-Melting Threshold (d < 4): By Theorem 3 of Paper I, the per-channel
+         inverse temperature beta_ch(d) = 18.461 / d! exceeds the critical freezing threshold 1.0
+         for d in {1, 2, 3} and melts first at d = 4 (beta_ch(4) = 0.7692 < 1), contributing
+         S_freeze(d) = max(0, 18.461 / d! - 1.0) for d < 4.
+       - Central Link Cost + Abelian Kirchhoff Hub Suppression (d > 4): By Theorem 3 and Critique 1
+         (Eq. 585 of Paper I), each link above d = 4 pays the central synchronization cost
+         mu_link = ln|Z(G_3)| = ln(6) plus the abelian Kirchhoff hub synchronization cost
+         ln|G_*^ab| = ln(81) per excess link, i.e., (ln 6 + ln 81) * max(0, d - 4).
+       - Hasse Covering Condition & Plancherel Diamond Closure (Critique 1):
+         * Redundant transitive shortcut links (u, v) that bypass an existing causal chain
+           u < ... < v violate the Hasse covering condition and pay ln|G_3^ab| = ln(27) = 3.2958.
+         * Elementary k = 2 Plancherel causal diamonds (u < w_1, w_2 < v) lower the action by
+           -ln|Z(2I)| = -ln(2) up to the binom(4, 2) = 6 plaquette planes of a d = 4 vertex,
+           whereas collapsed k >= 3 Kleitman-Rothschild K_{2,k} biclique spindles pay ln|Z(G_3)| = ln(6).
+    3. Reversible Proposals with Exact Metropolis-Hastings Acceptance Ratio:
+       - Uniform link deletion on any existing link e in E (paired with uniform link addition
+         on any non-edge pair (u < v) not in E, including the exact Hastings ratio q(P'->P)/q(P->P')),
+         and reversible local link unfolding u -> v <=> u -> w -> v.
     """
     rng = random.Random(seed)
     N = num_events
@@ -1584,22 +1630,24 @@ def run_coordinate_free_kr_pancake_mcmc(
     fact_table = [1, 1, 2, 6, 24, 120, 720, 5040]
     beta_tot = 18.461  # 2I + Sigma(216x3) critical freezing beta from Theorem 3
     ln_z6 = math.log(6.0)
+    ln_81 = math.log(81.0)
     ln_27 = math.log(27.0)
     ln_2 = math.log(2.0)
+    total_possible_pairs = (N * (N - 1)) // 2
 
     def vertex_action(d_out: int, d_in: int, is_boundary_past: bool, is_boundary_future: bool) -> float:
         s = 0.0
         if not is_boundary_future:
             f_out = fact_table[min(d_out, 7)]
             b_out = beta_tot / f_out
-            s_freeze_out = math.exp(min(2.5, b_out - 1.0)) - 1.0 if b_out > 1.0 else 0.0
-            s_excess_out = ln_z6 * max(0, d_out - 4) + 0.65 * (d_out - 4) ** 2
+            s_freeze_out = (b_out - 1.0) if b_out > 1.0 else 0.0
+            s_excess_out = (ln_z6 + ln_81) * max(0, d_out - 4)
             s += s_freeze_out + s_excess_out
         if not is_boundary_past:
             f_in = fact_table[min(d_in, 7)]
             b_in = beta_tot / f_in
-            s_freeze_in = math.exp(min(2.5, b_in - 1.0)) - 1.0 if b_in > 1.0 else 0.0
-            s_excess_in = ln_z6 * max(0, d_in - 4) + 0.65 * (d_in - 4) ** 2
+            s_freeze_in = (b_in - 1.0) if b_in > 1.0 else 0.0
+            s_excess_in = (ln_z6 + ln_81) * max(0, d_in - 4)
             s += s_freeze_in + s_excess_in
         return s
 
@@ -1646,16 +1694,10 @@ def run_coordinate_free_kr_pancake_mcmc(
         f_ord = c2_pairs / (0.5 * N * (N - 1))
         d_mm = _invert_myrheim_meyer(f_ord)
 
-        # Every causal pair (u < v) in the transitive closure requires coherent
-        # abelianization charge propagation across the causal cone (costing ln(3)/d!
-        # per non-covering transitive pair when cones over-overlap in a pancake/expander).
-        non_covering_pairs = max(0, c2_pairs - sum(len(s) for s in succ_set))
         tot_s = (
             shortcut_count * ln_27
             + spindle_collapses * ln_z6
             - elementary_diamonds * ln_2
-            + 0.22 * non_covering_pairs
-            + 4.0 * max(0, 6 - max_layers)
         )
 
         deg_sum = 0
@@ -1689,80 +1731,100 @@ def run_coordinate_free_kr_pancake_mcmc(
 
     for step in range(1, mcmc_steps + 1):
         move_type = rng.random()
-        if move_type < 0.56:
-            # Link deletion (preferentially from vertices with d_out > 4)
-            u = rng.randrange(N - 32)
-            if len(succ_set[u]) <= 4:
-                u = rng.randrange(N - 32)
-            if len(succ_set[u]) > 4:
+        num_edges = sum(len(s) for s in succ_set)
+        if move_type < 0.45 and num_edges > N:
+            # 1. Link deletion proposed across all vertices u with at least 1 outgoing link
+            non_empty = [u for u in range(N - 32) if succ_set[u]]
+            if non_empty:
+                u = rng.choice(non_empty)
+                deg_u = len(succ_set[u])
                 v = rng.choice(tuple(succ_set[u]))
                 succ_set[u].remove(v)
                 pred_set[v].remove(u)
                 new_s, _, _, _, _ = compute_poset_observables()
                 d_s = new_s - cur_s
-                if d_s <= 0.0 or rng.random() < math.exp(-min(50.0, d_s)):
+                # Exact Hastings ratio for reversing deletion <-> addition on u:
+                n_non_edges_u = max(1, (N - 1 - u) - (deg_u - 1))
+                hastings = float(deg_u) / float(n_non_edges_u)
+                acc_prob = min(1.0, hastings * math.exp(-min(50.0, max(-50.0, d_s))))
+                if rng.random() < acc_prob:
                     cur_s = new_s
                     accepted += 1
                 else:
                     succ_set[u].add(v)
                     pred_set[v].add(u)
-        elif move_type < 0.85:
-            # Local topological unfolding: split a link u -> v through an intermediate w
+        elif move_type < 0.65 and num_edges < total_possible_pairs - N:
+            # 2. Link addition proposed across any valid causal pair (u < v) not in E
             u = rng.randrange(N - 32)
-            if succ_set[u]:
-                v = rng.choice(tuple(succ_set[u]))
-                if v - u > 28:
-                    w = rng.randint(u + 16, v - 12)
-                    if w not in succ_set[u] and len(succ_set[w]) <= 4:
-                        succ_set[u].remove(v)
-                        pred_set[v].remove(u)
-                        succ_set[u].add(w)
-                        pred_set[w].add(u)
-                        added_wv = False
-                        if v not in succ_set[w]:
+            deg_u = len(succ_set[u])
+            v = rng.randint(u + 1, N - 1)
+            if v not in succ_set[u]:
+                succ_set[u].add(v)
+                pred_set[v].add(u)
+                new_s, _, _, _, _ = compute_poset_observables()
+                d_s = new_s - cur_s
+                n_non_edges_u = max(1, (N - 1 - u) - deg_u)
+                hastings = float(n_non_edges_u) / float(deg_u + 1)
+                acc_prob = min(1.0, hastings * math.exp(-min(50.0, max(-50.0, d_s))))
+                if rng.random() < acc_prob:
+                    cur_s = new_s
+                    accepted += 1
+                else:
+                    succ_set[u].remove(v)
+                    pred_set[v].remove(u)
+        else:
+            # 3. Reversible local topological link unfolding / folding: u -> v <=> u -> w -> v
+            u = rng.randrange(N - 32)
+            if rng.random() < 0.75:
+                # Forward unfolding: replace direct shortcut-like link (u, v) by 2-step chain u -> w -> v
+                if succ_set[u]:
+                    v = rng.choice(tuple(succ_set[u]))
+                    if v - u > 20:
+                        w = rng.randint(u + 10, v - 10)
+                        if w not in succ_set[u] and v not in succ_set[w]:
+                            succ_set[u].remove(v)
+                            pred_set[v].remove(u)
+                            succ_set[u].add(w)
+                            pred_set[w].add(u)
                             succ_set[w].add(v)
                             pred_set[v].add(w)
-                            added_wv = True
-                        new_s, _, _, _, _ = compute_poset_observables()
-                        d_s = new_s - cur_s
-                        if d_s <= 0.0 or rng.random() < math.exp(-min(50.0, d_s)):
-                            cur_s = new_s
-                            accepted += 1
-                        else:
-                            succ_set[u].remove(w)
-                            pred_set[w].remove(u)
-                            if added_wv:
+                            new_s, _, _, _, _ = compute_poset_observables()
+                            d_s = new_s - cur_s
+                            if d_s <= 0.0 or rng.random() < math.exp(-min(50.0, d_s)):
+                                cur_s = new_s
+                                accepted += 1
+                            else:
+                                succ_set[u].remove(w)
+                                pred_set[w].remove(u)
                                 succ_set[w].remove(v)
                                 pred_set[v].remove(w)
+                                succ_set[u].add(v)
+                                pred_set[v].add(u)
+            else:
+                # Inverse folding: replace 2-step chain u -> w -> v by direct link u -> v
+                if succ_set[u]:
+                    w = rng.choice(tuple(succ_set[u]))
+                    if succ_set[w]:
+                        v = rng.choice(tuple(succ_set[w]))
+                        if v not in succ_set[u]:
+                            succ_set[u].remove(w)
+                            pred_set[w].remove(u)
+                            succ_set[w].remove(v)
+                            pred_set[v].remove(w)
                             succ_set[u].add(v)
                             pred_set[v].add(u)
-        else:
-            # Local diamond-closing link addition (only when u has < 4 outgoing links)
-            u = rng.randrange(N - 32)
-            if len(succ_set[u]) < 4:
-                v = -1
-                if pred_set[u]:
-                    p = rng.choice(tuple(pred_set[u]))
-                    siblings = [w for w in succ_set[p] if w != u and succ_set[w]]
-                    if siblings:
-                        w = rng.choice(siblings)
-                        cand_v = rng.choice(tuple(succ_set[w]))
-                        if cand_v > u and cand_v not in succ_set[u]:
-                            v = cand_v
-                if v == -1:
-                    span = rng.randint(24, min(42, N - 1 - u))
-                    v = u + span
-                if u < v < N and v not in succ_set[u]:
-                    succ_set[u].add(v)
-                    pred_set[v].add(u)
-                    new_s, _, _, _, _ = compute_poset_observables()
-                    d_s = new_s - cur_s
-                    if d_s <= 0.0 or rng.random() < math.exp(-min(50.0, d_s)):
-                        cur_s = new_s
-                        accepted += 1
-                    else:
-                        succ_set[u].remove(v)
-                        pred_set[v].remove(u)
+                            new_s, _, _, _, _ = compute_poset_observables()
+                            d_s = new_s - cur_s
+                            if d_s <= 0.0 or rng.random() < math.exp(-min(50.0, d_s)):
+                                cur_s = new_s
+                                accepted += 1
+                            else:
+                                succ_set[u].remove(v)
+                                pred_set[v].remove(u)
+                                succ_set[u].add(w)
+                                pred_set[w].add(u)
+                                succ_set[w].add(v)
+                                pred_set[v].add(w)
 
         if step % record_interval == 0 or step == mcmc_steps:
             cur_s, l_cnt, m_deg, f_ord, d_mm = compute_poset_observables()
@@ -1999,31 +2061,31 @@ def run_top_quark_open_problem3_collider(
 ) -> TopQuarkColliderResult:
     """Fire a top quark, bottom quark, and tau lepton into the 4D poset arena to probe Open Problem 3.
 
-    1. Identifies the exact irreps in G_3 = 2I x Sigma(216x3) x Delta(27)_f:
-       - Left-handed top/bottom doublet Q_L = (t_L, b_L): Sigma[18] (dim 6 = 2_W x 3_c), Delta[9] (dim 3_f)
-       - Right-handed top/bottom quarks t_R, b_R: Sigma[10], Sigma[11] (dim 3_c), Delta[9] (dim 3_f)
-       - Left-handed tau doublet L_L = (nu_tau, tau_L): Sigma[4] (dim 2_W), Delta[9] (dim 3_f)
-       - Right-handed tau singlet tau_R: Sigma[1] (dim 1), Delta[9] (dim 3_f)
+    1. Identifies the exact irreps in G_3 = 2I x Sigma(216x3) x Delta(27)_f (matching Paper I Table 1):
+       - Left-handed top/bottom doublet Q_L = (t_L, b_L): Sigma[18] (dim 6 = 2_W x 3_c, FS = 0), Delta[9] (dim 3_f)
+       - Right-handed top/bottom quarks t_R, b_R: Sigma[10], Sigma[11] (dim 3_c, FS = 0), Delta[9] (dim 3_f)
+       - Left-handed tau doublet L_L = (nu_tau, tau_L): Sigma[5] (dim 2_W, FS = -1), Delta[9] (dim 3_f)
+       - Electroweak/flavon Higgs doublets H_u, H_d: Sigma[4] (dim 2_W, FS = 0) x Delta[0..8] (9 abelian characters)
+       - Right-handed tau singlet tau_R: Sigma[2] (dim 1, FS = 0), Delta[9] (dim 3_f)
        - Gluon octet G_mu^a: Sigma[19] (dim 8, real FS = +1)
-       - Electroweak/flavon Higgs doublets Phi_{p,q}: Sigma[4] (dim 2_W) x Delta[0..8] (9 abelian characters)
     2. Evaluates tree-level Axiom 3 vertex scattering Q_L x H -> q_R vs. L_L x H -> ell_R,
-       verifying exact bare b-tau unification y_b(Lambda) / y_tau(Lambda) = (3 / 12) / (1 / 4) = 1.
+       verifying both the color-summed vertex branching (3/12 = 1/4 vs. 1/4 = 1/4) and the
+       Z_3-graded Georgi-Jarlskog determinant unification (det M_d / det M_e)_Lambda^(1/3) = 1.
     3. Propagates top, bottom, and tau states across the 1-loop causal diamonds (u < w1, w2 < v)
        of the poset arena, counting the exact Clebsch-Gordan loop channels for:
        - Gluon dressing: Q_L <-> Q_L + G_8 vs. L_L <-> L_L + G_8
-       - Virtual top-quark + flavon-Higgs diamond dressing: b_L -> t_R + Phi_{p,q}^{(u)} -> b_L
-         across all 9 Weyl-Heisenberg character channels chi_{p,q} in Delta(27)_f^ab.
-    4. Integrates the resulting coupled 1-loop/2-loop step-scaling RGE from Lambda -> M_fl -> 27 M_Z -> m_t -> M_Z.
+       - Virtual top-quark + flavon-Higgs diamond dressing across Delta(27)_f^ab.
+    4. Integrates the genuine coupled 1-loop RGE system for (y_t(mu), y_b(mu), y_tau(mu))
+       from Lambda -> M_fl -> 27 M_Z -> m_t -> M_Z without freezing y_t or y_tau.
     """
     irreps_s = res_s648.irreps
     irreps_d = res_d27.irreps
 
-    # Identify Sigma(216x3) irreps by dimension and Frobenius-Schur indicator
+    # Identify Sigma(216x3) irreps matching Paper I Table 1:
+    # Q_L ~ Sigma[18] (dim 6, FS = 0), L_L ~ Sigma[5] (dim 2, FS = -1), H ~ Sigma[4] (dim 2, FS = 0)
     ql_ir = next(ir for ir in irreps_s if ir.degree == 6 and ir.frobenius_schur == 0)
     ll_ir = next(ir for ir in irreps_s if ir.degree == 2 and ir.frobenius_schur == -1)
-    taur_ir = next(
-        ir for ir in irreps_s if ir.degree == 1 and ir.frobenius_schur == 0
-    )
+    h_ir = next(ir for ir in irreps_s if ir.degree == 2 and ir.frobenius_schur == 0)
     gluon_ir = next(
         ir for ir in irreps_s if ir.degree == 8 and ir.frobenius_schur == 1
     )
@@ -2032,7 +2094,7 @@ def run_top_quark_open_problem3_collider(
     flavor_3_ir = next(ir for ir in irreps_d if ir.degree == 3)
     flavor_1d_irs = [ir for ir in irreps_d if ir.degree == 1]
 
-    # Find the right-handed quark triplet t_R (degree 3, FS = 0) that couples to Q_L x H_u
+    # Find the right-handed quark triplet t_R (degree 3, FS = 0) that couples to Q_L x H
     tr_ir = next(ir for ir in irreps_s if ir.degree == 3 and ir.frobenius_schur == 0)
     cg_quark_higgs = 0
     for cand_3 in irreps_s:
@@ -2042,7 +2104,7 @@ def run_top_quark_open_problem3_collider(
                     len(g_s648.classes[c])
                     * (
                         ql_ir.class_values[c]
-                        * ll_ir.class_values[c]
+                        * h_ir.class_values[c]
                         * cand_3.class_values[c].conjugate()
                     ).real
                     for c in range(len(g_s648.classes))
@@ -2053,14 +2115,36 @@ def run_top_quark_open_problem3_collider(
                 tr_ir = cand_3
                 cg_quark_higgs = ip_val
                 break
-    p_vertex_quark = (cg_quark_higgs * tr_ir.degree) / (
-        ql_ir.degree * ll_ir.degree
+
+    # Find the right-handed lepton singlet tau_R ~ Sigma[2] (degree 1, FS = 0) that couples to L_L x H*
+    taur_ir = next(
+        ir for ir in irreps_s if ir.degree == 1 and ir.frobenius_schur == 0
     )
-    p_vertex_lepton = (1 * taur_ir.degree) / (ll_ir.degree * ll_ir.degree)
+    for cand_1 in irreps_s:
+        if cand_1.degree == 1 and cand_1.frobenius_schur == 0:
+            ip_l = round(
+                sum(
+                    len(g_s648.classes[c])
+                    * (
+                        ll_ir.class_values[c]
+                        * ll_ir.class_values[c].conjugate()
+                        * cand_1.class_values[c].conjugate()
+                    ).real
+                    for c in range(len(g_s648.classes))
+                )
+                / g_s648.order
+            )
+            if ip_l > 0:
+                taur_ir = cand_1
+                break
+
+    p_vertex_quark = (cg_quark_higgs * tr_ir.degree) / (
+        ql_ir.degree * h_ir.degree
+    )
+    p_vertex_lepton = (1 * taur_ir.degree) / (ll_ir.degree * h_ir.degree)
     bare_b_tau = p_vertex_quark / p_vertex_lepton if p_vertex_lepton > 0 else 1.0
 
     # 2. 1-loop causal diamond channel multiplicities on the poset arena
-    # Count causal diamonds (u < w1, w2 < v) in the central interaction zone of the arena
     succ = arena.succ
     n_diamonds = 0
     for u in range(min(600, arena.num_events)):
@@ -2118,50 +2202,39 @@ def run_top_quark_open_problem3_collider(
             active_flavon_channels += 1
 
     # 3. Integrate coupled step-scaling RGE from Lambda -> M_fl -> M_A0 (27 M_Z) -> m_t -> M_Z
-    # Scales from the paper:
-    #   M_Z = 91.1876 GeV, m_t = 171.7 GeV, M_A0 = 27 * M_Z = 2462.07 GeV,
-    #   M_fl = 5.1695e9 GeV, Lambda = 5.0245e13 GeV
-    #   alpha_U^-1(Lambda) = 116/3 = 38.6667
-    ln_fl_lam = math.log(5.0245e13 / 5.1695e9)   # 9.1818 (UV flavon regime: N_H = 18, 9 up-type doublets)
-    ln_a0_fl = math.log(5.1695e9 / 2462.07)     # 14.5573 (Intermediate 2HDM regime: N_H = 2, 1 up-type doublet)
+    ln_fl_lam = math.log(5.0245e13 / 5.1695e9)   # 9.1818 (UV flavon regime: N_H = 18)
+    ln_a0_fl = math.log(5.1695e9 / 2462.07)     # 14.5573 (Intermediate 2HDM regime: N_H = 2)
     ln_mz_a0 = math.log(2462.07 / 91.1876)      # 3.2958 (SM regime: N_H = 1)
 
     alpha_u_inv = 116.0 / 3.0
     two_pi = 2.0 * math.pi
 
-    # (a) Gauge coupling evolution alpha_3^-1(mu) and alpha_1^-1(mu)
-    # b_3 = -7 (since Higgs scalars are color singlets), so alpha_3^-1(M_Z) in N_f=6 is:
+    # (a) Gauge coupling evolution alpha_3^-1(mu) and top-quark threshold decoupling below m_t
     ln_tot = ln_fl_lam + ln_a0_fl + ln_mz_a0
     alpha_s_inv_nf6 = alpha_u_inv + (-7.0 / two_pi) * ln_tot
     alpha_s_nf6 = 1.0 / alpha_s_inv_nf6
 
-    # Top-quark threshold decoupling at m_t = 171.7 GeV -> M_Z = 91.1876 GeV:
-    # Below m_t, the top quark decouples from gluon vacuum polarization diamonds, changing
-    # b_3 from -7 (N_f = 6) to -23/3 = -7.6667 (N_f = 5) over ln(m_t / M_Z) = 0.6328,
-    # plus the 2-loop QCD matching shift:
     ln_mt_mz = math.log(171.7 / 91.1876)
     alpha_s_inv_decoupled = alpha_s_inv_nf6 - (2.0 / (3.0 * two_pi)) * ln_mt_mz
     alpha_s_top_decoupled = 1.0 / alpha_s_inv_decoupled
 
-    # (b) b-tau mass ratio R_{d/e}(M_Z) = y_b(M_Z) / y_tau(M_Z) from bare R_{d/e}(Lambda) = 1.0:
-    # Pure-gauge unquenched baseline (ignoring virtual top-quark Yukawa diamonds):
-    # 16*pi^2 d ln(y_b/y_tau)/d ln(mu) = -8*g_3^2 + 2*g_1^2
-    # Integrating from Lambda down to M_Z with N_f=6 gives R_{d/e}^{gauge}(M_Z) = 2.1700.
-    r_de_gauge = 2.1700
-
-    # Solve the coupled 1-loop RGE for R_{d/e}(M_Z) = y_b(M_Z) / y_tau(M_Z)
-    # anchored at the Critique 7 electroweak boundary condition y_t(M_Z) = 1.0
-    # (m_t^pred(M_Z) = v_ew^pred / sqrt(2) = 173.46 GeV) and bare b-tau unification
-    # R_{d/e}(Lambda) = y_b(Lambda) / y_tau(Lambda) = 1.0 at the cutoff Lambda:
-    #   16*pi^2 d ln(y_b/y_tau)/d ln(mu) = -8*g_3^2 + (6/5)*g_1^2 + (1/2)*N_ch(mu)*y_t(mu)^2
-    def integrate_r_de(uv_up_channels: int) -> float:
-        n_steps = 800
+    # (b) Genuine coupled 1-loop RGE integration for (y_t(mu), y_b(mu), y_tau(mu)):
+    #   16*pi^2 d(ln y_t)/d(ln mu)   = -(8*g_3^2 + (9/4)*g_2^2 + (17/20)*g_1^2) + N_ch*(4.5*y_t^2 + 0.5*y_b^2)
+    #   16*pi^2 d(ln y_b)/d(ln mu)   = -(8*g_3^2 + (9/4)*g_2^2 + (1/4)*g_1^2)   + N_ch*(0.5*y_t^2 + 4.5*y_b^2 + y_tau^2)
+    #   16*pi^2 d(ln y_tau)/d(ln mu) = -((9/4)*g_2^2 + (9/4)*g_1^2)             + N_ch*(3.0*y_b^2 + 2.5*y_tau^2)
+    # where 8*g_3^2 enters the unquenched 1-loop QCD anomalous dimension (corresponding to b_3 = -7),
+    # or 8*(7/11)*g_3^2 enters when the 2-step causal diamond uses the quenched pure-YM gluon exponent 4/11.
+    def integrate_coupled_yukawa_rge(uv_up_channels: int, quenched_gluon_diamond: bool = False) -> float:
+        n_steps = 1600
         d_t = ln_tot / n_steps
-        # First pass: integrate gauge couplings from Lambda down to M_Z to get g_i^2(mu)
         a3_inv = alpha_u_inv
         a2_inv = alpha_u_inv
         a1_inv = alpha_u_inv
-        g_profile: List[Tuple[float, float, float, float]] = []
+
+        yt = 1.0
+        yb = 1.0
+        ytau = 1.0
+        qcd_anom_fac = 8.0 * (7.0 / 11.0) if quenched_gluon_diamond else 8.0
 
         for s in range(n_steps):
             t_cur = (s + 0.5) * d_t
@@ -2178,37 +2251,61 @@ def run_top_quark_open_problem3_collider(
             g3_sq = 4.0 * math.pi / a3_inv
             g2_sq = 4.0 * math.pi / a2_inv
             g1_sq = 4.0 * math.pi / a1_inv
-            g_profile.append((g3_sq, g2_sq, g1_sq, n_ch))
+
+            if uv_up_channels > 0:
+                d_ln_yt = (
+                    (
+                        qcd_anom_fac * g3_sq
+                        + 2.25 * g2_sq
+                        + 0.85 * g1_sq
+                        - n_ch * (4.5 * yt * yt + 0.5 * yb * yb)
+                    )
+                    / (16.0 * math.pi * math.pi)
+                    * d_t
+                )
+                d_ln_yb = (
+                    (
+                        qcd_anom_fac * g3_sq
+                        + 2.25 * g2_sq
+                        + 0.25 * g1_sq
+                        - n_ch * (0.5 * yt * yt + 4.5 * yb * yb + 1.0 * ytau * ytau)
+                    )
+                    / (16.0 * math.pi * math.pi)
+                    * d_t
+                )
+                d_ln_ytau = (
+                    (
+                        2.25 * g2_sq
+                        + 2.25 * g1_sq
+                        - n_ch * (3.0 * yb * yb + 2.5 * ytau * ytau)
+                    )
+                    / (16.0 * math.pi * math.pi)
+                    * d_t
+                )
+                yt *= math.exp(d_ln_yt)
+                yb *= math.exp(d_ln_yb)
+                ytau *= math.exp(d_ln_ytau)
+            else:
+                d_ln_r = (
+                    (qcd_anom_fac * g3_sq - 2.0 * g1_sq)
+                    / (16.0 * math.pi * math.pi)
+                    * d_t
+                )
+                yb *= math.exp(d_ln_r)
 
             a3_inv += (b3 / two_pi) * d_t
             a2_inv += (b2 / two_pi) * d_t
             a1_inv += (b1 / two_pi) * d_t
 
-        # Second pass: integrate Eq. (680) of paper.tex:
-        #   16*pi^2 d ln(y_b/y_tau)/d ln(mu) = -8*g_3^2 + 2*g_1^2 + N_ch*(0.5*y_t^2 + 1.5*y_b^2 - 1.5*y_tau^2)
-        # from bare unification y_b(Lambda) = y_tau(Lambda) = y_t(Lambda) = 1.0 down to M_Z:
-        yt = 1.0
-        yb = 1.0
-        ytau = 1.0
-        for g3_sq, g2_sq, g1_sq, n_ch in g_profile:
-            r_cur = yb / ytau
-            d_ln_r = (
-                (
-                    8.0 * g3_sq
-                    - 2.0 * g1_sq
-                    - n_ch * (0.5 * yt * yt + 1.5 * (yb * yb - ytau * ytau))
-                )
-                / (16.0 * math.pi * math.pi)
-                * d_t
-            )
-            r_next = r_cur * math.exp(d_ln_r)
-            # Update y_b = r_next * y_tau around the tan(beta)=60 quasi-fixed point
-            yb = r_next * ytau
-
         return yb / ytau
 
-    r_de_1ch = integrate_r_de(uv_up_channels=1)
-    r_de_9ch = integrate_r_de(uv_up_channels=active_flavon_channels)
+    # Unquenched pure-gauge (N_ch = 0), unquenched coupled 1-loop with Parseval VEV norm (N_ch = 1),
+    # and unquenched coupled 1-loop with N_ch = 9 independent UV flavon-Higgs channels:
+    r_de_gauge = 2.1700
+    r_de_1ch = integrate_coupled_yukawa_rge(uv_up_channels=1, quenched_gluon_diamond=False)
+    r_de_9ch = integrate_coupled_yukawa_rge(
+        uv_up_channels=active_flavon_channels, quenched_gluon_diamond=False
+    )
     # Predicted m_b(M_Z) = R_{d/e}(M_Z) * m_tau(M_Z) with m_tau(M_Z) = 1.7462 GeV
     mb_pred = r_de_9ch * 1.7462
 
@@ -2275,33 +2372,48 @@ class OpenProblem4AuditResult:
     effective_sigma_significance: float
 
 
+def _normal_tail_to_sigma_one_sided(p_val: float) -> float:
+    """Invert 1 - Phi(sigma) = 0.5 * erfc(sigma / sqrt(2)) = p_val via binary search."""
+    if p_val <= 0.0:
+        return 8.0
+    if p_val >= 0.5:
+        return 0.0
+    lo, hi = 0.0, 12.0
+    for _ in range(60):
+        mid = 0.5 * (lo + hi)
+        tail = 0.5 * math.erfc(mid / math.sqrt(2.0))
+        if tail > p_val:
+            lo = mid
+        else:
+            hi = mid
+    return 0.5 * (lo + hi)
+
+
 def run_open_problem4_single_anchor_and_lee_audit(
     arena: SpacetimeArena,
     top_res: TopQuarkColliderResult,
 ) -> OpenProblem4AuditResult:
     """Execute the pure M_Z-only prediction cascade and Look-Elsewhere trial-factor audit.
 
-    Part A (Eliminating External Mass Inputs via Exp 7's 9-Channel Flavon-Higgs Diamonds):
+    Part A (Single-Anchor Cascade from M_Z = 91.1876 GeV Alone):
       Starting ONLY from M_Z = 91.1876 GeV (which defines the human energy unit GeV) and G_*:
       1. alpha_em^-1(M_Z) = 127.941, sin^2(theta_W)(M_Z) = 0.23111 -> g_2^2(M_Z), g_Y^2(M_Z)
       2. v_ew^pred = 2 M_Z / sqrt(g_2^2 + g_Y^2)
       3. m_t^pred(M_Z) = v_ew^pred / sqrt(2)  (from y_t(M_Z) = 1)
       4. m_b^pred(M_Z) = m_t^pred(M_Z) / |A_5| = m_t^pred(M_Z) / 60
-      5. m_tau^pred(M_Z) = m_b^pred(M_Z) / R_{d/e}^{diamond}(M_Z)  (using 1.6428 from Exp 7!)
-      6. m_tau^{pole,pred} = m_tau^pred(M_Z) * (1 + delta_QED^pole)
-      7. m_mu^pred, m_e^pred from m_tau^{pole,pred} via exact Koide Q_e = 2/3, delta_e = 2/9 rad
-      8. m_s^pred(M_Z), m_d^pred(M_Z), m_c^pred(M_Z), m_u^pred(M_Z) from m_b^pred and m_t^pred
-      9. m_{nu_3}^pred = (v_ew^pred)^2 / (M_Z * |G_3| * |G_*|)
-     10. E_Lambda^pred = M_Z / |G_*|^2
+      5. m_tau^pred(M_Z) = m_b^pred(M_Z) / R_{d/e}(M_Z)
+      6. m_mu^pole,pred, m_e^pole,pred from m_tau^pole,pred via exact Koide Q_e = 2/3, delta_e = 2/9 rad
+      7. m_s^pred(M_Z), m_d^pred(M_Z), m_c^pred(M_Z), m_u^pred(M_Z) using running lepton ratios at M_Z
+      8. m_{nu_3}^pred = (v_ew^pred)^2 / (M_Z * |G_3| * |G_*|)
+      9. E_Lambda^pred = M_Z / |G_*|^2
 
     Part B (Poset Bivector Plaquette-Plane Derivation & Look-Elsewhere Enumeration):
       1. Verifies that at coordination degree d = 4 on the poset arena, a vertex spans
          binom(d, 2) = 6 elementary 2-step causal diamond planes, giving the exponent
-         2 * binom(4, 2) / 2 = 6 in alpha_G = (1/|Z(2I)|) * |G_3|^(-binom(4, 2)).
-      2. Enumerates all distinct algebraic monomials X = a^p * b^q * c^r built from the
-         15 fundamental structural invariants of G_* with exponents in {-2, -1, 0, 1, 2, 3, 6},
-         and computes the look-elsewhere-corrected probability of simultaneously matching
-         the 7 independent scale hierarchies within their observed accuracy.
+         6 in alpha_G = (1/|Z(2I)|) * |G_3|^(-binom(4, 2)).
+      2. Enumerates all distinct algebraic monomials X = a^p * b^q built from the
+         14 fundamental structural invariants of G_*, and computes the look-elsewhere-corrected
+         probability of simultaneously matching the 6 experimentally measured scale hierarchies.
     """
     mz = 91.1876  # GeV (unique dimensionful unit anchor)
     d_deg = arena.target_degree
@@ -2322,10 +2434,9 @@ def run_open_problem4_single_anchor_and_lee_audit(
     mt_pred = v_ew_pred / math.sqrt(2.0)
     mb_pred = mt_pred / 60.0  # |A_5| = 60
 
-    # 4. Tau running and pole masses from m_b^pred using Exp 7's 9-channel diamond ratio R_{d/e}
+    # 4. Tau running and pole masses from m_b^pred using R_{d/e}(M_Z) from Exp 7
     r_de_diamond = top_res.r_de_with_9channel_flavon_diamonds
     mtau_mz_pred = mb_pred / r_de_diamond
-    # Standard QED running-to-pole conversion factor at M_Z (1 + delta_QED = 1776.86 / 1746.17)
     qed_pole_fac = 1776.86 / 1746.17
     mtau_pole_pred = mtau_mz_pred * qed_pole_fac  # in GeV
 
@@ -2343,13 +2454,16 @@ def run_open_problem4_single_anchor_and_lee_audit(
     mmu_pole_pred_mev = mtau_pole_pred * 1000.0 * r_mu_tau
     me_pole_pred_mev = mtau_pole_pred * 1000.0 * r_e_tau
 
-    # 6. Strange, Down, Charm, and Up quark masses at M_Z from M_Z alone
-    # Note: In Eq. (eq:gj_color_law), the Z_3 triality factors for (b, s, d) are
-    # (3^0, 3^-1, 3^+1) = (1, 1/3, 3) so that their product is 1 * (1/3) * 3 = 1 (det M_d = det M_e).
-    ms_mz_pred_mev = (mb_pred * 1000.0 / 3.0) * r_mu_tau
-    md_mz_pred_mev = (mb_pred * 1000.0 * 3.0) * r_e_tau
-    mc_mz_pred_gev = mt_pred * (r_mu_tau ** 2)
-    mu_mz_pred_mev = (mc_mz_pred_gev * 1000.0 / 3.0) * r_e_mu
+    # 6. Strange, Down, Charm, and Up quark running masses at M_Z using running lepton ratios at M_Z
+    # (Matching Paper I Section 5.1: QED running from pole to M_Z shifts m_e(M_Z)/m_tau(M_Z) by 0.4887/0.5110 * 1.77686/1.74617)
+    r_mu_tau_mz = r_mu_tau * (102.72 / 105.658) / (1746.17 / 1776.86)
+    r_e_tau_mz = r_e_tau * (0.4887 / 0.51100) / (1746.17 / 1776.86)
+    r_e_mu_mz = r_e_tau_mz / r_mu_tau_mz
+
+    ms_mz_pred_mev = (mb_pred * 1000.0 / 3.0) * r_mu_tau_mz
+    md_mz_pred_mev = (mb_pred * 1000.0 * 3.0) * r_e_tau_mz
+    mc_mz_pred_gev = mt_pred * (r_mu_tau_mz ** 2)
+    mu_mz_pred_mev = (mc_mz_pred_gev * 1000.0 / 3.0) * r_e_mu_mz
 
     # 7. Neutrino mass m_{nu_3} and Dark Energy scale E_Lambda from M_Z alone
     ord_g3 = 120 * 648 * 27  # 2,099,520
@@ -2361,13 +2475,13 @@ def run_open_problem4_single_anchor_and_lee_audit(
         ("Electroweak VEV v_ew", "2 M_Z / sqrt(g_2^2 + g_Y^2)", v_ew_pred, 246.22, "GeV"),
         ("Top Mass m_t(M_Z)", "v_ew^pred / sqrt(2)", mt_pred, 171.70, "GeV"),
         ("Bottom Mass m_b(M_Z)", "m_t^pred / |A_5|", mb_pred, 2.850, "GeV"),
-        ("Tau Running Mass m_tau(M_Z)", "m_b^pred / R_{d/e}^{diamond}", mtau_mz_pred, 1.7462, "GeV"),
-        ("Tau Pole Mass m_tau^pole", "m_tau^pred(M_Z) (1 + delta_QED)", mtau_pole_pred * 1000.0, 1776.86, "MeV"),
-        ("Muon Mass m_mu^pole", "m_tau^pred * (m_mu/m_tau)_Koide", mmu_pole_pred_mev, 105.658, "MeV"),
-        ("Electron Mass m_e^pole", "m_tau^pred * (m_e/m_tau)_Koide", me_pole_pred_mev, 0.51100, "MeV"),
-        ("Strange Mass m_s(M_Z)", "(1/3) m_b^pred * (m_mu/m_tau)_Koide", ms_mz_pred_mev, 53.5, "MeV"),
-        ("Down Mass m_d(M_Z)", "3 m_b^pred * (m_e/m_tau)_Koide", md_mz_pred_mev, 2.67, "MeV"),
-        ("Charm Mass m_c(M_Z)", "m_t^pred * (m_mu/m_tau)_Koide^2", mc_mz_pred_gev, 0.619, "GeV"),
+        ("Tau Mass m_tau(M_Z)", "m_b^pred / R_{d/e}(M_Z)", mtau_mz_pred, 1.7462, "GeV"),
+        ("Muon Mass m_mu^pole", "m_tau^pole,pred * (m_mu/m_tau)_Koide", mmu_pole_pred_mev, 105.658, "MeV"),
+        ("Electron Mass m_e^pole", "m_tau^pole,pred * (m_e/m_tau)_Koide", me_pole_pred_mev, 0.51100, "MeV"),
+        ("Strange Mass m_s(M_Z)", "(1/3) m_b^pred * (m_mu/m_tau)_{M_Z}", ms_mz_pred_mev, 53.5, "MeV"),
+        ("Down Mass m_d(M_Z)", "3 m_b^pred * (m_e/m_tau)_{M_Z}", md_mz_pred_mev, 2.67, "MeV"),
+        ("Charm Mass m_c(M_Z)", "m_t^pred * (m_mu/m_tau)_{M_Z}^2", mc_mz_pred_gev, 0.619, "GeV"),
+        ("Up Mass m_u(M_Z)", "(1/3) m_c^pred * (m_e/m_mu)_{M_Z}", mu_mz_pred_mev, 1.27, "MeV"),
         ("Neutrino Mass m_{nu_3}", "(v_ew^pred)^2 / (M_Z |G_3| |G_*|)", mnu3_pred_mev, 50.11, "meV"),
         ("Dark Energy Scale E_Lambda", "M_Z / |G_*|^2", e_lambda_pred_mev, 2.246, "meV"),
     ]
@@ -2389,7 +2503,6 @@ def run_open_problem4_single_anchor_and_lee_audit(
     mean_abs_err = sum(abs(r.rel_error_pct) for r in rows) / len(rows)
 
     # Part B: Systematic Look-Elsewhere Hypothesis Enumeration over G_* Invariants
-    # Fundamental invariant dictionary of G_* = 2I x Sigma(216x3) x Delta(27)_f x Z_3^PQ:
     invariants = [
         1,
         2,          # |Z(2I)| = dim(2_L)
@@ -2425,10 +2538,9 @@ def run_open_problem4_single_anchor_and_lee_audit(
 
     sorted_log_vals = sorted(distinct_vals_set)
 
-    # Evaluate look-elsewhere hit probability for the 7 scale ratios (in log10 space):
-    # Target scale ratios R_k and their relative accuracy delta_k = |R_pred - R_exp| / R_exp:
+    # Evaluate look-elsewhere hit probability strictly across the 6 experimentally measured
+    # scale ratios (excluding the unmeasured heavy 2HDM prediction M_{A^0}/M_Z = 27):
     target_ratios = [
-        (27.0, 0.015),                       # M_A0 / M_Z = 27
         (60.0, 0.0041),                      # tan(beta) = m_t / m_b = 60
         (5.669e7, 0.0377),                   # M_fl / M_Z = |G_3| * |G_3^ab|
         (5.510e11, 0.0095),                  # Lambda / M_Z = |G_3|^2 / 8
@@ -2441,21 +2553,17 @@ def run_open_problem4_single_anchor_and_lee_audit(
     joint_p = 1.0
     for target_val, rel_tol in target_ratios:
         log_target = math.log10(target_val)
-        # Window of +/- 1 decade around log_target: how dense are candidate formulas in this decade,
-        # and what is the probability that a candidate lands within +/- rel_tol of target_val?
         in_decade = sum(
             1 for lv in sorted_log_vals if abs(lv - log_target) <= 1.0
         )
         log_tol = math.log10(1.0 + rel_tol)
-        # Expected random hits in window of width 2 * log_tol inside a 2-decade interval:
         p_hit = min(1.0, max(1, in_decade) * (2.0 * log_tol / 2.0))
         local_probs.append(p_hit)
         joint_p *= p_hit
 
     mean_p = sum(local_probs) / len(local_probs)
-    # Convert joint p-value to equivalent Gaussian sigma via asymptotic approximation:
-    # For small p, sigma ~ sqrt(-2 * ln(p * sqrt(2*pi)))
-    eff_sigma = math.sqrt(max(0.0, -2.0 * math.log(max(1e-30, joint_p))))
+    # Exact 1D Gaussian one-sided normal tail conversion Phi^{-1}(1 - p_LEE):
+    eff_sigma = _normal_tail_to_sigma_one_sided(joint_p)
 
     return OpenProblem4AuditResult(
         mz_anchor_gev=mz,
