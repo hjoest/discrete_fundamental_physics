@@ -136,7 +136,7 @@ Consequently, for any balanced vertex coordination degree $m = n = d$, the joint
 \end{theorem}
 
 \begin{proof}
-Applying the group homomorphism $\phi : G \to G^{\mathrm{ab}}$ to both sides of Eq.~\eqref{eq:product_law} maps the non-abelian products $\prod_{i=1}^m \pi_G(u_{\sigma(i)})$ and $\prod_{j=1}^n \pi_G(v_{\tau(j)})$ into the abelian quotient $G^{\mathrm{ab}}$. Because $G^{\mathrm{ab}}$ is commutative, the image sum is invariant under all permutations $\sigma \in S_m$ and $\tau \in S_n$, yielding Eq.~\eqref{eq:kirchhoff}. For $m = n = d$ independent uniform random elements in $G$, the projected sums on the left- and right-hand sides of Eq.~\eqref{eq:kirchhoff} are independent uniform random variables on $G^{\mathrm{ab}}$, which coincide with probability exactly $1/|G^{\mathrm{ab}}|$; since satisfying Eq.~\eqref{eq:kirchhoff} is a necessary condition for satisfying Eq.~\eqref{eq:product_law}, $p_{\mathrm{joint}}(d) \le 1/|G^{\mathrm{ab}}|$ holds for all $d \ge 1$.
+Applying $\phi$ to Eq.~\eqref{eq:product_law} yields Eq.~\eqref{eq:kirchhoff} immediately by commutativity of $G^{\mathrm{ab}}$; for independent uniform tuples in $G$, the two sides of Eq.~\eqref{eq:kirchhoff} are independent uniform random variables in $G^{\mathrm{ab}}$ and coincide with probability $1/|G^{\mathrm{ab}}|$, implying $p_{\mathrm{joint}}(d) \le 1/|G^{\mathrm{ab}}|$ for all $d \ge 1$.
 \end{proof}
 
 %=============================================================================
