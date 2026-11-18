@@ -471,7 +471,7 @@ def main() -> None:
             "",
             "### Conjugacy-Class Action Profile at Kadanoff Scale $b = 4$ ($N_\\square = 16$ Plaquettes)",
             "",
-            "| Class Index $c$ | Class Size $\\lvert C_c\\rvert$ | Chordal Distance $2 - \\mathrm{Re}\\,\\chi_{\\mathbf{2}_L}(c)$ | Exact Discrete Plancherel Action $S_{\\text{eff}}^{(b=4)}(c)$ | Continuum YM Fit $\\beta_{\\text{eff}}(2 - \\mathrm{Re}\\,\\chi_{\\mathbf{2}_L}(c))$ |",
+            "| Class Index $c$ | Class Size $\\lvert C_c\\rvert $ | Chordal Distance $2 - \\mathrm{Re}\\,\\chi_{\\mathbf{2}_L}(c)$ | Exact Discrete Plancherel Action $S_{\\text{eff}}^{(b=4)}(c)$ | Continuum YM Fit $\\beta_{\\text{eff}}(2 - \\mathrm{Re}\\,\\chi_{\\mathbf{2}_L}(c))$ |",
             "| :--- | :--- | :--- | :--- | :--- |",
         ]
     )
@@ -541,7 +541,7 @@ def main() -> None:
             "",
             "| Look-Elsewhere & Topological Metric | Value | Physical / Statistical Meaning |",
             "| :--- | :--- | :--- |",
-            f"| **Vertex Bivector Plaquette Planes $\\binom{{d}}{{2}}$ at $d = {op4_res.vertex_degree_d}$** | **`{op4_res.bivector_plaquette_planes}`** | Number of independent 2-step causal diamond planes ($tx, ty, tz, xy, xz, yz$) meeting at a $d=4$ vertex, fixing the exponent $6$ in $\\alpha_G = \\frac{{1}}{{|Z(2I)|}}|G_3|^{{-\\binom{{4}}{{2}}}}$. |",
+            f"| **Vertex Bivector Plaquette Planes $\\binom{{d}}{{2}}$ at $d = {op4_res.vertex_degree_d}$** | **`{op4_res.bivector_plaquette_planes}`** | Number of independent 2-step causal diamond planes ($tx, ty, tz, xy, xz, yz$) meeting at a $d=4$ vertex, fixing the exponent $6$ in $\\alpha_G = \\frac{{1}}{{\\lvert Z(2I)\\rvert }}\\lvert G_3\\rvert ^{{-\\binom{{4}}{{2}}}}$. |",
             f"| **Fundamental Invariant Dictionary $\\lvert\\mathcal{{I}}(G_\\star)\\rvert$** | `{op4_res.fundamental_invariants_count}` | Orders, abelianizations, centers, and irrep dimensions of $2I, \\Sigma(216\\times 3), \\Delta(27)_f, \\mathbb{{Z}}_3^{{\\text{{PQ}}}}$. |",
             f"| **Enumerated Monomial Hypotheses $a^p b^q$** | `{op4_res.total_monomial_hypotheses:,}` (`{op4_res.distinct_numerical_values:,}` distinct) | Hypothesis space of 1- and 2-factor group-invariant scaling ratios (up to secondary $O(1)$ prefactors $1/8, \\sqrt{{2}}$). |",
             f"| **Mean Per-Observable Look-Elsewhere Hit Probability** | `{op4_res.mean_local_hit_prob:.4f}` | Average probability that a random invariant monomial in the same decade lands within the observed relative error window. |",

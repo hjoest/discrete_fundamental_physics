@@ -1092,7 +1092,7 @@ def write_scrutiny_report(audit: ScrutinyAuditResult) -> None:
             "",
             f"- Expanding the explicit positive-definite Hermitian quark Yukawa matrices $M_u, M_d$ in the 9 Weyl–Heisenberg basis operators $W_{{p,q}} = P^p Q^q \\in \\mathbb{{R}}[\\Delta(27)_f]$ ($W_{{p,q}}^\\dagger = \\omega^{{pq}} W_{{-p,-q}}$, $c_{{p,q}} = \\frac{{1}}{{3}}\\mathrm{{Tr}}(W_{{p,q}}^\\dagger M_q)$ obeying $c_{{-p,-q}} = \\omega^{{pq}} c_{{p,q}}^*$) reconstructs $M_d$ to **`{audit.wh_md_recon_err:.2e}`**.",
             f"- This single explicit matrix pair $(M_u, M_d) \\in \\mathbb{{R}}[\\Delta(27)_f]$ simultaneously achieves at tree level:",
-            f"  1. **Tree-Level Strong CP Vanishing:** $\\lvert\\arg\\det(M_u M_d)\\rvert =$ **`{audit.wh_arg_det_rad:.2e}` rad** ($\\bar{{\\theta}}_{{\\text{{QCD}}}}^{{\\text{{tree}}}} = 0$ under the Hermitian flavon ansatz $c_{{-p,-q}} = \\omega^{{pq}} c_{{p,q}}^*$; radiative stability against heavy 2HDM/flavon loops remains open, Critique 9),",
+            f"  1. **Tree-Level Strong CP Vanishing:** $\\lvert\\arg\\det(M_u M_d)\\rvert =$ **`{audit.wh_arg_det_rad:.2e}` rad** ($\\bar{{\\theta}}_{{\\text{{QCD}}}}^{{\\text{{tree}}}} = 0$ under the Hermitian flavon ansatz $c_{{-p,-q}} = \\omega^{{pq}} c_{{p,q}}^*$; radiative stability against heavy 2HDM/flavon loops remains open, Critique 8),",
             "  2. **Exact Up and Down Quark Mass Eigenvalues:** $(m_u, m_c, m_t)$ and $(m_d, m_s, m_b)$, and",
             f"  3. **Full Off-Diagonal CKM CP Violation:** $J_{{\\text{{CP}}}} = \\mathrm{{Im}}(V_{{us}} V_{{cb}} V_{{ub}}^* V_{{cs}}^*) =$ **`{audit.wh_jcp_reconstructed:.4e}`** (exp `3.08e-5`).",
             "",

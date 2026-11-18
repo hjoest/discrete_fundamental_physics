@@ -9,9 +9,13 @@ from typing import Dict, List, Set, Tuple
 from src.finite_groups import (
     FiniteGroup,
     build_2i,
+    build_2o,
     build_2t,
+    build_cyclic,
     build_delta27,
+    build_m27,
     build_sigma648,
+    build_t7,
 )
 from src.wedderburn_and_spectra import (
     CharacterTableResult,
@@ -423,6 +427,166 @@ def run_option_b_deep_falsification(
 
 
 @dataclass
+class SectorBuildingBlocksAuditResult:
+    # Theorem 2.1: Minimal 3D Complex Sector Delta(27) vs. T_7 and M_27 = Z_9 \rtimes Z_3
+    t7_order: int
+    t7_center_order: int
+    t7_ab_order: int
+    t7_3bar_x_3_1d_count: int
+    m27_order: int
+    m27_center_order: int
+    m27_ab_order: int
+    m27_order3_noncentral_cosets: int
+    m27_order9_cosets: int
+    z9_wedderburn_blocks: int
+    d27_order: int
+    d27_center_order: int
+    d27_ab_order: int
+    d27_order3_noncentral_cosets: int
+    d27_order9_cosets: int
+    d27_3bar_x_3_1d_count: int
+    z3_wedderburn_blocks: int
+    # Theorem 2.2: Minimal Spacetime Spinor Sector 2I vs. 2T and 2O
+    g2t_order: int
+    g2t_quaternionic_2d_count: int
+    g2t_max_z_trace_err: float
+    g2o_order: int
+    g2o_quaternionic_2d_count: int
+    g2o_max_zsqrt2_trace_err: float
+    g2i_order: int
+    g2i_quaternionic_2d_count: int
+    g2i_max_zphi_trace_err: float
+
+
+def verify_sector_building_blocks(
+    g_2i: FiniteGroup,
+    res_2i: CharacterTableResult,
+    g_d27: FiniteGroup,
+    res_d27: CharacterTableResult,
+) -> SectorBuildingBlocksAuditResult:
+    """Explicitly verify Theorems 2.1 and 2.2 (ruling out T_7, M_27 = Z_9 \\rtimes Z_3, 2T, and 2O)."""
+    # 1. Theorem 2.1: T_7 = Z_7 \rtimes Z_3 (order 21)
+    g_t7 = build_t7()
+    res_t7 = solve_character_table(g_t7)
+    cg_t7 = compute_clebsch_gordan_table(g_t7, res_t7)
+    t7_center = find_center_elements(g_t7)
+    t7_ab = g_t7.order // len(g_t7.commutator_subgroup)
+    t7_3d_indices = [ir.index for ir in res_t7.irreps if ir.degree == 3]
+    assert len(t7_3d_indices) == 2, f"Expected 2 3D irreps in T_7, got {len(t7_3d_indices)}"
+    i3_t7, i3bar_t7 = t7_3d_indices[0], t7_3d_indices[1]
+    t7_1d_in_3bar_x_3 = sum(
+        cg_t7[i3_t7][i3bar_t7][k]
+        for k, ir in enumerate(res_t7.irreps)
+        if ir.degree == 1
+    )
+    assert g_t7.order == 21 and len(t7_center) == 1 and t7_ab == 3 and t7_1d_in_3bar_x_3 == 3
+
+    # 2. Theorem 2.1: M_27 = Z_9 \rtimes Z_3 (order 27, exponent 9) vs. Delta(27) (order 27, exponent 3)
+    g_m27 = build_m27()
+    m27_center = set(find_center_elements(g_m27))
+    m27_ab = g_m27.order // len(g_m27.commutator_subgroup)
+    d27_center = set(find_center_elements(g_d27))
+    d27_ab = g_d27.order // len(g_d27.commutator_subgroup)
+
+    def count_noncentral_element_orders(g: FiniteGroup, center_set: Set[int]) -> Dict[int, int]:
+        counts: Dict[int, int] = {}
+        for x in range(g.order):
+            if x in center_set:
+                continue
+            cur = x
+            ord_x = 1
+            while cur != 0:
+                cur = g.mult[cur][x]
+                ord_x += 1
+            counts[ord_x] = counts.get(ord_x, 0) + 1
+        return counts
+
+    m27_noncentral_orders = count_noncentral_element_orders(g_m27, m27_center)
+    d27_noncentral_orders = count_noncentral_element_orders(g_d27, d27_center)
+    m27_ord3_cosets = m27_noncentral_orders.get(3, 0) // len(m27_center)
+    m27_ord9_cosets = m27_noncentral_orders.get(9, 0) // len(m27_center)
+    d27_ord3_cosets = d27_noncentral_orders.get(3, 0) // len(d27_center)
+    d27_ord9_cosets = d27_noncentral_orders.get(9, 0) // len(d27_center)
+    assert m27_ord3_cosets == 2 and m27_ord9_cosets == 6
+    assert d27_ord3_cosets == 8 and d27_ord9_cosets == 0
+
+    cg_d27 = compute_clebsch_gordan_table(g_d27, res_d27)
+    d27_1d_in_3bar_x_3 = sum(
+        cg_d27[9][10][k] for k, ir in enumerate(res_d27.irreps) if ir.degree == 1
+    )
+    assert d27_1d_in_3bar_x_3 == 9
+
+    res_z9 = solve_character_table(build_cyclic(9))
+    res_z3 = solve_character_table(build_cyclic(3))
+    assert len(res_z9.wedderburn_blocks) == 5 and len(res_z3.wedderburn_blocks) == 2
+
+    # 3. Theorem 2.2: 2T (order 24), 2O (order 48), and 2I (order 120) in SU(2)
+    g_2t = build_2t()
+    res_2t = solve_character_table(g_2t)
+    g_2o = build_2o()
+    res_2o = solve_character_table(g_2o)
+
+    q2d_2t = [ir for ir in res_2t.irreps if ir.degree == 2 and ir.frobenius_schur == -1]
+    q2d_2o = [ir for ir in res_2o.irreps if ir.degree == 2 and ir.frobenius_schur == -1]
+    q2d_2i = [ir for ir in res_2i.irreps if ir.degree == 2 and ir.frobenius_schur == -1]
+    assert len(q2d_2t) == 1 and len(q2d_2o) == 2 and len(q2d_2i) == 2
+
+    max_2t_z_err = max(
+        abs(val.real - round(val.real)) for ir in q2d_2t for val in ir.class_values
+    )
+    sqrt2 = math.sqrt(2.0)
+    max_2o_zsqrt2_err = max(
+        min(
+            abs(val.real - (a + b * sqrt2))
+            for a in range(-4, 5)
+            for b in range(-4, 5)
+        )
+        for ir in q2d_2o
+        for val in ir.class_values
+    )
+    sqrt5 = math.sqrt(5.0)
+    max_2i_zphi_err = max(
+        min(
+            abs(val.real - 0.5 * (a + b * sqrt5))
+            for a in range(-6, 7)
+            for b in range(-6, 7)
+        )
+        for ir in q2d_2i
+        for val in ir.class_values
+    )
+    assert max_2t_z_err < 1e-11 and max_2o_zsqrt2_err < 1e-11 and max_2i_zphi_err < 1e-11
+
+    return SectorBuildingBlocksAuditResult(
+        t7_order=g_t7.order,
+        t7_center_order=len(t7_center),
+        t7_ab_order=t7_ab,
+        t7_3bar_x_3_1d_count=t7_1d_in_3bar_x_3,
+        m27_order=g_m27.order,
+        m27_center_order=len(m27_center),
+        m27_ab_order=m27_ab,
+        m27_order3_noncentral_cosets=m27_ord3_cosets,
+        m27_order9_cosets=m27_ord9_cosets,
+        z9_wedderburn_blocks=len(res_z9.wedderburn_blocks),
+        d27_order=g_d27.order,
+        d27_center_order=len(d27_center),
+        d27_ab_order=d27_ab,
+        d27_order3_noncentral_cosets=d27_ord3_cosets,
+        d27_order9_cosets=d27_ord9_cosets,
+        d27_3bar_x_3_1d_count=d27_1d_in_3bar_x_3,
+        z3_wedderburn_blocks=len(res_z3.wedderburn_blocks),
+        g2t_order=g_2t.order,
+        g2t_quaternionic_2d_count=len(q2d_2t),
+        g2t_max_z_trace_err=max_2t_z_err,
+        g2o_order=g_2o.order,
+        g2o_quaternionic_2d_count=len(q2d_2o),
+        g2o_max_zsqrt2_trace_err=max_2o_zsqrt2_err,
+        g2i_order=g_2i.order,
+        g2i_quaternionic_2d_count=len(q2d_2i),
+        g2i_max_zphi_trace_err=max_2i_zphi_err,
+    )
+
+
+@dataclass
 class OptionCViableResult:
     group_name: str
     total_order: int
@@ -443,6 +607,8 @@ class OptionCViableResult:
     wh_weights_by_shift: List[Tuple[int, int, float, float]]
     # 3-factor poset synchronization stats: (degree, avg_pi_joint, p_joint, bits_joint)
     poset_sync_sweep: List[Tuple[int, float, float, float]]
+    # Theorems 2.1 and 2.2 sector building-blocks no-go audit
+    sector_building_blocks: SectorBuildingBlocksAuditResult
 
 
 def verify_option_c_viable_group(
@@ -638,6 +804,8 @@ def verify_option_c_viable_group(
         pj = p_within_coset / ab_order
         poset_sweep.append((d, avg_sj, pj, -math.log2(pj)))
 
+    sector_blocks = verify_sector_building_blocks(g_2i, res_2i, g_d27, res_d27)
+
     return OptionCViableResult(
         group_name="2I x Sigma(216x3) x Delta(27)_f",
         total_order=total_order,
@@ -654,6 +822,7 @@ def verify_option_c_viable_group(
         wh_ckm_reconstruction_error=rec_err,
         wh_weights_by_shift=wh_weights,
         poset_sync_sweep=poset_sweep,
+        sector_building_blocks=sector_blocks,
     )
 
 

@@ -107,7 +107,7 @@ Comparing the finite-group character moments $M_{2t}(H) = \frac{1}{\lvert H\rver
 
 - Expanding the explicit positive-definite Hermitian quark Yukawa matrices $M_u, M_d$ in the 9 Weyl–Heisenberg basis operators $W_{p,q} = P^p Q^q \in \mathbb{R}[\Delta(27)_f]$ ($W_{p,q}^\dagger = \omega^{pq} W_{-p,-q}$, $c_{p,q} = \frac{1}{3}\mathrm{Tr}(W_{p,q}^\dagger M_q)$ obeying $c_{-p,-q} = \omega^{pq} c_{p,q}^*$) reconstructs $M_d$ to **`6.91e-16`**.
 - This single explicit matrix pair $(M_u, M_d) \in \mathbb{R}[\Delta(27)_f]$ simultaneously achieves at tree level:
-  1. **Tree-Level Strong CP Vanishing:** $\lvert\arg\det(M_u M_d)\rvert =$ **`2.33e-13` rad** ($\bar{\theta}_{\text{QCD}}^{\text{tree}} = 0$ under the Hermitian flavon ansatz $c_{-p,-q} = \omega^{pq} c_{p,q}^*$; radiative stability against heavy 2HDM/flavon loops remains open, Critique 9),
+  1. **Tree-Level Strong CP Vanishing:** $\lvert\arg\det(M_u M_d)\rvert =$ **`2.33e-13` rad** ($\bar{\theta}_{\text{QCD}}^{\text{tree}} = 0$ under the Hermitian flavon ansatz $c_{-p,-q} = \omega^{pq} c_{p,q}^*$; radiative stability against heavy 2HDM/flavon loops remains open, Critique 8),
   2. **Exact Up and Down Quark Mass Eigenvalues:** $(m_u, m_c, m_t)$ and $(m_d, m_s, m_b)$, and
   3. **Full Off-Diagonal CKM CP Violation:** $J_{\text{CP}} = \mathrm{Im}(V_{us} V_{cb} V_{ub}^* V_{cs}^*) =$ **`2.9352e-05`** (exp `3.08e-5`).
 

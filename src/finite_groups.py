@@ -189,9 +189,80 @@ def build_2t() -> FiniteGroup:
     return build_sl2_fp(3, name="2T")
 
 
+def build_2o() -> FiniteGroup:
+    """Binary octahedral group 2O < SU(2) of order 48 (double cover of S_4)."""
+    import itertools
+    import math
+
+    s2 = 1.0 / math.sqrt(2.0)
+    raw_quats: List[Tuple[float, float, float, float]] = []
+    # 8 axis unit quaternions
+    for i in range(4):
+        for sign in (1.0, -1.0):
+            q = [0.0, 0.0, 0.0, 0.0]
+            q[i] = sign
+            raw_quats.append((q[0], q[1], q[2], q[3]))
+    # 16 half-integer unit quaternions (together with 8 axis -> 24 elements of 2T)
+    for signs in itertools.product((0.5, -0.5), repeat=4):
+        raw_quats.append(signs)
+    # 24 face-diagonal unit quaternions (+/- 1/sqrt(2), +/- 1/sqrt(2), 0, 0)
+    for i in range(4):
+        for j in range(i + 1, 4):
+            for s1 in (s2, -s2):
+                for s2_val in (s2, -s2):
+                    q = [0.0, 0.0, 0.0, 0.0]
+                    q[i] = s1
+                    q[j] = s2_val
+                    raw_quats.append((q[0], q[1], q[2], q[3]))
+
+    def q_key(q: Tuple[float, float, float, float]) -> Tuple[float, float, float, float]:
+        return tuple(round(c, 6) + 0.0 for c in q)  # type: ignore
+
+    def q_mul(a: Tuple[float, float, float, float], b: Tuple[float, float, float, float]) -> Tuple[float, float, float, float]:
+        return (
+            a[0] * b[0] - a[1] * b[1] - a[2] * b[2] - a[3] * b[3],
+            a[0] * b[1] + a[1] * b[0] + a[2] * b[3] - a[3] * b[2],
+            a[0] * b[2] - a[1] * b[3] + a[2] * b[0] + a[3] * b[1],
+            a[0] * b[3] + a[1] * b[2] - a[2] * b[1] + a[3] * b[0],
+        )
+
+    id_key = q_key((1.0, 0.0, 0.0, 0.0))
+    key_to_q = {q_key(q): q for q in raw_quats}
+    keys = [id_key] + [k for k in key_to_q if k != id_key]
+    return build_group_from_table(
+        "2O",
+        keys,
+        lambda ka, kb: q_key(q_mul(key_to_q[ka], key_to_q[kb])),
+    )
+
+
 def build_2i() -> FiniteGroup:
     """Binary icosahedral group 2I ~= SL(2, F_5) of order 120 (vertices of the 600-cell)."""
     return build_sl2_fp(5, name="2I")
+
+
+def build_t7() -> FiniteGroup:
+    """Frobenius group T_7 = Z_7 \\rtimes Z_3 of order 21 in SU(3)."""
+    elems = [(a, b) for a in range(7) for b in range(3)]
+
+    def mul_t7(x, y):
+        a1, b1 = x
+        a2, b2 = y
+        return ((a1 + pow(2, b1, 7) * a2) % 7, (b1 + b2) % 3)
+
+    return build_group_from_table("T_7", elems, mul_t7)
+
+
+def build_m27() -> FiniteGroup:
+    """Extraspecial group M_27 = Z_9 \\rtimes Z_3 of order 27 (exponent 9) in SU(3)."""
+    elems = [(a, b) for a in range(9) for b in range(3)]
+
+    def mul_m27(x, y):
+        a1, b1 = x
+        a2, b2 = y
+        return ((a1 + pow(4, b1, 9) * a2) % 9, (b1 + b2) % 3)
+
+    return build_group_from_table("M_27", elems, mul_m27)
 
 
 def build_psl2_7() -> FiniteGroup:
