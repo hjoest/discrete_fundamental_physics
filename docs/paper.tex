@@ -118,18 +118,26 @@ At every non-boundary event $z \in Z$ with $m = |U(z)| \ge 1$ immediate predeces
 
 \begin{proposition}[Resolution of the Covering-Relation Triviality Trap]
 \label{prop:triviality_trap}
-If a partial order $\le_Z$ on $Z = P \times G$ allowed intracell ordering $(x, g) <_Z (x, g')$ for $g \neq g'$ on a dense fiber $Z_x$, then for any $x \prec_P y$, $(x, g_1)$ and $(y, g_2)$ would cease to be covering relations whenever a third element $(x, g_3)$ or $(y, g_3)$ intervened, disconnecting causal transport between distinct spacetime points. Enforcing Eq.~\eqref{eq:induced_order} makes every fiber $Z_x = \pi_P^{-1}(x)$ an antichain and guarantees well-defined causal covering neighborhoods $U(z)$ and $V(z)$.
+Under the induced strict order~\eqref{eq:induced_order} on $Z \subseteq P \times G$, every fiber $Z_x = \pi_P^{-1}(x)$ is an antichain, and $(x, g_1) \prec_Z (y, g_2)$ is a covering relation in $Z$ if and only if $x \prec_P y$ is a covering relation in $P$ and $(x, g_1), (y, g_2) \in Z$.
 \end{proposition}
+
+\begin{proof}
+If a partial order $\le_Z$ on $Z = P \times G$ instead allowed intracell ordering $(x, g) <_Z (x, g')$ for $g \neq g'$ on a fiber $Z_x$, then for any spacetime link $x \prec_P y$, $(x, g_1)$ and $(y, g_2)$ would cease to be covering relations whenever a third element $(x, g_3)$ or $(y, g_3)$ intervened ($(x, g_1) <_Z (x, g_3) <_Z (y, g_2)$), disconnecting causal transport between distinct spacetime points. By contrast, Eq.~\eqref{eq:induced_order} defines $u <_Z v \iff \pi_P(u) <_P \pi_P(v)$, which forbids relations within a single fiber $Z_x$ (making $Z_x$ an antichain) and ensures that $(x, g_1) <_Z w <_Z (y, g_2)$ can hold only if $x <_P \pi_P(w) <_P y$, guaranteeing well-defined causal covering neighborhoods $U(z)$ and $V(z)$.
+\end{proof}
 
 \begin{theorem}[Abelianization Kirchhoff Conservation Law]
 \label{thm:kirchhoff}
-Let $\phi : G \to G^{\mathrm{ab}} = G / [G,G]$ be the canonical projection onto the abelianization of $G$. Because $G^{\mathrm{ab}}$ is abelian, all permutations $\sigma \in S_m$ and $\tau \in S_n$ collapse to the same sum, and Eq.~\eqref{eq:product_law} projects at every vertex $z \in Z$ to an exact, permutation-independent discrete Kirchhoff current conservation law:
+Let $\phi : G \to G^{\mathrm{ab}} = G / [G,G]$ be the canonical projection onto the abelianization of $G$. At every vertex $z \in Z$, the ordered product conservation law~\eqref{eq:product_law} projects to a permutation-independent discrete Kirchhoff current conservation law:
 \begin{equation}
 \label{eq:kirchhoff}
 \sum_{i=1}^m \phi(\pi_G(u_i)) \;=\; \sum_{j=1}^n \phi(\pi_G(v_j)) \quad \text{in } G^{\mathrm{ab}}.
 \end{equation}
-Consequently, for any balanced vertex coordination degree $m = n = d \to \infty$, the joint compatibility probability $p_{\mathrm{joint}}(d)$ of random group tuples is bounded above by $1/|G^{\mathrm{ab}}|$, providing a permanent non-washout selectivity floor of $\log_2|G^{\mathrm{ab}}|$ bits per vertex.
+Consequently, for any balanced vertex coordination degree $m = n = d$, the joint compatibility probability $p_{\mathrm{joint}}(d)$ of uniform random group tuples satisfies $p_{\mathrm{joint}}(d) \le 1/|G^{\mathrm{ab}}|$, providing a permanent non-washout selectivity floor of $\log_2|G^{\mathrm{ab}}|$ bits per vertex as $d \to \infty$.
 \end{theorem}
+
+\begin{proof}
+Applying the group homomorphism $\phi : G \to G^{\mathrm{ab}}$ to both sides of Eq.~\eqref{eq:product_law} maps the non-abelian products $\prod_{i=1}^m \pi_G(u_{\sigma(i)})$ and $\prod_{j=1}^n \pi_G(v_{\tau(j)})$ into the abelian quotient $G^{\mathrm{ab}}$. Because $G^{\mathrm{ab}}$ is commutative, the image sum is invariant under all permutations $\sigma \in S_m$ and $\tau \in S_n$, yielding Eq.~\eqref{eq:kirchhoff}. For $m = n = d$ independent uniform random elements in $G$, the projected sums on the left- and right-hand sides of Eq.~\eqref{eq:kirchhoff} are independent uniform random variables on $G^{\mathrm{ab}}$, which coincide with probability exactly $1/|G^{\mathrm{ab}}|$; since satisfying Eq.~\eqref{eq:kirchhoff} is a necessary condition for satisfying Eq.~\eqref{eq:product_law}, $p_{\mathrm{joint}}(d) \le 1/|G^{\mathrm{ab}}|$ holds for all $d \ge 1$.
+\end{proof}
 
 %=============================================================================
 \section{Representation-Theoretic Classification and the Four-Factor Design Theorem}
@@ -307,27 +315,22 @@ Furthermore, in the Plancherel character expansion of the elementary causal-diam
 
 \begin{theorem}[Unitary Quantum Evolution and Exact Bose--Fermi Supertrace Balance]
 \label{thm:quantum}
-On the real group algebra $\R[\Gthree]$ ($\dim_{\R} = 2{,}099{,}520$), left translation $L_g : h \mapsto gh$ is orthogonal ($L_g^T = L_{g^{-1}}$). Consequently:
+On the real group algebra $\R[\Gthree]$ ($\dim_{\R} = 2{,}099{,}520$):
 \begin{enumerate}
-    \item \textbf{Unitary Quantum Phase Emergence:} Because causal links $x \prec_P y$ are directed, the infinitesimal generator of directed causal transport is the skew-symmetric operator $\mathcal{A}(g) = \frac{1}{2}(L_g - L_{g^{-1}})$ ($\mathcal{A}^T = -\mathcal{A}$). Decomposing $\R[\Gthree]$ by Frobenius--Schur indicator yields:
-    \begin{equation}
-    \begin{aligned}
-    \dim\bigl(\iota = +1,\; M_n(\R)\bigr) &= 4{,}680 \;(0.22\%), \qquad
-    \dim\bigl(\iota = -1,\; M_n(\quat)\bigr) = 4{,}680 \;(0.22\%), \\
-    \dim\bigl(\iota = 0,\; M_n(\C)\bigr) &= 2{,}090{,}160 \;(99.55\%).
-    \end{aligned}
-    \end{equation}
-    Across the $99.78\%$ of $\R[\Gthree]$ belonging to complex and quaternionic blocks, the canonical complex structure $J^2 = -I$ identifies $\mathcal{A}(g) \equiv -iH(g)/\hbar$ for a self-adjoint Hamiltonian $H(g) = H(g)^\dagger$, so Stone's Theorem yields unitary quantum time evolution $U(t) = \exp(-i\int H\,dt/\hbar)$.
-    \item \textbf{Non-Supersymmetric Bose--Fermi Balance ($z_{\mathrm{spin}}$ and $\iota_{\mathrm{tot}}$):} In $2I$, the bosonic ($z_{\mathrm{spin}} = +1$, $\iota_{2I} = +1$) and fermionic ($z_{\mathrm{spin}} = -1$, $\iota_{2I} = -1$) sectors both have $\sum d_\chi^2 = 60$. Grading the full algebra $\R[\Gthree]$ ($\dim_\R = 2{,}099{,}520$, including the $99.55\%$ $\iota_{\mathrm{tot}} = 0$ complex sector that houses the $48$ chiral SM Weyl fermions in $\Delta[9]$) by the central spin-statistics involution $z_{\mathrm{spin}} \in Z(2I) = \{\pm 1\}$ gives exact full-algebra Bose--Fermi balance, together with exact equality between strictly real ($\iota_{\mathrm{tot}} = +1$) and quaternionic ($\iota_{\mathrm{tot}} = -1$) dimensions on the $\Delta[0]$ sector:
+    \item \textbf{Unitary Quantum Phase Emergence:} Across the $99.78\%$ of $\R[\Gthree]$ belonging to complex and quaternionic Wedderburn blocks ($\dim(\iota = 0) = 2{,}090{,}160$, $\dim(\iota = -1) = 4{,}680$, vs.\ $\dim(\iota = +1) = 4{,}680$), the directed causal transport generator $\mathcal{A}(g) = \frac{1}{2}(L_g - L_{g^{-1}})$ is skew-symmetric ($\mathcal{A}^T = -\mathcal{A}$) and identifies with $-iH(g)/\hbar$ for a self-adjoint Hamiltonian $H(g) = H(g)^\dagger$, generating unitary quantum time evolution $U(t) = \exp(-i\int H\,dt/\hbar)$.
+    \item \textbf{Non-Supersymmetric Bose--Fermi Supertrace Balance:} Both the full-algebra spin-graded supertrace $\STr_{z_{\mathrm{spin}}}$ (graded by the central spin-statistics involution $z_{\mathrm{spin}} \in Z(2I) = \{\pm 1\}$) and the non-chiral Wedderburn supertrace $\STr_{\iota \neq 0}$ vanish identically without spacetime supersymmetry:
     \begin{equation}
     \begin{aligned}
     \STr_{z_{\mathrm{spin}}}\bigl(\R[\Gthree]\bigr) &= \dim(z_{\mathrm{spin}}=+1) - \dim(z_{\mathrm{spin}}=-1) = 1{,}049{,}760 - 1{,}049{,}760 = 0, \\
-    \STr_{\iota \neq 0}\bigl(\R[\Gthree]\bigr) &= \dim(\iota_{\mathrm{tot}}=+1) - \dim(\iota_{\mathrm{tot}}=-1) = 4{,}680 - 4{,}680 = 0,
+    \STr_{\iota \neq 0}\bigl(\R[\Gthree]\bigr) &= \dim(\iota_{\mathrm{tot}}=+1) - \dim(\iota_{\mathrm{tot}}=-1) = 4{,}680 - 4{,}680 = 0.
     \end{aligned}
     \end{equation}
-    achieving ultraviolet Bose--Fermi dimension balance without doubling the spectrum into spacetime superpartners. More generally, for any unbroken ultraviolet operator of the factored form $1_{2I} \otimes \mathcal{O}(\Sigma,\Delta,\mathrm{PQ})$ (such as arbitrary powers of the internal gauge Casimir operators), $\STr_{z_{\mathrm{spin}}}(1_{2I} \otimes \mathcal{O}) = (60 - 60)\Tr_{\mathrm{int}}(\mathcal{O}) \equiv 0$ vanishes identically, whereas below $\Lambda$ the Chiral Survival decoupling of the vector-like irreps $2I[6,8]$ breaks $2I$-factorization ($\mathcal{M}_\Lambda \neq 1_{2I} \otimes \mathcal{O}$) and tree-level infrared vacuum energy cancellation relies on vertex Kirchhoff conservation (Theorem~\ref{thm:kirchhoff}).
 \end{enumerate}
 \end{theorem}
+
+\begin{proof}
+For (1), left translation $L_g : h \mapsto gh$ on $\R[\Gthree]$ is orthogonal with respect to the canonical trace inner product ($L_g^T = L_{g^{-1}}$). Because a causal link $x \prec_P y$ is directed, the antisymmetric transport generator $\mathcal{A}(g) = \frac{1}{2}(L_g - L_{g^{-1}})$ satisfies $\mathcal{A}(g)^T = -\mathcal{A}(g)$, and on every complex ($\iota = 0$, $M_n(\C)$) and quaternionic ($\iota = -1$, $M_n(\quat)$) block the canonical complex structure $J^2 = -I$ identifies $\mathcal{A}(g) \equiv -iH(g)/\hbar$ with $H(g) = H(g)^\dagger$, so Stone's Theorem yields $U(t) = \exp(-i\int H\,dt/\hbar)$. For (2), in $2I$ (order $120$), the bosonic ($A_5$, $z_{\mathrm{spin}} = +1$, $\iota_{2I} = +1$) and fermionic ($2I \setminus A_5$, $z_{\mathrm{spin}} = -1$, $\iota_{2I} = -1$) sectors both have $\sum d_\chi^2 = 60$. Consequently, for any unbroken ultraviolet operator of the factored form $1_{2I} \otimes \mathcal{O}(\Sigma,\Delta,\mathrm{PQ})$, the spin-graded supertrace factorizes as $\STr_{z_{\mathrm{spin}}}(1_{2I} \otimes \mathcal{O}) = (60 - 60)\Tr_{\mathrm{int}}(\mathcal{O}) \equiv 0$ (giving $60 \times 17{,}496 - 60 \times 17{,}496 = 1{,}049{,}760 - 1{,}049{,}760 = 0$ on $\R[\Gthree]$ and $60 \times 78 - 60 \times 78 = 4{,}680 - 4{,}680 = 0$ on the $\iota_{\mathrm{tot}} \neq 0$ sector), whereas below $\Lambda$ the Chiral Survival decoupling of the vector-like irreps $2I[6,8]$ breaks $2I$-factorization ($\mathcal{M}_\Lambda \neq 1_{2I} \otimes \mathcal{O}$) and tree-level infrared vacuum energy cancellation relies on vertex Kirchhoff conservation (Theorem~\ref{thm:kirchhoff}).
+\end{proof}
 
 %=============================================================================
 \section{Gauge Couplings, Gravity, and Plancherel Hierarchy Scales}
