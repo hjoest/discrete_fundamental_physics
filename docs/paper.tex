@@ -309,31 +309,40 @@ A central challenge for any theory based on finite subgroups $H \subset G_{\math
 \end{equation}
 a single-channel lattice action freezes into a discrete crystal above the critical inverse coupling $\beta_c(\chi) = 1 / \Delta E_{\min}(\chi)$. From the exact character tables of $2I$, $\Sigma(216 \times 3)$, and $\Delta(27)_f$, the minimum freezing thresholds across all sectors are $\beta_c(2I[1]) = 5.24$, $\beta_c(\Sigma[7]) = 2.32$, $\beta_c(\Sigma[5]) = 2.00$, $\beta_c(\Sigma[18]) = 1.50$, $\beta_c(\Sigma[19]) = 1.33$, and $\beta_c(\Delta_{27}[9]) = 1.00$.
 
-At the poset unification cutoff $\Lambda$, the bare unified coupling $\alpha_U^{-1}(\Lambda) = 116/3 = 38.6667$ (Section~\ref{sec:couplings}) fixes the total $\SU(3)_c$ Wilson coupling $\beta_{\mathrm{tot}}(\Lambda) = 2N_c / g_U^2(\Lambda) = 18.462$. On a rigid periodic lattice ($1$ permutation channel), $\beta_{\mathrm{tot}} = 18.462 > \beta_c$ would freeze the group. On the $(d \to d)$ causal poset $(P, \Gstar, Z, \prec_Z)$ ($m = n = d$), however, Eq.~\eqref{eq:product_law} sums coherently over $d!$ permutation channels $\sigma \in S_d$, partitioning the effective coupling per channel as $\beta_{\mathrm{channel}}(d) = \beta_{\mathrm{tot}}(\Lambda) / d!$:
+At the poset unification cutoff $\Lambda$, the bare unified coupling $\alpha_U^{-1}(\Lambda) = 116/3 = 38.6667$ (Section~\ref{sec:couplings}) fixes the total $\SU(3)_c$ Wilson coupling $\beta_{\mathrm{tot}}(\Lambda) = 2N_c / g_U^2(\Lambda) = 18.462$. On a rigid periodic lattice ($1$ permutation channel), $\beta_{\mathrm{tot}} = 18.462 > \beta_c$ would freeze the group. On the $(d \to d)$ causal poset $(P, \Gstar, Z, \prec_Z)$ ($m = n = d$), however, Eq.~\eqref{eq:product_law} sums coherently over $d!$ permutation channels $\sigma \in S_d$, partitioning the effective coupling per channel as $\beta_{\mathrm{channel}}(d) = \beta_{\mathrm{tot}}(\Lambda) / d!$, while in the perfect spacetime spinor factor $2I$ ($|2I| = 120$, $2I^{\mathrm{ab}} = \{1\}$) a $d$-tuple generates up to $d!$ permutation products before saturating $|2I| = 120$ at $d \ge 5$:
 
 \begin{table}[htbp]
 \centering
-\caption{Dual dynamical selection of vertex coordination degree $d = 4$ from causal percolation ($k_c(d) < 3$ for a minimal $\Z_3$ triplet fiber) and lattice freezing melting ($\beta_{\mathrm{channel}}(d) = \beta_{\mathrm{tot}}(\Lambda)/d! < \min_\chi \beta_c(\chi) = 1.00$).}
+\caption{Two-sided dynamical selection of vertex coordination degree $d = 4$: the lower bound $d > 3$ comes from causal percolation ($k_c(d) < 3$) and crystal melting ($\beta_{\mathrm{channel}}(d) = \beta_{\mathrm{tot}}(\Lambda)/d! < \min_\chi \beta_c(\chi) = 1.00$, i.e.\ $d! > 18.462$), while the upper bound $d < 5$ comes from avoiding Kleitman--Rothschild permutation washout of the spacetime factor $2I$ ($d! < |2I| = 120$, $p_{2I}(d) < 1$).}
 \label{tab:d4_selection}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}cccccl@{}}
+\begin{tabular}{@{}ccccccl@{}}
 \toprule
-\textbf{Degree $d$} & \textbf{Channels $d!$} & \textbf{Joint $p_{\mathrm{joint}}(d)$} & \textbf{Percolation $k_c(d)$} & \textbf{Channel $\beta_{\mathrm{channel}}(d)$} & \textbf{Dynamical Phase Status} \\
+\textbf{Degree $d$} & \textbf{Channels $d!$} & \textbf{Joint $p_{\mathrm{joint}}(d)$} & \textbf{Percolation $k_c(d)$} & \textbf{Channel $\beta_{\mathrm{channel}}(d)$} & \textbf{Spacetime $p_{2I}(d)$} & \textbf{Dynamical Phase Status} \\
 \midrule
-$d = 1$ & $1$ & $4.763 \times 10^{-7}$ & $1449.0 > 3$ & $18.4615 > 1.00$ & Sub-critical \& Frozen Crystal \\
-$d = 2$ & $2$ & $2.025 \times 10^{-6}$ & $26.50 > 3$ & $9.2308 > 1.00$ & Sub-critical \& Frozen Crystal \\
-$d = 3$ & $6$ & $1.868 \times 10^{-5}$ & $6.15 > 3$ & $3.0769 > 1.00$ & Sub-critical \& Frozen Crystal \\
-$\mathbf{d = 4}$ & $\mathbf{24}$ & $\mathbf{2.456 \times 10^{-4}}$ & $\mathbf{2.83 < 3}$ & $\mathbf{0.7692 < 1.00}$ & \textbf{Super-Critical \& Unfrozen Lie Phase} \\
-$d = 5$ & $120$ & $3.433 \times 10^{-3}$ & $1.76 < 3$ & $0.1538 < 1.00$ & Super-critical \& Unfrozen \\
+$d = 1$ & $1$ & $4.763 \times 10^{-7}$ & $1449.0 > 3$ & $18.4615 > 1.00$ & $0.0083$ & Sub-critical \& Frozen Crystal ($d \le 3$) \\
+$d = 2$ & $2$ & $2.025 \times 10^{-6}$ & $26.50 > 3$ & $9.2308 > 1.00$ & $0.0292$ & Sub-critical \& Frozen Crystal ($d \le 3$) \\
+$d = 3$ & $6$ & $1.868 \times 10^{-5}$ & $6.15 > 3$ & $3.0769 > 1.00$ & $0.1823$ & Sub-critical \& Frozen Crystal ($d \le 3$) \\
+$\mathbf{d = 4}$ & $\mathbf{24}$ & $\mathbf{2.456 \times 10^{-4}}$ & $\mathbf{2.83 < 3}$ & $\mathbf{0.7692 < 1.00}$ & $\mathbf{0.7945 < 1}$ & \textbf{Unique Viable Window ($18.46 < d! < 120$)} \\
+$d = 5$ & $120 = |2I|$ & $3.433 \times 10^{-3}$ & $1.76 < 3$ & $0.1538 < 1.00$ & $0.9928 \approx 1$ & Spacetime $2I$ Washout ($d! \ge |2I| = 120$) \\
 \bottomrule
 \end{tabular}%
 }
 \end{table}
 
-\begin{theorem}[Dual Dynamical Selection of Vertex Coordination $d=4$ and Wedderburn Lie Spanning]
+\begin{theorem}[Two-Sided Dynamical Selection of Vertex Coordination $d=4$ and Wedderburn Lie Spanning]
 \label{thm:d4_melting}
-Coordination degree $d = 4$ is the unique minimal vertex degree for which the causal poset simultaneously (i) crosses the percolation threshold $k_c(4) = p_{\mathrm{joint}}(4)^{-1/8} = 2.83 < 3$ for a minimal $\Z_3$ triplet fiber, and (ii) reduces the per-channel coupling $\beta_{\mathrm{channel}}(4) = 18.462 / 24 = 0.7692$ below the single-channel crystal-freezing threshold $\min_\chi \beta_c(\chi) = 1.00$. By Burnside's Theorem on the simple Wedderburn blocks of $\R[\Gstar]$, linear combinations of the $S_4$-symmetrized vertex operators $\overline{U}_4 = \frac{1}{24}\sum_{\sigma \in S_4} \rho(u_{\sigma(1)}\cdots u_{\sigma(4)})$ span the full matrix blocks $M_{n_\alpha}(\mathbb{D}_\alpha)$ containing the Lie algebras $\mathfrak{spin}(4)$ and $\mathfrak{su}(3)_c \oplus \mathfrak{su}(2)_{W,L} \oplus \mathfrak{u}(1)_Y$ (whereas a single $d = 4$ vertex average $\overline{U}_4$ takes finitely many discrete values in the convex hull of $\rho(\Gstar)$ with a strictly positive finite-group trace gap, so approaching a continuous Lie distribution with $\Delta E_{\mathrm{coarse}} \to 0$ requires the $N \to \infty$ coarse-graining limit; Section~\ref{sec:open_problems}, item~2).
+Vertex coordination degree $d = 4$ ($4! = 24$) is the unique integer degree satisfying the two-sided stability window
+\begin{equation}
+\label{eq:d4_window}
+\frac{\beta_{\mathrm{tot}}(\Lambda)}{\min_\chi \beta_c(\chi)} = 18.462 \;<\; d! \;<\; |2I| = 120 \qquad\Longleftrightarrow\qquad 3 \;<\; d \;<\; 5,
+\end{equation}
+where the causal poset simultaneously (i)~crosses the percolation threshold $k_c(d) < 3$ and melts the single-channel crystal-freezing transition $\beta_{\mathrm{channel}}(d) < 1.00$ ($d > 3$), and (ii)~remains below the spacetime permutation-washout ceiling $d! < |2I| = 120$ ($d < 5$). Moreover, by Burnside's Theorem on $\R[\Gstar]$, linear combinations of the $S_4$-symmetrized vertex operators $\overline{U}_4 = \frac{1}{24}\sum_{\sigma \in S_4} \rho(u_{\sigma(1)}\cdots u_{\sigma(4)})$ linearly span the full matrix blocks $M_{n_\alpha}(\mathbb{D}_\alpha)$ containing the Lie algebras $\mathfrak{spin}(4)$ and $\mathfrak{su}(3)_c \oplus \mathfrak{su}(2)_{W,L} \oplus \mathfrak{u}(1)_Y$.
 \end{theorem}
+
+\begin{proof}
+For the lower bound ($d > 3$), Table~\ref{tab:d4_selection} shows that degrees $d \in \{1, 2, 3\}$ have $k_c(d) = p_{\mathrm{joint}}(d)^{-1/(2d)} \ge 6.15 > 3$ (sub-critical for a minimal $\Z_3$ triplet fiber) and $\beta_{\mathrm{channel}}(d) = \beta_{\mathrm{tot}}(\Lambda)/d! \ge 3.0769 > \min_\chi \beta_c(\chi) = 1.00$ (locked in the frozen crystal phase). At $d = 4$ ($4! = 24$), both thresholds are crossed simultaneously: $k_c(4) = 2.83 < 3$ and $\beta_{\mathrm{channel}}(4) = 18.462 / 24 = 0.7692 < 1.00$. For the upper bound ($d < 5$), because the spacetime spinor group $2I$ (order $|2I| = 120$) is perfect ($2I^{\mathrm{ab}} = \{1\}$, carrying no conserved abelian Kirchhoff charge of its own), an incoming $d$-tuple generates up to $d!$ permutation products in $2I$. At $d = 4$, $4! = 24 < |2I| = 120$ populates at most $20\%$ of $2I$, preserving non-trivial spacetime causal selectivity ($p_{2I}(4) = 0.7945 < 1$), whereas for $d \ge 5$, $d! \ge 5! = 120 = |2I|$ equals or exceeds the group order and triggers Kleitman--Rothschild permutation washout of the spacetime factor ($p_{2I}(5) = 0.9928 \to 1$). Thus $3 < d < 5$ uniquely selects $d = 4$, matching the real dimension $\dim_{\R}(\mathbf{2}_{\mathrm{spin},L}) = 4$ of the parallel subspace $\R^4_\parallel \cong \quat$ in $E_8 \to H_4 \oplus H_4'$. Finally, while Burnside's Theorem guarantees that linear combinations of $\overline{U}_4$ span $M_{n_\alpha}(\mathbb{D}_\alpha)$ algebraically, a single $d = 4$ vertex average $\overline{U}_4$ takes finitely many discrete values in the convex hull of $\rho(\Gstar)$ with a strictly positive finite-group trace gap, so approaching a continuous Lie distribution with $\Delta E_{\mathrm{coarse}} \to 0$ requires the $N \to \infty$ coarse-graining limit (Section~\ref{sec:open_problems}, item~2).
+\end{proof}
 
 Furthermore, because $2I \subset \SU(2)_{\mathrm{spin}}$ is an exact unitary $5$-design (whose character moments $\frac{1}{|2I|}\sum_{g\in 2I} |\chi_1(g)|^{2t}$ equal the continuous $\SU(2)$ Haar Catalan numbers $C_t = \frac{1}{t+1}\binom{2t}{t} = (1, 2, 5, 14, 42)$ identically up to polynomial degree $2t = 10$), all rotationally anisotropic operators under the compact rotation subgroup $2I/Z(2I) \cong A_5 \subset \SO(3)$ vanish up to polynomial degree $2t = 10$ (whereas $Z(2I) = \{\pm 1\}$ is the $2\pi$ spinor rotation $(-1)^F$, so forbidding isotropic dimension-$5$ $\mathcal{CPT}$-odd dispersion shifts $\xi_1$ requires unbroken macroscopic $\mathcal{CPT}$ and boost invariance in the continuum limit; Section~\ref{sec:open_problems}, item~1), while the quadratic ($n=2$) dispersion scale $\Lambda = 5.024 \times 10^{13}\text{ GeV}$ exceeds the $13\text{ TeV}$ photon bound from LHAASO GRB 221009A ($E_{\mathrm{QG},2} > 6.0 \times 10^{11}\text{ GeV}$) by a factor of $83.7$.
 
@@ -484,6 +493,7 @@ The discrete selection rules and threshold scales of $\Gstar$ yield six sharp ex
     \item \textbf{A Heavy Type-II 2HDM Quartet ($A^0, H^\pm, H^0$) at $2.4621\text{--}2.4638\text{ TeV}$ with $\tan\beta = 60$:} Sitting just above the current $2.0\text{--}2.1\text{ TeV}$ LHC Run-2/Run-3 exclusion boundary (Eq.~\eqref{eq:heavy_2hdm}), this quartet is directly testable via $\tan\beta$-enhanced $b\bar{b} \to H^0/A^0 \to \tau^+\tau^-, b\bar{b}$ and $gb \to tH^\pm \to tb, t\tau\nu$ production at the HL-LHC and FCC-hh.
 \end{enumerate}
 
+\newpage
 \subsection{Summary of Leading-Order Group-Algebraic Predictions}
 
 Table~\ref{tab:master} compiles the 35 structural and leading-order quantitative predictions obtained in Sections~3--6 from the invariants of $\Gstar$ and compares them against current experimental values (subject to the input dependencies and theoretical truncation caveats detailed in Section~\ref{sec:open_problems}).
