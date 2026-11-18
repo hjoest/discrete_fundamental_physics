@@ -26,7 +26,7 @@
     citecolor=blue!70!black,
     urlcolor=blue!70!black,
     pdftitle={Numerical Poset Collider Simulations, 4D Aperiodic 600-Cell Quasicrystals, and Kadanoff Renormalization on (P, G*, Z)},
-    pdfauthor={Gemini 4 Argon, Holger Joest},
+    pdfauthor={Holger Joest},
     pdfcreationdate={D:20261116193000}
 }
 
@@ -59,8 +59,8 @@
 \newcommand{\Gstar}{G_\star}
 
 \title{\textbf{Numerical Poset Collider Simulations, 4D Aperiodic $600$-Cell Quasicrystals, and Kadanoff Renormalization on $(P, G_\star, Z, \prec_Z)$}}
-\author{Gemini 4 Argon, Holger Joest}
-\date{16. November 2026}
+\author{Holger Joest\thanks{Developed in collaboration with Gemini 4 Argon (Google DeepMind) and independently audited with Claude Opus 5.5 (Anthropic). Dialogue transcript and zero-dependency verification suite: \url{https://github.com/hjoest/discrete_fundamental_physics}.}}
+\date{November 16, 2026}
 
 \begin{document}
 
@@ -69,13 +69,13 @@
 \begin{abstract}
 In our~first~paper~\cite{PaperI}, we formulated a strictly finitist synthesis of Causal Set Theory and Noncommutative Geometry based on a locally finite causal poset $(P, \le_P)$ and the minimal four-factor finite group
 \[
-\Gstar = \underbrace{2I \times \Sigma(216 \times 3) \times \Delta(27)_f}_{\Gthree\;\text{(order }2{,}099{,}520\text{)}} \times \Z_3^{\mathrm{PQ}} \qquad (\text{order } 6{,}298{,}560),
+\Gstar = \underbrace{2I \times \Sigma(216 \times 3) \times \Delta(27)_f}_{\Gthree\;\text{(order }2{,}099{,}520\text{)}} \times \Z_3^{\mathrm{PQ}} \qquad (\text{order } 6{,}298{,}560).
 \]
-identifying four foundational and perturbative open problems: (1)~emergent 4D geometry, rotational/boost isotropy, and Kleitman--Rothschild pancake suppression; (2)~Kadanoff coarse-graining of discrete Kronecker-delta plaquette weights into the continuum Yang--Mills action and saddle-point diagram weights; (3)~higher-loop, top-quark threshold, and $N_H = 18$ flavon-Higgs Yukawa refinements of the $b\text{--}\tau$ mass ratio $R_{d/e}(M_Z)$ and strong coupling $\alpha_s(M_Z)$; and (4)~elimination of external fermion-mass input dependencies via a single-anchor ($M_Z$-only) prediction cascade and quantitative evaluation of the look-elsewhere trial factor.
-
-In this companion paper, we investigate all four open problems from the top down through eight numerical and group-algebraic experiments implemented in the simulation suite (\texttt{run\_simulation.py} and \texttt{src/poset\_simulation.py}). First, we construct 4D spacetime poset arenas $[0, L]^4$ ($N = L^4$ events up to $20^4 = 160{,}000$ events) under three competing strategies---a $d=4$ tetrahedral-cubic lattice (\texttt{cubic}), a Lorentzian Poissonian sprinkling (\texttt{poisson}), and a 4D ``one-stone'' aperiodic monotile / $E_8 \to H_4 \oplus H_4'$ $600$-cell quasicrystal (\texttt{aperiodic})---proving that the $120$ vertices of $2I$ form an exact \emph{spherical $11$-design} on $S^3$ (zero $\SO(4)$ anisotropy up to polynomial degree $2m = 10$, vs.\ $100\%$ error at degree $4$ on the hypercubic grid) and reducing light-cone speed anisotropy $\Delta c / c$ by $7.3\times$ while maintaining hyperuniform $d \approx 4$ connectivity and Myrheim--Meyer dimension $D_{\mathrm{MM}} \approx 4$. Second, a reversible coordinate-free Metropolis--Hastings Markov chain initialized in a pathological 3-layer Kleitman--Rothschild pancake ($\langle d_{\mathrm{out}}\rangle = 22.44$, $D_{\mathrm{MM}} = 2.60$) spontaneously unfolds the poset to $7$ causal layers with $\langle d_{\mathrm{out}}\rangle = 4.30$ and $D_{\mathrm{MM}} = 3.65\text{--}3.87$ without reference to $\R^4$ coordinates. Third, firing discrete $2I[1]$ Weyl spinor wavepackets into the $1 \in \Gstar$ vacuum uses exact unitary $\SU(2)$ single-link transport gates and reproduces the exact $1/9 = N_c^{-2}$ color-singlet lepton branching in head-on $2 \to 2$ collisions. Fourth, under $b^2$-fold Kadanoff plaquette convolution on $\R[2I]$, higher-spin representations decay by $4.89 \times 10^{-3}$ at $b = 8$ and the discrete block action converges in functional form to $\beta_{\mathrm{eff}}(b)(2 - \operatorname{Re}\chi_{\mathbf{2}_L}(g))$ with $R^2 = 0.998608$ as $\beta_{\mathrm{eff}}(b) \to 0$ in the coarse-grained random-walk regime. Fifth, injecting top, bottom, and tau states into 1-loop causal diamonds ($u \prec w_1, w_2 \prec v$) and integrating the coupled 1-loop $(y_t, y_b, y_\tau)$ RGEs shows that top-quark decoupling below $m_t$ shifts $\alpha_s(M_Z)$ from $0.1170$ ($-1.0\sigma$) to $0.1179$ ($0.0\sigma$), while ultraviolet $\frac{9}{2}N_{\mathrm{ch}}y_t^3$ self-damping drives the unquenched $R_{d/e}(M_Z)$ from $2.1700$ down to the Pendleton--Ross infrared attractor $1.9131$ ($N_{\mathrm{ch}}=1$) and $1.9097$ ($N_{\mathrm{ch}}=9$), closing $52\%$ of the unquenched gap toward the experimental $1.6709$ (with the remaining gap accounted for by the quenched $4/11$ 2-step causal-diamond gluon exponent $1.7313$), reducing the unquenched 12-observable single-anchor ($M_Z$-only) cascade error from $10.0\%$ to $7.39\%$ ($5.16\%$ with the quenched $4/11$ baseline), and yielding a look-elsewhere-corrected joint significance of $p_{\mathrm{LEE}} = 1.03 \times 10^{-5}$ ($4.26\sigma$ one-sided) across the $6$ experimentally measured scale hierarchies out of $2{,}268$ enumerated group-invariant monomials.
+In this companion paper, we investigate the four foundational and perturbative open problems identified in~\cite{PaperI} through eight numerical and group-algebraic experiments. First, we construct 4D spacetime poset arenas $[0, L]^4$ (up to $N = 20^4 = 160{,}000$ events) under three strategies---a $d=4$ tetrahedral-cubic lattice (\texttt{cubic}), a Lorentzian Poissonian sprinkling (\texttt{poisson}), and a 4D ``one-stone'' aperiodic monotile / $E_8 \to H_4 \oplus H_4'$ $600$-cell quasicrystal (\texttt{aperiodic})---proving that the $120$ vertices of $2I$ form an exact \emph{spherical $11$-design} on $S^3$ (zero $\SO(4)$ anisotropy up to degree $2m = 10$, vs.\ $100\%$ error at degree $4$ on the hypercubic grid) and reducing light-cone speed anisotropy $\Delta c / c$ by $7.3\times$ with hyperuniform $d \approx 4$ connectivity and Myrheim--Meyer dimension $D_{\mathrm{MM}} \approx 4$. Second, a reversible coordinate-free Metropolis--Hastings Markov chain initialized in a 3-layer Kleitman--Rothschild pancake ($\langle d_{\mathrm{out}}\rangle = 22.44$, $D_{\mathrm{MM}} = 2.60$) spontaneously unfolds the poset to $7$ causal layers with $\langle d_{\mathrm{out}}\rangle = 4.30$ and $D_{\mathrm{MM}} = 3.65\text{--}3.87$ without $\R^4$ coordinates. Third, discrete $2I[1]$ Weyl spinor wavepackets propagated by exact unitary $\SU(2)$ link gates reproduce the exact $1/9 = N_c^{-2}$ color-singlet lepton branching in head-on $2 \to 2$ collisions. Fourth, under $b^2$-fold Kadanoff plaquette convolution on $\R[2I]$, higher-spin representations decay by $4.89 \times 10^{-3}$ at $b = 8$ and the discrete block action converges in functional form to $\beta_{\mathrm{eff}}(b)(2 - \operatorname{Re}\chi_{\mathbf{2}_L}(g))$ ($R^2 = 0.998608$) as $\beta_{\mathrm{eff}}(b) \to 0$. Fifth, evaluating 1-loop causal diamonds ($u \prec w_1, w_2 \prec v$) and integrating the coupled 1-loop $(y_t, y_b, y_\tau)$ RGEs shows that top-quark decoupling below $m_t$ shifts $\alpha_s(M_Z)$ from $0.1170$ ($-1.0\sigma$) to $0.1179$ ($0.0\sigma$), while ultraviolet $\frac{9}{2}N_{\mathrm{ch}}y_t^3$ self-damping drives the unquenched $b\text{--}\tau$ ratio $R_{d/e}(M_Z)$ from $2.1700$ to the Pendleton--Ross infrared attractor $1.9131$ ($N_{\mathrm{ch}}=1$) and $1.9097$ ($N_{\mathrm{ch}}=9$), closing $52\%$ of the unquenched gap toward the experimental $1.6709$ ($1.7313$ with the quenched $4/11$ exponent). This reduces the unquenched 12-observable single-anchor ($M_Z$-only) cascade error from $10.0\%$ to $7.39\%$ ($5.16\%$ quenched) and yields a look-elsewhere-corrected joint significance of $p_{\mathrm{LEE}} = 1.03 \times 10^{-5}$ ($4.26\sigma$ one-sided) across the $6$ measured scale hierarchies out of $2{,}268$ enumerated group-invariant monomials.
 \end{abstract}
 
+\newpage
+\setcounter{tocdepth}{1}
 \tableofcontents
 
 %=============================================================================
@@ -101,7 +101,7 @@ At the same time, Paper~I identified four foundational and perturbative open pro
     \item \textbf{Open Problem 4 (Single-Anchor $M_Z$-Only Cascade and Look-Elsewhere Quantification):} Can the external fermion-mass and VEV anchors ($v_{\mathrm{ew}}, m_t, m_\tau$) be eliminated so that the entire mass spectrum is derived from $M_Z = 91.1876\text{ GeV}$ alone, and what is the rigorous statistical significance of the scale hierarchies when penalized by the full look-elsewhere trial factor over all group-invariant monomials?
 \end{enumerate}
 
-In this paper, we address these questions by constructing a 4D numerical ``Poset Collider'' (\texttt{run\_simulation.py} and \texttt{src/poset\_simulation.py}) that initializes a 4D spacetime cube $[0, L]^4$ in the vacuum state $g_e = 1 \in \Gstar$, fires and collides quantum spinor wavepackets across the causal network, performs coordinate-free Metropolis--Hastings poset evolution and Kadanoff block-plaquette convolutions, and evaluates the exact 1-loop causal-diamond channel multiplicities of $\Gstar$.
+In this paper, we address these questions by constructing a 4D numerical ``Poset Collider'' that initializes a 4D spacetime cube $[0, L]^4$ in the vacuum state $g_e = 1 \in \Gstar$, fires and collides quantum spinor wavepackets across the causal network, performs coordinate-free Metropolis--Hastings poset evolution and Kadanoff block-plaquette convolutions, and evaluates the exact 1-loop causal-diamond channel multiplicities of $\Gstar$.
 
 %=============================================================================
 \section{Four-Dimensional Spacetime Arena Strategies and the \texorpdfstring{$600$-Cell Spherical $11$-Design}{600-Cell Spherical 11-Design} Theorem}
@@ -128,7 +128,7 @@ To test how microscopic spacetime geometry affects causal propagation and scatte
     0 & -1 & \phi^{-1} & \phi
     \end{pmatrix}, \qquad R_{600}^T R_{600} = I_4, \qquad \Tr(R_{600}) = 2\phi = 1 + \sqrt{5}.
     \end{equation}
-    For each integer site $n \in \{0, \dots, L-1\}^4$, its perpendicular $H_4'$ window coordinate $y_\perp(n) = (\phi^{-1} R'_{600} n + \frac{\phi}{2}) \bmod 1 - \frac{1}{2} \in [-\frac{1}{2}, \frac{1}{2})^4$ is projected into physical 4D spacetime via $R_{600} y_\perp(n)$ and twisted by an irrational chiral monotile phase $\sin\bigl(2\pi\phi^{-1}(\phi n_0 + n_1 - \phi^{-1}n_2 + n_3)\bigr)$, producing an strictly non-periodic, hyperuniform 4D vertex set linked causally inside the forward light cone.
+    For each integer site $n \in \{0, \dots, L-1\}^4$, its perpendicular $H_4'$ window coordinate $y_\perp(n) = (\phi^{-1} R'_{600} n + \frac{\phi}{2}) \bmod 1 - \frac{1}{2} \in [-\frac{1}{2}, \frac{1}{2})^4$ is projected into physical 4D spacetime via $R_{600} y_\perp(n)$ and twisted by an irrational chiral monotile phase $\sin\bigl(2\pi\phi^{-1}(\phi n_0 + n_1 - \phi^{-1}n_2 + n_3)\bigr)$, producing a strictly non-periodic, hyperuniform 4D vertex set linked causally inside the forward light cone.
 \end{enumerate}
 
 \subsection{Proof of the \texorpdfstring{$600$-Cell Spherical $11$-Design Theorem on $S^3$}{600-Cell Spherical 11-Design Theorem on S3}}
@@ -170,7 +170,7 @@ Table~\ref{tab:spherical_design} shows the numerical verification of Theorem~\re
 
 Initializing all covering links $e = (u \prec_P v)$ to the vacuum identity element $g_e = 1 \in \Gstar$ satisfies Axiom~\ref{eq:axiom3} ($\prod 1 = \prod 1 = 1$) at $100.0\%$ of interior vertices across all three strategies. Table~\ref{tab:arena_geometry} compares the emergent geometric metrics measured on $[0, L]^4$ at $L = 10$ ($N = 10{,}000$ events per arena; $L = 20$ with $N = 160{,}000$ events and $608{,}000$ links builds in $2.85\text{ s}$ and yields $D_{\mathrm{MM}} = 4.10$):
 \begin{itemize}
-    \item \textbf{Myrheim--Meyer Dimension $D_{\mathrm{MM}}$:} Computed by inverting the continuum Minkowski ordering-fraction relation $f(D) = \frac{\Gamma(D+1)\Gamma(D/2)}{4\Gamma(3D/2)}$ ($f(4) = 1/10 = 0.100$) on depth-4 local causal cones.
+    \item \textbf{Myrheim--Meyer Dimension $D_{\mathrm{MM}}$:} Computed by inverting the continuum Minkowski ordering-fraction relation~\cite{Myrheim1978} $f(D) = \frac{\Gamma(D+1)\Gamma(D/2)}{4\Gamma(3D/2)}$ ($f(4) = 1/10 = 0.100$) on depth-4 local causal cones.
     \item \textbf{Spectral Dimension $D_{\mathrm{spec}}$:} Extracted from the logarithmic return-probability slope $D_{\mathrm{spec}} = -2\,\Delta\ln P(\sigma)/\Delta\ln\sigma$ of random walks on the poset graph.
     \item \textbf{Light-Cone Speed Anisotropy $\Delta c / c$:} Measured as the relative standard deviation $\operatorname{std}_{\hat{n}}(c(\hat{n})) / \langle c(\hat{n})\rangle$ of the maximal causal propagation speed across $14$ spatial directions ($6$ cubic axes and $8$ body diagonals).
 \end{itemize}
@@ -201,10 +201,10 @@ As shown in Table~\ref{tab:arena_geometry}, the \texttt{cubic} lattice has zero 
 
 In Experiment~1, the 4D coordinates $x(p) \in [0, L]^4$ were assigned kinematically when constructing the arena. To address Open Problem~1(i) dynamically, Experiment~5 initializes an abstract set of $N = 160$ events with \emph{zero spacetime coordinates} in a pathological 3-layer Kleitman--Rothschild pancake~\cite{KleitmanRothschild1975} ($L_{\max} = 3$ layers, high out-degree $\langle d_{\mathrm{out}}\rangle = 22.44$, ordering fraction $f = C_2 / \binom{N}{2} = 0.3172$, and crushed Myrheim--Meyer dimension $D_{\mathrm{MM}} = 2.60$).
 
-We evolve the abstract poset $(P, \prec_P)$ via reversible Metropolis--Hastings Markov-chain moves (uniform link deletions across existing edges, uniform link additions across non-edge pairs $(u < v)$ with exact Hastings proposal ratios $q(P'\to P)/q(P\to P')$, and reversible local topological link unfoldings $u \to v \Longleftrightarrow u \to w \to v$) weighted purely by the microscopic poset action $S[P, \Gstar] = -\ln\mathcal{Z}[P, \Gstar]$ derived from Theorems~1 and~3 and Critique~1 of Paper~I:
+We evolve the abstract poset $(P, \prec_P)$ via reversible Metropolis--Hastings Markov-chain moves~\cite{Surya2012} (uniform link deletions across existing edges, uniform link additions across non-edge pairs $(u < v)$ with exact Hastings proposal ratios $q(P'\to P)/q(P\to P')$, and reversible local topological link unfoldings $u \to v \Longleftrightarrow u \to w \to v$) weighted purely by the microscopic poset action $S[P, \Gstar] = -\ln\mathcal{Z}[P, \Gstar]$ derived from Theorems~1 and~3 and Section~9 (Critique~1) of Paper~I~\cite{PaperI}:
 \begin{enumerate}
     \item \textbf{Factorial Channel-Melting Threshold ($d < 4$):} By Theorem~3 of Paper~I, the per-channel inverse temperature $\beta_{\mathrm{ch}}(d) = 18.461 / d!$ exceeds the critical freezing threshold $1.00$ for $d \in \{1, 2, 3\}$ and melts first at $d = 4$ ($\beta_{\mathrm{ch}}(4) = 0.7692 < 1$), contributing $S_{\mathrm{freeze}}(d) = \max(0, \beta_{\mathrm{ch}}(d) - 1)$ for $d < 4$.
-    \item \textbf{Central Link Cost and Abelian Kirchhoff Hub Suppression ($d > 4$):} By Theorem~3 and Critique~1 (Eq.~(585) of Paper~I), each link above $d = 4$ pays the central synchronization cost $\mu_{\mathrm{link}} = \ln|Z(\Gthree)| = \ln 6 = 1.7918$ plus the abelian Kirchhoff hub synchronization cost $\ln|\Gstar^{\mathrm{ab}}| = \ln 81 = 4.3944$, i.e., $(\ln 6 + \ln 81)\max(0, d - 4)$.
+    \item \textbf{Central Link Cost and Abelian Kirchhoff Hub Suppression ($d > 4$):} By Theorem~3 and Section~9 (Critique~1, Eq.~(585)) of Paper~I, each link above $d = 4$ pays the central synchronization cost $\mu_{\mathrm{link}} = \ln|Z(\Gthree)| = \ln 6 = 1.7918$ plus the abelian Kirchhoff hub synchronization cost $\ln|\Gstar^{\mathrm{ab}}| = \ln 81 = 4.3944$, i.e., $(\ln 6 + \ln 81)\max(0, d - 4)$.
     \item \textbf{Hasse Covering Condition and Elementary Plaquette Closure:} Redundant non-Hasse shortcut links $(u, v)$ bypassing an existing chain $u \prec \cdots \prec v$ pay $\ln|\Gthree^{\mathrm{ab}}| = \ln 27 = 3.2958$; elementary $k = 2$ Plancherel diamonds ($u \prec w_1, w_2 \prec v$) lower the action by $-\ln|Z(2I)| = -\ln 2$ up to the $\binom{4}{2} = 6$ plaquette planes of a $d = 4$ vertex, while $k \ge 3$ collapsed $K_{2,k}$ spindles pay $+\ln 6$.
 \end{enumerate}
 
@@ -250,7 +250,7 @@ where $\hat{n}_{uv} = \Delta \vec{x}/|\Delta \vec{x}|$ and $\theta_{uv} = |\Delt
 
 \subsection{Experiment 3: Head-On \texorpdfstring{$2 \to 2$}{2 -> 2} Collisions and Axiom 3 Vertex Scattering}
 
-In Experiment~3 (\texttt{run\_miniature\_lhc\_collision}), we fire two counter-propagating quantum wavepackets into the $1 \in \Gstar$ vacuum arena at $t = 0$:
+In Experiment~3, we fire two counter-propagating quantum wavepackets into the $1 \in \Gstar$ vacuum arena at $t = 0$:
 \begin{itemize}
     \item \textbf{Beam $A$:} Starts at $\vec{x}_A = (0.25 L, 0.5 L, 0.5 L)$ with momentum $\vec{k}_A = (+1.35, 0, 0)$, carrying a quark color triplet $\mathbf{3}_c \in \Sigma(216\times 3)$ and spinor doublet $\mathbf{2}_L \in 2I$.
     \item \textbf{Beam $B$:} Starts at $\vec{x}_B = (0.75 L, 0.5 L, 0.5 L)$ with momentum $\vec{k}_B = (-1.35, 0, 0)$, carrying the conjugate anti-triplet $\overline{\mathbf{3}}_c \in \Sigma(216\times 3)$ and spinor doublet $\mathbf{2}_L \in 2I$.
@@ -289,7 +289,7 @@ As established by Wilson and Kadanoff, however, the physical role of the renorma
 
 \subsection{Experiment 6: Exact \texorpdfstring{$b^2$-Fold Plancherel Convolution on $\R[2I]$}{b2-Fold Plancherel Convolution on R[2I]} (Open Problem 2)}
 
-To test Open Problem~2 directly---how the discrete Kronecker-delta plaquette weight $\delta_{2I}(U_\square) = \frac{1}{|2I|}\sum_\chi d_\chi \chi(U_\square)$ smooths into the functional form of the $\SU(2)$ Yang--Mills action---we consider an elementary $b = 1$ plaquette distribution $P_1(g)$ on $2I$ with weight $1 - \epsilon$ on the vacuum identity $1 \in 2I$ and weight $\epsilon = 0.28$ distributed uniformly over the $12$ nearest-neighbor $600$-cell generators (conjugacy class $12_a$, where $\chi_{\mathbf{2}_L}(g) = \phi = 2\cos(\pi/5)$ and the action gap is $\Delta E_{\min} = 1 - \cos(\pi/5) = 0.1910$).
+To test Open Problem~2 directly---how the discrete Kronecker-delta plaquette weight $\delta_{2I}(U_\square) = \frac{1}{|2I|}\sum_\chi d_\chi \chi(U_\square)$ smooths into the functional form of the $\SU(2)$ Yang--Mills action~\cite{PetcherWeingarten1980}---we consider an elementary $b = 1$ plaquette distribution $P_1(g)$ on $2I$ with weight $1 - \epsilon$ on the vacuum identity $1 \in 2I$ and weight $\epsilon = 0.28$ distributed uniformly over the $12$ nearest-neighbor $600$-cell generators (conjugacy class $12_a$, where $\chi_{\mathbf{2}_L}(g) = \phi = 2\cos(\pi/5)$ and the action gap is $\Delta E_{\min} = 1 - \cos(\pi/5) = 0.1910$).
 
 Under Kadanoff block-poset renormalization at scale $b$, a coarse-grained block plaquette encompasses $N_\square = b^2$ elementary plaquettes, so its boundary holonomy distribution $P_b(g)$ is the exact $b^2$-fold non-abelian group convolution on $\R[2I]$:
 \begin{equation}
@@ -385,7 +385,7 @@ Strong Coupling $\alpha_s(M_Z)$ (Top Decoupled) & $N_f: 6 \to 5$ below $m_t = 17
 Table~\ref{tab:top_collider} reveals two key physical results:
 \begin{enumerate}
     \item \textbf{Exact Resolution of $\alpha_s(M_Z)$:} Decoupling the top quark from the 1-loop gluon vacuum-polarization diamonds below $m_t = 171.7\text{ GeV}$ ($b_3: -7 \to -23/3$ on $[M_Z, m_t]$) shifts $\alpha_s(M_Z)$ from $0.1170$ ($-1.0\sigma$) to $\mathbf{0.1179}$ ($\mathbf{0.0\sigma}$, matching the PDG world average $0.1179 \pm 0.0009$).
-    \item \textbf{Pendleton--Ross Attractor in the Coupled $(y_t, y_b, y_\tau)$ RGE:} Integrating the coupled 1-loop system~\eqref{eq:rde_9channel_rge} reduces the unquenched pure-gauge ratio $R_{d/e}^{\mathrm{gauge}}(M_Z) = 2.1700$ ($+29.9\%$) to $\mathbf{1.9131}$ ($+14.5\%$ for $N_{\mathrm{ch}} = 1$) and $\mathbf{1.9097}$ ($+14.3\%$ for $N_{\mathrm{ch}} = 9$), closing $52\%$ of the gap between the unquenched pure-gauge baseline and the experimental $1.6709$. Crucially, because the ultraviolet self-damping term $+\frac{9}{2}N_{\mathrm{ch}}y_t^3$ in $dy_t/d\ln\mu$ drives the product $N_{\mathrm{ch}}y_t^2(\mu)$ rapidly onto the $N_{\mathrm{ch}}$-independent Pendleton--Ross infrared quasi-fixed-point attractor $N_{\mathrm{ch}}y_t^2(\mu) \approx \frac{16}{9}g_3^2(\mu)$, $N_{\mathrm{ch}} = 9$ ($1.9097$) and $N_{\mathrm{ch}} = 1$ ($1.9131$) converge to within $0.2\%$ at $M_Z$. Thus, 1-loop Yukawa running alone cannot push the unquenched ratio below $\sim 1.91$; reaching $1.7313$ ($+3.61\%$) or $1.6709$ requires the quenched $4/11$ causal-diamond gluon exponent of Paper~I (or two-loop / finite-poset threshold corrections).
+    \item \textbf{Pendleton--Ross Attractor in the Coupled $(y_t, y_b, y_\tau)$ RGE:} Integrating the coupled 1-loop system~\eqref{eq:rde_9channel_rge} reduces the unquenched pure-gauge ratio $R_{d/e}^{\mathrm{gauge}}(M_Z) = 2.1700$ ($+29.9\%$) to $\mathbf{1.9131}$ ($+14.5\%$ for $N_{\mathrm{ch}} = 1$) and $\mathbf{1.9097}$ ($+14.3\%$ for $N_{\mathrm{ch}} = 9$), closing $52\%$ of the gap between the unquenched pure-gauge baseline and the experimental $1.6709$. Crucially, because the ultraviolet self-damping term $+\frac{9}{2}N_{\mathrm{ch}}y_t^3$ in $dy_t/d\ln\mu$ drives the product $N_{\mathrm{ch}}y_t^2(\mu)$ rapidly onto the $N_{\mathrm{ch}}$-independent Pendleton--Ross infrared quasi-fixed-point attractor~\cite{PendletonRoss1981} $N_{\mathrm{ch}}y_t^2(\mu) \approx \frac{16}{9}g_3^2(\mu)$, $N_{\mathrm{ch}} = 9$ ($1.9097$) and $N_{\mathrm{ch}} = 1$ ($1.9131$) converge to within $0.2\%$ at $M_Z$. Thus, 1-loop Yukawa running alone cannot push the unquenched ratio below $\sim 1.91$; reaching $1.7313$ ($+3.61\%$) or $1.6709$ requires the quenched $4/11$ causal-diamond gluon exponent of Paper~I (or two-loop / finite-poset threshold corrections).
 \end{enumerate}
 
 %=============================================================================
@@ -395,7 +395,7 @@ Table~\ref{tab:top_collider} reveals two key physical results:
 
 \subsection{Experiment 8A: Zero-Input Single-Anchor Cascade from \texorpdfstring{$M_Z$}{M\_Z} Alone}
 
-In Paper~I (Critique~7), deriving all dimensionful masses from $M_Z = 91.1876\text{ GeV}$ alone was tested under two baselines: the unquenched pure-gauge ratio $R_{d/e}^{\mathrm{gauge}}(M_Z) = 2.1700$ (which produced a $-23.7\%$ offset on $m_\tau, m_\mu, m_e$) and the quenched $4/11$ ansatz $R_{d/e}^{\mathrm{YM}}(M_Z) = 1.7313$ (which left a $-4.37\%$ offset on $m_\tau, m_\mu, m_e$).
+In Section~9 (Critique~7) of Paper~I~\cite{PaperI}, deriving all dimensionful masses from $M_Z = 91.1876\text{ GeV}$ alone was tested under two baselines: the unquenched pure-gauge ratio $R_{d/e}^{\mathrm{gauge}}(M_Z) = 2.1700$ (which produced a $-23.7\%$ offset on $m_\tau, m_\mu, m_e$) and the quenched $4/11$ ansatz $R_{d/e}^{\mathrm{YM}}(M_Z) = 1.7313$ (which left a $-4.37\%$ offset on $m_\tau, m_\mu, m_e$).
 
 In Table~\ref{tab:single_anchor}, we evaluate the complete 12-observable zero-input deductive cascade from $M_Z = 91.1876\text{ GeV}$ alone (including $m_u(M_Z)$ and using running lepton mass ratios at $M_Z$ for $m_s, m_d, m_c, m_u$, matching Section~5.1 of Paper~I) across all three regimes---unquenched pure-gauge ($2.1700$), Paper~II's unquenched coupled 1-loop 9-channel RGE ($1.9097$), and the quenched $4/11$ baseline ($1.7313$):
 \begin{equation}
@@ -540,15 +540,19 @@ Table~\ref{tab:open_problems_status} summarizes the progress achieved across the
 \clearpage
 
 \begin{thebibliography}{99}
+\bibitem{PaperI} H.~Joest, ``Discrete Fundamental Physics from a Causal Poset and the Minimal Finite Group $G_\star = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f \times \Z_3^{\mathrm{PQ}}$,'' Paper~I (2026).
 \bibitem{Bombelli1987} L.~Bombelli, J.~Lee, D.~Meyer, and R.~D.~Sorkin, ``Space-time as a causal set,'' \emph{Phys.\ Rev.\ Lett.} \textbf{59}, 521 (1987).
 \bibitem{ChamseddineConnes1997} A.~H.~Chamseddine and A.~Connes, ``The Spectral Action Principle,'' \emph{Commun.\ Math.\ Phys.} \textbf{186}, 731--750 (1997).
 \bibitem{Coxeter1974} H.~S.~M.~Coxeter, \emph{Regular Complex Polytopes} (Cambridge University Press, Cambridge, 1974).
 \bibitem{MoodyPatera1993} R.~V.~Moody and J.~Patera, ``Quasicrystals and icosians,'' \emph{J.\ Phys.\ A: Math.\ Gen.} \textbf{26}, 2829--2853 (1993).
+\bibitem{Myrheim1978} J.~Myrheim, ``Statistical geometry,'' CERN Preprint TH-2538 (1978); D.~A.~Meyer, \emph{The Dimension of Causal Sets}, Ph.D.\ thesis, Massachusetts Institute of Technology (1988).
 \bibitem{KleitmanRothschild1975} D.~J.~Kleitman and B.~L.~Rothschild, ``Asymptotic enumeration of partial orders on a finite set,'' \emph{Trans.\ Amer.\ Math.\ Soc.} \textbf{205}, 205--220 (1975).
+\bibitem{Surya2012} S.~Surya, ``Evidence for the continuum limit in 2D causal set quantum gravity,'' \emph{Class.\ Quant.\ Grav.} \textbf{29}, 132001 (2012).
 \bibitem{BombelliHensonSorkin2009} L.~Bombelli, J.~Henson, and R.~D.~Sorkin, ``Discreteness without symmetry breaking: a theorem,'' \emph{Mod.\ Phys.\ Lett.\ A} \textbf{24}, 2579--2587 (2009).
+\bibitem{PetcherWeingarten1980} D.~Petcher and D.~H.~Weingarten, ``Monte Carlo calculations and a model of the phase structure for gauge theories on discrete subgroups of $\SU(2)$,'' \emph{Phys.\ Rev.\ D} \textbf{22}, 2465 (1980).
+\bibitem{PendletonRoss1981} B.~Pendleton and G.~G.~Ross, ``Mass and mixing angle predictions from infra-red fixed points,'' \emph{Phys.\ Lett.\ B} \textbf{98}, 291--294 (1981).
 \bibitem{Koide1983} Y.~Koide, ``New view of quark and lepton mass hierarchy,'' \emph{Phys.\ Rev.\ D} \textbf{28}, 252 (1983).
 \bibitem{PDG2024} S.~Navas \emph{et al.} (Particle Data Group), ``Review of Particle Physics,'' \emph{Phys.\ Rev.\ D} \textbf{110}, 030001 (2024).
-\bibitem{PaperI} Gemini~4~Argon and H.~Joest, ``Discrete Fundamental Physics from a Causal Poset and the Minimal Finite Group $G_\star = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f \times \Z_3^{\mathrm{PQ}}$,'' Paper~I (2026).
 \end{thebibliography}
 
 \end{document}
