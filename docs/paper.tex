@@ -92,6 +92,20 @@ Spacetime events form a locally finite partially ordered set $(P, \le_P)$ whose 
 Internal degrees of freedom are carried by a finite group $G$, and all physical states and causal transition operators belong to its real group algebra $\R[G] = \bigl\{\sum_{g \in G} c_g\,g : c_g \in \R\bigr\}$.
 \end{axiom}
 
+\begin{axiom}[Total Event Poset and Local Ordered Product Conservation Law]
+\label{ax:conservation}
+The total event space is a subset $Z \subseteq P \times G$ equipped with projections $\pi_P : Z \to P$ and $\pi_G : Z \to G$ and strict partial order induced by $P$:
+\begin{equation}
+\label{eq:induced_order}
+u <_Z v \iff \pi_P(u) <_P \pi_P(v), \qquad u \prec_Z v \iff \pi_P(u) \prec_P \pi_P(v).
+\end{equation}
+At every non-boundary event $z \in Z$ with $m = |U(z)| \ge 1$ immediate predecessors $U(z) = \{u_1, \dots, u_m\}$ and $n = |V(z)| \ge 1$ immediate successors $V(z) = \{v_1, \dots, v_n\}$, causal propagation satisfies the \emph{local ordered product conservation law}:
+\begin{equation}
+\label{eq:product_law}
+\exists\, \sigma \in S_m,\, \tau \in S_n : \qquad \prod_{i=1}^m \pi_G(u_{\sigma(i)}) \;=\; \prod_{j=1}^n \pi_G(v_{\tau(j)}) \quad \text{in } G.
+\end{equation}
+\end{axiom}
+
 \begin{proposition}[Division-Algebra Decomposition of {$\R[G]$}]
 \label{prop:wedderburn}
 For every finite group $G$, the real group algebra $\R[G]$ is semisimple and decomposes canonically into a finite direct sum of full matrix algebras over the three real associative division algebras $\mathbb{D}_\alpha \in \{\R, \C, \quat\}$:
@@ -102,7 +116,7 @@ For every finite group $G$, the real group algebra $\R[G]$ is semisimple and dec
 \end{proposition}
 
 \begin{proof}
-Due to Maschke's theorem, because $\operatorname{char}(\R) = 0$ does not divide $|G|$, $\R[G]$ is semisimple for every finite group $G$. According to the Artin--Wedderburn theorem, every finite-dimensional semisimple $\R$-algebra decomposes canonically into a finite direct sum of full matrix algebras $\bigoplus_{\alpha \in \Irr_{\R}(G)} M_{n_\alpha}(\mathbb{D}_\alpha)$ over finite-dimensional real associative division algebras $\mathbb{D}_\alpha$, with total real dimension $\sum_\alpha n_\alpha^2 \dim_{\R}(\mathbb{D}_\alpha) = \dim_{\R}(\R[G]) = |G|$. By Frobenius's theorem (1877), the only finite-dimensional associative division algebras over $\R$ up to isomorphism are $\mathbb{D}_\alpha \in \{\R, \C, \quat\}$ (of real dimensions $1, 2, 4$).
+For every finite group $G$, $\operatorname{char}(\mathbb{R}) = 0$ does not divide $\vert{}G\vert{}$; hence $\mathbb{R}[G]$ is semisimple by Maschke’s theorem. By the Artin--Wedderburn theorem, every finite-dimensional semisimple $\R$-algebra decomposes canonically into a finite direct sum of full matrix algebras $\bigoplus_{\alpha \in \Irr_{\R}(G)} M_{n_\alpha}(\mathbb{D}_\alpha)$ over finite-dimensional real associative division algebras $\mathbb{D}_\alpha$, with total real dimension $\sum_\alpha n_\alpha^2 \dim_{\R}(\mathbb{D}_\alpha) = \dim_{\R}(\R[G]) = |G|$. By Frobenius's theorem (1877), the only finite-dimensional associative division algebras over $\R$ up to isomorphism are $\mathbb{D}_\alpha \in \{\R, \C, \quat\}$ (of real dimensions $1, 2, 4$).
 \end{proof}
 
 \begin{proposition}[Frobenius--Schur Classification of the Simple Blocks of {$\R[G]$}]
@@ -118,20 +132,6 @@ according to: (i)~$\iota(\chi) = +1 \implies \mathbb{D}_\alpha = \R$ and $n_\alp
 \begin{proof}
 By the Frobenius--Schur theorem (1906), $\iota(\chi)$ takes values in $\{+1, 0, -1\}$ according to whether the complex irreducible representation $V_\chi$ admits a $G$-invariant symmetric bilinear form ($\iota = +1$, descending to a real representation of dimension $d_\chi$ with commutant $\R$), no $G$-invariant bilinear form ($\iota = 0$, where $\chi \neq \bar{\chi}$ and $V_\chi \oplus V_{\bar{\chi}}$ descends to an irreducible real representation of real dimension $2d_\chi$ with commutant $\C$, e.g.\ $\R[\Z_3] \cong \R \oplus \C$ whereas $\C[\Z_3] \cong \C^3$), or a $G$-invariant skew-symmetric bilinear form ($\iota = -1$, where $V_\chi \oplus V_\chi$ carries a quaternionic structure with commutant $\quat$ and even complex degree $d_\chi = 2n_\alpha$). By Schur's lemma, a simple $\R[G]$-module with division-algebra commutant $\mathbb{D}_\alpha^{\mathrm{op}} \cong \mathbb{D}_\alpha$ generates the simple matrix block $M_{n_\alpha}(\mathbb{D}_\alpha)$.
 \end{proof}
-
-\begin{axiom}[Total Event Poset and Local Ordered Product Conservation Law]
-\label{ax:conservation}
-The total event space is a subset $Z \subseteq P \times G$ equipped with projections $\pi_P : Z \to P$ and $\pi_G : Z \to G$ and strict partial order induced by $P$:
-\begin{equation}
-\label{eq:induced_order}
-u <_Z v \iff \pi_P(u) <_P \pi_P(v), \qquad u \prec_Z v \iff \pi_P(u) \prec_P \pi_P(v).
-\end{equation}
-At every non-boundary event $z \in Z$ with $m = |U(z)| \ge 1$ immediate predecessors $U(z) = \{u_1, \dots, u_m\}$ and $n = |V(z)| \ge 1$ immediate successors $V(z) = \{v_1, \dots, v_n\}$, causal propagation satisfies the \emph{local ordered product conservation law}:
-\begin{equation}
-\label{eq:product_law}
-\exists\, \sigma \in S_m,\, \tau \in S_n : \qquad \prod_{i=1}^m \pi_G(u_{\sigma(i)}) \;=\; \prod_{j=1}^n \pi_G(v_{\tau(j)}) \quad \text{in } G.
-\end{equation}
-\end{axiom}
 
 \begin{proposition}[Resolution of the Covering-Relation Triviality Trap]
 \label{prop:triviality_trap}
