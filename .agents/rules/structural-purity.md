@@ -18,3 +18,7 @@ When writing or editing papers, documentation, and theoretical derivations in th
 3. **Strict Deductive Direction (No Circularity or Outcome-Driven Assumptions):**
    - Never assume or preview physical outcomes (such as Connes' Standard Model algebra $\mathbb{C} \oplus \mathbb{H} \oplus M_3(\mathbb{C})$, $d = 4$ spacetime, chiral spinors, or $N_{\mathrm{gen}} = 3$ generations) inside foundational axioms or early setup paragraphs before they have been derived.
    - Physical identifications must appear strictly as **outcomes** of the mathematical theorems, never as hidden premises.
+
+4. **Clear Separation of Classical Theorems (No Theorem Mishmash):**
+   - Never lump multiple distinct theorems into a single conflated clause (e.g., *"By Maschke's, Artin–Wedderburn's, and Frobenius's theorems..."*) or jam conclusions from different theorems into one unexplained equation.
+   - State each theorem, its specific hypothesis, and its exact mathematical conclusion in clear, sequential steps.
