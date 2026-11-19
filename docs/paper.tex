@@ -78,9 +78,9 @@ From discrete group-algebraic invariants and selection rules, the Plancherel exp
 \section{Introduction and Foundational Axioms}
 %=============================================================================
 
-Modern fundamental physics rests on two pillars---General Relativity on a continuous 4-dimensional Lorentzian manifold and the Standard Model of particle physics over the continuous gauge group $\SU(3)_c \times \SU(2)_{W,L} \times \U(1)_Y$---yet leaves unexplained why spacetime has $d = 3+1$ dimensions, why the internal gauge group and chiral fermion representations take their specific forms, why there are precisely $N_{\mathrm{gen}} = 3$ fermion generations, and what fixes the $25+$ dimensionless coupling constants, mass ratios, mixing angles, and cosmological hierarchies spanning $162$ orders of magnitude from $\rho_\Lambda / M_{\mathrm{Pl}}^4 \sim 10^{-123}$ to the top Yukawa coupling $y_t \sim 1$.
+In quantum field theory and general relativity, the $4$-dimensional Lorentzian spacetime manifold, the internal gauge group $\SU(3)_c \times \SU(2)_{W,L} \times \U(1)_Y$, the chiral fermion representations with $N_{\mathrm{gen}} = 3$ generations, and the continuous Lagrangian parameters are introduced as independent postulates. Two foundational programs have sought to reduce parts of this continuum structure: Causal Set Theory~\cite{Bombelli1987} replaces the smooth spacetime manifold by a locally finite partially ordered set $(P, \le_P)$ of causal events, while Noncommutative Geometry~\cite{ChamseddineConnes1997} derives the Standard Model gauge and Higgs sector from a finite internal real algebra $\mathcal{A}_F = \C \oplus \quat \oplus M_3(\C)$. Yet in Causal Set Theory the internal gauge and matter degrees of freedom remain external to the causal order, whereas in Noncommutative Geometry the finite algebra $\mathcal{A}_F$, the continuous $4$-dimensional spin manifold, the generation count $N_{\mathrm{gen}} = 3$, and the Yukawa parameters remain inputs.
 
-In this paper, we investigate a strictly finitist foundation in which both continuous spacetime manifolds and continuous Lie groups are emergent infrared approximations to a discrete algebraic structure $(P, G, Z, \prec_Z)$ defined by three axioms:
+In this paper, we investigate a strictly finitist foundation in which both continuous spacetime manifolds and continuous Lie groups are emergent infrared approximations to a single discrete algebraic structure $(P, G, Z, \prec_Z)$ defined by three axioms:
 
 \begin{axiom}[Causal Spacetime Poset]
 \label{ax:poset}
@@ -99,6 +99,7 @@ The total event space is a subset $Z \subseteq P \times G$ equipped with project
 \label{eq:induced_order}
 u <_Z v \iff \pi_P(u) <_P \pi_P(v), \qquad u \prec_Z v \iff \pi_P(u) \prec_P \pi_P(v).
 \end{equation}
+\newpage
 At every non-boundary event $z \in Z$ with $m = |U(z)| \ge 1$ immediate predecessors $U(z) = \{u_1, \dots, u_m\}$ and $n = |V(z)| \ge 1$ immediate successors $V(z) = \{v_1, \dots, v_n\}$, causal propagation satisfies the \emph{local ordered product conservation law}:
 \begin{equation}
 \label{eq:product_law}
