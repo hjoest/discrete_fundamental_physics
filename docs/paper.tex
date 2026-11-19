@@ -89,22 +89,24 @@ Spacetime events form a locally finite partially ordered set $(P, \le_P)$ whose 
 
 \begin{axiom}[Finite Group Fiber and Real Group Algebra]
 \label{ax:group}
-Internal gauge, Lorentz spinor, Higgs, and flavor quantum numbers are carried by a single finite group $G$. Physical states and gauge/Yukawa operators belong to the semisimple real group algebra
+Internal degrees of freedom are carried by a finite group $G$, and all physical states and causal transition operators belong to its real group algebra $\R[G] = \bigl\{\sum_{g \in G} c_g\,g : c_g \in \R\bigr\}$.
+\end{axiom}
+
+By Maschke's, Artin--Wedderburn's, and Frobenius's theorems, $\R[G]$ is semisimple for every finite group $G$ and decomposes canonically into a direct sum of matrix algebras over the three real associative division algebras:
 \begin{equation}
 \label{eq:wedderburn}
 \R[G] \;\cong\; \bigoplus_{\alpha \in \Irr_{\R}(G)} M_{n_\alpha}(\mathbb{D}_\alpha), \qquad \mathbb{D}_\alpha \in \{\R, \C, \quat\}, \qquad \sum_{\chi \in \Irr_{\C}(G)} d_\chi^2 = |G|,
 \end{equation}
-where the division algebra $\mathbb{D}_\alpha$ of each simple Wedderburn block is uniquely determined by the Frobenius--Schur indicator
+where, by the Frobenius--Schur theorem, the division algebra $\mathbb{D}_\alpha$ of each simple block is determined by the Frobenius--Schur indicator of its complex irreducible character $\chi \in \Irr_{\C}(G)$:
 \begin{equation}
 \label{eq:fs_indicator}
 \iota(\chi) \;\equiv\; \frac{1}{|G|} \sum_{g \in G} \chi(g^2) \;\in\; \{+1, 0, -1\},
 \end{equation}
-corresponding to strictly real ($\iota = +1$, $\mathbb{D}_\alpha = \R$), complex ($\iota = 0$, $\mathbb{D}_\alpha = \C$), and quaternionic/pseudoreal ($\iota = -1$, $\mathbb{D}_\alpha = \quat$) sectors. Unlike the complex group algebra $\C[G]$ (where $\C[\Z_3] \cong \C^3$ splits into three $1$D lines), $\R[G]$ determines its division algebras directly from $\iota(\chi) \in \{+1, 0, -1\}$ without external complexification, fusing any conjugate character pair $\lambda, \lambda^{-1}$ ($\iota = 0$) into a single simple complex block ($\R[\Z_3] \cong \R \oplus \C$).
-\end{axiom}
+corresponding to strictly real ($\iota = +1$, $\mathbb{D}_\alpha = \R$), complex ($\iota = 0$, $\mathbb{D}_\alpha = \C$), and quaternionic/pseudoreal ($\iota = -1$, $\mathbb{D}_\alpha = \quat$) blocks. Unlike the complex group algebra $\C[G]$ (where $\C[\Z_3] \cong \C^3$ splits into three $1$D lines), $\R[G]$ determines its division algebras directly from $\iota(\chi) \in \{+1, 0, -1\}$ without external complexification, fusing any conjugate character pair $\lambda, \lambda^{-1}$ ($\iota = 0$) into a single simple complex block ($\R[\Z_3] \cong \R \oplus \C$).
 
 \begin{axiom}[Total Event Poset and Local Ordered Product Conservation Law]
 \label{ax:conservation}
-The total event space is a subset $Z \subseteq P \times G$ equipped with projections $\pi_P : Z \to P$ and $\pi_G : Z \to G$. To avoid the intracell covering-relation triviality trap (Proposition~\ref{prop:triviality_trap}), the partial order on $Z$ is induced strictly by the spacetime poset:
+The total event space is a subset $Z \subseteq P \times G$ equipped with projections $\pi_P : Z \to P$ and $\pi_G : Z \to G$ and strict partial order induced by $P$:
 \begin{equation}
 \label{eq:induced_order}
 u <_Z v \iff \pi_P(u) <_P \pi_P(v), \qquad u \prec_Z v \iff \pi_P(u) \prec_P \pi_P(v).
