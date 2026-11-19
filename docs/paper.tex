@@ -122,7 +122,7 @@ Under the induced strict order~\eqref{eq:induced_order} on $Z \subseteq P \times
 \end{proposition}
 
 \begin{proof}
-If a partial order $\le_Z$ on $Z = P \times G$ instead allowed intracell ordering $(x, g) <_Z (x, g')$ for $g \neq g'$ on a fiber $Z_x$, then for any spacetime link $x \prec_P y$, $(x, g_1)$ and $(y, g_2)$ would cease to be covering relations whenever a third element $(x, g_3)$ or $(y, g_3)$ intervened ($(x, g_1) <_Z (x, g_3) <_Z (y, g_2)$), disconnecting causal transport between distinct spacetime points. By contrast, Eq.~\eqref{eq:induced_order} defines $u <_Z v \iff \pi_P(u) <_P \pi_P(v)$, which forbids relations within a single fiber $Z_x$ (making $Z_x$ an antichain) and ensures that $(x, g_1) <_Z w <_Z (y, g_2)$ can hold only if $x <_P \pi_P(w) <_P y$, guaranteeing well-defined causal covering neighborhoods $U(z)$ and $V(z)$.
+By Eq.~\eqref{eq:induced_order}, $(x, g_1) <_Z (x, g_2)$ never holds (so $Z_x$ is an antichain), and an intermediate element $(x, g_1) <_Z w <_Z (y, g_2)$ exists in $Z$ if and only if $x <_P \pi_P(w) <_P y$ in $P$ (whereas allowing intrafiber relations $(x, g_1) <_Z (x, g_3)$ would insert $(x, g_3)$ between $(x, g_1)$ and $(y, g_2)$ and destroy covering links across $x \prec_P y$).
 \end{proof}
 
 \begin{theorem}[Abelianization Kirchhoff Conservation Law]
