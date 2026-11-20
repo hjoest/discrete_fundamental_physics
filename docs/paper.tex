@@ -108,7 +108,7 @@ At every non-boundary event $z \in Z$ with $m = |U(z)| \ge 1$ immediate predeces
 
 \begin{proposition}[Division-Algebra Decomposition of {$\R[G]$}]
 \label{prop:wedderburn}
-For every finite group $G$, the real group algebra $\R[G]$ is semisimple and decomposes canonically into a finite direct sum of full matrix algebras over the three real associative division algebras $\mathbb{D}_\alpha \in \{\R, \C, \quat\}$:
+For every finite group $G$, the real group algebra $\R[G]$ is semisimple and decomposes canonically into a finite direct sum of full matrix algebras $M_{n_\alpha}(\mathbb{D}_\alpha)$ (\emph{simple Wedderburn blocks}) over the three real associative division algebras $\mathbb{D}_\alpha \in \{\R, \C, \quat\}$:
 \begin{equation}
 \label{eq:wedderburn}
 \R[G] \;\cong\; \bigoplus_{\alpha \in \Irr_{\R}(G)} M_{n_\alpha}(\mathbb{D}_\alpha), \qquad \mathbb{D}_\alpha \in \{\R, \C, \quat\}, \qquad \sum_{\alpha \in \Irr_{\R}(G)} n_\alpha^2 \dim_{\R}(\mathbb{D}_\alpha) \;=\; |G|.
@@ -164,7 +164,12 @@ Because Axioms~\ref{ax:poset}--\ref{ax:conservation} in Section~1 hold for any f
 
 \begin{definition}[Holodivisional Group]
 \label{def:holodivisional}
-A finite group $G$ is called \emph{holodivisional} (from Greek \emph{holos}, whole/complete, and the division-algebra and holomorph/normalizer structure of $\R[G]$) if its real group algebra $\R[G]$ non-trivially realizes all three associative division algebras $\{\R, \C, \quat\}$---in both perfect ($[H,H] = H$) and solvable ($H^{\mathrm{ab}} \neq \{1\}$) sectors, and in both abelian and intrinsically complex non-abelian sectors---through faithful irreducible representations of subgroups $H \le G$ (\emph{faithful subgroups}), such that the non-abelian complex matrix block $M_{d_\chi}(\C)$ is spanned by an orthogonal projective unitary operator basis $H/Z(H)$ ($H \subset \SU(d_\chi)$) whose traceless subspace is acted on irreducibly by its unitary normalizer $N_{\SU(d_\chi)}(H)$.
+A finite group $G$ is called \emph{holodivisional} (from Greek \emph{holos}, whole/complete, and the division-algebra and holomorph/normalizer structure of $\R[G]$) if its real group algebra $\R[G] \cong \bigoplus_\alpha M_{n_\alpha}(\mathbb{D}_\alpha)$ realizes all three associative division algebras $\mathbb{D}_\alpha \in \{\R, \C, \quat\}$ through faithful irreducible representations of subgroups $H \le G$ (\emph{faithful subgroups}) across each of the following three classes:
+\begin{enumerate}
+    \item \textbf{Abelian complex class ($\mathbb{D}_\alpha = \C, \iota = 0$):} an abelian faithful subgroup $H$ ($[H,H] = \{1\}$) with a complex irreducible representation;
+    \item \textbf{Solvable and perfect quaternionic classes ($\mathbb{D}_\alpha = \quat, \iota = -1$):} both a solvable faithful subgroup ($H^{\mathrm{ab}} \neq \{1\}$) and a perfect faithful subgroup ($[H,H] = H$, $H^{\mathrm{ab}} = \{1\}$) with quaternionic irreducible representations;
+    \item \textbf{Non-abelian complex and real-adjoint class ($\mathbb{D}_\alpha = \C, \iota = 0$ and $\mathbb{D}_\alpha = \R, \iota = +1$):} a non-abelian faithful subgroup $H \subset \SU(d_\chi)$ ($d_\chi \ge 2$) with a $d_\chi$-dimensional complex irreducible representation such that the projective central cosets $H/Z(H)$ form a $d_\chi^2$-element orthogonal unitary operator basis of $M_{d_\chi}(\C)$ and the unitary normalizer $N_{\SU(d_\chi)}(H)$ acts irreducibly by conjugation on the $(d_\chi^2 - 1)$-dimensional traceless subspace of $M_{d_\chi}(\C)$.
+\end{enumerate}
 \end{definition}
 
 \begin{definition}[Minimally Holodivisional Group]
