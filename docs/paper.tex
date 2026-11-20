@@ -31,7 +31,7 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
+\newtheorem{definition}{Definition}[section]
 \newtheorem{axiom}[theorem]{Axiom}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
@@ -160,16 +160,26 @@ Applying $\phi$ to Eq.~\eqref{eq:product_law} yields Eq.~\eqref{eq:kirchhoff} im
 \section{Representation-Theoretic Classification and the Four-Factor Design Theorem}
 %=============================================================================
 
-Because Axioms~\ref{ax:poset}--\ref{ax:conservation} in Section~1 hold for any finite group $G$ (including trivial or abelian groups), selecting a non-trivial physical group requires two explicit axioms on $G$ and its real group algebra $\R[G]$---one governing the minimal sector building blocks and one governing their direct-product independence:
+Because Axioms~\ref{ax:poset}--\ref{ax:conservation} in Section~1 hold for any finite group $G$ (including trivial or abelian groups), selecting a non-trivial physical group requires two structural properties on $G$ and its real group algebra $\R[G]$---one governing the minimal sector building blocks and one governing their direct-product independence:
 
-\begin{axiom}[Minimal Division-Algebra and Operator-Basis Normalizer Closure]
+\begin{definition}[Minimally Holodivisional Group]
+\label{def:holodivisional}
+A finite group $G$ is called \emph{minimally holodivisional} (from Greek \emph{holos}, whole/complete, and the division-algebra and holomorph/normalizer structure of $\R[G]$) if its real group algebra $\R[G]$ non-trivially realizes all three associative division algebras $\{\R, \C, \quat\}$---in both perfect ($[K,K] = K$) and solvable ($K^{\mathrm{ab}} \neq \{1\}$) sectors, and in both abelian and intrinsically complex non-abelian sectors---through faithful irreducible representations of minimal complex degree $d_\chi$ and minimal group order and exponent, such that the minimal non-abelian complex matrix block $M_{d_\chi}(\C)$ is spanned by an orthogonal projective unitary operator basis $H/Z(H)$ ($H \subset \SU(d_\chi)$) whose traceless subspace is acted on irreducibly by its unitary normalizer $N_{\SU(d_\chi)}(H)$.
+\end{definition}
+
+\begin{definition}[Merolytic Group]
+\label{def:merolytic}
+A direct-product finite group $G = \prod_k G_k$ of minimal building-block groups of Definition~\ref{def:holodivisional} is called \emph{merolytic} (from Greek \emph{meros}, part/factor, and \emph{lytikos}, unbinding/resolving composite locks) if representations trivial on the normal operator-basis subgroup $H_c \triangleleft N_{\SU(d_\chi)}(H_c)$ retain faithful non-abelian complex operator-basis action without real or quaternionic block collapse, and complex-conjugate doublets of $N_{\SU(d_\chi)}(H_c)/H_c$ reside in disjoint simple Wedderburn blocks of $\R[G]$ with vanishing discrete anomalies.
+\end{definition}
+
+\begin{axiom}[Minimal Holodivisionality]
 \label{ax:operator_basis}
-The real group algebra $\R[G]$ non-trivially realizes all three associative division algebras $\{\R, \C, \quat\}$---in both perfect ($[K,K] = K$) and solvable ($K^{\mathrm{ab}} \neq \{1\}$) sectors, and in both abelian and intrinsically complex non-abelian sectors---through faithful irreducible representations of minimal complex degree $d_\chi$ and minimal group order and exponent, such that the minimal non-abelian complex matrix block $M_{d_\chi}(\C)$ is spanned by an orthogonal projective unitary operator basis $H/Z(H)$ ($H \subset \SU(d_\chi)$) whose traceless subspace is acted on irreducibly by its unitary normalizer $N_{\SU(d_\chi)}(H)$.
+The finite group $G$ is minimally holodivisional.
 \end{axiom}
 
-\begin{axiom}[Direct-Product Independence Across Quotients and Conjugate Pairs]
+\begin{axiom}[Merolytic Independence]
 \label{ax:normal_series_independence}
-The finite group $G = \prod_k G_k$ is a direct product of minimal building-block groups of Axiom~\ref{ax:operator_basis} in which representations trivial on the normal operator-basis subgroup $H_c \triangleleft N_{\SU(d_\chi)}(H_c)$ retain faithful non-abelian complex operator-basis action without real or quaternionic block collapse, and complex-conjugate doublets of $N_{\SU(d_\chi)}(H_c)/H_c$ reside in disjoint simple Wedderburn blocks of $\R[G]$ with vanishing discrete anomalies.
+The finite group $G$ is merolytic.
 \end{axiom}
 
 We now prove through seven propositions and seven representation-theoretic theorems in $\R[G]$ that Axioms~\ref{ax:poset}--\ref{ax:conservation} and Axioms~\ref{ax:operator_basis}--\ref{ax:normal_series_independence} uniquely select the minimal four-factor group

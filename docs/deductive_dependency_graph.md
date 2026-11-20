@@ -19,9 +19,9 @@ flowchart TD
         P17["Prop 1.7: Abelianization Kirchhoff Conservation Law on G^ab = G/[G,G]"]
     end
 
-    subgraph S2A["Section 2: Algebraic Minimality & Direct-Product Independence Axioms"]
-        A21["Axiom 2.1: Minimal Division-Algebra & Operator-Basis Normalizer Closure"]
-        A22["Axiom 2.2: Direct-Product Independence Across Quotients & Conjugate Pairs"]
+    subgraph S2A["Section 2: Minimal Holodivisionality & Merolytic Independence Axioms"]
+        A21["Axiom 2.1 (Def 2.1): G is minimally holodivisional"]
+        A22["Axiom 2.2 (Def 2.2): G is merolytic"]
     end
 
     subgraph S21["Section 2.1: Minimal Sector Building Blocks in U(1), SU(2), and SU(3)"]
@@ -126,8 +126,8 @@ flowchart TD
 | **[Prop 1.5](paper.tex#L122-L134)** | Frobenius–Schur Classification of Blocks of $\R[G]$ | Axiom 1.2, Prop 1.4 | $\iota(\chi) \in \{+1, 0, -1\} \leftrightarrow \{\R, \C, \quat\}$ and $d_\chi = 2n_\alpha$ for $\quat$ |
 | **[Prop 1.6](paper.tex#L136-L143)** | Resolution of Covering-Relation Triviality Trap | Axioms 1.1, 1.3 | Antichain fibers $Z_x$ and covering equivalence $\prec_Z \iff \prec_P$ |
 | **[Prop 1.7](paper.tex#L145-L157)** | Abelianization Kirchhoff Conservation Law | Axioms 1.1, 1.2, 1.3 | Additive charge conservation in $G^{\mathrm{ab}} = G/[G,G]$ ($G^{\mathrm{ab}} \neq \{1\}$ vs. $[K,K]=K$) |
-| **[Axiom 2.1](paper.tex#L165-L168)** | Minimal Division-Algebra & Operator-Basis Normalizer Closure | Algebraic minimality postulate | Requires $\{\R,\C,\quat\}$ in perfect/solvable & abelian/non-abelian sectors at minimal $(d_\chi, |H|, \text{exp})$ with irreducible $N_{\SU(d_\chi)}(H)$ action on traceless $H/Z(H)$ |
-| **[Axiom 2.2](paper.tex#L170-L173)** | Direct-Product Independence Across Quotients & Conjugate Pairs | Algebraic independence postulate | Quotient kernels retain independent operator-basis action; conjugate doublets of $N_{\SU(d_\chi)}(H_c)/H_c$ occupy disjoint blocks with zero discrete anomalies |
+| **[Axiom 2.1 / Def 2.1](paper.tex#L165-L179)** | Minimal Holodivisionality ($G$ is *minimally holodivisional*) | Algebraic minimality postulate | Requires $\{\R,\C,\quat\}$ in perfect/solvable & abelian/non-abelian sectors at minimal $(d_\chi, |H|, \text{exp})$ with irreducible $N_{\SU(d_\chi)}(H)$ action on traceless $H/Z(H)$ |
+| **[Axiom 2.2 / Def 2.2](paper.tex#L170-L184)** | Merolytic Independence ($G$ is *merolytic*) | Algebraic independence postulate | Quotient kernels retain independent operator-basis action; conjugate doublets of $N_{\SU(d_\chi)}(H_c)/H_c$ occupy disjoint blocks with zero discrete anomalies |
 | **[Prop 2.3](paper.tex#L184-L191)** | Unitary Embedding of Finite Group Representations | Axiom 1.2 (Weyl's theorem) | Every finite subgroup embeds into $\U(d_\chi)$ or $\SU(d_\chi)$ |
 | **[Prop 2.4](paper.tex#L193-L206)** | Minimal Unitary Degrees of Non-Real Division Algebras | Props 1.4, 1.5, 1.7, 2.3, Axiom 2.1 | $d_\chi = 1$ ($\U(1) \to \C$), $d_\chi = 2$ ($\SU(2) \to \quat$), $d_\chi = 3$ ($\SU(3) \to M_3(\C)$) |
 | **[Prop 2.5](paper.tex#L208-L221)** | Classification of Minimal Finite Group Candidates | Prop 2.4, Axiom 2.1 | Selects $\Z_3 \subset \U(1)$; candidates $\{T_7, \Delta(27), M_{27}\} \subset \SU(3)$; ADE candidates $\{C_n, 2D_{2n}, 2T, 2O, 2I\} \subset \SU(2)$ |
