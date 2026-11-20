@@ -162,14 +162,19 @@ Applying $\phi$ to Eq.~\eqref{eq:product_law} yields Eq.~\eqref{eq:kirchhoff} im
 
 Because Axioms~\ref{ax:poset}--\ref{ax:conservation} in Section~1 hold for any finite group $G$ (including trivial or abelian groups), selecting a non-trivial physical group requires two structural properties on $G$ and its real group algebra $\R[G]$---one governing the minimal sector building blocks and one governing their direct-product independence:
 
-\begin{definition}[Minimally Holodivisional Group]
+\begin{definition}[Holodivisional Group]
 \label{def:holodivisional}
-A finite group $G$ is called \emph{minimally holodivisional} (from Greek \emph{holos}, whole/complete, and the division-algebra and holomorph/normalizer structure of $\R[G]$) if its real group algebra $\R[G]$ non-trivially realizes all three associative division algebras $\{\R, \C, \quat\}$---in both perfect ($[K,K] = K$) and solvable ($K^{\mathrm{ab}} \neq \{1\}$) sectors, and in both abelian and intrinsically complex non-abelian sectors---through faithful irreducible representations of minimal complex degree $d_\chi$ and minimal group order and exponent, such that the minimal non-abelian complex matrix block $M_{d_\chi}(\C)$ is spanned by an orthogonal projective unitary operator basis $H/Z(H)$ ($H \subset \SU(d_\chi)$) whose traceless subspace is acted on irreducibly by its unitary normalizer $N_{\SU(d_\chi)}(H)$.
+A finite group $G$ is called \emph{holodivisional} (from Greek \emph{holos}, whole/complete, and the division-algebra and holomorph/normalizer structure of $\R[G]$) if its real group algebra $\R[G]$ non-trivially realizes all three associative division algebras $\{\R, \C, \quat\}$---in both perfect ($[K,K] = K$) and solvable ($K^{\mathrm{ab}} \neq \{1\}$) sectors, and in both abelian and intrinsically complex non-abelian sectors---through faithful irreducible representations of sector subgroups $H$, such that the non-abelian complex matrix block $M_{d_\chi}(\C)$ is spanned by an orthogonal projective unitary operator basis $H/Z(H)$ ($H \subset \SU(d_\chi)$) whose traceless subspace is acted on irreducibly by its unitary normalizer $N_{\SU(d_\chi)}(H)$.
+\end{definition}
+
+\begin{definition}[Minimally Holodivisional Group]
+\label{def:minimally_holodivisional}
+A holodivisional group $G$ is called \emph{minimally holodivisional} if each of its sector building-block subgroups $H$ in Definition~\ref{def:holodivisional} has minimal complex representation degree $d_\chi$, minimal group order $|H|$, and minimal exponent.
 \end{definition}
 
 \begin{definition}[Merolytic Group]
 \label{def:merolytic}
-A direct-product finite group $G = \prod_k G_k$ of minimal building-block groups of Definition~\ref{def:holodivisional} is called \emph{merolytic} (from Greek \emph{meros}, part/factor, and \emph{lytikos}, unbinding/resolving composite locks) if representations trivial on the normal operator-basis subgroup $H_c \triangleleft N_{\SU(d_\chi)}(H_c)$ retain faithful non-abelian complex operator-basis action without real or quaternionic block collapse, and complex-conjugate doublets of $N_{\SU(d_\chi)}(H_c)/H_c$ reside in disjoint simple Wedderburn blocks of $\R[G]$ with vanishing discrete anomalies.
+A direct-product finite group $G = \prod_k G_k$ of minimal building-block groups of Definition~\ref{def:minimally_holodivisional} is called \emph{merolytic} (from Greek \emph{meros}, part/factor, and \emph{lytikos}, unbinding/resolving composite locks) if representations trivial on the normal operator-basis subgroup $H_c \triangleleft N_{\SU(d_\chi)}(H_c)$ retain faithful non-abelian complex operator-basis action without real or quaternionic block collapse, and complex-conjugate doublets of $N_{\SU(d_\chi)}(H_c)/H_c$ reside in disjoint simple Wedderburn blocks of $\R[G]$ with vanishing discrete anomalies.
 \end{definition}
 
 \begin{axiom}[Minimal Holodivisionality]
