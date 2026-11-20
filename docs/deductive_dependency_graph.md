@@ -24,7 +24,7 @@ flowchart TD
         A22["Axiom 2.2 (Def 2.3): G is merolytic"]
     end
 
-    subgraph S21["Section 2.1: Minimal Sector Building Blocks in U(1), SU(2), and SU(3)"]
+    subgraph S21["Section 2.1: Minimal Faithful Subgroups in U(1), SU(2), and SU(3)"]
         P23["Prop 2.3: Unitary Embedding H in U(d), SU(d)"]
         P24["Prop 2.4: Minimal Unitary Degrees d in {1, 2, 3} -> C + H + M_3(C)"]
         P25["Prop 2.5: Minimal Candidate Classification: Z_3; T_7, Delta(27), M_27; ADE in SU(2)"]
