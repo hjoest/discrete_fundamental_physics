@@ -109,7 +109,6 @@ flowchart TD
     T213 --> T215
     T214 --> T215
 
-    A22 --> P216
     T215 --> P216
 ```
 
@@ -127,7 +126,7 @@ flowchart TD
 | **[Prop 1.6](paper.tex#L136-L143)** | Resolution of Covering-Relation Triviality Trap | Axioms 1.1, 1.3 | Antichain fibers $Z_x$ and covering equivalence $\prec_Z \iff \prec_P$ |
 | **[Prop 1.7](paper.tex#L145-L157)** | Abelianization Kirchhoff Conservation Law | Axioms 1.1, 1.2, 1.3 | Additive charge conservation in $G^{\mathrm{ab}} = G/[G,G]$ ($G^{\mathrm{ab}} \neq \{1\}$ vs. $[K,K]=K$) |
 | **[Axiom 2.1 / Defs 2.1–2.2](paper.tex#L165-L188)** | Minimal Holodivisionality ($G$ is *minimally holodivisional*) | Algebraic minimality postulate | Requires $\{\R,\C,\quat\}$ in perfect/solvable & abelian/non-abelian sectors at minimal $(d_\chi, |H|, \text{exp})$ with irreducible $N_{\SU(d_\chi)}(H)$ action on traceless $H/Z(H)$ |
-| **[Axiom 2.2 / Def 2.3](paper.tex#L180-L193)** | Merolytic Independence ($G$ is *merolytic*) | Algebraic independence postulate | Quotient kernels retain independent operator-basis action; conjugate doublets of $N_{\SU(d_\chi)}(H_c)/H_c$ occupy disjoint components with zero discrete anomalies |
+| **[Axiom 2.2 / Def 2.3](paper.tex#L180-L197)** | Merolytic Independence ($G$ is *merolytic*) | Algebraic independence postulate | Terms of $1 \triangleleft Z(H) \triangleleft H \triangleleft N_{\SU(d_\chi)}(H)$ are independent direct factors: (1) $N_{\SU(d_\chi)}(H)/H$ representations act faithfully on an independent factor $\cong H$; (2) conjugate pairs of $N_{\SU(d_\chi)}(H)/H$ are separated by an independent factor $\cong Z(H)$ into disjoint simple Wedderburn components |
 | **[Prop 2.3](paper.tex#L184-L191)** | Unitary Embedding of Finite Group Representations | Axiom 1.2 (Weyl's theorem) | Every finite subgroup embeds into $\U(d_\chi)$ or $\SU(d_\chi)$ |
 | **[Prop 2.4](paper.tex#L193-L206)** | Minimal Unitary Degrees of Non-Real Division Algebras | Props 1.4, 1.5, 1.7, 2.3, Axiom 2.1 | $d_\chi = 1$ ($\U(1) \to \C$), $d_\chi = 2$ ($\SU(2) \to \quat$), $d_\chi = 3$ ($\SU(3) \to M_3(\C)$) |
 | **[Prop 2.5](paper.tex#L208-L221)** | Classification of Minimal Finite Group Candidates | Prop 2.4, Axiom 2.1 | Selects $\Z_3 \subset \U(1)$; candidates $\{T_7, \Delta(27), M_{27}\} \subset \SU(3)$; ADE candidates $\{C_n, 2D_{2n}, 2T, 2O, 2I\} \subset \SU(2)$ |
@@ -141,4 +140,4 @@ flowchart TD
 | **[Thm 2.13](paper.tex#L313-L320)** | No-Go 3: Eliminating All Subsets Omitting $\Delta(27)_f$ | Axiom 2.2, Prop 2.10, Thm 2.7 | On $\Delta(27)_c$-trivial states, abelian $\Z_3$ flavor collapses $3 \to 2$ components over $\R$ and forces $V_{\mathrm{CKM}} = I_3$ |
 | **[Thm 2.14](paper.tex#L322-L334)** | No-Go 4: Eliminating Ungraded $G_3$ (Omitting $\Z_3^{\mathrm{PQ}}$) | Axiom 2.2, Prop 2.10, Prop 2.5(1) | Conjugate doublets $\Sigma[4],\Sigma[3]$ fuse into one $M_2(\C)$ component locking $m_t \approx m_b$ unless graded by $\Z_3^{\mathrm{PQ}}$ |
 | **[Thm 2.15](paper.tex#L336-L346)** | **Four-Factor Design Theorem for $\Gstar$** | Prop 2.5(1), Thms 2.7, 2.9, Prop 2.10, Thms 2.11–2.14 | Uniquely selects $\Gstar = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f \times \Z_3^{\mathrm{PQ}}$ (order $6{,}298{,}560$) |
-| **[Prop 2.16](paper.tex#L348-L359)** | 3-Generation Discrete Ibáñez–Ross Anomaly Cancellation | Axiom 2.2, Thm 2.15 | Single-generation discrete anomalies $\equiv (1,1,1) \pmod 3$ cancel iff $3 \mid N_{\mathrm{gen}}$ ($N_{\mathrm{gen}} = \dim\mathbf{3}_f = 3$) |
+| **[Prop 2.16](paper.tex#L372-L383)** | 3-Generation Discrete Ibáñez–Ross Anomaly Cancellation | Thm 2.15 | Single-generation discrete anomalies $\equiv (1,1,1) \pmod 3$ cancel iff $3 \mid N_{\mathrm{gen}}$ ($N_{\mathrm{gen}} = \dim\mathbf{3}_f = 3$) |
