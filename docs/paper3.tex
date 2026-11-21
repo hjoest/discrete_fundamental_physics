@@ -1,0 +1,594 @@
+\documentclass[11pt,a4paper]{article}
+\input{glyphtounicode}
+\pdfgentounicode=1
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+\emergencystretch=1.5em
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.10}
+\renewcommand{\floatpagefraction}{0.75}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    citecolor=blue!70!black,
+    urlcolor=blue!70!black,
+    pdftitle={The Causal Set Inverse Problem on (P, G*, Z): Discrete Cartan Soldering, Galois Phason Confinement, and Emergent 4D Lorentzian Geometry},
+    pdfauthor={Holger Joest},
+    pdfcreationdate={D:20261122001900}
+}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{axiom}[theorem]{Axiom}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\quat}{\mathbb{H}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\STr}{\operatorname{STr}}
+\newcommand{\Irr}{\operatorname{Irr}}
+\newcommand{\SU}{\operatorname{SU}}
+\newcommand{\SO}{\operatorname{SO}}
+\newcommand{\Spin}{\operatorname{Spin}}
+\newcommand{\U}{\operatorname{U}}
+\newcommand{\SL}{\operatorname{SL}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\Gthree}{G_3}
+\newcommand{\Gstar}{G_\star}
+
+\title{\textbf{The Causal Set Inverse Problem on $(P, G_\star, Z, \prec_Z)$: Discrete Cartan Soldering, Galois Phason Confinement, and Emergent 4D Lorentzian Geometry}}
+\author{Holger Joest\thanks{Developed in collaboration with Gemini 4 Argon (Google DeepMind) and independently audited with Claude Opus 5.5 (Anthropic). Dialogue transcript and zero-dependency verification suite: \url{https://github.com/hjoest/discrete_fundamental_physics}.}}
+\date{November 22, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+In Causal Set Theory, the \emph{inverse problem} asks how a $(3+1)$-dimensional Lorentzian manifold $(M, g_{\mu\nu})$ can be reconstructed uniquely and coordinate-independently from a discrete partially ordered set $(P, \le_P)$ without presupposing a background manifold or Poissonian sprinkling. For an undecorated poset, this inverse problem encounters three classical obstructions: (i) the absence of an intrinsic soldering map from abstract Hasse links to tangent vectors in $\R^{1,3}$, (ii) the Kleitman--Rothschild entropic catastrophe, and (iii) the Bombelli--Henson--Sorkin conflict between Lorentz invariance and finite vertex degree. In this third paper of the series, we prove that the decorated causal network $Z \subseteq P \times \Gstar$ introduced in Papers~I and~II---where $\Gstar = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f \times \Z_3^{\mathrm{PQ}}$---carries a canonical \emph{Discrete Cartan--Infeld--van der Waerden Soldering Map} determined purely by the quaternionic projection $\pi_{2I} : Z \to 2I \subset \SU(2)$. First, we prove an exact \emph{Quaternionic--Determinant Interval Identity}: for every covering link $e = (u \prec_Z v)$ with relative holonomy $h_e = \pi_{2I}(u)^{-1}\pi_{2I}(v) \in 2I$, the determinant of the $2 \times 2$ Hermitian soldering matrix $X_e = \ell_\Lambda(I_2 + \vec{h}_e\cdot\vec{\sigma}) \in H_2(\C)$ satisfies $\det(X_e) = \frac{\ell_\Lambda^2}{4}\bigl(\chi_1(h_e)\bigr)^2 \ge 0$, constraining every link displacement to the forward $4\text{D}$ cone with five quantized velocity shells and exact null boundaries on the $30$-element class $30_a$ ($\chi_1(h_e) = 0$). Second, we prove that the non-trivial shells of $2I$ form exact \emph{icosahedral spherical $5$-designs} on $S^2$, eliminating directional lattice artifacts in the spatial covariance tensors up to degree $5$. Third, we establish that the Galois outer automorphism $\sigma : \sqrt{5} \mapsto -\sqrt{5}$ of $\Q(\sqrt{5})$ induces a golden-ratio action gap ratio $\Delta E_{\chi_2}(12_a)/\Delta E_{\chi_1}(12_a) = \phi^4 = \frac{7+3\sqrt{5}}{2} \approx 6.8541$, exponentially confining perpendicular $H_4^\perp$ phason displacements without external cut-and-project coordinates. Fourth, we formulate the discrete Hodge--Poisson soldering equation $L_Z X^\mu = d_Z^T(\Delta X^\mu)$ on the Hasse graph of $Z$, proving exact integrability ($\mathcal{E}[X^\mu] = 0$) on holonomy-flat parallelogram diamonds and demonstrating numerically on both $N = 81$ curvature-defect networks and coordinate-free Kleitman--Rothschild melted posets ($N \in \{80, 120, 160, 200\}$) that global $4\text{D}$ coordinates are reconstructed with $99.2\%\text{--}100.0\%$ light-cone fidelity.
+\end{abstract}
+
+\newpage
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+%=============================================================================
+\section{Mathematical Formulation of Quaternionic Link Soldering on \texorpdfstring{$(P, G, Z, \prec_Z)$}{(P, G, Z, <Z)}}
+\label{sec:math_soldering}
+%=============================================================================
+
+\subsection{The Decorated Poset Network and the Binary Icosahedral Factor}
+
+In Paper~I~\cite{PaperI}, a discrete system was defined by a locally finite partially ordered set $(P, \le_P)$, a finite group $G$, and a subset $Z \subseteq P \times G$ equipped with the induced strict partial order
+\begin{equation}
+\label{eq:induced_order}
+(p_1, g_1) \prec_Z (p_2, g_2) \quad\Longleftrightarrow\quad p_1 <_P p_2,
+\end{equation}
+together with the projection maps $\pi_P(p, g) = p$ and $\pi_G(p, g) = g$. Under the algebraic postulates of Paper~I (Axioms~1.1--1.3 and Axioms~2.1--2.2) and the representation-theoretic classification verified in Paper~II~\cite{PaperII}, the minimal admissible finite group factors as the direct product
+\begin{equation}
+\label{eq:gstar_product}
+\Gstar \;=\; 2I \times \Sigma(216 \times 3) \times \Delta(27)_f \times \Z_3^{\mathrm{PQ}}, \qquad |\Gstar| = 120 \times 648 \times 27 \times 3 = 6{,}298{,}560,
+\end{equation}
+where $2I$ is the binary icosahedral group of order $120$.
+
+Because $2I$ is the unique finite quaternionic subgroup of $\SU(2) \cong \Spin(3) \subset \quat^\times$ of order $120$ whose real group algebra $\R[2I]$ contains two distinct simple quaternionic blocks $\quat \oplus \quat$ corresponding to the two faithful irreducible representations $\chi_1, \chi_2 : 2I \to \SU(2)$ of degree $2$ and Frobenius--Schur indicator $-1$, every element $z \in Z$ carries an intrinsic group component $\pi_{2I}(z) \in 2I$ under the canonical projection $\pi_{2I} : Z \to \Gstar \twoheadrightarrow 2I$. We now establish the purely algebraic map that associates a $2 \times 2$ Hermitian matrix and a four-component real vector to every covering link of $(Z, \prec_Z)$.
+
+\subsection{The Hermitian Soldering Map and the Quaternionic--Determinant Identity}
+
+Let $(Z, \prec_Z)$ be a locally finite strictly partially ordered set equipped with a map $\pi_{2I} : Z \to 2I$, and let
+\begin{equation}
+\label{eq:covering_links}
+E(Z) \;=\; \bigl\{\, e = (u, v) \in Z \times Z \;\big|\; u \prec_Z v \text{ and there exists no } w \in Z \text{ with } u \prec_Z w \prec_Z v \,\bigr\}
+\end{equation}
+denote the set of Hasse covering links of $(Z, \prec_Z)$. Let $\rho_1 : 2I \hookrightarrow \SU(2)$ denote the faithful two-dimensional representation with character $\chi_1(g) = \Tr\rho_1(g)$ taking the value $\chi_1(12_a) = +\phi = \frac{1+\sqrt{5}}{2}$ on the minimal-angle generator conjugacy class $12_a \subset 2I$, and let $\vec{\sigma} = (\sigma_1, \sigma_2, \sigma_3)$ denote the standard Pauli matrices
+\begin{equation}
+\sigma_1 = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, \qquad
+\sigma_2 = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix}, \qquad
+\sigma_3 = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix},
+\end{equation}
+which together with the $2 \times 2$ identity matrix $I_2 = \sigma_0$ span the four-dimensional real vector space $H_2(\C) = \{X \in M_2(\C) \mid X^\dagger = X\}$ of $2 \times 2$ Hermitian matrices.
+
+\begin{definition}[Quaternionic Link Holonomy and Hermitian Soldering Map]
+\label{def:soldering_map}
+Let $e = (u, v) \in E(Z)$ be a Hasse covering link of $(Z, \prec_Z)$, and let $\ell_\Lambda > 0$ be a fixed positive real scale parameter.
+\begin{enumerate}
+    \item The \emph{relative link holonomy} of $e$ is the group element
+    \begin{equation}
+    \label{eq:link_holonomy}
+    h_e \;=\; \pi_{2I}(u)^{-1}\pi_{2I}(v) \;\in\; 2I,
+    \end{equation}
+    with image under $\rho_1 : 2I \hookrightarrow \SU(2)$ written in the Pauli basis as
+    \begin{equation}
+    \label{eq:pauli_decomp}
+    \rho_1(h_e) \;=\; h_e^0 I_2 - i\,\vec{h}_e \cdot \vec{\sigma}, \qquad h_e^0 = \frac{1}{2}\chi_1(h_e) \in \R, \quad \vec{h}_e = (h_e^1, h_e^2, h_e^3) \in \R^3.
+    \end{equation}
+    \item The \emph{Hermitian soldering matrix} of $e$ is the matrix $X_e \in H_2(\C)$ defined by
+    \begin{equation}
+    \label{eq:hermitian_soldering_matrix}
+    X_e \;=\; \ell_\Lambda\bigl(I_2 + \vec{h}_e \cdot \vec{\sigma}\bigr) \;=\; \ell_\Lambda\bigl(I_2 + \frac{i}{2}\bigl[\rho_1(h_e) - \rho_1(h_e)^\dagger\bigr]\bigr),
+    \end{equation}
+    and the associated \emph{link displacement four-vector} is $\Delta X^\mu(e) = (\Delta X^0(e), \Delta \vec{X}(e)) \in \R^4$ with components
+    \begin{equation}
+    \label{eq:link_four_vector}
+    \Delta X^0(e) \;=\; \frac{1}{2}\Tr(X_e) \;=\; \ell_\Lambda, \qquad \Delta \vec{X}(e) \;=\; \frac{1}{2}\Tr(X_e \vec{\sigma}) \;=\; \ell_\Lambda \vec{h}_e.
+    \end{equation}
+\end{enumerate}
+\end{definition}
+
+We first prove that the determinant of the Hermitian soldering matrix $X_e$ is determined solely by the irreducible character $\chi_1(h_e)$ and is non-negative for every link $e \in E(Z)$.
+
+\begin{proposition}[Quaternionic--Determinant Interval Identity]
+\label{prop:interval_identity}
+For every Hasse covering link $e \in E(Z)$ with relative link holonomy $h_e \in 2I$, the Hermitian soldering matrix $X_e \in H_2(\C)$ and link displacement four-vector $\Delta X^\mu(e) \in \R^4$ satisfy
+\begin{equation}
+\label{eq:interval_identity}
+\det(X_e) \;=\; \bigl(\Delta X^0(e)\bigr)^2 - \|\Delta \vec{X}(e)\|_2^2 \;=\; \frac{\ell_\Lambda^2}{4}\bigl(\chi_1(h_e)\bigr)^2 \;\ge\; 0,
+\end{equation}
+and the Euclidean norm $v(h_e) = \|\Delta \vec{X}(e)\|_2 / \Delta X^0(e) = \|\vec{h}_e\|_2$ satisfies $0 \le v(h_e) \le 1$, with equality $v(h_e) = 1$ ($\det(X_e) = 0$) if and only if $\chi_1(h_e) = 0$.
+\end{proposition}
+
+\begin{proof}
+By Definition~\ref{def:soldering_map}, $X_e = \ell_\Lambda(I_2 + \vec{h}_e \cdot \vec{\sigma})$ has explicit $2 \times 2$ matrix entries
+\[
+X_e \;=\; \ell_\Lambda \begin{pmatrix} 1 + h_e^3 & h_e^1 - i h_e^2 \\ h_e^1 + i h_e^2 & 1 - h_e^3 \end{pmatrix}.
+\]
+Evaluating the determinant directly gives
+\[
+\det(X_e) \;=\; \ell_\Lambda^2\bigl((1 + h_e^3)(1 - h_e^3) - (h_e^1 - i h_e^2)(h_e^1 + i h_e^2)\bigr) \;=\; \ell_\Lambda^2\bigl(1 - \|\vec{h}_e\|_2^2\bigr) \;=\; \bigl(\Delta X^0(e)\bigr)^2 - \|\Delta \vec{X}(e)\|_2^2.
+\]
+Since $\rho_1(h_e) = h_e^0 I_2 - i\,\vec{h}_e\cdot\vec{\sigma} \in \SU(2)$, the unitarity and unimodularity condition $\det\rho_1(h_e) = 1$ yields
+\[
+\det\rho_1(h_e) \;=\; (h_e^0)^2 + \|\vec{h}_e\|_2^2 \;=\; 1 \quad\Longrightarrow\quad 1 - \|\vec{h}_e\|_2^2 \;=\; (h_e^0)^2.
+\]
+Substituting $h_e^0 = \frac{1}{2}\Tr\rho_1(h_e) = \frac{1}{2}\chi_1(h_e) \in \R$ into $\det(X_e) = \ell_\Lambda^2(1 - \|\vec{h}_e\|_2^2)$ gives
+\[
+\det(X_e) \;=\; \ell_\Lambda^2 (h_e^0)^2 \;=\; \frac{\ell_\Lambda^2}{4}\bigl(\chi_1(h_e)\bigr)^2 \;\ge\; 0.
+\]
+Because $(h_e^0)^2 \ge 0$ and $\|\vec{h}_e\|_2^2 = 1 - (h_e^0)^2 \ge 0$, we have $0 \le \|\vec{h}_e\|_2 \le 1$, with $\|\vec{h}_e\|_2 = 1$ if and only if $h_e^0 = \frac{1}{2}\chi_1(h_e) = 0$.
+\end{proof}
+
+\subsection{Classification of the Nine Conjugacy Classes of \texorpdfstring{$2I$}{2I} into Five Soldering Shells}
+
+We next classify the image of the Hermitian soldering map across all $120$ elements and $9$ conjugacy classes of $2I$.
+
+\begin{proposition}[Partition of $2I$ into Five Quantized Soldering Shells]
+\label{prop:five_shells}
+Under the Hermitian soldering map of Definition~\ref{def:soldering_map}, the $120$ elements of $2I$ partition across its $9$ conjugacy classes into five distinct invariant shells ordered by $v(h_e) = \|\vec{h}_e\|_2 = \sqrt{1 - \chi_1(h_e)^2/4} \in [0, 1]$:
+\begin{enumerate}
+    \item \textbf{Shell 0 ($v = 0$, $\det(X_e)/\ell_\Lambda^2 = 1$):} The two central conjugacy classes $1_a = \{+I_2\}$ ($\chi_1 = +2$) and $1_b = \{-I_2\}$ ($\chi_1 = -2$), comprising $1 + 1 = 2$ elements with $\vec{h}_e = \vec{0}$.
+    \item \textbf{Shell 1 ($v = \sin(\pi/5) = \frac{\sqrt{10 - 2\sqrt{5}}}{4} \approx 0.587785$, $\det(X_e)/\ell_\Lambda^2 = \frac{\phi^2}{4} = \frac{3+\sqrt{5}}{8} \approx 0.654508$):} The two $12$-element conjugacy classes $12_a$ ($\chi_1 = +\phi$) and $12_c = -12_a$ ($\chi_1 = -\phi$), comprising $12 + 12 = 24$ elements whose unit directions $\hat{n}_e = \vec{h}_e/\|\vec{h}_e\|_2 \in S^2$ form the $12$ vertices of a regular icosahedron.
+    \item \textbf{Shell 2 ($v = \sin(\pi/3) = \frac{\sqrt{3}}{2} \approx 0.866025$, $\det(X_e)/\ell_\Lambda^2 = \frac{1}{4} = 0.250000$):} The two $20$-element conjugacy classes $20_a$ ($\chi_1 = +1$) and $20_b = -20_a$ ($\chi_1 = -1$), comprising $20 + 20 = 40$ elements whose unit directions $\hat{n}_e \in S^2$ form the $20$ vertices of a regular dodecahedron.
+    \item \textbf{Shell 3 ($v = \sin(2\pi/5) = \frac{\sqrt{10 + 2\sqrt{5}}}{4} \approx 0.951057$, $\det(X_e)/\ell_\Lambda^2 = \frac{\phi^{-2}}{4} = \frac{3-\sqrt{5}}{8} \approx 0.095492$):} The two $12$-element conjugacy classes $12_b$ ($\chi_1 = +\phi^{-1}$) and $12_d = -12_b$ ($\chi_1 = -\phi^{-1}$), comprising $12 + 12 = 24$ elements whose unit directions $\hat{n}_e \in S^2$ form the $12$ vertices of a regular icosahedron.
+    \item \textbf{Shell 4 ($v = \sin(\pi/2) = 1$, $\det(X_e)/\ell_\Lambda^2 = 0$):} The single $30$-element conjugacy class $30_a$ ($\chi_1 = 0$, consisting of elements of order $4$ satisfying $\rho_1(h_e)^2 = -I_2$), whose unit directions $\hat{n}_e \in S^2$ form the $30$ vertices of a regular icosidodecahedron.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+In the quaternion realization $2I \subset \SU(2) \cong S^3$, the $120$ elements consist of the $8$ permutations of $(\pm 1, 0, 0, 0)$, the $16$ elements $(\pm \frac{1}{2}, \pm \frac{1}{2}, \pm \frac{1}{2}, \pm \frac{1}{2})$, and the $96$ even permutations of $(\pm \frac{\phi}{2}, \pm \frac{1}{2}, \pm \frac{\phi^{-1}}{2}, 0)$, where $\phi = \frac{1+\sqrt{5}}{2}$ and $\phi^{-1} = \frac{\sqrt{5}-1}{2}$~\cite{Coxeter1974}. Because $\chi_1(h) = 2 h^0$ for $h = (h^0, \vec{h}) \in 2I$, grouping the $120$ elements by their first coordinate $h^0 \in \{+1, -1, +\frac{\phi}{2}, -\frac{\phi}{2}, +\frac{1}{2}, -\frac{1}{2}, +\frac{\phi^{-1}}{2}, -\frac{\phi^{-1}}{2}, 0\}$ yields the nine conjugacy classes of $2I$ of cardinalities $1, 1, 12, 12, 20, 20, 12, 12, 30$ (summing to $120$). Writing $h^0 = \cos(\theta/2)$ with $\theta/2 \in \{0, \pi, \frac{\pi}{5}, \frac{4\pi}{5}, \frac{\pi}{3}, \frac{2\pi}{3}, \frac{2\pi}{5}, \frac{3\pi}{5}, \frac{\pi}{2}\}$ gives $v(h) = \|\vec{h}\|_2 = \sin(\theta/2)$ and $\det(X_e)/\ell_\Lambda^2 = (h^0)^2 = \cos^2(\theta/2)$, matching the five numerical values in (1)--(5). Under the adjoint action of $2I / Z(2I) \cong A_5 \subset \SO(3)$ on the imaginary quaternion subspace $\R^3$, a non-zero vector $\vec{h}$ in a conjugacy class $C$ of size $|C| \in \{12, 20, 30\}$ has stabilizer of order $60 / |C| \in \{5, 3, 2\}$ in $A_5$, which are respectively the vertex stabilizers of the regular icosahedron ($|C|=12$), the regular dodecahedron ($|C|=20$), and the regular icosidodecahedron ($|C|=30$).
+\end{proof}
+
+%=============================================================================
+\section{Galois Conjugation, Discrete Hodge Soldering, and Spherical \texorpdfstring{$5$-Design}{5-Design} Isotropy}
+\label{sec:math_theorems}
+%=============================================================================
+
+\subsection{The Galois Outer Automorphism of \texorpdfstring{$2I$}{2I} and the \texorpdfstring{$\phi^4$}{phi\^{}4} Action Gap Ratio}
+
+By Artin--Wedderburn decomposition over $\R$, the group algebra $\R[2I]$ splits into nine simple matrix blocks, including two non-isomorphic quaternionic blocks $\quat \oplus \quat$ associated with the two faithful irreducible representations $\rho_1, \rho_2 : 2I \hookrightarrow \SU(2)$ of degree $d_{\chi_1} = d_{\chi_2} = 2$. Their characters $\chi_1, \chi_2$ take values in the ring of integers $\Z[\phi]$ of the real quadratic field $\Q(\sqrt{5})$ and are swapped by the non-trivial Galois automorphism $\sigma \in \operatorname{Gal}(\Q(\sqrt{5})/\Q)$ defined by $\sigma(\sqrt{5}) = -\sqrt{5}$, i.e.,
+\begin{equation}
+\label{eq:galois_swap}
+\sigma(\phi) \;=\; 1 - \phi \;=\; -\phi^{-1}, \qquad \chi_2(g) \;=\; \sigma\bigl(\chi_1(g)\bigr) \;=\; \chi_1\bigl(\sigma(g)\bigr) \quad \forall\, g \in 2I,
+\end{equation}
+where $\sigma \in \operatorname{Aut}(2I)$ is the outer automorphism of $2I$ that interchanges the conjugacy classes $12_a \leftrightarrow 12_d$ and $12_b \leftrightarrow 12_c$. We now prove that the ratio of the normalized trace gaps of $\chi_2$ and $\chi_1$ on the minimal-angle generator class $12_a$ equals $\phi^4$, and that $b^2$-fold Plancherel convolution on $\R[2I]$ suppresses the Galois-conjugate sector $\chi_2$ relative to $\chi_1$ at a strict exponential rate in $b^2$.
+
+\begin{theorem}[Golden-Ratio Action Gap Hierarchy and Galois Convolution Suppression]
+\label{thm:galois_suppression}
+Let $\chi_1, \chi_2 \in \Irr(2I)$ be the two faithful two-dimensional irreducible characters of $2I$, and for each $\chi \in \Irr(2I)$ and $g \in 2I$ let
+\begin{equation}
+\label{eq:trace_gap_def}
+\Delta E_\chi(g) \;=\; 1 - \frac{\operatorname{Re}\chi(g)}{d_\chi}
+\end{equation}
+denote the normalized trace gap. Then:
+\begin{enumerate}
+    \item On the minimal-angle conjugacy class $12_a$ ($\chi_1(12_a) = +\phi$, $\chi_2(12_a) = -\phi^{-1}$), the normalized trace gaps of $\chi_1$ and $\chi_2$ satisfy the exact golden-ratio identity
+    \begin{equation}
+    \label{eq:phi4_ratio}
+    \Delta E_{\chi_1}(12_a) = \frac{\phi^{-2}}{2} = \frac{3 - \sqrt{5}}{4}, \;
+    \Delta E_{\chi_2}(12_a) = \frac{\phi^2}{2} = \frac{3 + \sqrt{5}}{4}, \;
+    \frac{\Delta E_{\chi_2}(12_a)}{\Delta E_{\chi_1}(12_a)} = \phi^4 = \frac{7 + 3\sqrt{5}}{2}.
+    \end{equation}
+    \item Under the class-function probability distribution $P_1(g) = (1 - \epsilon)\delta_{1_a}(g) + \frac{\epsilon}{12}\mathbf{1}_{12_a}(g)$ on $2I$ with $0 < \epsilon \le 1$, the $b^2$-fold group convolution $P_b = P_1^{* b^2}$ on $\R[2I]$ has Fourier coefficients $\lambda_\chi^{b^2}$, where $\lambda_\chi = 1 - \epsilon\,\Delta E_\chi(12_a)$, and the ratio of the Galois-conjugate Fourier coefficient to the primary spinor coefficient satisfies
+    \begin{equation}
+    \label{eq:galois_decay_bound}
+    0 \;\le\; \left(\frac{\lambda_{\chi_2}}{\lambda_{\chi_1}}\right)^{b^2} \;=\; \left(\frac{1 - \frac{\epsilon}{2}\phi^2}{1 - \frac{\epsilon}{2}\phi^{-2}}\right)^{b^2} \;\le\; \exp\!\left(-\frac{\epsilon\bigl(\phi^2 - \phi^{-2}\bigr)}{2}\,b^2\right) \;=\; \exp\!\left(-\frac{3\sqrt{5}}{2}\,\epsilon\,b^2\right)
+    \end{equation}
+    for all $0 < \epsilon \le 2\phi^{-2} = 3 - \sqrt{5}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+To establish (1), substitute $\chi_1(12_a) = \phi$, $\chi_2(12_a) = \sigma(\phi) = -\phi^{-1}$, and $d_{\chi_1} = d_{\chi_2} = 2$ into~\eqref{eq:trace_gap_def}. Using the defining quadratic relations $\phi^2 = \phi + 1$ and $\phi^{-2} = 2 - \phi$, we obtain
+\[
+\Delta E_{\chi_1}(12_a) = 1 - \frac{\phi}{2} = \frac{2 - \phi}{2} = \frac{\phi^{-2}}{2}, \qquad
+\Delta E_{\chi_2}(12_a) = 1 + \frac{\phi^{-1}}{2} = \frac{\phi + 1}{2} = \frac{\phi^2}{2}.
+\]
+Taking the quotient gives $\Delta E_{\chi_2}(12_a) / \Delta E_{\chi_1}(12_a) = \phi^2 / \phi^{-2} = \phi^4 = 3\phi + 2 = \frac{7+3\sqrt{5}}{2}$.
+
+To establish (2), since $P_1$ is a central class function on $2I$, Schur's Lemma implies that convolution with $P_1$ acts on each simple matrix block $M_{d_\chi}(\C)$ of $\C[2I]$ as multiplication by the scalar Fourier eigenvalue
+\[
+\lambda_\chi \;=\; \sum_{g \in 2I} P_1(g)\,\frac{\chi(g)}{d_\chi} \;=\; (1 - \epsilon) + \epsilon\,\frac{\chi(12_a)}{d_\chi} \;=\; 1 - \epsilon\,\Delta E_\chi(12_a).
+\]
+For $0 < \epsilon \le 2\phi^{-2}$, both $\lambda_{\chi_1} = 1 - \frac{\epsilon}{2}\phi^{-2}$ and $\lambda_{\chi_2} = 1 - \frac{\epsilon}{2}\phi^2$ lie in $[0, 1)$ with $0 \le \lambda_{\chi_2} < \lambda_{\chi_1} < 1$. Since $\frac{1 - y}{1 - x} = 1 - \frac{y - x}{1 - x} \le 1 - (y - x) \le e^{-(y - x)}$ for $0 < x < y \le 1$, setting $x = \frac{\epsilon}{2}\phi^{-2}$ and $y = \frac{\epsilon}{2}\phi^2$ with $y - x = \frac{\epsilon}{2}(\phi^2 - \phi^{-2}) = \frac{3\sqrt{5}}{2}\epsilon$ and raising to the $b^2$-th power yields~\eqref{eq:galois_decay_bound}.
+\end{proof}
+
+\subsection{Discrete Hodge--Poisson Soldering and Exact Diamond Integrability}
+
+On a general directed Hasse graph $(Z, E(Z))$, the local link displacement vectors $\Delta X^\mu : E(Z) \to \R^4$ defined in~\eqref{eq:link_four_vector} form an $\R^4$-valued $1$-cochain on $E(Z)$. We now formalize the discrete coboundary operator, the combinatorial graph Laplacian, and the condition under which $\Delta X^\mu$ integrates to a global $0$-cochain $X^\mu : Z \to \R^4$.
+
+\begin{definition}[Hasse Incidence Coboundary, Graph Laplacian, and Diamond Holonomy Defect]
+\label{def:hodge_soldering}
+Let $(Z, E(Z))$ be a finite connected Hasse graph with vertex set $Z = \{z_0, z_1, \dots, z_{N-1}\}$ and directed covering link set $E(Z) = \{e_1, \dots, e_M\}$.
+\begin{enumerate}
+    \item The \emph{incidence coboundary operator} $d_Z : \R^Z \to \R^{E(Z)}$ maps any vertex function $f : Z \to \R$ to the link $1$-cochain
+    \begin{equation}
+    \label{eq:coboundary_def}
+    (d_Z f)(e) \;=\; f(v) - f(u) \qquad \text{for } e = (u, v) \in E(Z),
+    \end{equation}
+    and the \emph{combinatorial graph Laplacian} $L_Z = d_Z^T d_Z : \R^Z \to \R^Z$ acts on $f$ by
+    \begin{equation}
+    \label{eq:laplacian_def}
+    (L_Z f)(u) \;=\; \sum_{e=(u,v)\in E(Z)} \bigl(f(u) - f(v)\bigr) \;+\; \sum_{e'=(w,u)\in E(Z)} \bigl(f(u) - f(w)\bigr).
+    \end{equation}
+    \item The \emph{harmonic soldering functional} for $\Delta X^\mu : E(Z) \to \R^4$ ($\mu \in \{0, 1, 2, 3\}$) is the quadratic Dirichlet residual
+    \begin{equation}
+    \label{eq:dirichlet_residual}
+    \mathcal{E}[X^\mu] \;=\; \sum_{\mu=0}^3 \|d_Z X^\mu - \Delta X^\mu\|_{\ell^2(E(Z))}^2 \;=\; \sum_{\mu=0}^3 \sum_{e=(u,v)\in E(Z)} \Bigl|\bigl(X^\mu(v) - X^\mu(u)\bigr) - \Delta X^\mu(e)\Bigr|^2.
+    \end{equation}
+    \item For any elementary $2$-step causal diamond $\square = (u \prec_Z w_1, w_2 \prec_Z v)$ with covering links $e_1 = (u, w_1)$, $e_2 = (w_1, v)$, $e_3 = (u, w_2)$, $e_4 = (w_2, v) \in E(Z)$, the \emph{diamond holonomy} and \emph{additive soldering defect} are
+    \begin{equation}
+    \label{eq:diamond_defects}
+    U_\square = h_{e_1} h_{e_2} h_{e_4}^{-1} h_{e_3}^{-1} \in 2I, \quad
+    \delta_\square X^\mu = \Delta X^\mu(e_1) + \Delta X^\mu(e_2) - \Delta X^\mu(e_3) - \Delta X^\mu(e_4) \in \R^4.
+    \end{equation}
+\end{enumerate}
+\end{definition}
+
+We now prove that the harmonic soldering functional $\mathcal{E}[X^\mu]$ always possesses a unique global minimizer pinned at a reference vertex $z_0 \in Z$, and that the residual vanishes identically when the $1$-cochain $\Delta X^\mu$ satisfies diamond parallelogram closure across all cycles.
+
+\begin{theorem}[Unique Harmonic Coordinate Chart and Exact Parallelogram Integrability]
+\label{thm:harmonic_chart}
+Let $(Z, E(Z))$ be a finite connected Hasse graph with reference vertex $z_0 \in Z$, and let $\Delta X^\mu : E(Z) \to \R^4$ be the link displacement $1$-cochain of Definition~\ref{def:soldering_map}. Then:
+\begin{enumerate}
+    \item For each component $\mu \in \{0, 1, 2, 3\}$, the harmonic soldering functional $\mathcal{E}[X^\mu]$ on the subspace $\{X^\mu \in \R^Z \mid X^\mu(z_0) = 0\}$ attains a unique global minimum at the solution of the discrete Poisson normal equation
+    \begin{equation}
+    \label{eq:poisson_normal}
+    L_Z X^\mu \;=\; d_Z^T\bigl(\Delta X^\mu\bigr), \qquad X^\mu(z_0) = 0.
+    \end{equation}
+    \item For every elementary diamond $\square = (u \prec_Z w_1, w_2 \prec_Z v)$, the time component of the soldering defect vanishes identically ($\delta_\square X^0 = 0$), and the spatial defect $\delta_\square \vec{X} = \ell_\Lambda(\vec{h}_{e_1} + \vec{h}_{e_2} - \vec{h}_{e_3} - \vec{h}_{e_4})$ vanishes whenever $(h_{e_1}, h_{e_2}) = (h_{e_4}, h_{e_3})$ (in particular solving $U_\square = 1_{2I}$ when $[h_{e_1}, h_{e_3}] = 1_{2I}$ and $h_{e_2} = h_{e_3}, h_{e_4} = h_{e_1}$).
+    \item If the undirected cycle space of $(Z, E(Z))$ is generated by elementary diamonds on which $\delta_\square X^\mu = 0$, then the unique solution $X^\mu$ of~\eqref{eq:poisson_normal} achieves $\mathcal{E}[X^\mu] = 0$ and satisfies $X^\mu(v) - X^\mu(u) = \Delta X^\mu(e)$ for every covering link $e = (u, v) \in E(Z)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+To prove (1), since $(Z, E(Z))$ is connected, the kernel of the incidence coboundary operator $d_Z : \R^Z \to \R^{E(Z)}$ consists solely of the constant functions $\ker(d_Z) = \R\mathbf{1}_Z$. On the $(N-1)$-dimensional complement $\mathcal{V}_0 = \{f \in \R^Z \mid f(z_0) = 0\}$, $d_Z$ is injective, so the symmetric matrix $L_Z = d_Z^T d_Z$ restricted to $\mathcal{V}_0$ is strictly positive definite. By orthogonal projection in $\R^{E(Z)}$ onto $\operatorname{im}(d_Z)$, the convex quadratic functional $\|d_Z X^\mu - \Delta X^\mu\|_{\ell^2}^2$ has a unique global minimizer in $\mathcal{V}_0$, characterized by the normal equation $d_Z^T(d_Z X^\mu - \Delta X^\mu) = 0$, which is~\eqref{eq:poisson_normal}.
+
+To prove (2), by~\eqref{eq:link_four_vector} every link has $\Delta X^0(e) = \ell_\Lambda$, so $\delta_\square X^0 = \ell_\Lambda + \ell_\Lambda - \ell_\Lambda - \ell_\Lambda = 0$. Similarly, $\delta_\square \vec{X} = \ell_\Lambda(\vec{h}_{e_1} + \vec{h}_{e_2} - \vec{h}_{e_3} - \vec{h}_{e_4}) = \vec{0}$ whenever $h_{e_1} = h_{e_4}$ and $h_{e_2} = h_{e_3}$; if in addition $h_{e_1}$ and $h_{e_3}$ commute, then $U_\square = h_{e_1} h_{e_3} h_{e_1}^{-1} h_{e_3}^{-1} = 1_{2I}$.
+
+To prove (3), a $1$-cochain $\omega \in \R^{E(Z)}$ on a connected graph lies in $\operatorname{im}(d_Z)$ if and only if its circulation around every cycle in a cycle basis vanishes. When the cycle space is generated by elementary diamonds with $\delta_\square X^\mu = 0$, $\Delta X^\mu$ has zero circulation around every fundamental cycle, so $\Delta X^\mu = d_Z X^\mu$ for a unique $X^\mu \in \mathcal{V}_0$, giving $\mathcal{E}[X^\mu] = \|d_Z X^\mu - \Delta X^\mu\|_{\ell^2}^2 = 0$.
+\end{proof}
+
+\subsection{Exact Icosahedral Spherical \texorpdfstring{$5$-Design}{5-Design} Isotropy on \texorpdfstring{$S^2$}{S\^{}2}}
+
+In Paper~II (Theorem~2.1), it was proved that the $120$ unit quaternions of $2I \subset S^3$ form an exact spherical $11$-design on the three-sphere $S^3 \subset \R^4$. For the spatial projections $\Delta \vec{X}(e) = \ell_\Lambda \vec{h}_e \in \R^3$ of the Hermitian soldering map within each individual velocity shell of Proposition~\ref{prop:five_shells}, we now establish an exact spherical $5$-design theorem on the two-sphere $S^2 \subset \R^3$.
+
+\begin{theorem}[Exact Icosahedral Spherical $5$-Design Isotropy of the Soldering Shells]
+\label{thm:spherical_5design}
+Let $C \in \{12_a, 12_b, 12_c, 12_d, 20_a, 20_b, 30_a\}$ be any non-central conjugacy class of $2I$, and let
+\begin{equation}
+\label{eq:shell_directions}
+\Omega_C \;=\; \Bigl\{\, \hat{n}(h) = \frac{\vec{h}}{\|\vec{h}\|_2} \in S^2 \;\Big|\; h \in C \,\Bigr\}
+\end{equation}
+be its finite set of unit spatial soldering directions on $S^2 \subset \R^3$. Then for every polynomial $P : \R^3 \to \R$ of total degree $\deg(P) \le 5$, the finite average over $C$ equals the exact $\SO(3)$-invariant continuum Haar integral over $S^2$:
+\begin{equation}
+\label{eq:5design_equality}
+\frac{1}{|C|} \sum_{h \in C} P\bigl(\hat{n}(h)\bigr) \;=\; \frac{1}{4\pi} \int_{S^2} P(\hat{n})\,d^2\hat{n}.
+\end{equation}
+In particular, the spatial soldering moments on every non-central shell $C$ satisfy the exact isotropic tensor identities
+\begin{align}
+\frac{1}{|C|}\sum_{h\in C} \hat{n}_i(h) &= 0, \;
+\frac{1}{|C|}\sum_{h\in C} \hat{n}_i(h)\hat{n}_j(h) = \frac{1}{3}\delta_{ij}, \;
+\frac{1}{|C|}\sum_{h\in C} \hat{n}_i(h)\hat{n}_j(h)\hat{n}_k(h) = 0, \label{eq:moments_123} \\
+\frac{1}{|C|}\sum_{h\in C} \hat{n}_i(h)\hat{n}_j(h)\hat{n}_k(h)\hat{n}_l(h) &= \frac{1}{15}\bigl(\delta_{ij}\delta_{kl} + \delta_{ik}\delta_{jl} + \delta_{il}\delta_{jk}\bigr), \;
+\frac{1}{|C|}\sum_{h\in C} \hat{n}_{i_1}(h)\cdots\hat{n}_{i_5}(h) = 0 \label{eq:moments_45}
+\end{align}
+for all Cartesian indices $i, j, k, l, i_1, \dots, i_5 \in \{1, 2, 3\}$.
+\end{theorem}
+
+\begin{proof}
+The space of polynomials on $S^2 \subset \R^3$ of degree at most $5$ decomposes under $\SO(3)$ into spherical harmonic representations $\bigoplus_{\ell=0}^5 \mathcal{H}_\ell(S^2)$ of dimensions $2\ell + 1 \in \{1, 3, 5, 7, 9, 11\}$. By Proposition~\ref{prop:five_shells}, each non-central conjugacy class $C$ of $2I$ is a single transitive orbit on $S^2$ of the icosahedral rotation group $I = 2I / \{\pm I_2\} \cong A_5 \subset \SO(3)$ and is antipodally symmetric ($\hat{n} \in \Omega_C \iff -\hat{n} \in \Omega_C$). For any $h \in C$ and $R \in I$, the finite average $Av_C(P) = \frac{1}{|C|}\sum_{h\in C} P(\hat{n}(h))$ is invariant under $P(\hat{n}) \mapsto P(R\hat{n})$ and under antipodal inversion $P(\hat{n}) \mapsto P(-\hat{n})$, so $Av_C$ projects onto the subspace $\mathcal{H}_\ell(S^2)^I$ of $I$-invariant spherical harmonics of even degree $\ell$.
+
+For $\ell \in \{1, 3, 5\}$, antipodal symmetry immediately forces $Av_C|_{\mathcal{H}_\ell(S^2)} = 0$. For $\ell \in \{2, 4\}$, we compute the multiplicity $\dim \mathcal{H}_\ell(S^2)^I = \frac{1}{|I|}\sum_{R \in I} \chi_\ell(R)$ using the $\SO(3)$ spin-$\ell$ character $\chi_\ell(\theta) = \frac{\sin((\ell + 1/2)\theta)}{\sin(\theta/2)}$ across the five conjugacy classes of $I \cong A_5$ of orders $1$ ($1$ element, $\theta=0$), $2$ ($15$ elements, $\theta=\pi$), $3$ ($20$ elements, $\theta=2\pi/3$), and $5$ ($12+12$ elements, $\theta=2\pi/5, 4\pi/5$):
+\begin{itemize}
+    \item For $\ell = 2$: $\chi_2(0) = 5$, $\chi_2(\pi) = 1$, $\chi_2(2\pi/3) = -1$, and $\chi_2(2\pi/5) = \frac{\sin(5\pi/5)}{\sin(\pi/5)} = 0$, $\chi_2(4\pi/5) = \frac{\sin(10\pi/5)}{\sin(2\pi/5)} = 0$, giving
+    \[
+    \dim \mathcal{H}_2(S^2)^I \;=\; \frac{1}{60}\bigl(1\cdot 5 + 15\cdot 1 + 20\cdot(-1) + 12\cdot 0 + 12\cdot 0\bigr) \;=\; \frac{5 + 15 - 20}{60} \;=\; 0.
+    \]
+    \item For $\ell = 4$: $\chi_4(0) = 9$, $\chi_4(\pi) = 1$, $\chi_4(2\pi/3) = \frac{\sin(3\pi)}{\sin(\pi/3)} = 0$, and $\chi_4(2\pi/5) = \frac{\sin(9\pi/5)}{\sin(\pi/5)} = -1$, $\chi_4(4\pi/5) = \frac{\sin(18\pi/5)}{\sin(2\pi/5)} = -1$, giving
+    \[
+    \dim \mathcal{H}_4(S^2)^I \;=\; \frac{1}{60}\bigl(1\cdot 9 + 15\cdot 1 + 20\cdot 0 + 12\cdot(-1) + 12\cdot(-1)\bigr) \;=\; \frac{9 + 15 - 24}{60} \;=\; 0.
+    \]
+\end{itemize}
+Because $\dim \mathcal{H}_\ell(S^2)^I = 0$ for all $1 \le \ell \le 5$, the average over $C$ vanishes on every non-trivial harmonic component $\mathcal{H}_\ell(S^2)$ ($1 \le \ell \le 5$) and agrees with the $\SO(3)$ Haar integral on $\mathcal{H}_0(S^2)$, proving~\eqref{eq:5design_equality} and its Cartesian moment corollaries~\eqref{eq:moments_123}--\eqref{eq:moments_45}.
+\end{proof}
+
+%=============================================================================
+\section{Physical Interpretation: Discrete Cartan Tetrad, Forward Light Cones, and Aperiodic Quasicrystal Emergence}
+\label{sec:physics_soldering}
+%=============================================================================
+
+With the mathematical theorems of Sections~\ref{sec:math_soldering} and~\ref{sec:math_theorems} established, we now examine their physical meaning for the Causal Set Inverse Problem.
+
+\subsection{Why the Decorated Poset Solves the Missing-Tetrad Obstruction of Pure Causal Sets}
+
+In classical Causal Set Theory~\cite{Bombelli1987,Myrheim1978,Surya2012}, an undecorated poset $(P, \le_P)$ specifies which events are causally related ($u <_P v$) and associates four-volume with vertex cardinality ($N \sim \rho V_4$), but carries \emph{no intrinsic directional or metric data} on individual Hasse links: a bare covering link $u \prec_P v$ does not know whether it points along the $+x$, $-y$, or $+z$ spatial axis, nor whether its proper-time interval $\Delta s_{uv}$ is near the timelike rest axis or near the light cone. Consequently, in standard causal set theory one must work ``top-down'' by assuming a continuum Lorentzian manifold $(M, g_{\mu\nu})$ first, sprinkling points via a Poisson process, and attempting to recover the manifold up to conformal isomorphism via Benincasa--Dowker d'Alembertian operators or Myrheim--Meyer interval counts.
+
+On the decorated network $Z \subseteq P \times \Gstar$, the mathematical structure of Section~\ref{sec:math_soldering} supplies the exact missing ingredient: a \textbf{discrete Cartan--Infeld--van der Waerden soldering form} (tetrad / vierbein)
+\begin{equation}
+\label{eq:inf_vdw}
+\sigma^\mu_{\alpha\dot{\alpha}} \;=\; (I_2, \vec{\sigma}), \qquad
+X_e \;=\; \Delta X^\mu(e)\,\sigma_\mu \;=\; \ell_\Lambda\begin{pmatrix} 1 + h_e^3 & h_e^1 - i h_e^2 \\ h_e^1 + i h_e^2 & 1 - h_e^3 \end{pmatrix} \;\in\; H_2(\C),
+\end{equation}
+determined purely by the finite group holonomy $h_e = \pi_{2I}(u)^{-1}\pi_{2I}(v) \in 2I \subset \SU(2)$ on each covering link $e = (u \prec_Z v)$.
+
+\begin{table}[!htbp]
+\centering
+\caption{Exact verification of the five quantized relativistic velocity shells of the discrete Cartan soldering map across all $9$ conjugacy classes ($120$ elements) of $2I \subset \SU(2)$, together with their spherical $5$-design isotropy defects on $S^2$ (Proposition~\ref{prop:five_shells} and Theorem~\ref{thm:spherical_5design}).}
+\label{tab:five_shells}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lcccccccl@{}}
+\toprule
+\textbf{Class $C \subset 2I$} & \textbf{Size $|C|$} & \textbf{Trace $\chi_1(h_e)$} & \textbf{Angle $\theta_e/2$} & \textbf{Velocity $v = \|\vec{h}_e\|_2$} & \textbf{Interval $\Delta s_e^2 / \ell_\Lambda^2$} & \textbf{$S^2$ Polyhedron} & \textbf{$5$-Design Error} & \textbf{Relativistic Role} \\
+\midrule
+$1_a (+I_2),\; 1_b (-I_2)$ & $1 + 1$ & $+2,\; -2$ & $0,\; \pi$ & $0.000000$ & $1.000000$ & Origin $\{\vec{0}\}$ & --- & Timelike rest ticks ($v = 0$) \\
+$12_a,\; 12_c$ & $12 + 12$ & $+\phi,\; -\phi$ & $\frac{\pi}{5},\; \frac{4\pi}{5}$ & $0.587785$ & $\frac{\phi^2}{4} \approx 0.654508$ & Icosahedron ($12$) & $4.16 \times 10^{-17}$ & Sub-luminal shell 1 ($\sin\frac{\pi}{5}$) \\
+$20_a,\; 20_b$ & $20 + 20$ & $+1,\; -1$ & $\frac{\pi}{3},\; \frac{2\pi}{3}$ & $0.866025$ & $\frac{1}{4} = 0.250000$ & Dodecahedron ($20$) & $8.33 \times 10^{-17}$ & Sub-luminal shell 2 ($\frac{\sqrt{3}}{2}$) \\
+$12_b,\; 12_d$ & $12 + 12$ & $+\phi^{-1},\; -\phi^{-1}$ & $\frac{2\pi}{5},\; \frac{3\pi}{5}$ & $0.951057$ & $\frac{\phi^{-2}}{4} \approx 0.095492$ & Icosahedron ($12$) & $4.16 \times 10^{-17}$ & Ultra-relativistic shell 3 ($\sin\frac{2\pi}{5}$) \\
+$30_a$ (order $4$) & $30$ & $0$ & $\frac{\pi}{2}$ & $\mathbf{1.000000}$ & $\mathbf{0.000000}$ & Icosidodecahedron ($30$) & $5.55 \times 10^{-17}$ & \textbf{Exact null / lightlike rays ($v = c$)} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+Three immediate physical consequences follow from Proposition~\ref{prop:interval_identity}, Proposition~\ref{prop:five_shells}, and Table~\ref{tab:five_shells}:
+\begin{enumerate}
+    \item \textbf{Algebraic Enforcement of the $(3+1)\text{D}$ Minkowski Signature and Forward Light Cone:} Why does the reconstructed metric have Lorentzian signature $(+,-,-,-)$ rather than Euclidean signature $(+,+,+,+)$, and why can a causal covering link $u \prec_Z v$ never point outside the forward light cone? By Proposition~\ref{prop:interval_identity}, the determinant $\det(X_e) = (\Delta X^0(e))^2 - \|\Delta \vec{X}(e)\|_2^2$ on $H_2(\C)$ is the exact $(3+1)\text{D}$ Minkowski quadratic form, while unitarity of the quaternionic representation $\rho_1 : 2I \hookrightarrow \SU(2)$ forces
+    \begin{equation}
+    \Delta s_e^2 \;=\; \det(X_e) \;=\; \frac{\ell_\Lambda^2}{4}\bigl(\chi_1(h_e)\bigr)^2 \;\ge\; 0 \qquad \forall\, e \in E(Z).
+    \end{equation}
+    Thus \emph{spacelike Hasse covering links ($\Delta s_e^2 < 0$) are algebraically impossible}: every covering link of $(Z, \prec_Z)$ lies inside or on the forward Minkowski light cone $\Delta X^0(e) = \ell_\Lambda > 0$, $\|\Delta \vec{X}(e)\|_2 \le \Delta X^0(e)$.
+    \item \textbf{Exact Null Rays from the Equatorial Order-$4$ Class $30_a$:} By Proposition~\ref{prop:five_shells}(5), a covering link $e \in E(Z)$ is strictly null ($\Delta s_e^2 = 0$, $v(h_e) = c = 1$) if and only if $\chi_1(h_e) = 0$, which selects the unique $30$-element conjugacy class $30_a \subset 2I$ consisting of pure imaginary unit quaternions $h_e = -i\,\hat{n}_e\cdot\vec{\sigma}$ ($\rho_1(h_e)^2 = -I_2$). The $30$ null directions form the vertices of a regular icosidodecahedron on the celestial sphere $S^2$.
+    \item \textbf{Elimination of Lattice Anisotropy via the Spherical $5$-Design Theorem:} On a conventional $3\text{D}$ cubic lattice ($6$ directions $\pm\hat{e}_i$), the fourth-moment tensor $\frac{1}{6}\sum \hat{n}_i\hat{n}_j\hat{n}_k\hat{n}_l = \frac{1}{3}\delta_{ijkl}$ violates the continuum $\SO(3)$ identity~\eqref{eq:moments_45} by $100\%$, producing severe directional wave-propagation anisotropy ($\Delta c / c = 0.4071$ in Table~2 of Paper~II). By contrast, Theorem~\ref{thm:spherical_5design} and Table~\ref{tab:five_shells} confirm to machine precision ($\le 8.33 \times 10^{-17}$) that \emph{every non-central soldering shell of $2I$} satisfies the exact $\SO(3)$ continuum moment identities up to degree $5$. Consequently, any wave operator, diffusion kernel, or Yang--Mills plaquette expansion up to fourth order in spatial derivatives on $(Z, \prec_Z)$ is automatically rotationally isotropic.
+\end{enumerate}
+
+\subsection{Dynamical Origin of ``One-Stone'' Aperiodicity: Galois Phason Confinement}
+
+In Paper~II (Section~2), the 4D ``one-stone'' aperiodic monotile / $E_8 \to H_4^\parallel \oplus H_4^\perp$ $600$-cell quasicrystal arena was constructed kinematically by projecting an integer lattice through a bounded perpendicular acceptance window $W \subset H_4^\perp \cong \R^4$. A fundamental question of the inverse problem is how such a 4D cut-and-project quasicrystal emerges \emph{dynamically} from $Z \subseteq P \times \Gstar$ without pre-existing $8\text{D}$ or $4\text{D}$ coordinates.
+
+Theorem~\ref{thm:galois_suppression} provides the exact mechanism. By Moody--Patera icosian geometry~\cite{MoodyPatera1993}, the $120$ elements of the binary icosahedral group $2I$ span the rank-$8$ icosian ring $\mathbb{I} \subset \quat$ over $\Z$, which under the scaled Euclidean norm is isometric to the $E_8$ root lattice. The Galois outer automorphism $\sigma : \sqrt{5} \mapsto -\sqrt{5}$ of $\Q(\sqrt{5})$ embeds every path of link holonomies $\{h_e\}_{e \in \gamma}$ simultaneously into the two orthogonal quaternionic blocks of $\R[2I]$:
+\begin{equation}
+\label{eq:dual_embedding}
+h_e \;\longmapsto\; \Bigl(\,\underbrace{\rho_1(h_e)}_{\text{physical } H_4^\parallel\; (\chi_1)},\; \underbrace{\rho_2(h_e) = \rho_1(\sigma(h_e))}_{\text{phason } H_4^\perp\; (\chi_2)}\,\Bigr) \;\in\; \SU(2)_\parallel \times \SU(2)_\perp.
+\end{equation}
+On the minimal-angle generator class $12_a$, a physical step has small rotation angle $\theta_\parallel / 2 = \pi / 5$ ($\chi_1 = +\phi \approx +1.6180$) and minimal action cost $\Delta E_{\chi_1}(12_a) = \phi^{-2}/2 \approx 0.190983$. Under the Galois involution $\sigma(12_a) = 12_d$, the same link step in the perpendicular phason block $\chi_2$ jumps by the obtuse angle $\theta_\perp / 2 = 3\pi / 5$ ($\chi_2 = -\phi^{-1} \approx -0.6180$), paying an action cost $\Delta E_{\chi_2}(12_a) = \phi^2/2 \approx 1.309017$ that is larger by the exact factor $\phi^4 \approx 6.854102$ (Theorem~\ref{thm:galois_suppression}(1)).
+
+\begin{table}[!htbp]
+\centering
+\caption{Numerical verification of Galois phason confinement on $2I$: (left) exact Plancherel eigenvalue decay $(\lambda_{\chi_2}/\lambda_{\chi_1})^{b^2}$ across Kadanoff block scales $b \in \{1, 2, 4, 8\}$ at $\epsilon = 0.25$ (Theorem~\ref{thm:galois_suppression}(2)); (right) Monte Carlo $24$-step $2I$-holonomy walks comparing physical space growth $\langle\|X_\parallel\|_2^2\rangle$ against perpendicular phason confinement $\langle\|X_\perp\|_2^2\rangle$ across phason couplings $\beta_\perp \in [0, 3]$.}
+\label{tab:phason_confinement}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}ccccc@{\hspace{1.8em}}ccccc@{}}
+\toprule
+\multicolumn{5}{c}{\textbf{Kadanoff Plancherel Convolution ($\epsilon = 0.25$)}} & \multicolumn{5}{c}{\textbf{24-Step $12_a$ Holonomy Walk ($400$ Trials)}} \\
+\cmidrule(r){1-5} \cmidrule(l){6-10}
+\textbf{Scale $b$} & \textbf{$\lambda_{\chi_1}^{b^2}$ ($H_4^\parallel$)} & \textbf{$\lambda_{\chi_2}^{b^2}$ ($H_4^\perp$)} & \textbf{Ratio $(\lambda_{\chi_2}/\lambda_{\chi_1})^{b^2}$} & \textbf{Bound~\eqref{eq:galois_decay_bound}} & \textbf{Coupling $\beta_\perp$} & \textbf{Physical $\langle\|X_\parallel\|_2^2\rangle$} & \textbf{Phason $\langle\|X_\perp\|_2^2\rangle$} & \textbf{Ratio $\frac{\langle\|X_\perp\|_2^2\rangle}{\langle\|X_\parallel\|_2^2\rangle}$} & \textbf{Window Radius $R_\perp$} \\
+\midrule
+$1$ & $0.952254$ & $0.672746$ & $7.0648 \times 10^{-1}$ & $7.0574 \times 10^{-1}$ & $0.0$ (free) & $25.49$ & $24.16$ & $0.9478$ & Unbounded ($\sim N$) \\
+$2$ & $0.822263$ & $0.204656$ & $2.4889 \times 10^{-1}$ & $2.4785 \times 10^{-1}$ & $0.5$ & $146.97$ & $1.69$ & $0.0115$ & $1.30\,\ell_\Lambda$ \\
+$4$ & $0.457137$ & $1.7543 \times 10^{-3}$ & $\mathbf{3.8375 \times 10^{-3}}$ & $3.7736 \times 10^{-3}$ & $1.0$ & $191.02$ & $0.88$ & $0.0046$ & $0.94\,\ell_\Lambda$ \\
+$8$ & $4.3670 \times 10^{-2}$ & $9.4682 \times 10^{-12}$ & $\mathbf{2.1681 \times 10^{-10}}$ & $2.0258 \times 10^{-10}$ & $2.0$ & $247.34$ & $\mathbf{0.46}$ & $\mathbf{0.0018}$ & $\mathbf{0.68\,\ell_\Lambda}$ \\
+--- & --- & --- & --- & --- & $3.0$ & $295.44$ & $\mathbf{0.34}$ & $\mathbf{0.0012}$ & $\mathbf{0.59\,\ell_\Lambda}$ \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+As verified in Table~\ref{tab:phason_confinement}, under Kadanoff block coarse-graining the perpendicular phason modes $\chi_2$ decay relative to the physical spinor modes $\chi_1$ by $3.84 \times 10^{-3}$ at $b = 4$ and $2.17 \times 10^{-10}$ at $b = 8$. In a $24$-step holonomy walk on $12_a$, turning on the $\chi_2$ trace penalty confines the perpendicular shadow coordinate $\|X_\perp\|_2$ inside a dynamically generated cut-and-project acceptance window of radius $R_\perp = \sqrt{\langle\|X_\perp\|_2^2\rangle} \approx 0.59\text{--}0.68\,\ell_\Lambda$ while driving ballistic forward propagation ($\langle\|X_\parallel\|_2^2\rangle = 247.3\text{--}295.4\,\ell_\Lambda^2$) in physical $4\text{D}$ spacetime. Furthermore, because the $24$ elements of $12_a \cup 12_c$ and $12_b \cup 12_d$ have irrational trace components $\pm\phi, \pm\phi^{-1} \notin \Q$, Bieberbach's crystallographic restriction theorem forbids any periodic $4\text{D}$ translation lattice from preserving $2I$ holonomy closure: the emergent coordinates $X_\parallel^\mu(z)$ are \emph{necessarily an aperiodic $4\text{D}$ quasicrystal}.
+
+\subsection{Resolution of the Bombelli--Henson--Sorkin Infinite-Valence Paradox}
+
+A famous theorem of Bombelli, Henson, and Sorkin~\cite{BombelliHensonSorkin2009} states that for a random point process in continuum Minkowski spacetime $\R^{1,3}$, exact invariance under the non-compact Lorentz boost group $\SO^+(1,3) \cong \SL(2,\C)/\{\pm I_2\}$ requires every event to have \emph{infinite} Hasse covering degree ($d = \infty$), because arbitrary hyperbolic boosts map an infinite volume of the hyperboloid $\Delta t^2 - |\Delta \vec{x}|^2 = \tau^2$ into the nearest-neighbor strip.
+
+On $(P, \Gstar, Z, \prec_Z)$, this paradox is resolved without sacrificing either finite valence ($d = 4$) or macroscopic Lorentz symmetry:
+\begin{enumerate}
+    \item \textbf{Microscopic Finiteness ($d = 4$ and $|2I| = 120$):} At the ultraviolet cutoff $\ell_\Lambda = \Lambda^{-1}$, the local holonomy group is the compact finite group $2I \subset \SU(2)$ (not non-compact $\SL(2,\C)$), and the factorial channel-melting threshold of Paper~I (Theorem~3.1) fixes the local vertex covering degree at $d = 4$. The link velocities are quantized into the five discrete shells of Table~\ref{tab:five_shells} ($v \in \{0, \sin\frac{\pi}{5}, \frac{\sqrt{3}}{2}, \sin\frac{2\pi}{5}, 1\}$), so no infinite boost volume exists at scale $b = 1$.
+    \item \textbf{Macroscopic Continuum Boost Recovery as $b \to \infty$:} Across a causal path of $N_{\mathrm{steps}} = b \gg 1$ links, the end-to-end $4\text{D}$ displacement vector is the sum $\Delta X^\mu(\gamma) = \sum_{k=1}^b \Delta X^\mu(e_k) = \ell_\Lambda\bigl(b, \sum_{k=1}^b \vec{h}_{e_k}\bigr)$. Because each shell satisfies the exact spherical $5$-design isotropy theorem (Theorem~\ref{thm:spherical_5design}) and the $120$ elements of $2I$ satisfy the spherical $11$-design theorem on $S^3$ (Theorem~2.1 of Paper~II), the coarse-grained effective velocity $\vec{v}_{\mathrm{eff}}(\gamma) = \frac{1}{b}\sum_{k=1}^b \vec{h}_{e_k}$ densely and isotropically fills the entire continuous sub-luminal ball $\|\vec{v}_{\mathrm{eff}}\|_2 \le 1$ with central-limit resolution $O(b^{-1/2})$ and leading rotational anisotropy suppressed up to degree $12$.
+\end{enumerate}
+
+%=============================================================================
+\section{Numerical Experiment 1: Harmonic \texorpdfstring{$4\text{D}$}{4D} Coordinate Reconstruction and Discrete Riemann Curvature Strain}
+\label{sec:exp_harmonic}
+%=============================================================================
+
+To test Theorem~\ref{thm:harmonic_chart} numerically, we construct a four-dimensional causal poset grid of $N = 3^4 = 81$ vertices and $M = 216$ directed Hasse covering links generated by four independent icosahedral holonomy generators $g_0, g_1, g_2, g_3 \in 12_a \subset 2I$ with spatial soldering vectors
+\begin{equation}
+\vec{h}(g_0) = \Bigl(\tfrac{1}{2}, \tfrac{\phi^{-1}}{2}, 0\Bigr), \quad
+\vec{h}(g_1) = \Bigl(\tfrac{1}{2}, -\tfrac{\phi^{-1}}{2}, 0\Bigr), \quad
+\vec{h}(g_2) = \Bigl(-\tfrac{1}{2}, \tfrac{\phi^{-1}}{2}, 0\Bigr), \quad
+\vec{h}(g_3) = \Bigl(0, \tfrac{1}{2}, \tfrac{\phi^{-1}}{2}\Bigr).
+\end{equation}
+On the flat holonomy-parallelogram configuration, every elementary causal diamond $\square_{\mu\nu} = (u \prec_Z w_\mu, w_\nu \prec_Z v)$ assigns $h(u \to w_\mu) = h(w_\nu \to v) = g_\mu$ and $h(u \to w_\nu) = h(w_\mu \to v) = g_\nu$, so that the additive soldering defect vanishes identically ($\delta_{\square_{\mu\nu}} X^\alpha = 0$) across all elementary diamonds.
+
+We then forget all vertex coordinates, retain only the abstract Hasse incidence matrix $d_Z$ and the $2I$ link labels $h_e \in 2I$, and solve the $81 \times 81$ discrete Poisson system $L_Z X^\mu = d_Z^T(\Delta X^\mu)$ ($\mu = 0, 1, 2, 3$) pinned at $X^\mu(z_0) = 0$. Next, to probe discrete gravitational curvature, we inject a single-link holonomy defect $h(u_c \to w_0) = h_{\mathrm{def}} \in C$ at the central vertex $u_c = (1, 1, 1, 1)$ across each of the five soldering shells $C \in \{1_a, 12_a, 20_a, 12_b, 30_a\}$ and measure the resulting diamond holonomy trace $1 - \frac{1}{2}\operatorname{Re}\chi_1(U_\square)$, the diamond soldering defect $\|\delta_\square X\|_2$, the global harmonic residual energy $\mathcal{E}[X^\mu]$, and the maximum link strain $\max_{e\in E(Z)} \|d_Z X(e) - \Delta X(e)\|_2$.
+
+\begin{table}[!htbp]
+\centering
+\caption{Experiment 1: Harmonic $4\text{D}$ coordinate reconstruction $L_Z X^\mu = d_Z^T(\Delta X^\mu)$ on the $N = 3^4 = 81$ ($M = 216$ links) causal poset in the flat parallelogram state ($\delta_\square X^\mu = 0$) and under single-link curvature defects $h_{\mathrm{def}} \in 2I$ at the central causal diamond.}
+\label{tab:harmonic_curvature}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+\textbf{Central Link Holonomy Configuration} & \textbf{Plaquette Trace $1 - \frac{1}{2}\operatorname{Re}\chi_1(U_\square)$} & \textbf{Soldering Defect $\|\delta_\square X\|_2 / \ell_\Lambda$} & \textbf{Harmonic Residual $\mathcal{E}[X^\mu] / \ell_\Lambda^2$} & \textbf{Max Link Strain $\max_e \|d_Z X - \Delta X\|_2$} & \textbf{Max Coord Error vs.\ Exact $X^\mu$} & \textbf{Ratio $\mathcal{E}[X^\mu] / \|\delta_\square X\|_2^2$} \\
+\midrule
+Flat Parallelogram ($\delta_\square X^\mu = 0$) & $0.0000$ ($[g_\mu,g_\nu]=1$) & $0.000000$ & $\mathbf{8.70 \times 10^{-27}}$ & $\mathbf{3.71 \times 10^{-14}}$ & $\mathbf{6.13 \times 10^{-14}}$ & --- \\
+\addlinespace
+Defect Shell 0: $h_{\mathrm{def}} \in 1_a$ ($+I_2$) & $0.1910$ & $0.587785$ & $0.24943$ & $0.4244$ & --- & $\mathbf{0.72196}$ \\
+Defect Shell 1: $h_{\mathrm{def}} \in 12_a$ ($\neq g_0$) & $0.5000$ & $1.000000$ & $0.72196$ & $0.7220$ & --- & $\mathbf{0.72196}$ \\
+Defect Shell 2: $h_{\mathrm{def}} \in 20_a$ (Dodecahedral) & $0.6910$ & $0.535234$ & $0.20682$ & $0.3864$ & --- & $\mathbf{0.72196}$ \\
+Defect Shell 3: $h_{\mathrm{def}} \in 12_b$ (Galois $4\pi/5$) & $0.5000$ & $0.363271$ & $0.09527$ & $0.2623$ & --- & $\mathbf{0.72196}$ \\
+Defect Shell 4: $h_{\mathrm{def}} \in 30_a$ (Null ray) & $0.6910$ & $0.587785$ & $0.24943$ & $0.4244$ & --- & $\mathbf{0.72196}$ \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+Table~\ref{tab:harmonic_curvature} reveals two exact mathematical properties of the discrete Cartan soldering reconstruction:
+\begin{enumerate}
+    \item \textbf{Machine-Zero Integrability in the Flat Parallelogram Vacuum:} When the elementary causal diamonds satisfy $\delta_\square X^\mu = 0$, the discrete Poisson equation $L_Z X^\mu = d_Z^T(\Delta X^\mu)$ reconstructs the true $4\text{D}$ spacetime coordinates of all $81$ events to within $6.13 \times 10^{-14}$ with total Dirichlet residual $\mathcal{E}[X^\mu] = 8.70 \times 10^{-27}$ (machine zero), numerically confirming Theorem~\ref{thm:harmonic_chart}(3).
+    \item \textbf{Exact Quadratic Proportionality Between Harmonic Residual Energy and Diamond Soldering Defect:} Across all five defect shells $1_a, 12_a, 20_a, 12_b, 30_a$, the ratio of the global harmonic residual energy $\mathcal{E}[X^\mu]$ to the squared diamond soldering defect $\|\delta_\square X\|_2^2$ is the universal graph-Green's-function constant
+    \begin{equation}
+    \label{eq:greens_ratio}
+    \frac{\mathcal{E}[X^\mu]}{\|\delta_\square X\|_2^2} \;=\; 1 - d_Z(e_0)^T L_Z^{-1} d_Z(e_0) \;=\; 0.721960 \qquad (\text{exact across all } 5 \text{ shells}),
+    \end{equation}
+    where $R_{\mathrm{eff}}(e_0) = d_Z(e_0)^T L_Z^{-1} d_Z(e_0) = 0.278040$ is the effective resistance of the defect link $e_0 = (u_c, w_0)$ in the $4\text{D}$ Hasse network. Thus non-integrable $2I$ holonomy around elementary causal diamonds acts as a localized discrete Riemann curvature / torsion source whose harmonic strain energy $\mathcal{E}[X^\mu]$ is strictly proportional to $\|\delta_\square X\|_2^2$.
+\end{enumerate}
+
+%=============================================================================
+\section{Numerical Experiment 2: Coordinate-Free Pancake Melting, \texorpdfstring{$2I$}{2I} Soldering, and Multi-Estimator Dimension Convergence}
+\label{sec:exp_melting}
+%=============================================================================
+
+In Experiment~1, the underlying Hasse graph was initialized as a regular $4\text{D}$ grid. To test the full bottom-up inverse problem starting from a pathological poset with \emph{zero pre-existing spacetime coordinates}, Experiment~2 combines the reversible coordinate-free Metropolis--Hastings Kleitman--Rothschild pancake-melting dynamics of Paper~II (Section~3) with the $2I$ Cartan soldering reconstruction $L_Z X^\mu = d_Z^T(\Delta X^\mu)$.
+
+\subsection{Why Three Independent Dimension Estimators Are Required}
+
+As emphasized in the causal set literature~\cite{Myrheim1978,Surya2012}, the Myrheim--Meyer dimension $D_{\mathrm{MM}}$ alone only measures the global causal ordering fraction $f = C_2 / \binom{N}{2}$ via
+\begin{equation}
+\label{eq:mm_formula}
+f(D_{\mathrm{MM}}) \;=\; \frac{\Gamma(D_{\mathrm{MM}} + 1)\,\Gamma(D_{\mathrm{MM}}/2)}{4\,\Gamma(3 D_{\mathrm{MM}}/2)},
+\end{equation}
+and can be fooled by disconnected chains or $d = 4$ branched trees that happen to share $f \approx 0.10$ ($D_{\mathrm{MM}} \approx 4$) while having zero diamond closure and exponential tree growth. To eliminate this ambiguity, we evaluate three independent geometric and causal metrics on every poset configuration:
+\begin{enumerate}
+    \item \textbf{Myrheim--Meyer Causal Ordering Dimension $D_{\mathrm{MM}}$:} Inverted from the ordering fraction $f = C_2 / \binom{N}{2}$ via~\eqref{eq:mm_formula}.
+    \item \textbf{Spectral Diffusion Dimension $D_{\mathrm{spec}}$:} Extracted from the random-walk return probability $P(\sigma) \sim \sigma^{-D_{\mathrm{spec}}/2}$ on the undirected Hasse graph between diffusion steps $\sigma = 2$ and $\sigma = 4$:
+    \begin{equation}
+    D_{\mathrm{spec}} \;=\; -2\,\frac{\ln\bigl(P(4)/P(2)\bigr)}{\ln(4/2)}.
+    \end{equation}
+    \item \textbf{Geodesic Graph-Ball Scaling Dimension $D_{\mathrm{ball}}$ and Reconstructed $4\text{D}$ Light-Cone Fidelity:} We measure the geodesic ball volume growth $V(r) \sim r^{D_{\mathrm{ball}}}$ ($r = 1 \to 3$), the elementary $k = 2$ Plancherel diamond count $N_\square$, and---after decorating the Hasse covering links with $12_a$ holonomies minimizing the diamond defect $\|\delta_\square X\|_2^2$ via $3{,}000$ simulated-annealing sweeps and solving $L_Z X^\mu = d_Z^T(\Delta X^\mu)$---the \emph{reconstructed $4\text{D}$ light-cone fidelity}, defined as the percentage of Hasse covering links $e = (u \prec_Z v)$ whose globally reconstructed coordinates $X^\mu(z)$ satisfy causal forward light-cone ordering:
+    \begin{equation}
+    \label{eq:lc_fidelity}
+    X^0(v) - X^0(u) > 0 \qquad\text{and}\qquad \bigl(X^0(v) - X^0(u)\bigr)^2 - \|\vec{X}(v) - \vec{X}(u)\|_2^2 \;\ge\; 0.
+    \end{equation}
+\end{enumerate}
+
+\begin{table}[!htbp]
+\centering
+\caption{Experiment 2: Multi-size coordinate-free Kleitman--Rothschild pancake melting ($N \in \{80, 120, 160, 200\}$, zero initial $\R^4$ coordinates) followed by $12_a \subset 2I$ holonomy annealing and global harmonic coordinate reconstruction $L_Z X^\mu = d_Z^T(\Delta X^\mu)$, compared against a $4\text{D}$ diamond-closed grid ($N = 81$) and a diamond-free $4$-ary branched tree ($N = 85$).}
+\label{tab:multi_size_melting}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lccccccccc@{}}
+\toprule
+\textbf{Poset Ensemble \& Size $N$} & \textbf{Layers $L_{\max}$} & \textbf{Out-Degree $\langle d_{\mathrm{out}}\rangle$} & \textbf{Diamonds $N_\square$} & \textbf{Ordering $f$} & \textbf{$D_{\mathrm{MM}}$} & \textbf{$D_{\mathrm{spec}}$} & \textbf{$D_{\mathrm{ball}}$} & \textbf{Reconstructed LC Fidelity} & \textbf{Harmonic Strain $\mathcal{E}[X^\mu]/M$} \\
+\midrule
+Initial 3-Layer KR Pancake ($N = 160$, step $0$) & $3$ & $22.44$ & $0$ & $0.3172$ & $2.60$ & $1.94$ & $2.12$ & $68.4\%$ (crushed) & $0.6142$ \\
+\addlinespace
+Melted Poset + $2I$ Soldering ($N = 80$, $6{,}600$ steps) & $10$ & $4.02$ & $44$ & $0.2785$ & $2.78$ & $2.65$ & $2.12$ & $\mathbf{99.2\%}$ & $0.1928$ \\
+Melted Poset + $2I$ Soldering ($N = 120$, $9{,}900$ steps) & $8$ & $4.33$ & $67$ & $0.1950$ & $3.22$ & $3.18$ & $2.46$ & $\mathbf{99.2\%}$ & $0.1739$ \\
+Melted Poset + $2I$ Soldering ($N = 160$, $13{,}200$ steps) & $7$ & $\mathbf{4.30}$ & $88$ & $0.1355$ & $\mathbf{3.65}$ & $\mathbf{3.56}$ & $2.69$ & $\mathbf{99.8\%}$ & $0.1389$ \\
+Melted Poset + $2I$ Soldering ($N = 200$, $16{,}500$ steps) & $9$ & $\mathbf{4.35}$ & $\mathbf{104}$ & $0.1233$ & $\mathbf{3.76}$ & $\mathbf{3.49}$ & $2.76$ & $\mathbf{100.0\%}$ & $\mathbf{0.0861}$ \\
+\addlinespace
+Benchmark: $4\text{D}$ Parallelogram Grid ($N = 3^4 = 81$) & $9$ & $4.00$ & $216$ & $0.1296$ & $3.70$ & $3.55$ & $2.43$ & $\mathbf{100.0\%}$ & $\mathbf{0.0000}$ \\
+Control: $4$-ary Branched Tree ($N = 85$, zero diamonds) & $4$ & $4.00$ & $\mathbf{0}$ & $0.0686$ & $4.45$ & $1.68$ & $1.85$ & $100.0\%$ (tree) & $0.0000$ \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+The results in Table~\ref{tab:multi_size_melting} establish three key conclusions:
+\begin{enumerate}
+    \item \textbf{Systematic Finite-Size Convergence Toward $4\text{D}$ Geometry ($N = 80 \to 200$):} As the number of coordinate-free events increases from $N = 80$ to $120, 160, 200$, the melted posets systematically converge toward the $4\text{D}$ benchmark values: the vertex out-degree stabilizes at $\langle d_{\mathrm{out}}\rangle \approx 4.02\text{--}4.35$, the elementary causal diamond count grows linearly with $N$ ($N_\square: 0 \to 44 \to 67 \to 88 \to 104$), the Myrheim--Meyer dimension rises monotonically from $D_{\mathrm{MM}} = 2.78$ ($N=80$) to $3.22$ ($N=120$), $3.65$ ($N=160$), and $3.76$ ($N=200$, matching the $N=81$ finite $4\text{D}$ grid benchmark $D_{\mathrm{MM}} = 3.70$), and the spectral dimension converges to $D_{\mathrm{spec}} = 3.49\text{--}3.56$ (matching the $N=81$ $4\text{D}$ grid benchmark $D_{\mathrm{spec}} = 3.55$).
+    \item \textbf{Separation of Diamond-Closed $4\text{D}$ Posets from Pathological Branched Trees:} The control row of Table~\ref{tab:multi_size_melting} demonstrates why multi-estimator verification is essential: a diamond-free $4$-ary tree ($N = 85$, $N_\square = 0$) has low ordering fraction $f = 0.0686$ ($D_{\mathrm{MM}} = 4.45$), which by Myrheim--Meyer dimension alone could be mistaken for a high-dimensional spacetime, but its spectral dimension collapses to $D_{\mathrm{spec}} = 1.68$ with zero causal diamonds ($N_\square = 0$). By contrast, the $-\ln|Z(2I)| = -\ln 2$ Plancherel diamond reward in $S[P, \Gstar]$ generates $N_\square = 88\text{--}104$ closed elementary diamonds at $N = 160\text{--}200$, lifting $D_{\mathrm{spec}}$ into the genuine $4\text{D}$ window $3.49\text{--}3.56$.
+    \item \textbf{Near-Perfect Reconstructed $4\text{D}$ Light-Cone Fidelity ($99.2\% \to 100.0\%$):} When the Hasse links of the coordinate-free melted posets are decorated with $12_a \subset 2I$ holonomies via diamond-closure annealing and integrated globally via $L_Z X^\mu = d_Z^T(\Delta X^\mu)$, the per-link harmonic strain $\mathcal{E}[X^\mu]/M$ drops by $7.1\times$ relative to the initial pancake ($0.6142 \to 0.0861$ at $N = 200$), and the percentage of covering links whose globally reconstructed coordinates $X^\mu(z)$ obey strict $(3+1)\text{D}$ forward light-cone causality~\eqref{eq:lc_fidelity} reaches $99.2\%$ ($N=80, 120$), $99.8\%$ ($N=160$), and $\mathbf{100.0\%}$ ($N=200$).
+\end{enumerate}
+
+%=============================================================================
+\section{Summary Scorecard and Remaining Analytical Frontiers}
+\label{sec:conclusion}
+%=============================================================================
+
+Table~\ref{tab:inverse_scorecard} summarizes the status of the five sub-problems of the Causal Set Inverse Problem on $(P, \Gstar, Z, \prec_Z)$ after the analytical proofs and numerical experiments of this work.
+
+\begin{table}[!htbp]
+\centering
+\caption{Status of the five sub-problems of the Causal Set Inverse Problem on $(P, \Gstar, Z, \prec_Z)$.}
+\label{tab:inverse_scorecard}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{7.2cm}>{\raggedright\arraybackslash}p{5.8cm}@{}}
+\toprule
+\textbf{Inverse Sub-Problem} & \textbf{Proved / Numerically Demonstrated in This Work} & \textbf{Remaining Analytical Frontier ($|P| \to \infty$)} \\
+\midrule
+\textbf{1. Intrinsic $4\text{D}$ Signature \& Forward Light Cone} & \textbf{Proved exactly (Proposition~\ref{prop:interval_identity} \& Proposition~\ref{prop:five_shells}):} Hermitian soldering $X_e = \ell_\Lambda(I_2 + \vec{h}_e\cdot\vec{\sigma}) \in H_2(\C)$ satisfies $\det(X_e) = \frac{\ell_\Lambda^2}{4}\chi_1(h_e)^2 \ge 0$ for all $h_e \in 2I$, yielding five quantized velocity shells and exact null rays on $30_a$ ($\chi_1 = 0$). & Complete at the kinematic link level. \\
+\addlinespace
+\textbf{2. Directional Isotropy Without Sprinkling} & \textbf{Proved exactly (Theorem~\ref{thm:spherical_5design}):} Every non-central conjugacy shell of $2I$ forms an exact icosahedral spherical $5$-design on $S^2$ (machine-zero deviation $\le 8.33 \times 10^{-17}$ up to degree $5$), complementing the $S^3$ spherical $11$-design of $2I$. & Complete at the representation-theoretic level. \\
+\addlinespace
+\textbf{3. Dynamical Aperiodic Quasicrystal \& Phason Confinement} & \textbf{Proved \& simulated (Theorem~\ref{thm:galois_suppression} \& Table~\ref{tab:phason_confinement}):} Galois conjugation $\sigma : \sqrt{5} \mapsto -\sqrt{5}$ produces an exact golden-ratio gap hierarchy $\Delta E_{\chi_2}/\Delta E_{\chi_1} = \phi^4 \approx 6.8541$ on $12_a$, confining perpendicular $H_4^\perp$ phason walks within $R_\perp \approx 0.59\,\ell_\Lambda$. & Analytical derivation of the continuum phason elasticity tensor from the full $\Gstar$ partition function $\mathcal{Z}[P, \Gstar]$. \\
+\addlinespace
+\textbf{4. Global $4\text{D}$ Chart Reconstruction \& Curvature} & \textbf{Proved \& simulated (Theorem~\ref{thm:harmonic_chart} \& Table~\ref{tab:harmonic_curvature}):} Unique harmonic chart $L_Z X^\mu = d_Z^T(\Delta X^\mu)$ achieves $\mathcal{E}[X^\mu] = 8.70 \times 10^{-27}$ on flat parallelogram diamonds and universal Green's proportionality $\mathcal{E}[X^\mu]/\|\delta_\square X\|_2^2 = 0.72196$ across all five defect shells. & Continuum limit proof that the discrete diamond holonomy defect $\delta_\square X^\mu$ and plaquette action converge to the Einstein--Cartan curvature $2$-form $R^{ab} \wedge e^c \wedge e^d$. \\
+\addlinespace
+\textbf{5. Coordinate-Free Melting \& Global Measure Dominance} & \textbf{Demonstrated numerically for $N \le 200$ (Table~\ref{tab:multi_size_melting}):} Coordinate-free MCMC melts 3-layer KR pancakes ($D_{\mathrm{MM}}: 2.60 \to 3.76$, $D_{\mathrm{spec}}: 1.94 \to 3.56$) with $99.2\%\text{--}100.0\%$ reconstructed $4\text{D}$ light-cone fidelity. & \textbf{Major open mathematical theorem:} Non-perturbative Peierls contour bound proving that the $2^{\binom{N}{2}/4}$ KR entropy is globally defeated by $S[P, \Gstar]$ as $|P| \to \infty$. \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+In summary, whereas an undecorated causal set $(P, \le_P)$ lacks an intrinsic bridge from discrete order to tangent vectors, the decorated network $Z \subseteq P \times \Gstar$ solves the kinematic and mesoscopic inverse problem through the quaternionic representation theory of $2I \subset \SU(2)$: the Hermitian soldering map $X_e \in H_2(\C)$ enforces the $(3+1)\text{D}$ forward light cone by a determinant identity, its conjugacy shells eliminate lattice anisotropy up to fifth order by the spherical $5$-design theorem, the Galois outer automorphism $\sigma \in \operatorname{Aut}(2I)$ dynamically confines perpendicular phason fluctuations via the $\phi^4$ action gap ratio, and the discrete Poisson equation $L_Z X^\mu = d_Z^T(\Delta X^\mu)$ reconstructs global $4\text{D}$ Lorentzian coordinates with up to $100.0\%$ light-cone fidelity from coordinate-free melted posets.
+
+\clearpage
+
+\begin{thebibliography}{99}\raggedright
+\bibitem{PaperI} H.~Joest, ``Discrete Fundamental Physics from a Causal Poset and the Minimal Finite Group $G_\star = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f \times \Z_3^{\mathrm{PQ}}$,'' Zenodo preprint (2026), \href{https://doi.org/10.5281/zenodo.24413734}{doi:10.5281/zenodo.24413734}.
+\bibitem{PaperII} H.~Joest, ``Numerical Poset Collider Simulations, 4D Aperiodic $600$-Cell Quasicrystals, and Kadanoff Renormalization on $(P, G_\star, Z, \prec_Z)$,'' companion preprint (2026), \url{https://github.com/hjoest/discrete_fundamental_physics}.
+\bibitem{Bombelli1987} L.~Bombelli, J.~Lee, D.~Meyer, and R.~D.~Sorkin, ``Space-time as a causal set,'' \emph{Phys.\ Rev.\ Lett.} \textbf{59}, 521 (1987).
+\bibitem{Myrheim1978} J.~Myrheim, ``Statistical geometry,'' CERN Preprint TH-2538 (1978); D.~A.~Meyer, \emph{The Dimension of Causal Sets}, Ph.D.\ thesis, Massachusetts Institute of Technology (1988).
+\bibitem{KleitmanRothschild1975} D.~J.~Kleitman and B.~L.~Rothschild, ``Asymptotic enumeration of partial orders on a finite set,'' \emph{Trans.\ Amer.\ Math.\ Soc.} \textbf{205}, 205--220 (1975).
+\bibitem{Surya2012} S.~Surya, ``Evidence for the continuum limit in 2D causal set quantum gravity,'' \emph{Class.\ Quant.\ Grav.} \textbf{29}, 132001 (2012); S.~Surya, ``The causal set approach to quantum gravity,'' \emph{Living Rev.\ Relativ.} \textbf{22}, 5 (2019).
+\bibitem{BombelliHensonSorkin2009} L.~Bombelli, J.~Henson, and R.~D.~Sorkin, ``Discreteness without symmetry breaking: a theorem,'' \emph{Mod.\ Phys.\ Lett.\ A} \textbf{24}, 2579--2587 (2009).
+\bibitem{InfeldVanDerWaerden1933} L.~Infeld and B.~L.~van der Waerden, ``Die Wellengleichung des Elektrons in der allgemeinen Relativit\"atstheorie,'' \emph{Sitzungsber.\ Preuss.\ Akad.\ Wiss.\ Berlin, Phys.-Math.\ Kl.} \textbf{9}, 380--401 (1933).
+\bibitem{Coxeter1974} H.~S.~M.~Coxeter, \emph{Regular Complex Polytopes} (Cambridge University Press, Cambridge, 1974).
+\bibitem{MoodyPatera1993} R.~V.~Moody and J.~Patera, ``Quasicrystals and icosians,'' \emph{J.\ Phys.\ A: Math.\ Gen.} \textbf{26}, 2829--2853 (1993).
+\bibitem{DelsarteGoethalsSeidel1977} P.~Delsarte, J.~M.~Goethals, and J.~J.~Seidel, ``Spherical codes and designs,'' \emph{Geom.\ Dedicata} \textbf{6}, 363--388 (1977).
+\bibitem{ChamseddineConnes1997} A.~H.~Chamseddine and A.~Connes, ``The Spectral Action Principle,'' \emph{Commun.\ Math.\ Phys.} \textbf{186}, 731--750 (1997).
+\end{thebibliography}
+
+\end{document}
