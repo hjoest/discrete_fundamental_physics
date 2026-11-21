@@ -1,6 +1,6 @@
-# Deductive Dependency Graph: From Axioms 1.1–1.3 and 2.1–2.2 to the Four-Factor Design Theorem (Theorem 2.15)
+# Deductive Dependency Graph: Axioms 1.1–1.3 and 2.1–2.2 to Theorem 2.15 and Propositions 2.16–2.17
 
-This document traces the complete deductive dependency graph from the five foundational axioms (**Axioms 1.1–1.3** in Section 1 and **Axioms 2.1–2.2** in Section 2) through the intermediate propositions and no-go theorems to the **Four-Factor Design Theorem** (**Theorem 2.15**, `\label{thm:design}`) and **Proposition 2.16** (`\label{prop:anomaly_cancellation}`) in [`paper.tex`](paper.tex#L85-L389).
+This document traces the exact deductive dependency graph of [`paper.tex`](paper.tex#L85-L422) from the five foundational axioms (**Axioms 1.1–1.3** in Section 1 and **Axioms 2.1–2.2** in Section 2) through the intermediate propositions and no-go theorems to the **Four-Factor Design Theorem** (**Theorem 2.15**, `\label{thm:design}`), **Proposition 2.16** (`\label{prop:anomaly_cancellation}`), and **Proposition 2.17** (`\label{prop:chiral_survival}`).
 
 ---
 
@@ -42,6 +42,7 @@ flowchart TD
         T214["Thm 2.14 (No-Go 4): Omitting Z_3^PQ -> Conjugate-Component Reality Lock & Single-Abelianization Obstruction"]
         T215["Thm 2.15 (Four-Factor Design Theorem): Unique Minimal Group G* = 2I x Sigma(216x3) x Delta(27)_f x Z_3^PQ"]
         P216["Prop 2.16: 3-Generation Discrete Ibanez-Ross Anomaly Cancellation (3 | N_gen)"]
+        P217["Prop 2.17: Chiral Survival Selection of the 48 Weyl Fermions out of 7,128 Irreps"]
     end
 
     %% Section 1 edges
@@ -111,6 +112,9 @@ flowchart TD
     T214 --> T215
 
     T215 --> P216
+    P28 --> P217
+    T215 --> P217
+    P216 --> P217
 ```
 
 ---
@@ -142,3 +146,4 @@ flowchart TD
 | **[Thm 2.14](paper.tex#L344-L356)** | No-Go 4: Eliminating Ungraded $G_3$ (Omitting $\Z_3^{\mathrm{PQ}}$) | Axiom 2.2, Prop 2.10, Prop 2.5(1) | Violates Def 2.3(2): conjugate quotient doublets $\Sigma[4],\Sigma[3]$ fuse into one $M_2(\C)$ component locking $\Tr(M^{(1)}M^{(1)\dagger}) = \Tr(M^{(2)}M^{(2)\dagger})$ unless separated by $\Z_3^{\mathrm{PQ}}$ |
 | **[Thm 2.15](paper.tex#L358-L374)** | **Four-Factor Design Theorem for $\Gstar$** | Axioms 2.1, 2.2, Prop 2.5(1), Thms 2.7, 2.9, Prop 2.10, Thms 2.11–2.14 | Uniquely selects $\Gstar = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f \times \Z_3^{\mathrm{PQ}}$ (order $6{,}298{,}560$) |
 | **[Prop 2.16](paper.tex#L378-L389)** | 3-Generation Discrete Ibáñez–Ross Anomaly Cancellation | Thm 2.15 | Single-generation discrete anomalies $\equiv (1,1,1) \pmod 3$ cancel iff $3 \mid N_{\mathrm{gen}}$ ($N_{\mathrm{gen}} = \dim\mathbf{3}_f = 3$) |
+| **[Prop 2.17](paper.tex#L415-L422)** | Chiral Survival Selection of the $48$ Weyl Fermions in $\R[\Gstar]$ | Prop 2.8, Thm 2.15, Prop 2.16 | Out of $7{,}128$ irreps of $\Gstar$, only the $48 = 3 \times 16$ Weyl states of Table 1 are chiral under $\sigma(2I)$, $\Sigma(216\times 3)^{\mathrm{ab}}$, and $Z(\Delta(27)_f)$ |
