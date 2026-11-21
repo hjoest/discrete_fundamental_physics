@@ -1583,12 +1583,12 @@ def run_coordinate_free_kr_pancake_mcmc(
          Layer 2 (50%): indices [N/4 .. 3N/4 - 1]
          Layer 3 (25%): indices [3N/4 .. N - 1]
          with dense links from Layer 1 -> Layer 2, Layer 2 -> Layer 3, and Layer 1 -> Layer 3.
-    2. Microscopic Poset Action S[P, G_*] = -ln Z[P, G_*] (Derived from Theorems 1 & 3 + Critique 1):
-       - Factorial Channel-Melting Threshold (d < 4): By Theorem 3 of Paper I, the per-channel
+    2. Microscopic Poset Action S[P, G_*] = -ln Z[P, G_*] (Derived from Proposition 1.7 & Theorem 3.1 + Critique 1):
+       - Factorial Channel-Melting Threshold (d < 4): By Theorem 3.1 of Paper I, the per-channel
          inverse temperature beta_ch(d) = 18.461 / d! exceeds the critical freezing threshold 1.0
          for d in {1, 2, 3} and melts first at d = 4 (beta_ch(4) = 0.7692 < 1), contributing
          S_freeze(d) = max(0, 18.461 / d! - 1.0) for d < 4.
-       - Central Link Cost + Abelian Kirchhoff Hub Suppression (d > 4): By Theorem 3 and Critique 1
+       - Central Link Cost + Abelian Kirchhoff Hub Suppression (d > 4): By Theorem 3.1 and Critique 1
          (Eq. 585 of Paper I), each link above d = 4 pays the central synchronization cost
          mu_link = ln|Z(G_3)| = ln(6) plus the abelian Kirchhoff hub synchronization cost
          ln|G_*^ab| = ln(81) per excess link, i.e., (ln 6 + ln 81) * max(0, d - 4).

@@ -417,7 +417,7 @@ def main() -> None:
             f"action $\\mathcal{{Z}}[P, G_\\star]$, we initialize an abstract poset of $N = {mcmc_res.num_events}$ events with **zero spacetime coordinates** "
             "in a pathological **3-layer Kleitman–Rothschild pancake** ($L_{\\max} = 3$, high degree $\\langle d_{\\text{out}}\\rangle = "
             f"{mcmc_res.initial_mean_degree:.2f}$, crushed Myrheim–Meyer dimension $D_{{\\text{{MM}}}} = {mcmc_res.initial_myrheim_meyer_dim:.2f}$) "
-            "and evolve the covering links via reversible Metropolis–Hastings moves (including exact Hastings proposal ratios) weighted purely by the Theorem 1 & 3 action (the $d! > 18.461$ "
+            "and evolve the covering links via reversible Metropolis–Hastings moves (including exact Hastings proposal ratios) weighted purely by the Proposition 1.7 and Theorem 3.1 action (the $d! > 18.461$ "
             "channel-melting threshold at $d = 4$, the $(\\ln|Z(G_3)| + \\ln|G_\\star^{\\text{ab}}|) = (\\ln 6 + \\ln 81)$ link/hub cost above $d = 4$, and the $\\ln|G_3^{\\text{ab}}| = \\ln 27$ "
             "non-Hasse shortcut penalty):",
             "",
@@ -557,7 +557,7 @@ def main() -> None:
             "   - The `poisson` sprinkling reduces directional anisotropy statistically, but introduces higher local degree variance ($\\mathrm{std}(d_{\\text{in}}) = 0.66$) and lower 1-loop causal diamond closure.",
             "   - The `aperiodic` 4D one-stone / $E_8 \\to H_4$ (600-cell) quasicrystal combines hyperuniform $d \\approx 4$ connectivity ($\\mathrm{std}(d_{\\text{in}}) = 0.53$) with $7.3\\times$ lower light-cone anisotropy than the cubic lattice and exact spherical 11-design isotropy up to degree 10.",
             "3. **Coordinate-Free Kleitman–Rothschild Pancake Melting (Open Problem 1 — Dynamical Self-Organization):**",
-            f"   - Starting from a pathological 3-layer Kleitman–Rothschild pancake with **no 4D coordinates**, reversible Metropolis–Hastings evolution under the microscopic Theorem 1 & 3 action melts the pancake into a {mcmc_res.final_layers}-layer causal poset, driving $\\langle d_{{\\text{{out}}}}\\rangle: {mcmc_res.initial_mean_degree:.2f} \\to {mcmc_res.final_mean_degree:.2f}$ and $D_{{\\text{{MM}}}}: {mcmc_res.initial_myrheim_meyer_dim:.2f} \\to {mcmc_res.final_myrheim_meyer_dim:.2f}$.",
+            f"   - Starting from a pathological 3-layer Kleitman–Rothschild pancake with **no 4D coordinates**, reversible Metropolis–Hastings evolution under the microscopic Proposition 1.7 and Theorem 3.1 action melts the pancake into a {mcmc_res.final_layers}-layer causal poset, driving $\\langle d_{{\\text{{out}}}}\\rangle: {mcmc_res.initial_mean_degree:.2f} \\to {mcmc_res.final_mean_degree:.2f}$ and $D_{{\\text{{MM}}}}: {mcmc_res.initial_myrheim_meyer_dim:.2f} \\to {mcmc_res.final_myrheim_meyer_dim:.2f}$.",
             "4. **Plancherel Heat-Kernel Convergence under Kadanoff RG (Open Problem 2):**",
             f"   - Under $b^2$-fold Kadanoff plaquette convolution on $\\mathbb{{R}}[2I]$, higher-spin representations are exponentially suppressed relative to the minimal-gap chiral spinor $\\mathbf{{2}}_L$, and the discrete block action converges in functional form to $\\beta_{{\\text{{eff}}}}(b)(2 - \\mathrm{{Re}}\\,\\chi_{{\\mathbf{{2}}_L}}(g))$ with $R^2 = {hk_res.scale_points[-1].continuum_ym_r_squared:.6f}$ by $b = {hk_res.scale_points[-1].block_scale_b}$ as $\\beta_{{\\text{{eff}}}}(b) \\to 0$ in the coarse-grained random-walk regime.",
             "5. **Top-Quark & Flavon-Higgs 1-Loop Causal Diamonds (Open Problem 3):**",
