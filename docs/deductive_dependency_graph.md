@@ -1,6 +1,6 @@
-# Deductive Dependency Graph: From Axioms 1.1–1.3 and 2.1–2.2 to the Four-Factor Design Theorem (Theorem 2.15)
+# Deductive Dependency Graph: From Axioms 1.1–1.3 and 2.1–2.2 to the Four-Factor Design Theorem (Theorem 2.15) and Companion Papers II–III
 
-This document traces the complete deductive dependency graph of [`paper.tex`](paper.tex#L85-L391) from the five foundational axioms (**Axioms 1.1–1.3** in Section 1 and **Axioms 2.1–2.2** in Section 2) through the intermediate propositions and no-go theorems to the **Four-Factor Design Theorem** (**Theorem 2.15**, `\label{thm:design}`) and **Proposition 2.16** (`\label{prop:anomaly_cancellation}`).
+This document traces the complete deductive dependency graph of Paper I ([`paper.tex`](paper.tex#L85-L391)) from the five foundational axioms (**Axioms 1.1–1.3** in Section 1 and **Axioms 2.1–2.2** in Section 2) through the intermediate propositions and no-go theorems to the **Four-Factor Design Theorem** (**Theorem 2.15**, `\label{thm:design}`) and **Proposition 2.16** (`\label{prop:anomaly_cancellation}`), which in turn provide the algebraic input $\Gstar = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f \times \Z_3^{\mathrm{PQ}}$ for the 4D Poset Collider simulations in Paper II ([`paper2.tex`](paper2.tex)) and the Quaternionic Cartan Soldering / Causal Set Inverse Problem theorems (Propositions 1.2–1.3 and Theorems 2.1, 2.3–2.4) in Paper III ([`paper3.tex`](paper3.tex)).
 
 ---
 
