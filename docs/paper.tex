@@ -133,6 +133,15 @@ according to: (i)~$\iota(\chi) = +1 \implies \mathbb{D}_\alpha = \R$ and $n_\alp
 By the Frobenius--Schur theorem (1906), $\iota(\chi)$ takes values in $\{+1, 0, -1\}$ according to whether the complex irreducible representation $V_\chi$ admits a $G$-invariant symmetric bilinear form ($\iota = +1$, descending to a real representation of dimension $d_\chi$ with commutant $\R$), no $G$-invariant bilinear form ($\iota = 0$, where $\chi \neq \bar{\chi}$ and $V_\chi \oplus V_{\bar{\chi}}$ descends to an irreducible real representation of real dimension $2d_\chi$ with commutant $\C$, e.g.\ $\R[\Z_3] \cong \R \oplus \C$ whereas $\C[\Z_3] \cong \C^3$), or a $G$-invariant skew-symmetric bilinear form ($\iota = -1$, where $V_\chi \oplus V_\chi$ carries a quaternionic structure with commutant $\quat$ and even complex degree $d_\chi = 2n_\alpha$). By Schur's lemma, a simple $\R[G]$-module with division-algebra commutant $\mathbb{D}_\alpha^{\mathrm{op}} \cong \mathbb{D}_\alpha$ generates the simple component $M_{n_\alpha}(\mathbb{D}_\alpha)$.
 \end{proof}
 
+\begin{proposition}[Unitary and Special Unitary Embedding of Finite Group Representations]
+\label{prop:unitary_embedding}
+Every complex representation $\rho : H \to \GL(d_\chi, \C)$ of a finite group $H$ preserves a positive-definite $H$-invariant Hermitian inner product on $\C^{d_\chi}$ and is equivalent to a unitary representation $\rho : H \to \U(d_\chi)$. For $d_\chi \ge 2$, the projective tensor conjugation action $X \mapsto \rho(h)^{\otimes t} X (\rho(h)^\dagger)^{\otimes t}$ on $M_{d_\chi}(\C)^{\otimes t}$ ($t \ge 1$) is invariant under scalar phases $Z(\U(d_\chi)) = \U(1)I_{d_\chi}$ and factors through $\PU(d_\chi) = \U(d_\chi)/\U(1) \cong \SU(d_\chi)/\Z_{d_\chi}$, so any finite subgroup of $\U(d_\chi)$ realizing a projective action at minimal group order embeds into $\SU(d_\chi)$ ($\det\rho(H) = \{1\}$).
+\end{proposition}
+
+\begin{proof}
+By Weyl's unitarity theorem, averaging any positive-definite Hermitian inner product $\langle \cdot, \cdot \rangle_0$ on $\C^{d_\chi}$ over the finite group $H$ via $\langle u, v \rangle_H \equiv \frac{1}{|H|}\sum_{h \in H} \langle \rho(h)u, \rho(h)v \rangle_0$ yields an $H$-invariant positive-definite Hermitian inner product with respect to which every operator $\rho(h)$ is unitary. For $d_\chi \ge 2$ and any scalar phase $e^{i\theta}I_{d_\chi} \in Z(\U(d_\chi))$, $(e^{i\theta}U)^{\otimes t} X ((e^{i\theta}U)^\dagger)^{\otimes t} = e^{it\theta}e^{-it\theta} U^{\otimes t} X (U^\dagger)^{\otimes t} = U^{\otimes t} X (U^\dagger)^{\otimes t}$, so projective conjugation factors through $\PU(d_\chi) \cong \SU(d_\chi)/\Z_{d_\chi}$; every commutator satisfies $\det([g, h]) = 1$, and omitting redundant non-unimodular determinant phases minimizes $|H|$ inside $\SU(d_\chi)$.
+\end{proof}
+
 \begin{proposition}[Resolution of the Covering-Relation Triviality Trap]
 \label{prop:triviality_trap}
 Under the induced strict order~\eqref{eq:induced_order} on $Z \subseteq P \times G$, every fiber $Z_x = \pi_P^{-1}(x)$ is an antichain, and $(x, g_1) \prec_Z (y, g_2)$ is a covering relation in $Z$ if and only if $x \prec_P y$ is a covering relation in $P$ and $(x, g_1), (y, g_2) \in Z$.
@@ -160,7 +169,7 @@ Applying $\phi$ to Eq.~\eqref{eq:product_law} yields Eq.~\eqref{eq:kirchhoff} im
 \section{Representation-Theoretic Classification and the Four-Factor Design Theorem}
 %=============================================================================
 
-Because Axioms~\ref{ax:poset}--\ref{ax:conservation} in Section~1 hold for any finite group $G$ (including trivial or abelian groups), selecting a finite group capable of approximating continuous unitary symmetries across the division algebras of $\R[G]$ is governed by projective unitary $t$-designs:
+Because Axioms~\ref{ax:poset}--\ref{ax:conservation} in Section~1 hold for any finite group $G$ (including trivial or abelian groups), selecting a finite group whose unitary and projective special unitary representations (Proposition~\ref{prop:unitary_embedding}) approximate continuous unitary symmetries across the division algebras of $\R[G]$ is governed by projective unitary $t$-designs:
 
 \begin{definition}[Projective Unitary $t$-Design]
 \label{def:unitary_tdesign}
@@ -184,27 +193,18 @@ The finite group $G$ is the group of minimal order and minimal exponent whose re
 The physical intuition behind Axiom~\ref{ax:unitary_design} is that we live in that discrete universe which, by the simplest finitist means (Axioms~\ref{ax:poset}--\ref{ax:conservation}, minimal $|G|$ and $\exp(G)$), approximates continuous unitary Lie-group symmetries in the best mathematically possible way (maximal unitary $t$-design degree across all non-real division algebras of $\R[G]$, with every level of the design hierarchy active simultaneously and independently).
 
 \bigskip
-\noindent We now prove through seven propositions and seven representation-theoretic theorems in $\R[G]$ that Axioms~\ref{ax:poset}--\ref{ax:conservation} and Axiom~\ref{ax:unitary_design} uniquely select the minimal four-factor group
+\noindent We now prove through six propositions and seven representation-theoretic theorems in $\R[G]$ that Axioms~\ref{ax:poset}--\ref{ax:conservation} and Axiom~\ref{ax:unitary_design} uniquely select the minimal four-factor group
 \begin{equation}
 \label{eq:gstar_def}
 \Gstar \;=\; \underbrace{2I \times \Sigma(216 \times 3) \times \Delta(27)_f}_{\Gthree\;\text{(order }120 \times 648 \times 27 \,=\, 2{,}099{,}520\text{)}} \times \Z_3^{\mathrm{PQ}} \qquad (\text{order } 6{,}298{,}560),
 \end{equation}
-first deriving from Axiom~\ref{ax:unitary_design} the unique maximal-degree perfect unitary $5$-design $2I \subset \SU(2)$ ($1$ design level) and the unique minimal solvable complex Clifford unitary $2$-design hierarchy $1 \triangleleft Z(H) \triangleleft H \triangleleft N_{\SU(3)}(H)$ ($3$ non-trivial design levels: $\Z_3 \triangleleft \Delta(27) \triangleleft \Sigma(216 \times 3)$) (Section~2.1, Propositions~\ref{prop:unitary_embedding}--\ref{prop:chiral_noncrystallographic} and Theorems~\ref{thm:t7_m27} and~\ref{thm:2I_minimal}), and then proving from Axiom~\ref{ax:unitary_design} through four no-go theorems that simultaneous faithful realization without real or conjugate-pair collapse in $\R[G]$ forces all $1 + 3 = 4$ design levels to unfold into the four-factor direct product $\Gstar = 2I \times N_{\SU(3)}(H) \times H \times Z(H)$ (Section~2.2, Proposition~\ref{prop:fs_tensor_reality}, Theorems~\ref{thm:nogo_sigma}--\ref{thm:design}, and Proposition~\ref{prop:anomaly_cancellation}).
+first deriving from Axiom~\ref{ax:unitary_design} the unique maximal-degree perfect unitary $5$-design $2I \subset \SU(2)$ ($1$ design level) and the unique minimal solvable complex Clifford unitary $2$-design hierarchy $1 \triangleleft Z(H) \triangleleft H \triangleleft N_{\SU(3)}(H)$ ($3$ non-trivial design levels: $\Z_3 \triangleleft \Delta(27) \triangleleft \Sigma(216 \times 3)$) (Section~2.1, Propositions~\ref{prop:minimal_degrees}--\ref{prop:chiral_noncrystallographic} and Theorems~\ref{thm:t7_m27} and~\ref{thm:2I_minimal}), and then proving from Axiom~\ref{ax:unitary_design} through four no-go theorems that simultaneous faithful realization without real or conjugate-pair collapse in $\R[G]$ forces all $1 + 3 = 4$ design levels to unfold into the four-factor direct product $\Gstar = 2I \times N_{\SU(3)}(H) \times H \times Z(H)$ (Section~2.2, Proposition~\ref{prop:fs_tensor_reality}, Theorems~\ref{thm:nogo_sigma}--\ref{thm:design}, and Proposition~\ref{prop:anomaly_cancellation}).
 
 \subsection{Exact No-Go Theorems for the Individual Faithful Subgroups}
 
-\begin{proposition}[Unitary Embedding of Finite Group Representations]
-\label{prop:unitary_embedding}
-Every complex representation $\rho : H \to \GL(d_\chi, \C)$ of a finite group $H$ preserves a positive-definite $H$-invariant Hermitian inner product on $\C^{d_\chi}$ and is equivalent to a unitary representation $\rho : H \to \U(d_\chi)$ (or $\SU(d_\chi)$ when $\det\rho(H) = \{1\}$).
-\end{proposition}
-
-\begin{proof}
-By Weyl's unitarity theorem, averaging any positive-definite Hermitian inner product $\langle \cdot, \cdot \rangle_0$ on $\C^{d_\chi}$ over the finite group $H$ via $\langle u, v \rangle_H \equiv \frac{1}{|H|}\sum_{h \in H} \langle \rho(h)u, \rho(h)v \rangle_0$ yields an $H$-invariant positive-definite Hermitian inner product with respect to which every operator $\rho(h)$ is unitary.
-\end{proof}
-
 \begin{proposition}[Minimal Unitary Degrees of the Non-Real Division Algebras of {$\R[G]$}]
 \label{prop:minimal_degrees}
-Whereas the real division algebra $\mathbb{D}_\alpha = \R$ ($\iota = +1$) is always realized at degree $d_\chi = 1$ by the trivial representation $1_{+1}$, the minimal complex representation degrees $d_\chi$ at which a faithful irreducible representation of a finite group $H$ realizes the non-real division algebras $\mathbb{D}_\alpha \in \{\C, \quat\}$ of Propositions~\ref{prop:wedderburn}--\ref{prop:frobenius_schur} in abelian and non-abelian unitary sectors are:
+Whereas the real division algebra $\mathbb{D}_\alpha = \R$ ($\iota = +1$) is always realized at degree $d_\chi = 1$ by the trivial representation $1_{+1}$, the minimal complex representation degrees $d_\chi$ at which a faithful irreducible representation of a finite group $H$ realizes the non-real division algebras $\mathbb{D}_\alpha \in \{\C, \quat\}$ of Propositions~\ref{prop:wedderburn}--\ref{prop:unitary_embedding} in abelian and non-abelian unitary sectors are:
 \begin{enumerate}
     \item $d_\chi = 1$ ($\iota(\chi) = 0$, simple component $\C$): minimal abelian complex sector $H \subset \U(1)$;
     \item $d_\chi = 2$ ($\iota(\chi) = -1$, simple component $M_1(\quat) = \quat$): minimal quaternionic sector $H \subset \operatorname{Sp}(1) \cong \SU(2)$;
