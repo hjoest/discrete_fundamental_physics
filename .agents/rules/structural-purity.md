@@ -22,3 +22,8 @@ When writing or editing papers, documentation, and theoretical derivations in th
 4. **Clear Separation of Classical Theorems (No Theorem Mishmash):**
    - Never lump multiple distinct theorems into a single conflated clause (e.g., *"By Maschke's, Artin–Wedderburn's, and Frobenius's theorems..."*) or jam conclusions from different theorems into one unexplained equation.
    - State each theorem, its specific hypothesis, and its exact mathematical conclusion in clear, sequential steps.
+
+5. **Strict Linear Deductive Ordering (Zero Forward Dependencies or Unintroduced Assumptions):**
+   - Every definition, axiom, proposition, theorem, and proof must depend **exclusively on concepts, definitions, symbols, embeddings, representation indices, and results that have already been explicitly introduced or proven earlier in the document**.
+   - Never use an embedding (e.g., $K \subset \mathrm{SU}(d_\chi)$), an algebraic phenomenon (e.g., real collapse or conjugate-pair fusion), a subgroup classification or representation label (e.g., $\Sigma[k]$, $\Delta[9]$), an order cutoff (e.g., $|H| \le 27$), or a physical/numerical quantity (e.g., a multiplet table, charge assignment, or threshold formula) inside a definition, axiom, proposition, or theorem before the proposition, definition, or table that establishes it has appeared.
+   - Never bake a theorem's conclusion (e.g., that a $1$-design with a $2$-design normalizer must be extraspecial of uniform prime exponent) into the preceding definition that the theorem is meant to analyze.
