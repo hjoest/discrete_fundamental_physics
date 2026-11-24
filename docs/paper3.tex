@@ -181,7 +181,7 @@ Under the Hermitian soldering map of Definition~\ref{def:soldering_map}, the $12
 \end{proposition}
 
 \begin{proof}
-In the quaternion realization $2I \subset \SU(2) \cong S^3$, the $120$ elements consist of the $8$ permutations of $(\pm 1, 0, 0, 0)$, the $16$ elements $(\pm \frac{1}{2}, \pm \frac{1}{2}, \pm \frac{1}{2}, \pm \frac{1}{2})$, and the $96$ even permutations of $(\pm \frac{\phi}{2}, \pm \frac{1}{2}, \pm \frac{\phi^{-1}}{2}, 0)$, where $\phi = \frac{1+\sqrt{5}}{2}$ and $\phi^{-1} = \frac{\sqrt{5}-1}{2}$~\cite{Coxeter1974}. Because $\chi_1(h) = 2 h^0$ for $h = (h^0, \vec{h}) \in 2I$, grouping the $120$ elements by their first coordinate $h^0 \in \{+1, -1, +\frac{\phi}{2}, -\frac{\phi}{2}, +\frac{1}{2}, -\frac{1}{2}, +\frac{\phi^{-1}}{2}, -\frac{\phi^{-1}}{2}, 0\}$ yields the nine conjugacy classes of $2I$ of cardinalities $1, 1, 12, 12, 20, 20, 12, 12, 30$ (summing to $120$). Writing $h^0 = \cos(\theta/2)$ with $\theta/2 \in \{0, \pi, \frac{\pi}{5}, \frac{4\pi}{5}, \frac{\pi}{3}, \frac{2\pi}{3}, \frac{2\pi}{5}, \frac{3\pi}{5}, \frac{\pi}{2}\}$ gives $v(h) = \|\vec{h}\|_2 = \sin(\theta/2)$ and $\det(X_e)/\ell_\Lambda^2 = (h^0)^2 = \cos^2(\theta/2)$, matching the five numerical values in (1)--(5). Under the adjoint action of $2I / Z(2I) \cong A_5 \subset \SO(3)$ on the imaginary quaternion subspace $\R^3$, a non-zero vector $\vec{h}$ in a conjugacy class $C$ of size $|C| \in \{12, 20, 30\}$ has stabilizer of order $60 / |C| \in \{5, 3, 2\}$ in $A_5$, which are respectively the vertex stabilizers of the regular icosahedron ($|C|=12$), the regular dodecahedron ($|C|=20$), and the regular icosidodecahedron ($|C|=30$).
+For $h = (h^0, \vec{h}) \in 2I \subset \SU(2) \cong S^3$ in the $120$-element unit-quaternion realization of Section~1.2, $\chi_1(h) = 2 h^0$, so grouping the $120$ elements by their real part $h^0 \in \{+1, -1, +\frac{\phi}{2}, -\frac{\phi}{2}, +\frac{1}{2}, -\frac{1}{2}, +\frac{\phi^{-1}}{2}, -\frac{\phi^{-1}}{2}, 0\}$ yields the nine conjugacy classes of $2I$ of cardinalities $1, 1, 12, 12, 20, 20, 12, 12, 30$ (summing to $120$, where elements with $h^0 = 0$ in $30_a$ have $\rho_1(h_e) = -i\,\hat{n}_e\cdot\vec{\sigma}$ and thus $\rho_1(h_e)^2 = -I_2$ of order $4$). Writing $h^0 = \cos(\theta/2)$ with $\theta/2 \in \{0, \pi, \frac{\pi}{5}, \frac{4\pi}{5}, \frac{\pi}{3}, \frac{2\pi}{3}, \frac{2\pi}{5}, \frac{3\pi}{5}, \frac{\pi}{2}\}$ gives $v(h) = \|\vec{h}\|_2 = \sin(\theta/2)$ and $\det(X_e)/\ell_\Lambda^2 = (h^0)^2 = \cos^2(\theta/2)$, matching the five values in (1)--(5). Under the adjoint action of $2I / Z(2I) \cong A_5 \subset \SO(3)$ on the imaginary quaternion subspace $\R^3$, a non-zero vector $\vec{h}$ in a conjugacy class $C$ of size $|C| \in \{12, 20, 30\}$ has stabilizer of order $60 / |C| \in \{5, 3, 2\}$ in $A_5$, which are respectively the vertex stabilizers of the regular icosahedron ($|C|=12$), the regular dodecahedron ($|C|=20$), and the regular icosidodecahedron ($|C|=30$).
 \end{proof}
 
 %=============================================================================
@@ -189,16 +189,16 @@ In the quaternion realization $2I \subset \SU(2) \cong S^3$, the $120$ elements 
 \label{sec:math_theorems}
 %=============================================================================
 
-\subsection{The Galois Outer Automorphism of \texorpdfstring{$2I$}{2I} and the \texorpdfstring{$\phi^4$}{phi\^{}4} Action Gap Ratio}
+\subsection{The Galois Outer Automorphism of \texorpdfstring{$2I$}{2I} and the \texorpdfstring{$\phi^4$}{phi\^{}4} Trace Gap Ratio}
 
 By Artin--Wedderburn decomposition over $\R$, the group algebra $\R[2I]$ splits into nine simple matrix blocks, including two non-isomorphic quaternionic blocks $\quat \oplus \quat$ associated with the two faithful irreducible representations $\rho_1, \rho_2 : 2I \hookrightarrow \SU(2)$ of degree $d_{\chi_1} = d_{\chi_2} = 2$. Their characters $\chi_1, \chi_2$ take values in the ring of integers $\Z[\phi]$ of the real quadratic field $\Q(\sqrt{5})$ and are swapped by the non-trivial Galois automorphism $\sigma \in \operatorname{Gal}(\Q(\sqrt{5})/\Q)$ defined by $\sigma(\sqrt{5}) = -\sqrt{5}$, i.e.,
 \begin{equation}
 \label{eq:galois_swap}
 \sigma(\phi) \;=\; 1 - \phi \;=\; -\phi^{-1}, \qquad \chi_2(g) \;=\; \sigma\bigl(\chi_1(g)\bigr) \;=\; \chi_1\bigl(\sigma(g)\bigr) \quad \forall\, g \in 2I,
 \end{equation}
-where $\sigma \in \operatorname{Aut}(2I)$ is the outer automorphism of $2I$ that interchanges the conjugacy classes $12_a \leftrightarrow 12_d$ and $12_b \leftrightarrow 12_c$ of Proposition~\ref{prop:five_shells}. Recall that for any class-function probability distribution $P_1 : 2I \to [0, 1]$ ($\sum_{g \in 2I} P_1(g) = 1$, $P_1(hgh^{-1}) = P_1(g)$), group convolution $(f_1 * f_2)(g) \equiv \sum_{h \in 2I} f_1(gh^{-1})f_2(h)$ on $\R[2I]$ acts on each irreducible character $\chi \in \Irr(2I)$ by the scalar Fourier eigenvalue $\lambda_\chi \equiv \sum_{g \in 2I} P_1(g)\,\chi(g)/d_\chi$, so the $b^2$-fold convolution $P_b = P_1^{* b^2}$ has Fourier coefficients $\lambda_\chi^{b^2}$. We now prove that the ratio of the normalized trace gaps of $\chi_2$ and $\chi_1$ on the minimal-angle generator class $12_a$ equals $\phi^4$, and that $b^2$-fold Plancherel convolution on $\R[2I]$ suppresses the Galois-conjugate sector $\chi_2$ relative to $\chi_1$ at a strict exponential rate in $b^2$.
+where $\sigma \in \operatorname{Aut}(2I)$ is the outer automorphism of $2I$ that interchanges the conjugacy classes $12_a \leftrightarrow 12_d$ and $12_b \leftrightarrow 12_c$ of Proposition~\ref{prop:five_shells}. For any subset $C \subseteq 2I$, let $\mathbf{1}_C : 2I \to \{0, 1\}$ denote its indicator function ($\mathbf{1}_C(g) = 1$ if $g \in C$ and $0$ otherwise, with $\delta_{1_a} = \mathbf{1}_{1_a}$). Recall that for any class-function probability distribution $P_1 : 2I \to [0, 1]$ ($\sum_{g \in 2I} P_1(g) = 1$, $P_1(hgh^{-1}) = P_1(g)$), group convolution $(f_1 * f_2)(g) \equiv \sum_{h \in 2I} f_1(gh^{-1})f_2(h)$ on $\R[2I]$ acts on each irreducible character $\chi \in \Irr(2I)$ by the scalar Fourier eigenvalue $\lambda_\chi \equiv \sum_{g \in 2I} P_1(g)\,\chi(g)/d_\chi$, so the $b^2$-fold convolution $P_b = P_1^{* b^2}$ has Fourier coefficients $\lambda_\chi^{b^2}$. We now prove that the ratio of the normalized trace gaps of $\chi_2$ and $\chi_1$ on the minimal-angle generator class $12_a$ equals $\phi^4$, and that $b^2$-fold Plancherel convolution on $\R[2I]$ suppresses the Galois-conjugate sector $\chi_2$ relative to $\chi_1$ at a strict exponential rate in $b^2$.
 
-\begin{theorem}[Golden-Ratio Action Gap Hierarchy and Galois Convolution Suppression]
+\begin{theorem}[Golden-Ratio Trace Gap Hierarchy and Galois Convolution Suppression]
 \label{thm:galois_suppression}
 Let $\chi_1, \chi_2 \in \Irr(2I)$ be the two faithful two-dimensional irreducible characters of $2I$, and for each $\chi \in \Irr(2I)$ and $g \in 2I$ let
 \begin{equation}
@@ -214,7 +214,7 @@ denote the normalized trace gap. Then:
     \Delta E_{\chi_2}(12_a) = \frac{\phi^2}{2} = \frac{3 + \sqrt{5}}{4}, \;
     \frac{\Delta E_{\chi_2}(12_a)}{\Delta E_{\chi_1}(12_a)} = \phi^4 = \frac{7 + 3\sqrt{5}}{2}.
     \end{equation}
-    \item Under the class-function probability distribution $P_1(g) = (1 - \epsilon)\delta_{1_a}(g) + \frac{\epsilon}{12}\mathbf{1}_{12_a}(g)$ on $2I$ with $0 < \epsilon \le 1$, the $b^2$-fold group convolution $P_b = P_1^{* b^2}$ on $\R[2I]$ has Fourier coefficients $\lambda_\chi^{b^2}$, where $\lambda_\chi = 1 - \epsilon\,\Delta E_\chi(12_a)$, and the ratio of the Galois-conjugate Fourier coefficient to the primary spinor coefficient satisfies
+    \item Under the class-function probability distribution $P_1(g) = (1 - \epsilon)\delta_{1_a}(g) + \frac{\epsilon}{12}\mathbf{1}_{12_a}(g)$ on $2I$ with $0 < \epsilon \le 1$, the $b^2$-fold group convolution $P_b = P_1^{* b^2}$ on $\R[2I]$ has Fourier coefficients $\lambda_\chi^{b^2}$, where $\lambda_\chi = 1 - \epsilon\,\Delta E_\chi(12_a)$, and the ratio of the Galois-conjugate Fourier coefficient $\lambda_{\chi_2}^{b^2}$ to the primary Fourier coefficient $\lambda_{\chi_1}^{b^2}$ satisfies
     \begin{equation}
     \label{eq:galois_decay_bound}
     0 \;\le\; \left(\frac{\lambda_{\chi_2}}{\lambda_{\chi_1}}\right)^{b^2} \;=\; \left(\frac{1 - \frac{\epsilon}{2}\phi^2}{1 - \frac{\epsilon}{2}\phi^{-2}}\right)^{b^2} \;\le\; \exp\!\left(-\frac{\epsilon\bigl(\phi^2 - \phi^{-2}\bigr)}{2}\,b^2\right) \;=\; \exp\!\left(-\frac{\sqrt{5}}{2}\,\epsilon\,b^2\right)
@@ -261,7 +261,7 @@ Let $(Z, E(Z))$ be a finite connected Hasse graph with vertex set $Z = \{z_0, z_
     \label{eq:dirichlet_residual}
     \mathcal{E}[X^\mu] \;=\; \sum_{\mu=0}^3 \|d_Z X^\mu - \Delta X^\mu\|_{\ell^2(E(Z))}^2 \;=\; \sum_{\mu=0}^3 \sum_{e=(u,v)\in E(Z)} \Bigl|\bigl(X^\mu(v) - X^\mu(u)\bigr) - \Delta X^\mu(e)\Bigr|^2.
     \end{equation}
-    \item For any elementary $2$-step causal diamond $\square = (u \prec_Z w_1, w_2 \prec_Z v)$ with covering links $e_1 = (u, w_1)$, $e_2 = (w_1, v)$, $e_3 = (u, w_2)$, $e_4 = (w_2, v) \in E(Z)$, the \emph{parallelogram diamond holonomy} and the \emph{additive soldering defect} are
+    \item For any elementary $2$-step Hasse diamond $\square = (u \prec_Z w_1, w_2 \prec_Z v)$ ($w_1 \neq w_2$) with covering links $e_1 = (u, w_1)$, $e_2 = (w_1, v)$, $e_3 = (u, w_2)$, $e_4 = (w_2, v) \in E(Z)$, the \emph{parallelogram diamond holonomy} and the \emph{additive soldering defect} are
     \begin{equation}
     \label{eq:diamond_defects}
     U_\square = h_{e_1} h_{e_2} h_{e_3}^{-1} h_{e_4}^{-1} \in 2I, \quad
@@ -281,7 +281,7 @@ Let $(Z, E(Z))$ be a finite connected Hasse graph with reference vertex $z_0 \in
     \label{eq:poisson_normal}
     L_Z X^\mu \;=\; d_Z^T\bigl(\Delta X^\mu\bigr), \qquad X^\mu(z_0) = 0.
     \end{equation}
-    \item For every elementary diamond $\square = (u \prec_Z w_1, w_2 \prec_Z v)$, the time component of the soldering defect vanishes identically ($\delta_\square X^0 = 0$), and both the spatial defect $\delta_\square \vec{X} = \ell_\Lambda(\vec{h}_{e_1} + \vec{h}_{e_2} - \vec{h}_{e_3} - \vec{h}_{e_4})$ and the parallelogram holonomy defect $U_\square - 1_{2I}$ vanish whenever opposite sides carry equal link holonomies $(h_{e_1}, h_{e_2}) = (h_{e_4}, h_{e_3})$, regardless of whether $h_{e_1}$ and $h_{e_3}$ commute.
+    \item For every elementary $2$-step Hasse diamond $\square = (u \prec_Z w_1, w_2 \prec_Z v)$, the time component of the soldering defect vanishes identically ($\delta_\square X^0 = 0$), and both the spatial defect $\delta_\square \vec{X} = \ell_\Lambda(\vec{h}_{e_1} + \vec{h}_{e_2} - \vec{h}_{e_3} - \vec{h}_{e_4})$ and the parallelogram holonomy defect $U_\square - 1_{2I}$ vanish whenever opposite sides carry equal link holonomies $(h_{e_1}, h_{e_2}) = (h_{e_4}, h_{e_3})$, regardless of whether $h_{e_1}$ and $h_{e_3}$ commute.
     \item If the undirected cycle space of $(Z, E(Z))$ is generated by elementary diamonds on which $\delta_\square X^\mu = 0$, then the unique solution $X^\mu$ of~\eqref{eq:poisson_normal} achieves $\mathcal{E}[X^\mu] = 0$ and satisfies $X^\mu(v) - X^\mu(u) = \Delta X^\mu(e)$ for every covering link $e = (u, v) \in E(Z)$.
 \end{enumerate}
 \end{theorem}
@@ -296,7 +296,7 @@ To prove (3), a $1$-cochain $\omega \in \R^{E(Z)}$ on a connected graph lies in 
 
 \subsection{Exact Icosahedral Spherical \texorpdfstring{$5$-Design}{5-Design} Isotropy on \texorpdfstring{$S^2$}{S\^{}2}}
 
-In Paper~II (Theorem~2.1), it was proved that the $120$ unit quaternions of $2I \subset S^3$ form an exact spherical $11$-design on the three-sphere $S^3 \subset \R^4$. For the spatial projections $\Delta \vec{X}(e) = \ell_\Lambda \vec{h}_e \in \R^3$ of the Hermitian soldering map within each individual velocity shell of Proposition~\ref{prop:five_shells}, we now establish an exact spherical $5$-design theorem on the two-sphere $S^2 \subset \R^3$.
+In Paper~II (Definition~2.1 and Theorem~2.2), a finite point set $V \subset S^{d-1} \subset \R^d$ is a spherical $t$-design on $S^{d-1}$ if its finite average equals the $\SO(d)$-invariant Haar integral over $S^{d-1}$ on all polynomials of degree $\le t$, and it was proved that the $120$ unit quaternions of $2I \subset S^3$ form an exact spherical $11$-design on $S^3 \subset \R^4$. For the spatial projections $\Delta \vec{X}(e) = \ell_\Lambda \vec{h}_e \in \R^3$ of the Hermitian soldering map within each individual velocity shell of Proposition~\ref{prop:five_shells}, we now establish an exact spherical $5$-design theorem on the two-sphere $S^2 \subset \R^3$~\cite{DelsarteGoethalsSeidel1977}.
 
 \begin{theorem}[Exact Icosahedral Spherical $5$-Design Isotropy of the Soldering Shells]
 \label{thm:spherical_5design}
@@ -349,13 +349,13 @@ With the mathematical theorems of Sections~\ref{sec:math_soldering} and~\ref{sec
 
 In classical Causal Set Theory~\cite{Bombelli1987,Myrheim1978,Surya2012}, an undecorated poset $(P, \le_P)$ specifies which events are causally related ($u <_P v$) and associates four-volume with vertex cardinality ($N \sim \rho V_4$), but carries \emph{no intrinsic directional or metric data} on individual Hasse links: a bare covering link $u \prec_P v$ does not know whether it points along the $+x$, $-y$, or $+z$ spatial axis, nor whether its proper-time interval $\Delta s_{uv}$ is near the timelike rest axis or near the light cone. Consequently, in standard causal set theory one must work ``top-down'' by assuming a continuum Lorentzian manifold $(M, g_{\mu\nu})$ first, sprinkling points via a Poisson process, and attempting to recover the manifold up to conformal isomorphism via Benincasa--Dowker d'Alembertian operators or Myrheim--Meyer interval counts.
 
-On the decorated network $Z \subseteq P \times \Gstar$, the mathematical structure of Section~\ref{sec:math_soldering} supplies the exact missing ingredient: a \textbf{discrete Cartan--Infeld--van der Waerden soldering form} (tetrad / vierbein)
+On the decorated network $Z \subseteq P \times \Gstar$, the mathematical structure of Section~\ref{sec:math_soldering} supplies the exact missing ingredient: a \textbf{discrete Cartan--Infeld--van der Waerden soldering form} (tetrad / vierbein~\cite{InfeldVanDerWaerden1933})
 \begin{equation}
 \label{eq:inf_vdw}
 \sigma^\mu_{\alpha\dot{\alpha}} \;=\; (I_2, \vec{\sigma}), \qquad
 X_e \;=\; \Delta X^\mu(e)\,\sigma_\mu \;=\; \ell_\Lambda\begin{pmatrix} 1 + h_e^3 & h_e^1 - i h_e^2 \\ h_e^1 + i h_e^2 & 1 - h_e^3 \end{pmatrix} \;\in\; H_2(\C),
 \end{equation}
-determined purely by the finite group holonomy $h_e = \pi_{2I}(u)^{-1}\pi_{2I}(v) \in 2I \subset \SU(2)$ on each covering link $e = (u \prec_Z v)$.
+determined purely by the finite group link holonomy $h_e \in 2I \subset \SU(2)$ (reducing to the vertex coboundary $h_e = \pi_{2I}(u)^{-1}\pi_{2I}(v)$ on flat integrable patches) on each covering link $e = (u \prec_Z v)$.
 
 \begin{table}[!htbp]
 \centering
@@ -396,7 +396,7 @@ Theorem~\ref{thm:galois_suppression} provides the exact mechanism. By Moody--Pat
 \label{eq:dual_embedding}
 h_e \;\longmapsto\; \Bigl(\,\underbrace{\rho_1(h_e)}_{\text{physical } H_4^\parallel\; (\chi_1)},\; \underbrace{\rho_2(h_e) = \rho_1(\sigma(h_e))}_{\text{phason } H_4^\perp\; (\chi_2)}\,\Bigr) \;\in\; \SU(2)_\parallel \times \SU(2)_\perp.
 \end{equation}
-On the minimal-angle generator class $12_a$, a physical step has small rotation angle $\theta_\parallel / 2 = \pi / 5$ ($\chi_1 = +\phi \approx +1.6180$) and minimal action cost $\Delta E_{\chi_1}(12_a) = \phi^{-2}/2 \approx 0.190983$. Under the Galois involution $\sigma(12_a) = 12_d$, the same link step in the perpendicular phason block $\chi_2$ jumps by the obtuse angle $\theta_\perp / 2 = 3\pi / 5$ ($\chi_2 = -\phi^{-1} \approx -0.6180$), paying an action cost $\Delta E_{\chi_2}(12_a) = \phi^2/2 \approx 1.309017$ that is larger by the exact factor $\phi^4 \approx 6.854102$ (Theorem~\ref{thm:galois_suppression}(1)).
+On the minimal-angle generator class $12_a$, a physical step has small rotation angle $\theta_\parallel / 2 = \pi / 5$ ($\chi_1 = +\phi \approx +1.6180$) and minimal action cost $\Delta E_{\chi_1}(12_a) = \phi^{-2}/2 \approx 0.190983$. Under the Galois involution $\sigma(12_a) = 12_d$, the same link step in the perpendicular phason block $\chi_2$ jumps by the obtuse angle $\theta_\perp / 2 = 3\pi / 5$ ($\chi_2 = -\phi^{-1} \approx -0.6180$), paying an action cost $\Delta E_{\chi_2}(12_a) = \phi^2/2 \approx 1.309017$ that is larger by the exact factor $\phi^4 \approx 6.854102$ (Theorem~\ref{thm:galois_suppression}(1)). Along any $N_{\mathrm{steps}}$-link causal walk $\gamma = (e_1, \dots, e_{N_{\mathrm{steps}}})$ with link holonomies $h_{e_k} \in 12_a$, the cumulative physical spatial displacement $\vec{X}_\parallel(\gamma) \equiv \ell_\Lambda \sum_{k=1}^{N_{\mathrm{steps}}} \vec{h}(h_{e_k})$ and perpendicular phason shadow displacement $\vec{X}_\perp(\gamma) \equiv \ell_\Lambda \sum_{k=1}^{N_{\mathrm{steps}}} \vec{h}(\sigma(h_{e_k}))$ (with root-mean-square phason window radius $R_\perp \equiv \sqrt{\langle\|\vec{X}_\perp\|_2^2\rangle}$) can therefore be sampled under a step-by-step phason Boltzmann weight $\propto \exp(-\beta_\perp \|\vec{X}_\perp\|_2^2 / \ell_\Lambda^2)$ parametrized by the dimensionless phason coupling $\beta_\perp \ge 0$:
 
 \begin{table}[!htbp]
 \centering
@@ -476,7 +476,7 @@ Table~\ref{tab:harmonic_curvature} reveals two exact mathematical properties of 
     \label{eq:greens_ratio}
     \frac{\mathcal{E}[X^\mu]}{\|\delta_{e_0} X\|_2^2} \;=\; 1 - d_Z(e_0)^T L_Z^{-1} d_Z(e_0) \;=\; 0.721960 \qquad (\text{exact across all } 5 \text{ shells}),
     \end{equation}
-    where $R_{\mathrm{eff}}(e_0) = d_Z(e_0)^T L_Z^{-1} d_Z(e_0) = 0.278042$ is the effective resistance of the defect link $e_0 = (u_c, w_0)$ in the $4\text{D}$ Hasse network. Thus non-integrable $2I$ holonomy around elementary causal diamonds acts as a localized discrete Riemann curvature / torsion source whose harmonic strain energy $\mathcal{E}[X^\mu]$ is strictly proportional to $\|\delta_\square X\|_2^2$.
+    where $d_Z(e_0) \in \R^Z$ is the incidence column vector of $e_0 = (u_c, w_0)$ ($+1$ at $w_0$, $-1$ at $u_c$, and $0$ elsewhere), $L_Z^{-1}$ is the inverse of the graph Laplacian $L_Z$ on the pinned subspace $\mathcal{V}_0 = \{f \in \R^Z \mid f(z_0) = 0\}$, and $R_{\mathrm{eff}}(e_0) = d_Z(e_0)^T L_Z^{-1} d_Z(e_0) = 0.278042$ is the effective resistance of the defect link $e_0 = (u_c, w_0)$ in the $4\text{D}$ Hasse network. Thus non-integrable $2I$ holonomy around elementary causal diamonds acts as a localized discrete Riemann curvature / torsion source whose harmonic strain energy $\mathcal{E}[X^\mu]$ is strictly proportional to $\|\delta_\square X\|_2^2$.
 \end{enumerate}
 
 %=============================================================================
