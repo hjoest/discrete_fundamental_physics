@@ -67,7 +67,7 @@
 \maketitle
 
 \begin{abstract}
-In a preceding paper~\cite{PaperI}, we formulated a discrete synthesis of Causal Set Theory and Noncommutative Geometry based on a locally finite causal poset $(P, \le_P)$ decorated by the minimal four-factor finite group $\Gstar = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f \times \Z_3^{\mathrm{PQ}}$ of order $6{,}298{,}560$. Here we address the foundational and perturbative open problems identified in~\cite{PaperI} through numerical and group-algebraic experiments:
+In a preceding paper~\cite{PaperI}, we formulated a discrete synthesis of Causal Set Theory and Noncommutative Geometry based on a locally finite causal poset $(P, \le_P)$ decorated by the minimal four-factor finite group $\Gstar = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f \times \Z_3^{\mathrm{PQ}}$ of order $6{,}298{,}560$. Here we address the foundational and perturbative open problems identified in~\cite{PaperI} through numerical poset, renormalization-group, and Monte Carlo experiments:
 (1)~We prove that the $120$ unit-quaternion vertices of the binary icosahedral group $2I \subset S^3$ form an exact \emph{spherical $11$-design} on $S^3$ (zero $\SO(4)$ anisotropy in all directional moments up to polynomial degree $11$, versus $100\%$ error at degree $4$ on the hypercubic grid). Consequently, a $4\text{D}$ aperiodic $600$-cell quasicrystal poset arena (up to $N = 160{,}000$ events, projected from the $E_8$ root lattice) reduces light-cone speed anisotropy by $7.3\times$ relative to a cubic lattice while maintaining uniform out-degree $\approx 4$ and Myrheim--Meyer dimension $\approx 4$.
 (2)~A coordinate-free Metropolis--Hastings Markov chain initialized in a $3$-layer Kleitman--Rothschild poset spontaneously unfolds into a $7$-layer causal network with mean out-degree $4.30$ and Myrheim--Meyer dimension $3.65\text{--}3.87$.
 (3)~Discrete chiral Weyl spinor wavepackets of $2I$ propagated by exact unitary $\SU(2)$ link gates reproduce the exact $1/9$ color-singlet lepton branching ratio in $2 \to 2$ quark-antiquark collisions.
@@ -336,33 +336,13 @@ $b = 8$ & $64$ & $0.0297$ & $\mathbf{4.89 \times 10^{-3}}$ & $0.0585$ & $\mathbf
 Table~\ref{tab:plancherel_hk} shows that with zero adjustable shape parameters across the $9$ conjugacy classes of $2I$, Kadanoff plaquette convolution suppresses all higher-spin representations by a factor of $4.89 \times 10^{-3}$ at $b = 8$ ($N_\square = 64$), transforming the microscopic step-function action at $b = 1$ ($R^2 = -0.433$) into the smooth functional form $\beta_{\mathrm{eff}}(b)(2 - \operatorname{Re}\chi_{\mathbf{2}_L}(g))$ with $R^2 = 0.998608$. Note the physical regime of Eq.~\eqref{eq:plancherel_convolution}: at fixed microscopic noise $\epsilon = 0.28$, repeated convolution drives $P_b(g)$ toward the uniform distribution $1/|2I|$ ($\beta_{\mathrm{eff}}(b) \to 0$, where $-\ln(1 + \delta(g)) \simeq -\delta(g)$), demonstrating \emph{representation-space (Peter--Weyl) isotropization} in the coarse-grained random-walk regime, whereas taking a continuum weak-coupling limit ($\beta_{\mathrm{eff}} \to \infty$ localized near $1 \in \SU(2)$) remains blocked on any fixed finite subgroup $2I \subset \SU(2)$ by the spectral gap $\Delta E_{\min} = 0.1910 > 0$.
 
 %=============================================================================
-\section{Top-Quark and \texorpdfstring{$9$-Channel}{9-Channel} Flavon-Higgs Causal Diamonds (Open Problem 3)}
+\section{Coupled 1-Loop Flavon-Higgs Yukawa RGEs (Open Problem 3)}
 \label{sec:top_collider}
 %=============================================================================
 
-While Section~\ref{sec:plancherel_rg} shows why we do not need a lattice of size $10^{11}$ to extract renormalization-group running---because every anomalous dimension and beta-function coefficient is determined by local vertex and 1-loop causal-diamond ($u \prec w_1, w_2 \prec v$) amplitudes spanning only $1\text{--}2$ links---Experiment~7 applies this principle directly to Open Problem~3 by injecting the exact third-generation representations of $\Gthree = 2I \times \Sigma(216 \times 3) \times \Delta(27)_f$ (matching Table~1 of Paper~I, where the flavon-Higgs threshold scale is $M_{\mathrm{fl}} = M_Z |\Gthree| |\Gthree^{\mathrm{ab}}| = 5.169 \times 10^9\text{ GeV}$) into the poset vertices and 1-loop causal diamonds:
-\begin{itemize}
-    \item \textbf{Left-handed top/bottom quark doublet $Q_{L,3} = (t_L, b_L)$:} $\Sigma[18]$ ($\dim = 6 = 2_W \times 3_c$, $\iota = 0$) $\otimes$ $\Delta[9]$ ($\dim = 3_f$, $q_f = +1$).
-    \item \textbf{Right-handed top and bottom quarks $t_R, b_R$:} $t_R \sim \Sigma[11]$ and $b_R \sim \Sigma[10]$ ($\dim = 3_c$, $\iota = 0$) $\otimes$ $\Delta[9]$ ($\dim = 3_f$).
-    \item \textbf{Left-handed tau doublet $L_{L,3} = (\nu_\tau, \tau_L)$, Higgs doublets $H_u, H_d$, and singlet $\tau_R$:} $L_{L,3} \sim \Sigma[5]$ ($\dim = 2_W$, $\iota = -1$), $H_u \sim \Sigma[4]$ and $H_d \sim \Sigma[3]$ ($\dim = 2_W$, $\iota = 0$), and $\tau_R \sim \Sigma[2]$ ($\dim = 1$, $\iota = 0$) $\otimes$ $\Delta[9]$ ($\dim = 3_f$).
-    \item \textbf{Gluon octet $G_\mu^a$ and Flavon-Higgs doublets $\Phi_{p,q}^{(u,d)}$:} $G_\mu^a \sim \Sigma[19] \in M_8(\R)$ ($\dim = 8$, $\iota = +1$), $\Phi_{p,q}^{(u)} \sim \Sigma[4] \otimes \chi_{p,q}$, and $\Phi_{p,q}^{(d)} \sim \Sigma[3] \otimes \chi_{p,q}$ across the $9$ abelian characters $\chi_{p,q} \in \Delta(27)_f^{\mathrm{ab}} \cong \Z_3 \times \Z_3$.
-\end{itemize}
+In Section~5.1 of Paper~I~\cite{PaperI}, tree-level vertex Clebsch--Gordan unification gives $y_t(\Lambda) = y_b(\Lambda) = y_\tau(\Lambda) = 1$ and $(\det M_d/\det M_e)_\Lambda^{1/3} = 1$ at the poset cutoff $\Lambda = 5.024 \times 10^{13}\text{ GeV}$, while across $1$-loop causal diamonds ($u \prec w_1, w_2 \prec v$) the character identity $\langle \Delta[9] \otimes \chi_{p,q}, \Delta[9]\rangle_{\Delta(27)_f} = 1$ ($\forall (p, q) \in \Z_3^2$) implies that all $N_{\mathrm{ch}} = |\Delta(27)_f^{\mathrm{ab}}| = 9$ uncondensed Weyl--Heisenberg flavon-Higgs doublets $\Phi_{p,q}$ couple with unit multiplicity above the flavon-Higgs condensation scale $M_{\mathrm{fl}} = M_Z |\Gthree| |\Gthree^{\mathrm{ab}}| = 5.169 \times 10^9\text{ GeV}$ (compared with $N_{\mathrm{ch}}^{\mathrm{eff}} = 1$ for a static Parseval-normalized VEV trace $\frac{1}{3}\Tr(Y_f Y_f^\dagger) = \sum_{p,q}|y_{p,q}^{(f)}|^2$).
 
-\begin{proposition}[Exact Tree-Level Vertex $b\text{--}\tau$ Unification and $9$-Channel Flavon-Higgs Diamond Multiplicity]
-\label{prop:top_diamonds}
-From the character tables of $\Sigma(216 \times 3)$ and $\Delta(27)_f$:
-\begin{enumerate}
-    \item \textbf{Tree-Level Vertex $b\text{--}\tau$ Unification:} At a single $d = 4$ poset vertex, the Clebsch--Gordan multiplicities $\langle \Sigma[18] \otimes \Sigma[4], \Sigma[11]\rangle = \langle \Sigma[18] \otimes \Sigma[3], \Sigma[10]\rangle = 1$ give the color-summed quark Yukawa branching probability $P(Q_L \otimes H \to q_R) = \frac{\dim(q_R)}{\dim(Q_L)\dim(H)} = \frac{3}{6 \times 2} = \frac{1}{4}$, which equals the lepton Yukawa branching probability $P(L_L \otimes H^* \to \tau_R) = \frac{\dim(\tau_R)}{\dim(L_L)\dim(H)} = \frac{1}{2 \times 2} = \frac{1}{4}$, while the $\Z_3$-graded Georgi--Jarlskog triality factors $3^{-p} \in \{1, 1/3, 3\}$ satisfy $(\det M_d/\det M_e)_\Lambda^{1/3} = \bigl(\prod_{p\in\Z_3} 3^{-p}\bigr)^{1/3} = 1$ and $y_b(\Lambda)/y_\tau(\Lambda) = 3^0 = 1$.
-    \item \textbf{Gluon vs.\ Flavon-Higgs 1-Loop Causal Diamonds:} Across a 1-loop causal diamond $(u \prec w_1, w_2 \prec v)$, the gluon octet $\Sigma[19]$ couples to quarks with multiplicity $\langle \Sigma[18] \otimes \Sigma[19], \Sigma[18]\rangle = 2$ and to leptons with multiplicity $\langle \Sigma[5] \otimes \Sigma[19], \Sigma[5]\rangle = 0$, whereas the 3D generation triplet $\Delta[9]$ of $\Delta(27)_f$ satisfies the exact character identity
-    \begin{equation}
-    \label{eq:delta9_absorption}
-    \bigl\langle \Delta[9] \otimes \chi_{p,q},\; \Delta[9] \bigr\rangle_{\Delta(27)_f} \;=\; 1 \qquad \forall\,(p, q) \in \Z_3 \times \Z_3,
-    \end{equation}
-    so all $N_{\mathrm{ch}} = |\Delta(27)_f^{\mathrm{ab}}| = 9$ Weyl--Heisenberg flavon-Higgs doublets couple with unit multiplicity to the generation triplet above $M_{\mathrm{fl}} = 5.17 \times 10^9\text{ GeV}$.
-\end{enumerate}
-\end{proposition}
-
-In Proposition~\ref{prop:top_diamonds}(1), the unsummed single-color-pair projection $\frac{\dim(H)}{\dim(F_L)\dim(f_R)}$ of Paper~I Section~5.1 gives $\frac{2}{6\times 3} = 3^{-2}$ for quarks versus $\frac{2}{2\times 1} = 1$ for leptons (generating the Georgi--Jarlskog triality factors $3^{-p} \in \{1, 1/3, 3\}$), while in Proposition~\ref{prop:top_diamonds}(2), Parseval's identity $\frac{1}{3}\Tr(Y_f Y_f^\dagger) = \sum_{p,q}|y_{p,q}^{(f)}|^2$ shows that a static condensed VEV trace corresponds to $N_{\mathrm{ch}}^{\mathrm{eff}} = 1$, whereas $N_{\mathrm{ch}} = 9$ corresponds to all $9$ uncondensed scalar doublets $\Phi_{p,q}$ fluctuating independently with unit bare coupling above $M_{\mathrm{fl}}$. To test whether 1-loop Yukawa damping from the top quark and the $\Delta(27)_f$ flavon-Higgs sector can replace the quenched $4/11$ pure-gluon ansatz of Paper~I, we integrate the full coupled 1-loop $(y_t(\mu), y_b(\mu), y_\tau(\mu))$ RGE system from $y_t(\Lambda) = y_b(\Lambda) = y_\tau(\Lambda) = 1$ down to $M_Z$:
+In Experiment~7, to test numerically whether $1$-loop Yukawa damping from the top quark and the $N_{\mathrm{ch}} = 9$ flavon-Higgs channels can replace the quenched $4/11$ pure-gluon ansatz of Paper~I, we integrate the coupled $1$-loop $(y_t(\mu), y_b(\mu), y_\tau(\mu))$ differential equations from $y_t(\Lambda) = y_b(\Lambda) = y_\tau(\Lambda) = 1$ down to $M_Z$:
 \begin{equation}
 \label{eq:rde_9channel_rge}
 \begin{aligned}
@@ -371,22 +351,17 @@ In Proposition~\ref{prop:top_diamonds}(1), the unsummed single-color-pair projec
 16\pi^2 \frac{d\ln y_\tau}{d\ln\mu} &= -\!\left(\frac{9}{4}g_2^2 + \frac{9}{4}g_1^2\right) + N_{\mathrm{ch}}(\mu)\!\left(3y_b^2 + \frac{5}{2}y_\tau^2\right),
 \end{aligned}
 \end{equation}
-together with top-quark decoupling from the gluon vacuum-polarization diamonds below $m_t = 171.7\text{ GeV}$ ($b_3 : -7 \to -23/3$ on $[M_Z, m_t]$), yielding the results in Table~\ref{tab:top_collider}.
+together with top-quark threshold decoupling from the gluon vacuum-polarization diamonds below $m_t = 171.7\text{ GeV}$ ($b_3 : -7 \to -23/3$ on $[M_Z, m_t]$), yielding the numerical results in Table~\ref{tab:top_collider}.
 
 \begin{table}[!htbp]
 \centering
-\caption{Experiment 7: Top-quark and flavon-Higgs 1-loop causal diamond results for Open Problem~3.}
+\caption{Experiment 7: Numerical integration of the coupled 1-loop $(y_t, y_b, y_\tau)$ RGEs and top-quark threshold decoupling for Open Problem~3.}
 \label{tab:top_collider}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}llccc@{}}
 \toprule
-\textbf{Observable / Channel} & \textbf{Poset / $\Gstar$ Identity} & \textbf{Paper~I Baseline} & \textbf{This Work (Coupled 1-Loop)} & \textbf{Experiment} \\
+\textbf{Observable} & \textbf{Renormalization-Group Regime} & \textbf{Paper~I Baseline} & \textbf{This Work (Coupled 1-Loop)} & \textbf{Experiment} \\
 \midrule
-Color-Summed Branching $P(Q_L \otimes H \to q_R)$ & $\dim(q_R)/(\dim Q_L \dim H) = 3/12$ & $0.2500$ ($1/9$ unsummed) & $\mathbf{0.2500}$ & --- \\
-Color-Summed Branching $P(L_L \otimes H^* \to \tau_R)$ & $\dim(\tau_R)/(\dim L_L \dim H) = 1/4$ & $0.2500$ ($1$ unsummed) & $\mathbf{0.2500}$ & --- \\
-Bare Unification $(\det M_d/\det M_e)_\Lambda^{1/3}$ & $\bigl(\prod_{p\in\Z_3} 3^{-p}\bigr)^{1/3} = 1$ & $1.0000$ & $\mathbf{1.000000}$ & $1.0000$ (GUT) \\
-1-Loop Gluon Diamond Multiplicity ($Q_L$ vs.\ $L_L$) & $\langle \chi \otimes \Sigma[19], \chi\rangle$ & $2\text{ vs.\ }0$ & $\mathbf{2\text{ vs.\ }0}$ & QCD vs.\ Lepton \\
-Active UV Flavon-Higgs Channels ($\mu > M_{\mathrm{fl}}$) & $\sum_{p,q \in \Z_3^2} \langle \Delta[9] \otimes \chi_{p,q}, \Delta[9]\rangle$ & $1$ (Parseval VEV) & $\mathbf{9}$ (all $\Delta(27)_f^{\mathrm{ab}}$) & --- \\
 Unquenched $R_{d/e}(M_Z)$ ($N_{\mathrm{ch}} = 1$ Parseval) & Eq.~\eqref{eq:rde_9channel_rge} ($b_3 = -7$, $N_{\mathrm{ch}}=1$) & $2.1700$ ($+29.9\%$, pure gauge) & $\mathbf{1.9131}$ ($+14.5\%$) & $1.6709$ \\
 Unquenched $R_{d/e}(M_Z)$ ($N_{\mathrm{ch}} = 9$ UV Flavons) & Eq.~\eqref{eq:rde_9channel_rge} ($b_3 = -7$, $N_{\mathrm{ch}}: 9 \to 1 \to 0$) & $1.7313$ ($+3.61\%$, quenched $4/11$) & $\mathbf{1.9097}$ ($+14.3\%$, closes $52\%$ of gap) & $1.6709$ \\
 Running Bottom Quark Mass $m_b(M_Z)$ & $R_{d/e}(M_Z)\cdot m_\tau(M_Z)$ & $3.789\text{ GeV}$ (gauge) / $3.020\text{ GeV}$ ($4/11$) & $\mathbf{3.335\text{ GeV}}$ (unquenched $9$-ch) & $2.850 \pm 0.030\text{ GeV}$ \\
@@ -396,6 +371,7 @@ Strong Coupling $\alpha_s(M_Z)$ (Top Decoupled) & $N_f: 6 \to 5$ below $m_t = 17
 }
 \end{table}
 
+\newpage
 Table~\ref{tab:top_collider} reveals two key physical results:
 \begin{enumerate}
     \item \textbf{Exact Resolution of $\alpha_s(M_Z)$:} Decoupling the top quark from the 1-loop gluon vacuum-polarization diamonds below $m_t = 171.7\text{ GeV}$ ($b_3: -7 \to -23/3$ on $[M_Z, m_t]$) shifts $\alpha_s(M_Z)$ from $0.1170$ ($-1.0\sigma$) to $\mathbf{0.1179}$ ($\mathbf{0.0\sigma}$, matching the PDG world average $0.1179 \pm 0.0009$).
@@ -447,92 +423,28 @@ Dark Energy Scale $E_\Lambda$ & $M_Z / |\Gstar|^2$ & $2.299\text{ meV}$ & $2.299
 }
 \end{table}
 
-\subsection{Experiment 8B: Bivector Plaquette-Plane Counting and Look-Elsewhere Trial-Factor Enumeration}
+\subsection{Experiment 8B: Systematic Look-Elsewhere Trial-Factor Enumeration}
 
-Finally, Part~B of Experiment~8 addresses the two structural questions of Open Problem~4:
-\begin{enumerate}
-    \item \textbf{Topological Origin of the Exponent $6$ in $\alpha_G(m_p) = \frac{1}{|Z(2I)|}|\Gthree|^{-6}$:} On the simulated poset arena with coordination degree $d = 4$, each vertex spans $\binom{d}{2} = \binom{4}{2} = 6$ independent 2-step causal diamond (bivector plaquette) planes ($tx, ty, tz, xy, xz, yz$). Requiring simultaneous Plancherel identity synchronization ($1/|\Gthree|$) across all $\binom{4}{2} = 6$ orthogonal curvature planes meeting at a $d = 4$ vertex weights the Einstein--Hilbert vertex by $|\Gthree|^{-\binom{4}{2}} = |\Gthree|^{-6}$.
-    \item \textbf{Systematic Look-Elsewhere Hypothesis Space Enumeration:} From the $14$ fundamental structural invariants of $\Gstar$,
-    \begin{equation}
-    \mathcal{I}(\Gstar) = \bigl\{1, 2, 3, 6, 8, 9, 24, 27, 60, 81, 120, 648, 2{,}099{,}520, 6{,}298{,}560\bigr\},
-    \end{equation}
-    we enumerate all $2{,}268$ candidate monomials $X = a^p b^q$ ($p \in \{\pm 1, \pm 2, 3, 6\}$, $q \in \{\pm 1, \pm 2\}$), yielding $1{,}031$ distinct numerical values across $\log_{10} X \in [-40, +40]$ (note that secondary order-unity prefactors such as $1/8$ in $\Lambda/M_Z$, $\sqrt{2}$ in $M_{\mathrm{Pl}}/m_p$, and $(\Tr Y^2)^2 = 100$ in $\eta_B$ come from spinor/hypercharge trace norms outside the pure monomial dictionary). Counting the local density of distinct candidate values within $\pm 1$ decade of each of the $6$ experimentally measured scale ratios ($\tan\beta = m_t/m_b = 60$, $M_{\mathrm{fl}}/M_Z = |\Gthree|\cdot|\Gthree^{\mathrm{ab}}|$, $\Lambda/M_Z = |\Gthree|^2/8$, $\Lambda_\nu/M_Z = |\Gthree|\cdot|\Gstar|$, $M_Z/E_\Lambda = |\Gstar|^2$, and $\alpha_G^{-1} = 2|\Gthree|^6$, excluding the unmeasured heavy 2HDM prediction $M_{A^0}/M_Z = 27$), the average look-elsewhere-penalized probability that a candidate lands within the observed relative accuracy window of a single scale ratio is $\langle p_{\mathrm{hit}}\rangle = 0.3445$, and the joint look-elsewhere-corrected probability of matching all $6$ measured scale hierarchies simultaneously by chance is
-    \begin{equation}
-    p_{\mathrm{LEE}}^{\mathrm{joint}} \;=\; \prod_{k=1}^6 p_{\mathrm{hit}}^{(k)} \;=\; 1.03 \times 10^{-5} \qquad (\mathbf{4.26\sigma\text{ one-sided} \; / \; 4.41\sigma\text{ two-sided}}).
-    \end{equation}
-\end{enumerate}
+To quantify the statistical significance of the scale hierarchies of Paper~I (Section~4.1, Eqs.~(13)--(18)) against look-elsewhere trial-factor penalties, we enumerate all $2{,}268$ candidate monomials $X = a^p b^q$ ($p \in \{\pm 1, \pm 2, 3, 6\}$, $q \in \{\pm 1, \pm 2\}$) formed from the $14$ fundamental structural invariants of $\Gstar$:
+\begin{equation}
+\mathcal{I}(\Gstar) = \bigl\{1, 2, 3, 6, 8, 9, 24, 27, 60, 81, 120, 648, 2{,}099{,}520, 6{,}298{,}560\bigr\},
+\end{equation}
+yielding $1{,}031$ distinct numerical values across $\log_{10} X \in [-40, +40]$ (note that secondary order-unity prefactors such as $1/8$ in $\Lambda/M_Z$, $\sqrt{2}$ in $M_{\mathrm{Pl}}/m_p$, and $(\Tr Y^2)^2 = 100$ in $\eta_B$ come from spinor/hypercharge trace norms outside the pure monomial dictionary). Counting the local density of distinct candidate values within $\pm 1$ decade of each of the $6$ experimentally measured scale ratios ($\tan\beta = m_t/m_b = 60$, $M_{\mathrm{fl}}/M_Z = |\Gthree|\cdot|\Gthree^{\mathrm{ab}}|$, $\Lambda/M_Z = |\Gthree|^2/8$, $\Lambda_\nu/M_Z = |\Gthree|\cdot|\Gstar|$, $M_Z/E_\Lambda = |\Gstar|^2$, and $\alpha_G^{-1} = 2|\Gthree|^6$, excluding the unmeasured heavy 2HDM prediction $M_{A^0}/M_Z = 27$), the average look-elsewhere-penalized probability that a candidate lands within the observed relative accuracy window of a single scale ratio is $\langle p_{\mathrm{hit}}\rangle = 0.3445$, and the joint look-elsewhere-corrected probability of matching all $6$ measured scale hierarchies simultaneously by chance is
+\begin{equation}
+p_{\mathrm{LEE}}^{\mathrm{joint}} \;=\; \prod_{k=1}^6 p_{\mathrm{hit}}^{(k)} \;=\; 1.03 \times 10^{-5} \qquad (\mathbf{4.26\sigma\text{ one-sided} \; / \; 4.41\sigma\text{ two-sided}}).
+\end{equation}
 
-%=============================================================================
-\section{Comparison of the Master Predictions of Paper~I (Section~7) and the Present Work}
-\label{sec:master_comparison}
-%=============================================================================
-
-Table~\ref{tab:paper1_vs_paper2_master} provides a complete side-by-side comparison of all $35$ structural and quantitative observables between Section~7 (Table~3) of Paper~I~\cite{PaperI} and the refined top-down calculations of this paper. In particular:
-\begin{enumerate}
-    \item \textbf{Strong Coupling $\alpha_s(M_Z)$ (Row~9):} Paper~I evolved $\alpha_s(\mu)$ down to $M_Z$ with $N_f = 6$ active quark flavors ($b_3 = -7$), giving $\alpha_s(M_Z) = 0.1170$ ($-1.0\sigma$, $0.76\%$ error). Here, including the 1-loop causal-diamond decoupling of the top quark below $m_t = 171.7\text{ GeV}$ ($N_f: 6 \to 5$, $b_3: -7 \to -23/3$ on $[M_Z, m_t]$) shifts $\alpha_s(M_Z)$ to $\mathbf{0.1179}$ ($\mathbf{0.0\sigma}$, matching the PDG world average $0.1179 \pm 0.0009$).
-    \item \textbf{$b\text{--}\tau$ Mass Ratio $R_{d/e}(M_Z)$ and the Pendleton--Ross Attractor (Rows~20--21):} Paper~I noted that the unquenched pure-gauge running gave $R_{d/e}^{\mathrm{gauge}}(M_Z) = 2.1700$ ($+29.9\%$) and introduced a quenched pure-gluon $\gamma_m^{(0)}/(2b_0^{\mathrm{YM}}) = 4/11$ ansatz ($R_{d/e}^{\mathrm{YM}}(M_Z) = 1.7313$, $+3.61\%$ error, leaving $m_b(M_Z) = 3.02\text{ GeV}$ at $+5.8\sigma_{\mathrm{exp}}$). Here we integrate the full coupled 1-loop $(y_t, y_b, y_\tau)$ RGEs~\eqref{eq:rde_9channel_rge} across the $N_{\mathrm{ch}} = 9$ flavon-Higgs diamond channels, reducing the unquenched ratio from $2.1700$ to $\mathbf{1.9097}$ ($+14.3\%$, closing $52\%$ of the unquenched gap toward $1.6709$) while proving that ultraviolet $+\frac{9}{2}N_{\mathrm{ch}}y_t^3$ self-damping pins 1-loop running to the Pendleton--Ross attractor $\sim 1.91$ unless the quenched $4/11$ 2-step causal-diamond gluon exponent ($1.7313$) is included.
-    \item \textbf{Single-Anchor Reduction ($M_Z$ Alone vs.\ Multi-Anchor Inputs):} Across all 12 dimensionful observables (including $m_u(M_Z)$ and running lepton mass ratios at $M_Z$), the unquenched single-anchor mean error improves from $10.00\%$ (pure-gauge Paper~I) to $\mathbf{7.39\%}$ (coupled 1-loop RGE in this work), compared with $5.16\%$ under the quenched $4/11$ baseline (Table~\ref{tab:single_anchor}).
-\end{enumerate}
-
-\begin{table}[!htbp]
-\centering
-\caption{Side-by-side comparison of all 35 structural and quantitative predictions between Paper~I (Section~7, Table~3) and this work.}
-\label{tab:paper1_vs_paper2_master}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}llcccc@{}}
-\toprule
-\textbf{Observable} & \textbf{Methodological Update in This Work} & \textbf{Paper~I (Sec.~7)} & \textbf{This Work} & \textbf{Experimental} & \textbf{Error / Pull Comparison} \\
-\midrule
-1. Vertex Degree $d$ & Reversible KR pancake MCMC ($\langle d_{\mathrm{out}}\rangle: 22.44 \to 4.30$) & $d = 4$ & $d = 4$ & $d = 4$ & Exact ($D_{\mathrm{MM}} = 4.31$ on \texttt{aperiodic}) \\
-2. Bose--Fermi $\STr$ & Exact single-link $\SU(2)$ spinor unitarity $U^\dagger U = I_2$ & $0$ & $0$ & $0$ (no SUSY) & Exact (UV) \\
-3. Generations $N_{\mathrm{gen}}$ & $\langle \Delta[9]\otimes\chi_{p,q},\Delta[9]\rangle = 1$ ($\forall\,p,q\in\Z_3^2$) & $3$ & $3$ & $3$ & Exact \\
-4. Bare $\sin^2\theta_W(\Lambda)$ & Unchanged (Spectral Action trace) & $3/8 = 0.3750$ & $3/8 = 0.3750$ & $0.3750$ (GUT) & Exact \\
-5. Bare $\alpha_U^{-1}(\Lambda)$ & Unchanged ($N_{\mathrm{quark}} + \dim M_8(\R)/\dim\R[2T_W]$) & $116/3 = 38.667$ & $116/3 = 38.667$ & $38.612$ (RG) & $0.14\%$ \\
-6. Threshold $M_{\mathrm{fl}} / M_Z$ & Verified in $2{,}268$-monomial LEE audit ($4.26\sigma$) & $5.669 \times 10^7$ & $5.669 \times 10^7$ & $5.891 \times 10^7$ & $3.77\%$ \\
-7. Cutoff $\Lambda / M_Z$ & Verified in $2{,}268$-monomial LEE audit ($4.26\sigma$) & $5.510 \times 10^{11}$ & $5.510 \times 10^{11}$ & $5.563 \times 10^{11}$ & $0.95\%$ \\
-8. $\sin^2\theta_W(M_Z)$ & 3-step RG ($N_H: 18 \to 2 \to 1$) & $0.23111$ & $0.23111$ & $0.23121(4)$ & $0.045\%$ ($-2.6\sigma$) \\
-9. $\alpha_s(M_Z)$ & \textbf{Top-quark decoupling ($N_f: 6 \to 5$ below $m_t$)} & $0.1170$ & $\mathbf{0.1179}$ & $0.1179(9)$ & $-1.0\sigma \to \mathbf{0.0\sigma}$ ($\mathbf{0.00\%}$) \\
-10. $\alpha_{\mathrm{em}}^{-1}(0)$ & 3-step RG + $\Delta_{\mathrm{QED}}$ & $137.0261$ & $137.0261$ & $137.0360$ & $0.0072\%$ ($-1.1\sigma_{M_Z}$) \\
-11. Gravity $\alpha_G(m_p)$ & \textbf{$\binom{d}{2} = \binom{4}{2} = 6$ bivector plaquette planes at $d=4$} & $5.838 \times 10^{-39}$ & $5.838 \times 10^{-39}$ & $5.906 \times 10^{-39}$ & $1.15\%$ (exponent $6$ derived) \\
-12. Planck Ratio $M_{\mathrm{Pl}}/m_p$ & $\sqrt{2}\,|\Gthree|^{\binom{4}{2}/2} = \sqrt{2}\,|\Gthree|^3$ & $1.309 \times 10^{19}$ & $1.309 \times 10^{19}$ & $1.301 \times 10^{19}$ & $0.58\%$ \\
-13. $W$ Boson Mass $m_W$ & 1-loop custodial $\Delta\rho_t^{(1)}$ ($80.379\text{ GeV}$ full SM) & $80.332\text{ GeV}$ & $80.332\text{ GeV}$ & $80.377(12)\text{ GeV}$ & $0.056\%$ ($-3.7\sigma$) \\
-14. Light Higgs $m_{h^0}$ & 2-loop criticality $\lambda(M_{\mathrm{fl}}) = 0$ & $125.10\text{ GeV}$ & $125.10\text{ GeV}$ & $125.25(17)\text{ GeV}$ & $0.12\%$ ($-0.9\sigma$) \\
-15. Heavy 2HDM $(A^0, H^\pm, H^0)$ & $M_{A^0} = 27\,M_Z$ ($\tan\beta = 60$, excluded from $p_{\mathrm{LEE}}$) & $2.4621\text{--}2.4638\text{ TeV}$ & $2.4621\text{--}2.4638\text{ TeV}$ & $> 2.0\text{ TeV}$ (LHC) & Testable \\
-16. Rare $B$ ($\operatorname{BR}_{B_s\to\mu\mu}, \operatorname{BR}_{b\to s\gamma}$) & 1-loop $A^0/H^\pm$ penguins at $27\,M_Z$ & $3.51\times 10^{-9}, 3.58\times 10^{-4}$ & $3.51\times 10^{-9}, 3.58\times 10^{-4}$ & $3.34(27)\times 10^{-9}, 3.49(19)\times 10^{-4}$ & $\le 0.6\sigma$ \\
-17. Koide Invariant $Q_e$ & Norm equipartition $\|v_\R\|^2 = \|v_\C\|^2$ in $\R[\langle Q\rangle]$ & $2/3 = 0.666667$ & $2/3 = 0.666667$ & $0.666661(7)$ & $0.0009\%$ ($+0.8\sigma$) \\
-18. Lepton Phase $\delta_e$ & $|Z(2I)| / |\Delta(27)_f^{\mathrm{ab}}| = 2/9\text{ rad}$ & $0.222222\text{ rad}$ & $0.222222\text{ rad}$ & $0.222230(8)\text{ rad}$ & $0.003\%$ ($-0.9\sigma$) \\
-19. Masses $(m_e, m_\mu)$ & From $m_\tau$ (or single-anchor Table~\ref{tab:single_anchor}) & $0.51096, 105.652\text{ MeV}$ & $0.51096, 105.652\text{ MeV}$ & $0.51100, 105.658\text{ MeV}$ & $0.007\%$ ($-13.3\%$ in Table~\ref{tab:single_anchor}) \\
-20. $(\det M_d / \det M_e)_{M_Z}^{1/3}$ & \textbf{Coupled 1-loop $(y_t,y_b,y_\tau)$ RGE vs.\ quenched $4/11$} & $2.1700$ (gauge) / $1.7313$ ($4/11$) & $\mathbf{1.9097}$ (unquenched) / $1.7313$ ($4/11$) & $1.6709$ & $+29.9\% \to \mathbf{+14.3\%}$ ($+3.61\%$ quenched) \\
-21. $(m_b, m_s, m_d)_{M_Z}$ & $3^{-p} R_{d/e}(M_Z) m_{e_p}(M_Z)$ (quenched $4/11$ vs.\ coupled) & $3.02\text{ GeV}, 59.3, 2.53\text{ MeV}$ & $3.02\text{ GeV}$ ($3.34$ unquenched), $59.3, 2.53$ & $2.85\text{ GeV}, 53.5, 2.67\text{ MeV}$ & $+5.8\sigma, +1.3\sigma, -0.7\sigma$ ($4/11$ required) \\
-22. $\tan\beta(M_Z) = m_t/m_b$ & $|2I / Z(2I)| = |A_5| = 60$ ($\mathbf{m_b = 2.891\text{ GeV}}$ in Table~\ref{tab:single_anchor}) & $60.00$ & $60.00$ & $60.25 \pm 0.80$ & $0.41\%$ ($-0.3\sigma$) \\
-23. $(m_c, m_u)_{M_Z}$ & $m_t(m_\mu/m_\tau)_{M_Z}^2$, $\frac{1}{3}m_c(m_e/m_\mu)_{M_Z}$ (Table~\ref{tab:single_anchor}) & $0.594\text{ GeV}, 0.94\text{ MeV}$ & $\mathbf{0.600\text{ GeV}}, \mathbf{0.95\text{ MeV}}$ & $0.619\text{ GeV}, 1.27\text{ MeV}$ & $-1.5\sigma \to \mathbf{-1.1\sigma}$, $-1.7\sigma$ \\
-24. $|V_{us}|, |V_{cb}|, |V_{ub}|$ & Scale-invariant Koide/Clock ratios & $0.2234, 0.0416, 0.00354$ & $0.2234, 0.0416, 0.00354$ & $0.2250, 0.0418, 0.00373$ & $\le 1.4\sigma$ \\
-25. $\delta_{\mathrm{CKM}}$ \& $J_{\mathrm{CP}}$ & $\pi/3 + 1/9\text{ rad}$ & $66.37^\circ, 2.93\times 10^{-5}$ & $66.37^\circ, 2.93\times 10^{-5}$ & $65.5^\circ, 3.08\times 10^{-5}$ & $-1.0\sigma$ \\
-26. Strong CP $\bar{\theta}_{\mathrm{QCD}}^{\mathrm{tree}}$ & Hermitian $\R[\Delta(27)_f]$ ($c_{-p,-q}=\omega^{pq}c_{p,q}^*$) & $0$ (tree ansatz) & $0$ (tree ansatz) & $< 1.0 \times 10^{-10}$ & Tree-level ansatz \\
-27. Neutrino Mass $m_{\nu_3}$ & $v_{\mathrm{ew}}^2 / (M_Z |\Gthree| |\Gstar|)$ (using $v_{\mathrm{ew}}^{\mathrm{pred}}$ in Table~\ref{tab:single_anchor}: $\mathbf{49.90\text{ meV}}$) & $50.27\text{ meV}$ & $50.27\text{ meV}$ ($\mathbf{49.90\text{ meV}}$) & $50.11(28)\text{ meV}$ & $+0.6\sigma$ ($\mathbf{-0.8\sigma}$) \\
-28. $\Delta m_{31}^2, \Delta m_{21}^2$ & $\delta_\nu = 2/9 + \pi/12\text{ rad}$ & $2.53\times 10^{-3}, 7.79\times 10^{-5}\text{ eV}^2$ & $2.53\times 10^{-3}, 7.79\times 10^{-5}\text{ eV}^2$ & $2.51\times 10^{-3}, 7.41\times 10^{-5}\text{ eV}^2$ & $+0.6\sigma, +1.8\sigma$ \\
-29. PMNS $(s_{13}^2, s_{12}^2, s_{23}^2)$ & $\frac{2-\sqrt{3}}{12}, \frac{2+\sqrt{3}}{12}, \frac{5-\sqrt{3}}{6}$ & $0.02233, 0.3110, 0.5447$ & $0.02233, 0.3110, 0.5447$ & $0.02224, 0.307, 0.546$ & $\le 0.3\sigma$ \\
-30. PMNS Phase $\delta_{\mathrm{CP}}^{\mathrm{PMNS}}$ & $\frac{3\pi}{2} - (\frac{2}{9} + \pi/12)\text{ rad}$ & $242.27^\circ$ & $242.27^\circ$ & $232^\circ \pm 31^\circ$ & $+0.33\sigma$ \\
-31. WIMP DM $\Omega_{\mathrm{DM}} h^2$ \& $\sigma_{\mathrm{SI}}$ & $\Phi_{\mathrm{DM}} \in M_3(\R)$, $M_{\mathrm{DM}} = 27 M_Z$, $\lambda_{H\Phi}=g_2^2$ & $0.1190,\; 3.66\times 10^{-46}\text{ cm}^2$ & $0.1190,\; 3.66\times 10^{-46}\text{ cm}^2$ & $0.1200(12),\; <7.4\times 10^{-46}\text{ cm}^2$ & $0.82\%$ ($-0.8\sigma$) \\
-32. Baryon $\eta_B$ \& BBN $\Delta N_{\mathrm{eff}}$ & $(\Tr Y^2)_{\mathrm{tot}}^2 |\Gthree^{\mathrm{ab}}| / |\Gthree|^2$;\; $3(10.75/177.75)^{4/3}$ & $6.125 \times 10^{-10},\; \le 0.0712$ & $6.125 \times 10^{-10},\; \le 0.0712$ & $6.12(4) \times 10^{-10},\; < 0.18$ & $0.08\%$ ($+0.1\sigma$) \\
-33. Dark Energy $E_\Lambda$ & $M_Z / |\Gstar|^2 = M_Z / (9|\Gthree|^2)$ & $2.2985\text{ meV}$ & $2.2985\text{ meV}$ & $2.246(15)\text{ meV}$ & $2.34\%$ ($+3.5\sigma$) \\
-\bottomrule
-\end{tabular}%
-}
-\end{table}
-
-\clearpage
-
+\newpage
 %=============================================================================
 \section{Discussion: What Has Been Resolved vs.\ What Remains Open}
 \label{sec:conclusion}
 %=============================================================================
 
-Table~\ref{tab:open_problems_status} summarizes the progress achieved across the eight numerical and group-algebraic experiments of this paper alongside the remaining analytical frontiers in the $|P| \to \infty$ thermodynamic limit:
+Table~\ref{tab:open_problems_status} summarizes the progress achieved across the eight numerical experiments of this paper alongside the remaining analytical frontiers in the $|P| \to \infty$ thermodynamic limit:
 
 \begin{table}[!htbp]
 \centering
-\caption{Summary of progress on the four Open Problems of Paper~I achieved by the numerical Poset Collider and Kadanoff/diamond analysis, alongside remaining analytical tasks.}
+\caption{Summary of progress on the four Open Problems of Paper~I achieved by the numerical Poset Collider and Kadanoff/RGE analysis, alongside remaining analytical tasks.}
 \label{tab:open_problems_status}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}l>{\raggedright\arraybackslash}p{6.8cm}>{\raggedright\arraybackslash}p{6.2cm}@{}}
@@ -545,14 +457,14 @@ Table~\ref{tab:open_problems_status} summarizes the progress achieved across the
 \addlinespace
 \textbf{3. Loop, Top \& Flavon-Higgs Refinements} & Top-quark decoupling below $m_t = 171.7\text{ GeV}$ ($N_f: 6 \to 5$) shifts $\alpha_s(M_Z)$ from $0.1170 \to 0.1179$ ($0.0\sigma$); coupled 1-loop $(y_t, y_b, y_\tau)$ RGE across the $N_{\mathrm{ch}} = 9$ $\Delta(27)_f^{\mathrm{ab}}$ flavon-Higgs channels reduces unquenched $R_{d/e}(M_Z)$ from $2.1700 \to 1.9097$ (closing $52\%$ of the gap to $1.6709$ before hitting the Pendleton--Ross attractor). & First-principles poset derivation of the quenched $4/11$ causal-diamond gluon exponent ($R_{d/e}^{\mathrm{YM}} = 1.7313$) or two-loop/threshold closure of the remaining gap from $1.9097 \to 1.6709$, non-perturbative QCD $m_p/\Lambda_{\mathrm{QCD}}$, and radiative $\bar{\theta}_{\mathrm{QCD}}$ stability. \\
 \addlinespace
-\textbf{4. Single-Anchor Cascade \& Look-Elsewhere} & Coupled 1-loop RGE reduces the 12-observable unquenched $M_Z$-only cascade error from $10.00\% \to 7.39\%$ ($5.16\%$ with quenched $4/11$); $\binom{4}{2} = 6$ bivector plaquette planes fix $|G_3|^{-6}$ in $\alpha_G$; enumeration of $2{,}268$ monomials across the $6$ measured scale ratios gives $p_{\mathrm{LEE}} = 1.03 \times 10^{-5}$ ($4.26\sigma$ one-sided). & Deductive analytical derivation of every hierarchy operator and secondary trace prefactor from $\mathcal{Z}[P, \Gstar]$ so that combinatorial trial-factor penalties are replaced by unique saddle-point theorems. \\
+\textbf{4. Single-Anchor Cascade \& Look-Elsewhere} & Coupled 1-loop RGE reduces the 12-observable unquenched $M_Z$-only cascade error from $10.00\% \to 7.39\%$ ($5.16\%$ with quenched $4/11$); enumeration of $2{,}268$ monomials across the $6$ measured scale ratios gives $p_{\mathrm{LEE}} = 1.03 \times 10^{-5}$ ($4.26\sigma$ one-sided). & Deductive analytical derivation of every hierarchy operator and secondary trace prefactor from $\mathcal{Z}[P, \Gstar]$ so that combinatorial trial-factor penalties are replaced by unique saddle-point theorems. \\
 \bottomrule
 \end{tabular}%
 }
 \end{table}
 
 \paragraph{Code Availability and Reproducibility.}
-All numerical experiments and group-algebraic calculations reported in this paper (Experiments~1--8 and Tables~\ref{tab:spherical_design}--\ref{tab:paper1_vs_paper2_master}) are reproduced by the self-contained, zero-dependency Python~3 verification script \texttt{run\_poset\_collider.py} available at \url{https://github.com/hjoest/discrete_fundamental_physics}.
+All numerical simulations, renormalization-group integrations, and look-elsewhere enumerations reported in this paper (Experiments~1--8 and Tables~\ref{tab:spherical_design}--\ref{tab:open_problems_status}) are reproduced by the self-contained, zero-dependency Python~3 verification script \texttt{run\_poset\_collider.py} available at \url{https://github.com/hjoest/discrete_fundamental_physics}.
 
 \clearpage
 
