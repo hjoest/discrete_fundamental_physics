@@ -287,7 +287,7 @@ def verify_table3_harmonic_soldering_and_curvature() -> None:
     c12b = [q for q in q2i if abs(2.0 * q[0] - PHI_INV) < 1e-7]
     c30a = [q for q in q2i if abs(2.0 * q[0]) < 1e-7]
 
-    gens = [c12a[0], c12a[1], c12a[4], c12a[7]]
+    gens = [c12a[0], c12a[1], c12a[4], c12a[8]]
     L = 3
     coords_grid = [(i0, i1, i2, i3) for i0 in range(L) for i1 in range(L) for i2 in range(L) for i3 in range(L)]
     idx_map = {pt: idx for idx, pt in enumerate(coords_grid)}
