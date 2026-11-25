@@ -81,28 +81,35 @@ In Causal Set Theory, the \emph{inverse problem} asks how a $(3+1)$-dimensional 
 
 \subsection{The Decorated Poset Network and the Binary Icosahedral Factor}
 
-In Paper~I~\cite{PaperI}, a discrete system was defined by a locally finite partially ordered set $(P, \le_P)$, a finite group $G$, and a subset $Z \subseteq P \times G$ equipped with the induced strict partial order
+In Paper~I~\cite{PaperI}, a discrete system was defined by a locally finite partially ordered set $(P, \le_P)$, a finite group $G$ with real group algebra $\R[G]$, and a subset $Z \subseteq P \times G$ equipped with the projection maps $\pi_P(p, g) = p$ and $\pi_G(p, g) = g$ and the induced strict partial order
 \begin{equation}
 \label{eq:induced_order}
-(p_1, g_1) <_Z (p_2, g_2) \quad\Longleftrightarrow\quad p_1 <_P p_2,
+(p_1, g_1) <_Z (p_2, g_2) \quad\Longleftrightarrow\quad p_1 <_P p_2.
 \end{equation}
-together with the projection maps $\pi_P(p, g) = p$ and $\pi_G(p, g) = g$. Under the algebraic postulates of Paper~I (Axioms~1.1--1.3 and Axiom~2.1, \emph{Optimal Unitary Design Approximation}) and the representation-theoretic classification verified in Paper~II~\cite{PaperII}, the minimal admissible finite group factors as the direct product
+Denoting the set of Hasse covering links of $(Z, <_Z)$ by
+\begin{equation}
+\label{eq:covering_links}
+E(Z) \;=\; \bigl\{\, e = (u, v) \in Z \times Z \;\big|\; u <_Z v \text{ and there exists no } w \in Z \text{ with } u <_Z w <_Z v \,\bigr\}
+\end{equation}
+(written $u \prec_Z v$ for $(u, v) \in E(Z)$), propagation on $(Z, <_Z)$ is governed at every non-boundary vertex $z \in Z$ with $m \ge 1$ immediate predecessors $U(z) = \{u_1, \dots, u_m\}$ ($u_i \prec_Z z$) and $n \ge 1$ immediate successors $V(z) = \{v_1, \dots, v_n\}$ ($z \prec_Z v_j$) by the \emph{local ordered product conservation law} (Axiom~1.3 of Paper~I~\cite{PaperI}):
+\begin{equation}
+\label{eq:product_conservation}
+\exists\, \sigma \in S_m,\, \tau \in S_n : \qquad \prod_{i=1}^m \pi_G\bigl(u_{\sigma(i)}\bigr) \;=\; \prod_{j=1}^n \pi_G\bigl(v_{\tau(j)}\bigr) \quad \text{in } G.
+\end{equation}
+Applying the abelianization homomorphism $\phi : G \to G^{\mathrm{ab}} = G/[G, G]$ to~\eqref{eq:product_conservation} eliminates the permutation indices $(\sigma, \tau) \in S_m \times S_n$ and yields an exact additive Kirchhoff conservation law $\sum_{i=1}^m \phi(\pi_G(u_i)) = \sum_{j=1}^n \phi(\pi_G(v_j))$ in $(G^{\mathrm{ab}}, +)$, which bounds the uniform $d$-tuple matching probability at vertex coordination degree $m = n = d$ by $1/|G^{\mathrm{ab}}|$ on solvable factors ($K^{\mathrm{ab}} \neq \{1\}$), whereas any perfect factor $P_0 \le G$ ($[P_0, P_0] = P_0$, $P_0^{\mathrm{ab}} = \{1\}$) lies in $\ker\phi$ and is constrained at each vertex solely by the non-commutative product~\eqref{eq:product_conservation} across its $d!$ permutation channels.
+
+Under this kinematic structure and the representation-theoretic optimality postulate of Paper~I (Axiom~2.1, \emph{Optimal Unitary Design Approximation} on $\R[G]$), the Four-Factor Design Theorem~\cite{PaperI,PaperII} uniquely selects the four-factor finite group
 \begin{equation}
 \label{eq:gstar_product}
 \Gstar \;=\; 2I \times \Sigma(216 \times 3) \times \Delta(27)_f \times \Z_3^{\mathrm{PQ}}, \qquad |\Gstar| = 120 \times 648 \times 27 \times 3 = 6{,}298{,}560,
 \end{equation}
-where $2I$ is the binary icosahedral group of order $120$.
+where the solvable factors carry $|\Gstar^{\mathrm{ab}}| = 3^4 = 81$ conserved abelian Kirchhoff charges and the unique perfect factor $2I$ is the binary icosahedral group of order $120$ ($2I^{\mathrm{ab}} = \{1\}$, selecting vertex coordination degree $d = 4$ via $18.46 < d! = 24 < |2I| = 120$).
 
 Because $2I$ is the unique finite quaternionic subgroup of $\SU(2) \cong \Spin(3) \subset \quat^\times$ of order $120$ whose real group algebra $\R[2I]$ contains two distinct simple quaternionic blocks $\quat \oplus \quat$ corresponding to the two faithful irreducible representations $\chi_1, \chi_2 : 2I \to \SU(2)$ of degree $2$ and Frobenius--Schur indicator $-1$, every element $z \in Z$ carries an intrinsic group component $\pi_{2I}(z) \in 2I$ under the canonical projection $\pi_{2I} : Z \to \Gstar \twoheadrightarrow 2I$. We now establish the purely algebraic map that associates a $2 \times 2$ Hermitian matrix and a four-component real vector to every covering link of $(Z, <_Z)$.
 
 \subsection{The Hermitian Soldering Map and the Quaternionic--Determinant Identity}
 
-Let $(Z, <_Z)$ be a locally finite strictly partially ordered set, and let
-\begin{equation}
-\label{eq:covering_links}
-E(Z) \;=\; \bigl\{\, e = (u, v) \in Z \times Z \;\big|\; u <_Z v \text{ and there exists no } w \in Z \text{ with } u <_Z w <_Z v \,\bigr\}
-\end{equation}
-denote the set of Hasse covering links of $(Z, <_Z)$, written $u \prec_Z v$ for $(u, v) \in E(Z)$. Let $\vec{\sigma} = (\sigma_1, \sigma_2, \sigma_3)$ denote the standard Pauli matrices
+Let $\vec{\sigma} = (\sigma_1, \sigma_2, \sigma_3)$ denote the standard Pauli matrices
 \begin{equation}
 \sigma_1 = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, \qquad
 \sigma_2 = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix}, \qquad
