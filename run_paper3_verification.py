@@ -68,19 +68,6 @@ def q_inv(a: Tuple[float, float, float, float]) -> Tuple[float, float, float, fl
     return (a[0], -a[1], -a[2], -a[3])
 
 
-def galois_conj_q(q: Tuple[float, float, float, float]) -> Tuple[float, float, float, float]:
-    """Apply Galois involution sigma: sqrt(5) -> -sqrt(5) (phi <-> -phi^-1) to a 2I quaternion in Q(sqrt(5))^4."""
-    def conj_comp(x: float) -> float:
-        ax = abs(x)
-        s = 1.0 if x >= 0 else -1.0
-        if abs(ax - 0.5 * PHI) < 1e-9:
-            return -s * 0.5 * PHI_INV
-        if abs(ax - 0.5 * PHI_INV) < 1e-9:
-            return -s * 0.5 * PHI
-        return x
-    return (conj_comp(q[0]), conj_comp(q[1]), conj_comp(q[2]), conj_comp(q[3]))
-
-
 def solve_linear_system(A: List[List[float]], b: List[float]) -> List[float]:
     """Gaussian elimination with partial pivoting for an N x N linear system."""
     n = len(b)
@@ -442,17 +429,183 @@ def _compute_spec_and_ball_dim(N: int, succ_set: List[Set[int]]) -> Tuple[float,
     return d_spec, d_ball
 
 
+def _solder_12a_and_reconstruct(
+    N: int,
+    succ_set: List[Set[int]],
+    q2i: List[Tuple[float, float, float, float]],
+    c12a: List[int],
+    hasse_only: bool = True,
+) -> Tuple[float, float, float, float]:
+    """Assign a 12_a-valued link 1-cochain h_e in 12_a, relax across 6 diamond-closure sweeps,
+    and solve L_Z X^mu = d_Z^T(Delta X^mu). Returns (solder_lc_pct, pure_lc_pct, E_tot_per_M, E_sp_per_M).
+    """
+    if hasse_only:
+        reach_bits = [0] * N
+        for u in range(N - 1, -1, -1):
+            r_u = 0
+            for v in succ_set[u]:
+                r_u |= (1 << v) | reach_bits[v]
+            reach_bits[u] = r_u
+        active: List[Set[int]] = [set() for _ in range(N)]
+        for u in range(N):
+            two_u = 0
+            for w in succ_set[u]:
+                two_u |= reach_bits[w]
+            for v in succ_set[u]:
+                if not ((two_u >> v) & 1):
+                    active[u].add(v)
+    else:
+        active = [set(s) for s in succ_set]
+
+    edges: List[Tuple[int, int]] = []
+    edge_idx: Dict[Tuple[int, int], int] = {}
+    in_deg = [0] * N
+    for u in range(N):
+        for v in sorted(active[u]):
+            edge_idx[(u, v)] = len(edges)
+            edges.append((u, v))
+            in_deg[v] += 1
+    M = len(edges)
+    h_edge = [0] * M
+    for u in range(N):
+        for k, v in enumerate(sorted(active[u])):
+            h_edge[edge_idx[(u, v)]] = c12a[(u + 5 * k) % 12]
+
+    two_paths: Dict[Tuple[int, int], List[int]] = {}
+    for u in range(N):
+        for w in sorted(active[u]):
+            for v in sorted(active[w]):
+                two_paths.setdefault((u, v), []).append(w)
+    diamonds: List[Tuple[int, int, int, int]] = []
+    edge_diamonds: List[List[int]] = [[] for _ in range(M)]
+    for (u, v), ws in two_paths.items():
+        if len(ws) >= 2:
+            for i in range(min(4, len(ws))):
+                for j in range(i + 1, min(4, len(ws))):
+                    w1, w2 = ws[i], ws[j]
+                    e1, e2 = edge_idx[(u, w1)], edge_idx[(w1, v)]
+                    e3, e4 = edge_idx[(u, w2)], edge_idx[(w2, v)]
+                    d_id = len(diamonds)
+                    diamonds.append((e1, e2, e3, e4))
+                    for e in (e1, e2, e3, e4):
+                        edge_diamonds[e].append(d_id)
+
+    Lap = [[0.0] * N for _ in range(N)]
+    for u, v in edges:
+        Lap[u][u] += 1.0
+        Lap[v][v] += 1.0
+        Lap[u][v] -= 1.0
+        Lap[v][u] -= 1.0
+    for u in range(N):
+        if Lap[u][u] < 1e-9:
+            Lap[u][u] = 1.0
+    for j in range(N):
+        Lap[0][j] = 0.0
+        Lap[j][0] = 0.0
+    Lap[0][0] = 1.0
+
+    rhs0 = [0.0] * N
+    for u, v in edges:
+        rhs0[u] -= 1.0
+        rhs0[v] += 1.0
+    rhs0[0] = 0.0
+    X0 = solve_linear_system(Lap, rhs0)
+    rec_X = [[X0[i], 0.0, 0.0, 0.0] for i in range(N)]
+
+    for _sweep in range(6):
+        rhs = [[0.0] * N for _ in range(3)]
+        for idx_e, (u, v) in enumerate(edges):
+            h_e = q2i[h_edge[idx_e]]
+            for k in range(3):
+                rhs[k][u] -= h_e[k + 1]
+                rhs[k][v] += h_e[k + 1]
+        for k in range(3):
+            rhs[k][0] = 0.0
+            col_sol = solve_linear_system(Lap, rhs[k])
+            for i in range(N):
+                rec_X[i][k + 1] = col_sol[i]
+
+        counts_out: List[Dict[int, int]] = [{} for _ in range(N)]
+        counts_in: List[Dict[int, int]] = [{} for _ in range(N)]
+        for u in range(N):
+            out_vs = sorted(active[u])
+            max_out_u = (len(out_vs) - 1) // 12 + 1
+            for v in out_vs:
+                e = edge_idx[(u, v)]
+                max_in_v = (in_deg[v] - 1) // 12 + 1
+                dt = rec_X[v][0] - rec_X[u][0]
+                dx = [rec_X[v][k] - rec_X[u][k] for k in (1, 2, 3)]
+                dx_norm = math.sqrt(sum(x * x for x in dx))
+                r_t = min(0.587785, 0.42 * max(0.0, dt))
+                best_h = None
+                best_cost = 1e18
+                for cand in c12a:
+                    if counts_out[u].get(cand, 0) >= max_out_u or counts_in[v].get(cand, 0) >= max_in_v:
+                        continue
+                    q_c = q2i[cand]
+                    dot_c = sum(dx[k - 1] * q_c[k] for k in (1, 2, 3))
+                    radial_diff = (dot_c / dx_norm - r_t) if dx_norm > 1e-9 else 0.0
+                    pen_pos = 0.5 if (dx_norm > 1e-9 and dot_c <= 0.0) else 0.0
+                    cost = 0.05 * (pen_pos + radial_diff * radial_diff)
+                    h_edge[e] = cand
+                    for d_id in edge_diamonds[e]:
+                        e1, e2, e3, e4 = diamonds[d_id]
+                        q1, q2, q3, q4 = q2i[h_edge[e1]], q2i[h_edge[e2]], q2i[h_edge[e3]], q2i[h_edge[e4]]
+                        for k in (1, 2, 3):
+                            df = (q1[k] + q2[k]) - (q3[k] + q4[k])
+                            cost += df * df
+                    if cost < best_cost - 1e-12:
+                        best_cost = cost
+                        best_h = cand
+                if best_h is None:
+                    best_h = min(c12a, key=lambda c: counts_out[u].get(c, 0) + counts_in[v].get(c, 0))
+                h_edge[e] = best_h
+                counts_out[u][best_h] = counts_out[u].get(best_h, 0) + 1
+                counts_in[v][best_h] = counts_in[v].get(best_h, 0) + 1
+
+    assert all(h in c12a for h in h_edge), "Every link holonomy must lie in 12_a!"
+    rhs = [[0.0] * N for _ in range(3)]
+    for idx_e, (u, v) in enumerate(edges):
+        h_e = q2i[h_edge[idx_e]]
+        for k in range(3):
+            rhs[k][u] -= h_e[k + 1]
+            rhs[k][v] += h_e[k + 1]
+    for k in range(3):
+        rhs[k][0] = 0.0
+        col_sol = solve_linear_system(Lap, rhs[k])
+        for i in range(N):
+            rec_X[i][k + 1] = col_sol[i]
+
+    lc_only = 0
+    lc_solder = 0
+    res0 = 0.0
+    res_sp = 0.0
+    for idx_e, (u, v) in enumerate(edges):
+        h_e = q2i[h_edge[idx_e]]
+        dt = rec_X[v][0] - rec_X[u][0]
+        dx = [rec_X[v][k] - rec_X[u][k] for k in (1, 2, 3)]
+        dx_sq = sum(x * x for x in dx)
+        dot_sp = sum(dx[k - 1] * h_e[k] for k in (1, 2, 3))
+        if dt > 0 and dt * dt >= dx_sq - 1e-9:
+            lc_only += 1
+            if dot_sp > 1e-9:
+                lc_solder += 1
+        res0 += (dt - 1.0) ** 2
+        res_sp += sum((dx[k - 1] - h_e[k]) ** 2 for k in (1, 2, 3))
+    tot_res = res0 + res_sp
+    return (
+        100.0 * lc_solder / max(1, M),
+        100.0 * lc_only / max(1, M),
+        tot_res / max(1, M),
+        res_sp / max(1, M),
+    )
+
+
 def verify_table4_multisize_melting_and_soldering() -> None:
     print("\n" + "=" * 84)
     print("TABLE 4: Multi-Size Coordinate-Free KR Pancake Melting & 2I Soldering Reconstruction")
     print("=" * 84)
     q2i = build_2I_quaternions()
-    _, idx_of = find_exact_galois_automorphism(q2i)
-
-    def mul_idx(i: int, j: int) -> int:
-        p = q_mul(q2i[i], q2i[j])
-        return idx_of[tuple(round(c, 5) for c in p)]
-
     c12a = [i for i, q in enumerate(q2i) if abs(2.0 * q[0] - PHI) < 1e-6]
     fact_table = [1, 1, 2, 6, 24, 120, 720, 5040]
     beta_tot = 18.461
@@ -461,7 +614,7 @@ def verify_table4_multisize_melting_and_soldering() -> None:
     ln_27 = math.log(27.0)
     ln_2 = math.log(2.0)
 
-    for N, steps in [(80, 6600), (120, 9900), (160, 13200), (200, 16500)]:
+    for N, steps in [(80, 3300), (120, 7425), (160, 13200), (200, 20625)]:
         rng = random.Random(42)
         n1, n2 = N // 4, (3 * N) // 4
         succ_set: List[Set[int]] = [set() for _ in range(N)]
@@ -542,9 +695,13 @@ def verify_table4_multisize_melting_and_soldering() -> None:
         cur_s, init_l, init_d, init_f, init_dmm, init_diam = eval_poset()
         if N == 160:
             init_spec, init_ball = _compute_spec_and_ball_dim(N, succ_set)
+            init_solder_fid, init_lc_only, init_res, init_res_sp = _solder_12a_and_reconstruct(
+                N, succ_set, q2i, c12a, hasse_only=False
+            )
             print(
                 f"  Initial KR Pancake (N=160, step=0) | L_max={init_l:2d} | <d_out>={init_d:5.2f} "
-                f"| N_diam={init_diam:3d} | f={init_f:.4f} | D_MM={init_dmm:4.2f} | D_spec={init_spec:4.2f} | D_ball={init_ball:4.2f}"
+                f"| N_diam={init_diam:3d} | f={init_f:.4f} | D_MM={init_dmm:4.2f} | D_spec={init_spec:4.2f} | D_ball={init_ball:4.2f} "
+                f"| LC_fid={init_solder_fid:5.1f}% (LC_only={init_lc_only:5.1f}%) | E[X]/M={init_res:6.4f} (E_sp/M={init_res_sp:6.4f})"
             )
         tot_pairs = (N * (N - 1)) // 2
         for _step in range(steps):
@@ -583,9 +740,10 @@ def verify_table4_multisize_melting_and_soldering() -> None:
                 if succ_set[u]:
                     if rng.random() < 0.5:
                         v = rng.choice(tuple(succ_set[u]))
-                        if v - u > 20:
-                            nc = v - u - 19
-                            w = rng.randint(u + 10, v - 10)
+                        w_hi = min(v - 10, N - b_fut - 1)
+                        if w_hi >= u + 10:
+                            nc = w_hi - (u + 10) + 1
+                            w = rng.randint(u + 10, w_hi)
                             if w not in succ_set[u] and v not in succ_set[w]:
                                 succ_set[u].remove(v)
                                 pred_set[v].remove(u)
@@ -610,8 +768,9 @@ def verify_table4_multisize_melting_and_soldering() -> None:
                         if w < N - b_fut and succ_set[w]:
                             dw = len(succ_set[w])
                             v = rng.choice(tuple(succ_set[w]))
-                            if v - u > 20 and (u + 10 <= w <= v - 10) and v not in succ_set[u]:
-                                nc = v - u - 19
+                            w_hi = min(v - 10, N - b_fut - 1)
+                            if (u + 10 <= w <= w_hi) and v not in succ_set[u]:
+                                nc = w_hi - (u + 10) + 1
                                 succ_set[u].remove(w)
                                 pred_set[w].remove(u)
                                 succ_set[w].remove(v)
@@ -632,76 +791,13 @@ def verify_table4_multisize_melting_and_soldering() -> None:
 
         fin_s, fin_l, fin_d, fin_f, fin_dmm, fin_diam = eval_poset()
         d_spec, d_ball = _compute_spec_and_ball_dim(N, succ_set)
-
-        # Greedy/annealed 12_a holonomy optimization & harmonic reconstruction L_Z X^mu = d_Z^T(Delta X^mu)
-        g_vert = [c12a[u % len(c12a)] for u in range(N)]
-        for _sweep in range(6):
-            for u in range(N):
-                best_g = g_vert[u]
-                best_tr = -1e9
-                for cand in c12a:
-                    tr_sum = 0.0
-                    inv_cand = idx_of[tuple(round(c, 5) for c in q_inv(q2i[cand]))]
-                    for v in succ_set[u]:
-                        h_uv = mul_idx(inv_cand, g_vert[v])
-                        tr_sum += 2.0 * q2i[h_uv][0]
-                    for p in pred_set[u]:
-                        inv_gp = idx_of[tuple(round(c, 5) for c in q_inv(q2i[g_vert[p]]))]
-                        h_pu = mul_idx(inv_gp, cand)
-                        tr_sum += 2.0 * q2i[h_pu][0]
-                    if tr_sum > best_tr:
-                        best_tr = tr_sum
-                        best_g = cand
-                g_vert[u] = best_g
-
-        edge_list = []
-        for u in range(N):
-            inv_gu = idx_of[tuple(round(c, 5) for c in q_inv(q2i[g_vert[u]]))]
-            for v in succ_set[u]:
-                h_uv_idx = mul_idx(inv_gu, g_vert[v])
-                edge_list.append((u, v, q2i[h_uv_idx]))
-
-        Lap = [[0.0] * N for _ in range(N)]
-        rhs = [[0.0] * N for _ in range(4)]
-        for u, v, h_e in edge_list:
-            Lap[u][u] += 1.0
-            Lap[v][v] += 1.0
-            Lap[u][v] -= 1.0
-            Lap[v][u] -= 1.0
-            dX = [1.0, h_e[1], h_e[2], h_e[3]]
-            for mu in range(4):
-                rhs[mu][u] -= dX[mu]
-                rhs[mu][v] += dX[mu]
-        for u in range(N):
-            if Lap[u][u] < 1e-9:
-                Lap[u][u] = 1.0
-        for j in range(N):
-            Lap[0][j] = 0.0
-            Lap[j][0] = 0.0
-        Lap[0][0] = 1.0
-        for mu in range(4):
-            rhs[mu][0] = 0.0
-        rec_X = [[0.0] * 4 for _ in range(N)]
-        for mu in range(4):
-            col_sol = solve_linear_system(Lap, rhs[mu])
-            for i in range(N):
-                rec_X[i][mu] = col_sol[i]
-
-        causal_cone_ok = 0
-        tot_res = 0.0
-        for u, v, h_e in edge_list:
-            dt = rec_X[v][0] - rec_X[u][0]
-            dx_sq = sum((rec_X[v][k] - rec_X[u][k]) ** 2 for k in range(1, 4))
-            if dt > 0 and dt * dt >= dx_sq - 1e-9:
-                causal_cone_ok += 1
-            dX = [1.0, h_e[1], h_e[2], h_e[3]]
-            tot_res += sum(((rec_X[v][mu] - rec_X[u][mu]) - dX[mu]) ** 2 for mu in range(4))
-        cone_frac = 100.0 * causal_cone_ok / max(1, len(edge_list))
-        res_per_edge = tot_res / max(1, len(edge_list))
+        cone_frac, lc_only_frac, res_per_edge, res_sp_per_edge = _solder_12a_and_reconstruct(
+            N, succ_set, q2i, c12a, hasse_only=True
+        )
         print(
             f"  N={N:3d} (steps={steps:5d}) | L_max: {init_l}->{fin_l:2d} | <d_out>: {init_d:5.2f}->{fin_d:4.2f} "
             f"| N_diam={fin_diam:3d} | f={fin_f:.4f} | D_MM={fin_dmm:4.2f} | D_spec={d_spec:4.2f} | D_ball={d_ball:4.2f} "
-            f"| LC_fid={cone_frac:5.1f}% | E[X]/M={res_per_edge:6.4f}"
+            f"| LC_fid={cone_frac:5.1f}% (LC_only={lc_only_frac:5.1f}%) | E[X]/M={res_per_edge:6.4f} (E_sp/M={res_sp_per_edge:6.4f})"
         )
 
     # Benchmark: 4D Parallelogram Grid (N = 3^4 = 81)
